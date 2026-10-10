@@ -1,0 +1,670 @@
+import React, { useState, useRef, useEffect } from 'react';
+import {
+  Sparkles,
+  Send,
+  X,
+  Play,
+  Star,
+  Bot,
+  User,
+  Trash2,
+  Smile,
+  Heart,
+  Search,
+  Check,
+  Globe
+} from 'lucide-react';
+import type { Movie, ChatMessage, UserProfile } from '../types/movie';
+import { geminiCurationService } from '../services/geminiCurationService';
+import { userService } from '../services/userService';
+import { movieRequestService } from '../services/movieRequestService';
+
+interface AICuratorDrawerProps {
+  isOpen: boolean;
+  onClose: () => void;
+  onPlayMovie: (movie: Movie) => void;
+  initialPrompt?: string;
+  activeProfile?: UserProfile;
+  onToggleFavorite?: (movieId: string) => void;
+  onOpenMovieSuggestion?: (query?: string) => void;
+}
+
+interface MoodCardOption {
+  id: string;
+  emoji: string;
+  title: string;
+  subtitle: string;
+  prompt: string;
+  color: string;
+}
+
+const MOOD_OPTIONS: MoodCardOption[] = [
+  {
+    id: 'animais',
+    emoji: '🐾',
+    title: 'Animais & Cães Amigos',
+    subtitle: 'Cães leais, bichinhos fofos e aventuras com vida selvagem',
+    prompt: 'Me recomende os melhores filmes sobre animais, cães leais ou bichos de estimação do catálogo!',
+    color: 'from-emerald-500/20 to-lime-500/20 border-lime-500/30 text-lime-700 dark:text-lime-400'
+  },
+  {
+    id: 'adrenalina',
+    emoji: '⚡',
+    title: 'Adrenalina Pura',
+    subtitle: 'Tiroteios, perseguições e artes marciais eletrizantes',
+    prompt: 'Quero um filme com muita adrenalina, perseguição e artes marciais para me empolgar hoje!',
+    color: 'from-amber-500/20 to-orange-500/20 border-orange-500/30 text-orange-600 dark:text-orange-400'
+  },
+  {
+    id: 'rir',
+    emoji: '😂',
+    title: 'Quero Rir e Relaxar',
+    subtitle: 'Comédia leve, confusões e boas risadas sem estresse',
+    prompt: 'Estou cansado e quero uma comédia divertida e leve para dar boas risadas!',
+    color: 'from-yellow-500/20 to-amber-500/20 border-yellow-500/30 text-amber-600 dark:text-yellow-400'
+  },
+  {
+    id: 'hacker',
+    emoji: '💻',
+    title: 'Cibercrime & Reviravoltas',
+    subtitle: 'Submundo dos hackers, computadores e suspense genial',
+    prompt: 'Quero um suspense inteligente sobre hackers, invasões de sistemas e crimes tecnológicos com reviravoltas!',
+    color: 'from-cyan-500/20 to-blue-500/20 border-cyan-500/30 text-cyan-600 dark:text-cyan-400'
+  },
+  {
+    id: 'fe',
+    emoji: '🙏',
+    title: 'Fé & Superação Real',
+    subtitle: 'Histórias espirituais, biografias comoventes e esperança',
+    prompt: 'Procuro uma história emocionante e edificante sobre fé, espiritualidade e superação humana!',
+    color: 'from-emerald-500/20 to-teal-500/20 border-emerald-500/30 text-emerald-600 dark:text-emerald-400'
+  },
+  {
+    id: 'familia',
+    emoji: '🍿',
+    title: 'Pipoca em Família',
+    subtitle: 'Histórias infantis, bichinhos e robôs para todas as idades',
+    prompt: 'Quero um filme aprovado para assistir junto com a família e crianças hoje à noite!',
+    color: 'from-pink-500/20 to-rose-500/20 border-pink-500/30 text-rose-600 dark:text-rose-400'
+  },
+  {
+    id: 'susto',
+    emoji: '👻',
+    title: 'Levar Susto no Escuro',
+    subtitle: 'Monstros marinhos, zumbis sanguinários e noites sombrias',
+    prompt: 'Quero um filme de terror com monstros, zumbis ou assassinos para sentir medo no escuro!',
+    color: 'from-purple-500/20 to-indigo-500/20 border-purple-500/30 text-purple-600 dark:text-purple-400'
+  },
+  {
+    id: 'rapido',
+    emoji: '⏳',
+    title: 'Pouco Tempo (Até 90min)',
+    subtitle: 'Filmes curtos e dinâmicos para a noite',
+    prompt: 'Tenho pouco tempo disponível, me recomende filmes ótimos com no máximo 90 minutos de duração!',
+    color: 'from-sky-500/20 to-cyan-500/20 border-sky-500/30 text-sky-600 dark:text-sky-400'
+  },
+  {
+    id: 'guerra',
+    emoji: '🎖️',
+    title: 'Batalhas & Histórias Reais',
+    subtitle: 'Tanques da Segunda Guerra, revoltas históricas e heroísmo',
+    prompt: 'Quero um épico de guerra com tanques ou baseado em fatos reais sobre a Segunda Guerra Mundial!',
+    color: 'from-red-500/20 to-rose-500/20 border-red-500/30 text-red-600 dark:text-red-400'
+  }
+];
+
+export const AICuratorDrawer: React.FC<AICuratorDrawerProps> = ({
+  isOpen,
+  onClose,
+  onPlayMovie,
+  initialPrompt,
+  activeProfile,
+  onToggleFavorite,
+  onOpenMovieSuggestion,
+}) => {
+  const [messages, setMessages] = useState<ChatMessage[]>([
+    {
+      id: 'welcome',
+      role: 'assistant',
+      content: `Olá${activeProfile ? `, **${activeProfile.name}**` : ''}! Sou o **CAIC**, o seu assistente inteligente de filmes e streaming.\n\nMe conte: **o que você quer assistir hoje?** Pode me pedir qualquer gênero, subgênero (ex: *comédia romântica*, *comédia adolescente*, *guerra*), ator famoso (ex: *Van Damme*, *Jackie Chan*) ou seu humor do momento!`,
+      timestamp: 'Agora',
+      recommendedMovies: []
+    }
+  ]);
+  const [input, setInput] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [showMoodPicker, setShowMoodPicker] = useState(false);
+  const [visibleMovieCounts, setVisibleMovieCounts] = useState<Record<string, number>>({});
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  useEffect(() => {
+    if (isOpen) {
+      scrollToBottom();
+    }
+  }, [isOpen, messages]);
+
+  useEffect(() => {
+    if (initialPrompt && isOpen) {
+      handleSend(initialPrompt);
+    }
+  }, [initialPrompt, isOpen]);
+
+  const handleTriggerWebSearch = async (title: string, msgId: string) => {
+    setMessages((prev) =>
+      prev.map((m) => (m.id === msgId ? { ...m, webSearchInitiated: true } : m))
+    );
+
+    try {
+      const result = await movieRequestService.submitSuggestion({
+        title,
+        suggestedBy: activeProfile?.name || 'Usuário CAIC',
+      });
+
+      setMessages((prev) => [
+        ...prev,
+        {
+          id: `web-res-${Date.now()}`,
+          role: 'assistant',
+          content: result.autoAdded
+            ? `🎉 Ótima notícia! Nosso agente localizou "${title}" na web e o filme já foi integrado ao catálogo oficial!`
+            : `🔍 Busca na web por "${title}" realizada em segundo plano!\n\n${result.message}`,
+          timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+          recommendedMovies: result.movie ? [result.movie] : []
+        }
+      ]);
+    } catch {
+      setMessages((prev) => [
+        ...prev,
+        {
+          id: `web-err-${Date.now()}`,
+          role: 'assistant',
+          content: `Registramos seu pedido para "${title}" na lista dos administradores para localização e inclusão no catálogo!`,
+          timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+        }
+      ]);
+    }
+  };
+
+  const handleSend = async (textToSend?: string) => {
+    const prompt = (textToSend || input).trim();
+    if (!prompt || loading) return;
+
+    setShowMoodPicker(false);
+
+    const userMsg: ChatMessage = {
+      id: `user-${Date.now()}`,
+      role: 'user',
+      content: prompt,
+      timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+    };
+
+    const thinkingMsg: ChatMessage = {
+      id: `thinking-${Date.now()}`,
+      role: 'assistant',
+      content: 'Consultando o catálogo de 200 títulos e avaliando a melhor afinidade para você...',
+      timestamp: 'Agora',
+      isThinking: true
+    };
+
+    setMessages((prev) => [...prev, userMsg, thinkingMsg]);
+    setInput('');
+    setLoading(true);
+
+    try {
+      const history = messages
+        .filter((m) => !m.isThinking && m.role !== 'system')
+        .map((m) => ({ role: m.role as 'user' | 'assistant', content: m.content }));
+
+      const response = await geminiCurationService.askCurator(prompt, history, activeProfile);
+
+      setMessages((prev) => [
+        ...prev.filter((m) => !m.isThinking),
+        {
+          id: `ai-${Date.now()}`,
+          role: 'assistant',
+          content: response.text,
+          timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+          recommendedMovies: response.recommendedMovies,
+          recommendationsWithReasons: response.recommendationsWithReasons,
+          unmatchedQuery: response.unmatchedQuery,
+          suggestWebSearch: response.suggestWebSearch,
+          fallbackGenre: response.fallbackGenre,
+        }
+      ]);
+    } catch {
+      setMessages((prev) => [
+        ...prev.filter((m) => !m.isThinking),
+        {
+          id: `ai-${Date.now()}`,
+          role: 'assistant',
+          content: 'Desculpe, tive uma instabilidade momentânea na análise. Mas você pode tentar novamente ou escolher um dos humores rápidos!',
+          timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+        }
+      ]);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleClearChat = () => {
+    setVisibleMovieCounts({});
+    setMessages([
+      {
+        id: 'welcome',
+        role: 'assistant',
+        content: `Chat reiniciado! Qual é a sessão de cinema de hoje, ${activeProfile?.name || 'amigo'}?`,
+        timestamp: 'Agora',
+        recommendedMovies: []
+      }
+    ]);
+  };
+
+  const handleSelectMood = (mood: MoodCardOption) => {
+    handleSend(mood.prompt);
+  };
+
+  const handleToggleFav = (movie: Movie) => {
+    if (onToggleFavorite) {
+      onToggleFavorite(movie.id);
+    } else {
+      userService.toggleFavorite(movie.id);
+    }
+  };
+
+  if (!isOpen) return null;
+
+  return (
+    <div className="fixed inset-y-0 right-0 z-50 w-full sm:w-[500px] md:w-[560px] bg-white dark:bg-slate-900 border-l border-slate-200 dark:border-slate-800 shadow-2xl flex flex-col animate-slideLeft">
+      
+      {/* Top Header */}
+      <div className="flex items-center justify-between px-5 py-4 border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/95 backdrop-blur-md">
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-cyan-500 via-indigo-600 to-fuchsia-600 p-0.5 shadow-md shadow-cyan-500/20">
+            <div className="w-full h-full bg-white dark:bg-slate-900 rounded-[14px] flex items-center justify-center text-cyan-600 dark:text-cyan-400">
+              <Bot className="w-5 h-5" />
+            </div>
+          </div>
+          <div>
+            <div className="flex items-center gap-1.5">
+              <h3 className="text-sm font-extrabold text-slate-950 dark:text-white">CAIC Assistente IA</h3>
+              <span className="text-[10px] uppercase px-2 py-0.5 rounded-full bg-cyan-100 dark:bg-cyan-950 text-cyan-700 dark:text-cyan-300 border border-cyan-300 dark:border-cyan-800 font-bold">
+                IA Conversacional
+              </span>
+            </div>
+            <p className="text-[11px] text-slate-600 dark:text-slate-400">
+              {activeProfile ? `Personalizado para ${activeProfile.name}` : 'Assistente Inteligente de Filmes'}
+            </p>
+          </div>
+        </div>
+
+        <div className="flex items-center gap-1.5">
+          <button
+            onClick={() => setShowMoodPicker((prev) => !prev)}
+            title="Como me sinto hoje?"
+            className={`tv-focusable px-3 py-1.5 rounded-xl border text-xs font-bold flex items-center gap-1.5 transition ${
+              showMoodPicker
+                ? 'bg-cyan-600 text-white border-cyan-600 shadow-md'
+                : 'bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 border-slate-200 dark:border-slate-700 hover:border-cyan-500'
+            }`}
+          >
+            <Smile className="w-3.5 h-3.5 text-amber-500" />
+            <span>Meu Humor</span>
+          </button>
+
+          <button
+            onClick={handleClearChat}
+            title="Limpar conversa"
+            className="tv-focusable p-2 rounded-xl text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition"
+          >
+            <Trash2 className="w-4 h-4" />
+          </button>
+
+          <button
+            onClick={onClose}
+            className="tv-focusable p-2 rounded-xl text-slate-400 hover:text-slate-700 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition"
+          >
+            <X className="w-5 h-5" />
+          </button>
+        </div>
+      </div>
+
+      {/* COMPONENTE INTERATIVO: COMO ME SINTO HOJE? */}
+      {showMoodPicker && (
+        <div className="p-4 bg-slate-100/90 dark:bg-slate-950/90 border-b border-slate-200 dark:border-slate-800 animate-fadeIn">
+          <div className="flex items-center justify-between mb-2.5">
+            <div className="flex items-center gap-1.5">
+              <Sparkles className="w-4 h-4 text-cyan-600 dark:text-cyan-400" />
+              <h4 className="text-xs font-extrabold text-slate-900 dark:text-white uppercase tracking-wider">
+                Como você está se sentindo agora?
+              </h4>
+            </div>
+            <button
+              onClick={() => setShowMoodPicker(false)}
+              className="text-[11px] text-slate-500 hover:text-slate-700 dark:hover:text-white"
+            >
+              Fechar
+            </button>
+          </div>
+
+          <div className="grid grid-cols-2 gap-2 max-h-56 overflow-y-auto pr-1">
+            {MOOD_OPTIONS.map((mood) => (
+              <button
+                key={mood.id}
+                onClick={() => handleSelectMood(mood)}
+                className={`tv-focusable text-left p-2.5 rounded-xl border bg-gradient-to-br ${mood.color} hover:scale-[1.02] transition-all shadow-xs flex flex-col justify-between`}
+              >
+                <div className="flex items-center gap-1.5 mb-1">
+                  <span className="text-base">{mood.emoji}</span>
+                  <span className="text-xs font-bold leading-tight line-clamp-1">{mood.title}</span>
+                </div>
+                <p className="text-[10px] text-slate-600 dark:text-slate-400 line-clamp-2 leading-tight">
+                  {mood.subtitle}
+                </p>
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Messages List */}
+      <div className="flex-1 overflow-y-auto p-4 sm:p-5 space-y-5 bg-slate-50/70 dark:bg-slate-950/40">
+        {messages.map((msg) => (
+          <div
+            key={msg.id}
+            className={`flex flex-col ${msg.role === 'user' ? 'items-end' : 'items-start'}`}
+          >
+            <div className="flex items-center gap-1.5 mb-1 text-[11px] text-slate-500 dark:text-slate-400 px-1 font-medium">
+              {msg.role === 'user' ? (
+                <>
+                  <span>{activeProfile?.name || 'Você'}</span> <User className="w-3 h-3" />
+                </>
+              ) : (
+                <>
+                  <Bot className="w-3 h-3 text-cyan-600 dark:text-cyan-400" /> <span>CAIC</span>
+                </>
+              )}
+            </div>
+
+            {/* Balão de Mensagem */}
+            <div
+              className={`max-w-[92%] rounded-2xl p-4 text-xs sm:text-sm leading-relaxed ${
+                msg.role === 'user'
+                  ? 'bg-gradient-to-r from-cyan-600 to-indigo-600 text-white rounded-tr-none shadow-md font-medium'
+                  : 'bg-white dark:bg-slate-950/90 border border-slate-200 dark:border-slate-800 text-slate-800 dark:text-slate-200 rounded-tl-none shadow-sm'
+              }`}
+            >
+              {msg.isThinking ? (
+                <div className="flex items-center gap-2 text-cyan-600 dark:text-cyan-400 py-1">
+                  <Sparkles className="w-4 h-4 animate-spin flex-shrink-0" />
+                  <span className="italic font-medium">{msg.content}</span>
+                </div>
+              ) : (
+                <div className="whitespace-pre-wrap">{msg.content}</div>
+              )}
+            </div>
+
+            {/* Sugestão de Busca na Web em Segundo Plano */}
+            {msg.suggestWebSearch && msg.unmatchedQuery && (
+              <div className="mt-2.5 w-full max-w-[96%] p-3.5 rounded-2xl bg-gradient-to-r from-amber-50 to-orange-50 dark:from-amber-950/40 dark:to-orange-950/40 border border-amber-300 dark:border-amber-700/60 shadow-sm animate-fadeIn">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                  <div className="space-y-1">
+                    <div className="flex items-center gap-1.5 text-xs font-bold text-amber-900 dark:text-amber-200">
+                      <Search className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400" />
+                      <span>Filme não encontrado no acervo local</span>
+                    </div>
+                    <p className="text-[11px] text-amber-800 dark:text-amber-300/90 leading-tight">
+                      Não encontramos "<strong>{msg.unmatchedQuery}</strong>" no catálogo atual. Apresentamos sugestões por proximidade de gênero{msg.fallbackGenre ? ` (${msg.fallbackGenre})` : ''}. Deseja que nosso agente pesquise na web em segundo plano?
+                    </p>
+                  </div>
+                  <button
+                    disabled={msg.webSearchInitiated}
+                    onClick={() => handleTriggerWebSearch(msg.unmatchedQuery!, msg.id)}
+                    className={`px-3.5 py-2 rounded-xl font-bold text-xs flex items-center justify-center gap-1.5 shadow-sm transition flex-shrink-0 ${
+                      msg.webSearchInitiated
+                        ? 'bg-emerald-600 text-white cursor-default'
+                        : 'bg-amber-600 hover:bg-amber-500 text-white shadow-amber-600/20 active:scale-95'
+                    }`}
+                  >
+                    {msg.webSearchInitiated ? (
+                      <>
+                        <Check className="w-3.5 h-3.5" />
+                        <span>Buscando na Web...</span>
+                      </>
+                    ) : (
+                      <>
+                        <Globe className="w-3.5 h-3.5" />
+                        <span>Buscar na Web em 2º Plano</span>
+                      </>
+                    )}
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {/* Cards Ricos de Filmes Recomendados dentro do Chat */}
+            {msg.recommendedMovies && msg.recommendedMovies.length > 0 && (
+              <div className="mt-3 w-full max-w-[96%] space-y-3">
+                <div className="flex items-center justify-between text-[11px] font-extrabold text-cyan-700 dark:text-cyan-300 uppercase tracking-wider">
+                  <span className="flex items-center gap-1">
+                    <Sparkles className="w-3.5 h-3.5 text-cyan-500" /> Recomendações Exclusivas no Catálogo
+                  </span>
+                  <span className="text-[10px] text-slate-500 lowercase">toque para dar play</span>
+                </div>
+
+                {(() => {
+                  const maxToShow = visibleMovieCounts[msg.id] || 3;
+                  const moviesToDisplay = msg.recommendedMovies.slice(0, maxToShow);
+                  const remaining = msg.recommendedMovies.length - maxToShow;
+
+                  return (
+                    <div className="space-y-3">
+                      {moviesToDisplay.map((movie, idx) => {
+                        const reasonObj = msg.recommendationsWithReasons?.find((r) => r.movie.id === movie.id);
+                        const matchScore = reasonObj?.matchScore || Math.round(98 - (idx % 3) * 3);
+                        const isFav = activeProfile?.favoriteMovieIds.includes(movie.id);
+
+                        return (
+                          <div
+                            key={movie.id}
+                            className="p-3.5 rounded-2xl bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 hover:border-cyan-500 dark:hover:border-cyan-400 transition-all shadow-md group animate-fadeIn"
+                          >
+                            <div className="flex gap-3">
+                              <div className="relative w-20 aspect-[2/3] rounded-xl overflow-hidden bg-slate-900 flex-shrink-0 shadow-inner">
+                                <img
+                                  src={movie.posterUrl}
+                                  alt={movie.title}
+                                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                                />
+                                <div className="absolute top-1 left-1">
+                                  <span className="text-[9px] font-black px-1.5 py-0.5 rounded bg-emerald-500 text-white shadow-md">
+                                    {matchScore}% match
+                                  </span>
+                                </div>
+                              </div>
+
+                              <div className="flex-1 min-w-0 flex flex-col justify-between">
+                                <div>
+                                  <div className="flex items-start justify-between gap-1.5">
+                                    <h4 className="text-xs sm:text-sm font-black text-slate-950 dark:text-white line-clamp-1 group-hover:text-cyan-600 dark:group-hover:text-cyan-300 transition">
+                                      {movie.title}
+                                    </h4>
+
+                                    <button
+                                      onClick={() => handleToggleFav(movie)}
+                                      title={isFav ? "Remover dos favoritos" : "Salvar na minha lista"}
+                                      className="p-1 rounded-full text-slate-400 hover:text-rose-500 transition"
+                                    >
+                                      <Heart className={`w-3.5 h-3.5 ${isFav ? 'fill-rose-500 text-rose-500' : ''}`} />
+                                    </button>
+                                  </div>
+
+                                  <p className="text-[11px] text-slate-600 dark:text-slate-300 line-clamp-2 mt-1 leading-snug">
+                                    {movie.synopsis}
+                                  </p>
+                                </div>
+
+                                {/* Justificativa da IA */}
+                                {reasonObj?.reason && (
+                                  <div className="my-1.5 p-1.5 rounded-lg bg-cyan-50 dark:bg-cyan-950/60 border border-cyan-200 dark:border-cyan-800/50 text-[10px] text-cyan-800 dark:text-cyan-200 font-medium">
+                                    💡 <strong>Por que você vai curtir:</strong> {reasonObj.reason}
+                                  </div>
+                                )}
+
+                                <div className="flex items-center justify-between pt-1 text-[10px] text-slate-500 dark:text-slate-400 border-t border-slate-100 dark:border-slate-800/80">
+                                  <div className="flex items-center gap-2">
+                                    <span className="flex items-center gap-0.5 font-bold text-amber-500 dark:text-amber-400">
+                                      <Star className="w-2.5 h-2.5 fill-amber-400 text-amber-400" /> {movie.ratingScore}
+                                    </span>
+                                    <span>•</span>
+                                    <span>{movie.durationMinutes} min</span>
+                                    <span>•</span>
+                                    <span className="font-semibold">{movie.genres[0]}</span>
+                                  </div>
+
+                                  <button
+                                    onClick={() => onPlayMovie(movie)}
+                                    className="tv-focusable px-3 py-1.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs flex items-center gap-1 shadow-md shadow-cyan-500/25 transition group-hover:scale-105"
+                                  >
+                                    <Play className="w-3 h-3 fill-slate-950" />
+                                    <span>Assistir</span>
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        );
+                      })}
+
+                      {/* Botão para apresentar mais opções de filmes */}
+                      {remaining > 0 ? (
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setVisibleMovieCounts((prev) => ({
+                              ...prev,
+                              [msg.id]: (prev[msg.id] || 3) + 3,
+                            }));
+                          }}
+                          className="w-full py-2.5 px-4 rounded-xl bg-cyan-50 hover:bg-cyan-100 dark:bg-cyan-950/70 dark:hover:bg-cyan-900/60 border border-cyan-300 dark:border-cyan-800 text-cyan-800 dark:text-cyan-200 font-extrabold text-xs flex items-center justify-center gap-2 transition shadow-sm hover:scale-[1.01]"
+                        >
+                          <Sparkles className="w-3.5 h-3.5 text-cyan-600 dark:text-cyan-400" />
+                          <span>✨ Ver Mais Opções Deste Tema (+{remaining} filmes no catálogo)</span>
+                        </button>
+                      ) : (
+                        msg.recommendedMovies.length > 3 && (
+                          <p className="text-[11px] text-center text-slate-500 dark:text-slate-400 py-1 font-medium">
+                            ✅ Todos os {msg.recommendedMovies.length} filmes recomendados foram exibidos.
+                          </p>
+                        )
+                      )}
+                    </div>
+                  );
+                })()}
+              </div>
+            )}
+          </div>
+        ))}
+        <div ref={messagesEndRef} />
+      </div>
+
+      {/* Sugestões Rápidas em Chips */}
+      <div className="px-4 py-2 border-t border-slate-200 dark:border-slate-800 bg-slate-100/70 dark:bg-slate-950/60">
+        <div className="flex items-center gap-1.5 overflow-x-auto pb-1 no-scrollbar text-xs">
+          <button
+            onClick={() => setShowMoodPicker((prev) => !prev)}
+            className="tv-focusable flex-shrink-0 flex items-center gap-1 px-3 py-1.5 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 text-white font-bold text-[11px] shadow-sm hover:opacity-90 transition"
+          >
+            <span>🎭 Como me sinto hoje?</span>
+          </button>
+
+          <button
+            onClick={() => handleSend('Me recomende filmes parecidos com Pânico na Floresta')}
+            className="tv-focusable flex-shrink-0 px-2.5 py-1.5 rounded-xl bg-white dark:bg-slate-800 hover:bg-slate-50 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 font-bold text-[11px] text-purple-600 dark:text-purple-400"
+          >
+            🌲 Estilo Pânico na Floresta
+          </button>
+
+          <button
+            onClick={() => handleSend('Quero filmes com animais e pets')}
+            className="tv-focusable flex-shrink-0 px-2.5 py-1.5 rounded-xl bg-white dark:bg-slate-800 hover:bg-slate-50 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 font-bold text-[11px] text-lime-700 dark:text-lime-400"
+          >
+            🐾 Filmes com Animais
+          </button>
+
+          {onOpenMovieSuggestion && (
+            <button
+              onClick={() => onOpenMovieSuggestion()}
+              className="tv-focusable flex-shrink-0 px-2.5 py-1.5 rounded-xl bg-amber-50 dark:bg-amber-950/60 hover:bg-amber-100 text-amber-800 dark:text-amber-300 border border-amber-300 dark:border-amber-700 font-bold text-[11px]"
+            >
+              💡 Pedir Outro Filme
+            </button>
+          )}
+
+          <button
+            onClick={() => handleSend('Me recomende filmes parecidos com John Wick')}
+            className="tv-focusable flex-shrink-0 px-2.5 py-1.5 rounded-xl bg-white dark:bg-slate-800 hover:bg-slate-50 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 font-bold text-[11px] text-rose-600 dark:text-rose-400"
+          >
+            💥 Estilo John Wick
+          </button>
+
+          <button
+            onClick={() => handleSend('Me recomende filmes parecidos com Matrix')}
+            className="tv-focusable flex-shrink-0 px-2.5 py-1.5 rounded-xl bg-white dark:bg-slate-800 hover:bg-slate-50 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 font-bold text-[11px] text-cyan-600 dark:text-cyan-400"
+          >
+            🕶️ Estilo Matrix / Hackers
+          </button>
+
+          <button
+            onClick={() => handleSend('Me recomende os melhores filmes de ação com artes marciais e Jackie Chan')}
+            className="tv-focusable flex-shrink-0 px-2.5 py-1.5 rounded-xl bg-white dark:bg-slate-800 hover:bg-slate-50 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 font-medium text-[11px]"
+          >
+            🥋 Jackie Chan & Lutas
+          </button>
+
+          <button
+            onClick={() => handleSend('Quero um filme emocionante sobre Chico Xavier ou histórias de fé')}
+            className="tv-focusable flex-shrink-0 px-2.5 py-1.5 rounded-xl bg-white dark:bg-slate-800 hover:bg-slate-50 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 font-medium text-[11px]"
+          >
+            🙏 Chico Xavier & Fé
+          </button>
+
+          <button
+            onClick={() => handleSend('Quero um filme rápido com menos de 90 minutos')}
+            className="tv-focusable flex-shrink-0 px-2.5 py-1.5 rounded-xl bg-white dark:bg-slate-800 hover:bg-slate-50 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 font-medium text-[11px]"
+          >
+            ⏳ Até 90 min
+          </button>
+        </div>
+      </div>
+
+      {/* Input de Envio */}
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          handleSend();
+        }}
+        className="p-4 border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 flex items-center gap-2"
+      >
+        <input
+          type="text"
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          placeholder="Ex: 'Quero um suspense psicológico dos anos 90 sem diálogos pesados'..."
+          disabled={loading}
+          className="flex-1 px-4 py-2.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-700 rounded-xl text-xs sm:text-sm text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:border-cyan-500 transition disabled:opacity-50"
+        />
+        <button
+          type="submit"
+          disabled={loading || !input.trim()}
+          className="tv-focusable px-4 py-2.5 bg-gradient-to-r from-cyan-600 to-indigo-600 hover:from-cyan-500 hover:to-indigo-500 text-white rounded-xl font-bold text-xs flex items-center gap-1 shadow-md shadow-cyan-600/20 disabled:opacity-40 transition"
+        >
+          <Send className="w-4 h-4" />
+        </button>
+      </form>
+    </div>
+  );
+};

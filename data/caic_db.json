@@ -1,0 +1,53 @@
+{
+  "customMovies": [],
+  "accounts": [
+    {
+      "id": "guest",
+      "name": "Visitante",
+      "email": "visitante@caic.com.br",
+      "plan": "Gratuito",
+      "subscriptionPlan": "free",
+      "subscriptionStatus": "trial",
+      "trialStartDate": "2026-10-09T20:49:24.792Z",
+      "trialEndDate": "2026-10-16T20:49:24.793Z",
+      "createdAt": "2026-10-09T20:49:24.793Z",
+      "avatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80",
+      "isAuthenticated": false
+    },
+    {
+      "id": "acc-1791580673310",
+      "name": "Marcelo.antonio.severo",
+      "email": "marcelo.antonio.severo@gmail.com",
+      "plan": "Plano Individual Mensal (R$ 5,90/mês)",
+      "subscriptionPlan": "individual",
+      "billingCycle": "monthly",
+      "subscriptionStatus": "trial",
+      "trialStartDate": "2026-10-09T21:17:53.310Z",
+      "trialEndDate": "2026-10-16T21:17:53.310Z",
+      "paymentMethod": "Cartão de Crédito (7 Dias Grátis)",
+      "lastPaymentAmount": 0,
+      "paymentHistory": [
+        {
+          "id": "pay-trial-1791580673310",
+          "date": "2026-10-09T21:17:53.310Z",
+          "amount": 0,
+          "plan": "Plano Individual Mensal (R$ 5,90/mês) (7 Dias Grátis de Teste)",
+          "status": "paid",
+          "method": "Período de Teste"
+        }
+      ],
+      "createdAt": "2026-10-09T21:17:53.310Z",
+      "avatar": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=150&q=80",
+      "isAuthenticated": true
+    }
+  ],
+  "requests": [],
+  "geminiKey": "",
+  "jellyfinConfig": {
+    "serverUrl": "https://filme.manerostream.com.br",
+    "apiKey": "523e1d075fc0450caa0d7c1e862df424",
+    "userId": "6f398b88cffa4147b029cfffed37b390",
+    "enabled": false,
+    "maxMovies": 100
+  }
+}
