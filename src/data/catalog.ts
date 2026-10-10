@@ -25657,5 +25657,2731 @@ export const INITIAL_CATALOG: Movie[] = [
     "badge": "Novidade",
     "source": "youtube",
     "addedAt": "2026-10-09T00:00:00.000Z"
+  },
+  {
+    "id": "movie-qzq6Fhn2RsM",
+    "youtubeVideoId": "qzq6Fhn2RsM",
+    "title": "Algo Sobre Amor",
+    "originalTitle": "Algo Sobre Amor",
+    "synopsis": "Em uma jornada tocante de redescoberta pessoal, duas pessoas com visões distintas sobre relacionamentos cruzam seus caminhos e encontram novos motivos para recomeçar e acreditar no amor.",
+    "genres": [
+      "Drama",
+      "Romance"
+    ],
+    "subgenres": [
+      "Drama Emocionante"
+    ],
+    "tags": [
+      "drama",
+      "romance",
+      "drama emocionante",
+      "filme completo",
+      "cinema",
+      "dublado"
+    ],
+    "moods": [
+      "emocionante",
+      "inspirador",
+      "tocante"
+    ],
+    "releaseYear": 2021,
+    "durationMinutes": 103,
+    "posterUrl": "https://img.youtube.com/vi/qzq6Fhn2RsM/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/qzq6Fhn2RsM/hqdefault.jpg",
+    "channelName": "Cinema Completo / YouTube",
+    "channelUrl": "https://www.youtube.com/watch?v=qzq6Fhn2RsM",
+    "contentRating": "12",
+    "language": "Dublado",
+    "ratingScore": 7.5,
+    "badge": "Drama Inspirador",
+    "featured": false,
+    "addedAt": "2026-10-10T11:54:02.016Z"
+  },
+  {
+    "id": "movie-iaax9HxpdQQ",
+    "youtubeVideoId": "iaax9HxpdQQ",
+    "title": "Joe, o Pistoleiro",
+    "originalTitle": "Joe, o Pistoleiro",
+    "synopsis": "Um pistoleiro solitário e habilidoso chega a um pequeno vilarejo do velho oeste controlado por homens sem lei e decide fazer justiça com as próprias mãos para defender os colonos indefesos.",
+    "genres": [
+      "Faroeste",
+      "Ação"
+    ],
+    "subgenres": [
+      "Faroeste Clássico",
+      "Duelo"
+    ],
+    "tags": [
+      "faroeste",
+      "ação",
+      "faroeste clássico",
+      "duelo",
+      "filme completo",
+      "cinema",
+      "dublado"
+    ],
+    "moods": [
+      "tenso",
+      "emocionante",
+      "épico"
+    ],
+    "releaseYear": 2021,
+    "durationMinutes": 119,
+    "posterUrl": "https://img.youtube.com/vi/iaax9HxpdQQ/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/iaax9HxpdQQ/hqdefault.jpg",
+    "channelName": "Cinema Completo / YouTube",
+    "channelUrl": "https://www.youtube.com/watch?v=iaax9HxpdQQ",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 8.5,
+    "badge": "Faroeste & Bang Bang",
+    "featured": false,
+    "addedAt": "2026-10-10T11:54:02.172Z"
+  },
+  {
+    "id": "movie-CX-KgukN6pE",
+    "youtubeVideoId": "CX-KgukN6pE",
+    "title": "Minha Vingança",
+    "originalTitle": "Minha Vingança",
+    "synopsis": "Após sofrer uma perda devastadora provocada por um grupo criminoso cruel, um homem comum ultrapassa todos os seus limites e inicia uma caçada implacável por retribuição.",
+    "genres": [
+      "Ação",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Ação"
+    ],
+    "tags": [
+      "ação",
+      "suspense",
+      "filme completo",
+      "cinema",
+      "dublado"
+    ],
+    "moods": [
+      "intenso",
+      "eletrizante"
+    ],
+    "releaseYear": 2021,
+    "durationMinutes": 114,
+    "posterUrl": "https://img.youtube.com/vi/CX-KgukN6pE/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/CX-KgukN6pE/hqdefault.jpg",
+    "channelName": "Cinema Completo / YouTube",
+    "channelUrl": "https://www.youtube.com/watch?v=CX-KgukN6pE",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 7.3,
+    "badge": "Filme em Destaque",
+    "featured": false,
+    "addedAt": "2026-10-10T11:54:02.308Z"
+  },
+  {
+    "id": "movie-fj4nxyf7t_4",
+    "youtubeVideoId": "fj4nxyf7t_4",
+    "title": "Águia Dourada: Forças Especiais",
+    "originalTitle": "Águia Dourada: Forças Especiais",
+    "synopsis": "Uma unidade de elite de operações especiais é enviada a território hostil para desmantelar uma organização terrorista armada antes que um ataque coordenado seja executado.",
+    "genres": [
+      "Guerra",
+      "Ação",
+      "Histórico"
+    ],
+    "subgenres": [
+      "Combate Militar"
+    ],
+    "tags": [
+      "guerra",
+      "ação",
+      "histórico",
+      "combate militar",
+      "filme completo",
+      "cinema",
+      "dublado"
+    ],
+    "moods": [
+      "épico",
+      "tenso",
+      "impactante"
+    ],
+    "releaseYear": 2021,
+    "durationMinutes": 109,
+    "posterUrl": "https://img.youtube.com/vi/fj4nxyf7t_4/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/fj4nxyf7t_4/hqdefault.jpg",
+    "channelName": "Cinema Completo / YouTube",
+    "channelUrl": "https://www.youtube.com/watch?v=fj4nxyf7t_4",
+    "contentRating": "16",
+    "language": "Dublado",
+    "ratingScore": 8.7,
+    "badge": "Ação Militar",
+    "featured": false,
+    "addedAt": "2026-10-10T11:54:02.423Z"
+  },
+  {
+    "id": "movie-ZkuFVg6nCms",
+    "youtubeVideoId": "ZkuFVg6nCms",
+    "title": "Um Papai Noel em Apuros",
+    "originalTitle": "Um Papai Noel em Apuros",
+    "synopsis": "Um Papai Noel em Apuros narra uma história emocionante e cheia de reviravoltas no gênero Comédia, explorando conflitos intensos, coragem e superação em meio a cenários desafiadores e atuações marcantes.",
+    "genres": [
+      "Comédia",
+      "Família"
+    ],
+    "subgenres": [
+      "Humor",
+      "Divertido"
+    ],
+    "tags": [
+      "comédia",
+      "família",
+      "humor",
+      "divertido",
+      "filme completo",
+      "cinema",
+      "dublado"
+    ],
+    "moods": [
+      "divertido",
+      "leve",
+      "descontraído"
+    ],
+    "releaseYear": 2021,
+    "durationMinutes": 103,
+    "posterUrl": "https://img.youtube.com/vi/ZkuFVg6nCms/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/ZkuFVg6nCms/hqdefault.jpg",
+    "channelName": "Cinema Completo / YouTube",
+    "channelUrl": "https://www.youtube.com/watch?v=ZkuFVg6nCms",
+    "contentRating": "Livre",
+    "language": "Dublado",
+    "ratingScore": 7.2,
+    "badge": "Comédia & Diversão",
+    "featured": false,
+    "addedAt": "2026-10-10T11:54:02.540Z"
+  },
+  {
+    "id": "movie-sAcGIGMmzwo",
+    "youtubeVideoId": "sAcGIGMmzwo",
+    "title": "A Cura",
+    "originalTitle": "A Cura",
+    "synopsis": "A Cura narra uma história emocionante e cheia de reviravoltas no gênero Ação, explorando conflitos intensos, coragem e superação em meio a cenários desafiadores e atuações marcantes.",
+    "genres": [
+      "Ação",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Ação"
+    ],
+    "tags": [
+      "ação",
+      "suspense",
+      "filme completo",
+      "cinema",
+      "dublado"
+    ],
+    "moods": [
+      "intenso",
+      "eletrizante"
+    ],
+    "releaseYear": 2021,
+    "durationMinutes": 96,
+    "posterUrl": "https://img.youtube.com/vi/sAcGIGMmzwo/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/sAcGIGMmzwo/hqdefault.jpg",
+    "channelName": "Cinema Completo / YouTube",
+    "channelUrl": "https://www.youtube.com/watch?v=sAcGIGMmzwo",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 7.6,
+    "badge": "Filme em Destaque",
+    "featured": false,
+    "addedAt": "2026-10-10T11:54:02.664Z"
+  },
+  {
+    "id": "movie-_bYY_wYIECA",
+    "youtubeVideoId": "_bYY_wYIECA",
+    "title": "Uma Aventura Selvagem",
+    "originalTitle": "Uma Aventura Selvagem",
+    "synopsis": "Uma Aventura Selvagem narra uma história emocionante e cheia de reviravoltas no gênero Ação, explorando conflitos intensos, coragem e superação em meio a cenários desafiadores e atuações marcantes.",
+    "genres": [
+      "Ação",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Ação"
+    ],
+    "tags": [
+      "ação",
+      "suspense",
+      "filme completo",
+      "cinema",
+      "dublado"
+    ],
+    "moods": [
+      "intenso",
+      "eletrizante"
+    ],
+    "releaseYear": 2021,
+    "durationMinutes": 114,
+    "posterUrl": "https://img.youtube.com/vi/_bYY_wYIECA/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/_bYY_wYIECA/hqdefault.jpg",
+    "channelName": "Cinema Completo / YouTube",
+    "channelUrl": "https://www.youtube.com/watch?v=_bYY_wYIECA",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 7.1,
+    "badge": "Filme em Destaque",
+    "featured": false,
+    "addedAt": "2026-10-10T11:54:02.795Z"
+  },
+  {
+    "id": "movie-Wqtw0JXRNvI",
+    "youtubeVideoId": "Wqtw0JXRNvI",
+    "title": "Violet no Mundo da Fantasia",
+    "originalTitle": "Violet no Mundo da Fantasia",
+    "synopsis": "Violet no Mundo da Fantasia narra uma história emocionante e cheia de reviravoltas no gênero Animação, explorando conflitos intensos, coragem e superação em meio a cenários desafiadores e atuações marcantes.",
+    "genres": [
+      "Animação",
+      "Aventura",
+      "Família"
+    ],
+    "subgenres": [
+      "Desenho Animado",
+      "Kids"
+    ],
+    "tags": [
+      "animação",
+      "aventura",
+      "família",
+      "desenho animado",
+      "kids",
+      "filme completo",
+      "cinema",
+      "dublado"
+    ],
+    "moods": [
+      "divertido",
+      "colorido",
+      "inspirador"
+    ],
+    "releaseYear": 2021,
+    "durationMinutes": 119,
+    "posterUrl": "https://img.youtube.com/vi/Wqtw0JXRNvI/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/Wqtw0JXRNvI/hqdefault.jpg",
+    "channelName": "Cinema Completo / YouTube",
+    "channelUrl": "https://www.youtube.com/watch?v=Wqtw0JXRNvI",
+    "contentRating": "Livre",
+    "language": "Dublado",
+    "ratingScore": 7.4,
+    "badge": "Animação para a Família",
+    "featured": false,
+    "addedAt": "2026-10-10T11:54:02.924Z"
+  },
+  {
+    "id": "movie-8ACkqm0Z8Yg",
+    "youtubeVideoId": "8ACkqm0Z8Yg",
+    "title": "Homens Maus",
+    "originalTitle": "Homens Maus",
+    "synopsis": "Homens Maus narra uma história emocionante e cheia de reviravoltas no gênero Ação, explorando conflitos intensos, coragem e superação em meio a cenários desafiadores e atuações marcantes.",
+    "genres": [
+      "Ação",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Ação"
+    ],
+    "tags": [
+      "ação",
+      "suspense",
+      "filme completo",
+      "cinema",
+      "dublado"
+    ],
+    "moods": [
+      "intenso",
+      "eletrizante"
+    ],
+    "releaseYear": 2021,
+    "durationMinutes": 118,
+    "posterUrl": "https://img.youtube.com/vi/8ACkqm0Z8Yg/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/8ACkqm0Z8Yg/hqdefault.jpg",
+    "channelName": "Cinema Completo / YouTube",
+    "channelUrl": "https://www.youtube.com/watch?v=8ACkqm0Z8Yg",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 7.8,
+    "badge": "Filme em Destaque",
+    "featured": false,
+    "addedAt": "2026-10-10T11:54:03.065Z"
+  },
+  {
+    "id": "movie-38GZ4JTCW2Y",
+    "youtubeVideoId": "38GZ4JTCW2Y",
+    "title": "O Infiltrado",
+    "originalTitle": "O Infiltrado",
+    "synopsis": "O Infiltrado narra uma história emocionante e cheia de reviravoltas no gênero Ação, explorando conflitos intensos, coragem e superação em meio a cenários desafiadores e atuações marcantes.",
+    "genres": [
+      "Ação",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Ação"
+    ],
+    "tags": [
+      "ação",
+      "suspense",
+      "filme completo",
+      "cinema",
+      "dublado"
+    ],
+    "moods": [
+      "intenso",
+      "eletrizante"
+    ],
+    "releaseYear": 2021,
+    "durationMinutes": 109,
+    "posterUrl": "https://img.youtube.com/vi/38GZ4JTCW2Y/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/38GZ4JTCW2Y/hqdefault.jpg",
+    "channelName": "Cinema Completo / YouTube",
+    "channelUrl": "https://www.youtube.com/watch?v=38GZ4JTCW2Y",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 7.4,
+    "badge": "Filme em Destaque",
+    "featured": false,
+    "addedAt": "2026-10-10T11:54:03.195Z"
+  },
+  {
+    "id": "movie-_eCqU9jrxnw",
+    "youtubeVideoId": "_eCqU9jrxnw",
+    "title": "Irmãos de Guerra",
+    "originalTitle": "Irmãos de Guerra",
+    "synopsis": "Irmãos de Guerra narra uma história emocionante e cheia de reviravoltas no gênero Guerra, explorando conflitos intensos, coragem e superação em meio a cenários desafiadores e atuações marcantes.",
+    "genres": [
+      "Guerra",
+      "Ação",
+      "Histórico"
+    ],
+    "subgenres": [
+      "Combate Militar"
+    ],
+    "tags": [
+      "guerra",
+      "ação",
+      "histórico",
+      "combate militar",
+      "filme completo",
+      "cinema",
+      "dublado"
+    ],
+    "moods": [
+      "épico",
+      "tenso",
+      "impactante"
+    ],
+    "releaseYear": 2021,
+    "durationMinutes": 114,
+    "posterUrl": "https://img.youtube.com/vi/_eCqU9jrxnw/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/_eCqU9jrxnw/hqdefault.jpg",
+    "channelName": "Cinema Completo / YouTube",
+    "channelUrl": "https://www.youtube.com/watch?v=_eCqU9jrxnw",
+    "contentRating": "16",
+    "language": "Dublado",
+    "ratingScore": 8.4,
+    "badge": "Ação Militar",
+    "featured": false,
+    "addedAt": "2026-10-10T11:54:03.308Z"
+  },
+  {
+    "id": "movie--_0ltSOxtNM",
+    "youtubeVideoId": "-_0ltSOxtNM",
+    "title": "Sob o Domínio do Mal",
+    "originalTitle": "Sob o Domínio do Mal",
+    "synopsis": "Sob o Domínio do Mal narra uma história emocionante e cheia de reviravoltas no gênero Ação, explorando conflitos intensos, coragem e superação em meio a cenários desafiadores e atuações marcantes.",
+    "genres": [
+      "Ação",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Ação"
+    ],
+    "tags": [
+      "ação",
+      "suspense",
+      "filme completo",
+      "cinema",
+      "dublado"
+    ],
+    "moods": [
+      "intenso",
+      "eletrizante"
+    ],
+    "releaseYear": 2021,
+    "durationMinutes": 99,
+    "posterUrl": "https://img.youtube.com/vi/-_0ltSOxtNM/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/-_0ltSOxtNM/hqdefault.jpg",
+    "channelName": "Cinema Completo / YouTube",
+    "channelUrl": "https://www.youtube.com/watch?v=-_0ltSOxtNM",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 8.6,
+    "badge": "Filme em Destaque",
+    "featured": false,
+    "addedAt": "2026-10-10T11:54:03.437Z"
+  },
+  {
+    "id": "movie-9r-lJCH0LSM",
+    "youtubeVideoId": "9r-lJCH0LSM",
+    "title": "Quem Está Aí?",
+    "originalTitle": "Quem Está Aí?",
+    "synopsis": "Quem Está Aí? narra uma história emocionante e cheia de reviravoltas no gênero Ação, explorando conflitos intensos, coragem e superação em meio a cenários desafiadores e atuações marcantes.",
+    "genres": [
+      "Ação",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Ação"
+    ],
+    "tags": [
+      "ação",
+      "suspense",
+      "filme completo",
+      "cinema",
+      "dublado"
+    ],
+    "moods": [
+      "intenso",
+      "eletrizante"
+    ],
+    "releaseYear": 2021,
+    "durationMinutes": 95,
+    "posterUrl": "https://img.youtube.com/vi/9r-lJCH0LSM/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/9r-lJCH0LSM/hqdefault.jpg",
+    "channelName": "Cinema Completo / YouTube",
+    "channelUrl": "https://www.youtube.com/watch?v=9r-lJCH0LSM",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 8.1,
+    "badge": "Filme em Destaque",
+    "featured": false,
+    "addedAt": "2026-10-10T11:54:03.558Z"
+  },
+  {
+    "id": "movie-z2u7xO2sd2o",
+    "youtubeVideoId": "z2u7xO2sd2o",
+    "title": "Do Céu ao Inferno (Terror / Ação)",
+    "originalTitle": "Do Céu ao Inferno (Terror / Ação)",
+    "synopsis": "Do Céu ao Inferno (Terror / Ação) narra uma história emocionante e cheia de reviravoltas no gênero Terror, explorando conflitos intensos, coragem e superação em meio a cenários desafiadores e atuações marcantes.",
+    "genres": [
+      "Terror",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Sobrenatural",
+      "Slasher"
+    ],
+    "tags": [
+      "terror",
+      "suspense",
+      "sobrenatural",
+      "slasher",
+      "filme completo",
+      "cinema",
+      "dublado"
+    ],
+    "moods": [
+      "arrepiante",
+      "sombrio",
+      "tenso"
+    ],
+    "releaseYear": 2021,
+    "durationMinutes": 98,
+    "posterUrl": "https://img.youtube.com/vi/z2u7xO2sd2o/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/z2u7xO2sd2o/hqdefault.jpg",
+    "channelName": "Cinema Completo / YouTube",
+    "channelUrl": "https://www.youtube.com/watch?v=z2u7xO2sd2o",
+    "contentRating": "16",
+    "language": "Dublado",
+    "ratingScore": 7.5,
+    "badge": "Terror & Mistério",
+    "featured": false,
+    "addedAt": "2026-10-10T11:54:03.705Z"
+  },
+  {
+    "id": "movie-o-k3_W94nVQ",
+    "youtubeVideoId": "o-k3_W94nVQ",
+    "title": "Homens Maus (Luke Hemsworth)",
+    "originalTitle": "Homens Maus (Luke Hemsworth)",
+    "synopsis": "Homens Maus (Luke Hemsworth) narra uma história emocionante e cheia de reviravoltas no gênero Ação, explorando conflitos intensos, coragem e superação em meio a cenários desafiadores e atuações marcantes.",
+    "genres": [
+      "Ação",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Ação"
+    ],
+    "cast": [
+      "Luke Hemsworth"
+    ],
+    "tags": [
+      "ação",
+      "suspense",
+      "luke hemsworth",
+      "filme completo",
+      "cinema",
+      "dublado"
+    ],
+    "moods": [
+      "intenso",
+      "eletrizante"
+    ],
+    "releaseYear": 2021,
+    "durationMinutes": 118,
+    "posterUrl": "https://img.youtube.com/vi/o-k3_W94nVQ/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/o-k3_W94nVQ/hqdefault.jpg",
+    "channelName": "Cinema Completo / YouTube",
+    "channelUrl": "https://www.youtube.com/watch?v=o-k3_W94nVQ",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 8.2,
+    "badge": "Filme em Destaque",
+    "featured": false,
+    "addedAt": "2026-10-10T11:54:03.825Z"
+  },
+  {
+    "id": "movie-JyRhwOohMnM",
+    "youtubeVideoId": "JyRhwOohMnM",
+    "title": "Quebrando Regras (Cam Gigandet)",
+    "originalTitle": "Quebrando Regras (Cam Gigandet)",
+    "synopsis": "Quebrando Regras (Cam Gigandet) narra uma história emocionante e cheia de reviravoltas no gênero Ação, explorando conflitos intensos, coragem e superação em meio a cenários desafiadores e atuações marcantes.",
+    "genres": [
+      "Ação",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Ação"
+    ],
+    "cast": [
+      "Cam Gigandet"
+    ],
+    "tags": [
+      "ação",
+      "suspense",
+      "cam gigandet",
+      "filme completo",
+      "cinema",
+      "dublado"
+    ],
+    "moods": [
+      "intenso",
+      "eletrizante"
+    ],
+    "releaseYear": 2021,
+    "durationMinutes": 114,
+    "posterUrl": "https://img.youtube.com/vi/JyRhwOohMnM/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/JyRhwOohMnM/hqdefault.jpg",
+    "channelName": "Cinema Completo / YouTube",
+    "channelUrl": "https://www.youtube.com/watch?v=JyRhwOohMnM",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 8.6,
+    "badge": "Filme em Destaque",
+    "featured": false,
+    "addedAt": "2026-10-10T11:54:03.940Z"
+  },
+  {
+    "id": "movie-bz6ihs4zSgg",
+    "youtubeVideoId": "bz6ihs4zSgg",
+    "title": "Planeta Duna",
+    "originalTitle": "Planeta Duna",
+    "synopsis": "Planeta Duna narra uma história emocionante e cheia de reviravoltas no gênero Ficção Científica, explorando conflitos intensos, coragem e superação em meio a cenários desafiadores e atuações marcantes.",
+    "genres": [
+      "Ficção Científica",
+      "Aventura"
+    ],
+    "subgenres": [
+      "Sci-Fi",
+      "Espaço"
+    ],
+    "tags": [
+      "ficção científica",
+      "aventura",
+      "sci-fi",
+      "espaço",
+      "filme completo",
+      "cinema",
+      "dublado"
+    ],
+    "moods": [
+      "visionário",
+      "intenso",
+      "fascinante"
+    ],
+    "releaseYear": 2021,
+    "durationMinutes": 102,
+    "posterUrl": "https://img.youtube.com/vi/bz6ihs4zSgg/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/bz6ihs4zSgg/hqdefault.jpg",
+    "channelName": "Cinema Completo / YouTube",
+    "channelUrl": "https://www.youtube.com/watch?v=bz6ihs4zSgg",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 7.3,
+    "badge": "Ficção Científica",
+    "featured": false,
+    "addedAt": "2026-10-10T11:54:04.051Z"
+  },
+  {
+    "id": "movie-UTRDRBw5mNk",
+    "youtubeVideoId": "UTRDRBw5mNk",
+    "title": "No Tempo de Deus",
+    "originalTitle": "No Tempo de Deus",
+    "synopsis": "No Tempo de Deus narra uma história emocionante e cheia de reviravoltas no gênero Drama, explorando conflitos intensos, coragem e superação em meio a cenários desafiadores e atuações marcantes.",
+    "genres": [
+      "Drama",
+      "Romance"
+    ],
+    "subgenres": [
+      "Drama Emocionante"
+    ],
+    "tags": [
+      "drama",
+      "romance",
+      "drama emocionante",
+      "filme completo",
+      "cinema",
+      "dublado"
+    ],
+    "moods": [
+      "emocionante",
+      "inspirador",
+      "tocante"
+    ],
+    "releaseYear": 2021,
+    "durationMinutes": 98,
+    "posterUrl": "https://img.youtube.com/vi/UTRDRBw5mNk/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/UTRDRBw5mNk/hqdefault.jpg",
+    "channelName": "Cinema Completo / YouTube",
+    "channelUrl": "https://www.youtube.com/watch?v=UTRDRBw5mNk",
+    "contentRating": "12",
+    "language": "Dublado",
+    "ratingScore": 8.5,
+    "badge": "Drama Inspirador",
+    "featured": false,
+    "addedAt": "2026-10-10T11:54:04.173Z"
+  },
+  {
+    "id": "movie-lwKr8QBukg8",
+    "youtubeVideoId": "lwKr8QBukg8",
+    "title": "Planeta Duna",
+    "originalTitle": "Planeta Duna",
+    "synopsis": "Planeta Duna narra uma história emocionante e cheia de reviravoltas no gênero Ficção Científica, explorando conflitos intensos, coragem e superação em meio a cenários desafiadores e atuações marcantes.",
+    "genres": [
+      "Ficção Científica",
+      "Aventura"
+    ],
+    "subgenres": [
+      "Sci-Fi",
+      "Espaço"
+    ],
+    "tags": [
+      "ficção científica",
+      "aventura",
+      "sci-fi",
+      "espaço",
+      "filme completo",
+      "cinema",
+      "dublado"
+    ],
+    "moods": [
+      "visionário",
+      "intenso",
+      "fascinante"
+    ],
+    "releaseYear": 2021,
+    "durationMinutes": 110,
+    "posterUrl": "https://img.youtube.com/vi/lwKr8QBukg8/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/lwKr8QBukg8/hqdefault.jpg",
+    "channelName": "Cinema Completo / YouTube",
+    "channelUrl": "https://www.youtube.com/watch?v=lwKr8QBukg8",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 7.7,
+    "badge": "Ficção Científica",
+    "featured": false,
+    "addedAt": "2026-10-10T11:54:04.291Z"
+  },
+  {
+    "id": "movie-sTGyh4N8IB4",
+    "youtubeVideoId": "sTGyh4N8IB4",
+    "title": "O Lado Simples da Vida",
+    "originalTitle": "O Lado Simples da Vida",
+    "synopsis": "O Lado Simples da Vida narra uma história emocionante e cheia de reviravoltas no gênero Ação, explorando conflitos intensos, coragem e superação em meio a cenários desafiadores e atuações marcantes.",
+    "genres": [
+      "Ação",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Ação"
+    ],
+    "tags": [
+      "ação",
+      "suspense",
+      "filme completo",
+      "cinema",
+      "dublado"
+    ],
+    "moods": [
+      "intenso",
+      "eletrizante"
+    ],
+    "releaseYear": 2022,
+    "durationMinutes": 103,
+    "posterUrl": "https://img.youtube.com/vi/sTGyh4N8IB4/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/sTGyh4N8IB4/hqdefault.jpg",
+    "channelName": "Cinema Completo / YouTube",
+    "channelUrl": "https://www.youtube.com/watch?v=sTGyh4N8IB4",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 7.3,
+    "badge": "Filme em Destaque",
+    "featured": false,
+    "addedAt": "2026-10-10T11:54:04.396Z"
+  },
+  {
+    "id": "movie-Jsk7FtHvqXE",
+    "youtubeVideoId": "Jsk7FtHvqXE",
+    "title": "Escondida",
+    "originalTitle": "Escondida",
+    "synopsis": "Escondida narra uma história emocionante e cheia de reviravoltas no gênero Ação, explorando conflitos intensos, coragem e superação em meio a cenários desafiadores e atuações marcantes.",
+    "genres": [
+      "Ação",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Ação"
+    ],
+    "tags": [
+      "ação",
+      "suspense",
+      "filme completo",
+      "cinema",
+      "dublado"
+    ],
+    "moods": [
+      "intenso",
+      "eletrizante"
+    ],
+    "releaseYear": 2021,
+    "durationMinutes": 99,
+    "posterUrl": "https://img.youtube.com/vi/Jsk7FtHvqXE/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/Jsk7FtHvqXE/hqdefault.jpg",
+    "channelName": "Cinema Completo / YouTube",
+    "channelUrl": "https://www.youtube.com/watch?v=Jsk7FtHvqXE",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 7.8,
+    "badge": "Filme em Destaque",
+    "featured": false,
+    "addedAt": "2026-10-10T11:54:04.521Z"
+  },
+  {
+    "id": "movie-_P2oRzq0arA",
+    "youtubeVideoId": "_P2oRzq0arA",
+    "title": "O Enigma do Portal",
+    "originalTitle": "O Enigma do Portal",
+    "synopsis": "O Enigma do Portal narra uma história emocionante e cheia de reviravoltas no gênero Ação, explorando conflitos intensos, coragem e superação em meio a cenários desafiadores e atuações marcantes.",
+    "genres": [
+      "Ação",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Ação"
+    ],
+    "tags": [
+      "ação",
+      "suspense",
+      "filme completo",
+      "cinema",
+      "dublado"
+    ],
+    "moods": [
+      "intenso",
+      "eletrizante"
+    ],
+    "releaseYear": 2021,
+    "durationMinutes": 110,
+    "posterUrl": "https://img.youtube.com/vi/_P2oRzq0arA/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/_P2oRzq0arA/hqdefault.jpg",
+    "channelName": "Cinema Completo / YouTube",
+    "channelUrl": "https://www.youtube.com/watch?v=_P2oRzq0arA",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 7.9,
+    "badge": "Filme em Destaque",
+    "featured": false,
+    "addedAt": "2026-10-10T11:54:04.639Z"
+  },
+  {
+    "id": "movie-1IVl9miEl2M",
+    "youtubeVideoId": "1IVl9miEl2M",
+    "title": "Arthur & Merlin: Os Cavaleiros de Camelot",
+    "originalTitle": "Arthur & Merlin: Os Cavaleiros de Camelot",
+    "synopsis": "Arthur & Merlin: Os Cavaleiros de Camelot narra uma história emocionante e cheia de reviravoltas no gênero Ação, explorando conflitos intensos, coragem e superação em meio a cenários desafiadores e atuações marcantes.",
+    "genres": [
+      "Ação",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Ação"
+    ],
+    "tags": [
+      "ação",
+      "suspense",
+      "filme completo",
+      "cinema",
+      "dublado"
+    ],
+    "moods": [
+      "intenso",
+      "eletrizante"
+    ],
+    "releaseYear": 2021,
+    "durationMinutes": 116,
+    "posterUrl": "https://img.youtube.com/vi/1IVl9miEl2M/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/1IVl9miEl2M/hqdefault.jpg",
+    "channelName": "Cinema Completo / YouTube",
+    "channelUrl": "https://www.youtube.com/watch?v=1IVl9miEl2M",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 7.1,
+    "badge": "Filme em Destaque",
+    "featured": false,
+    "addedAt": "2026-10-10T11:54:04.753Z"
+  },
+  {
+    "id": "movie-vyvczSFCwAY",
+    "youtubeVideoId": "vyvczSFCwAY",
+    "title": "Pequeninos: A Inocência Não Tem Preço",
+    "originalTitle": "Pequeninos: A Inocência Não Tem Preço",
+    "synopsis": "Pequeninos: A Inocência Não Tem Preço narra uma história emocionante e cheia de reviravoltas no gênero Drama, explorando conflitos intensos, coragem e superação em meio a cenários desafiadores e atuações marcantes.",
+    "genres": [
+      "Drama",
+      "Romance"
+    ],
+    "subgenres": [
+      "Drama Emocionante"
+    ],
+    "tags": [
+      "drama",
+      "romance",
+      "drama emocionante",
+      "filme completo",
+      "cinema",
+      "dublado"
+    ],
+    "moods": [
+      "emocionante",
+      "inspirador",
+      "tocante"
+    ],
+    "releaseYear": 2021,
+    "durationMinutes": 102,
+    "posterUrl": "https://img.youtube.com/vi/vyvczSFCwAY/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/vyvczSFCwAY/hqdefault.jpg",
+    "channelName": "Cinema Completo / YouTube",
+    "channelUrl": "https://www.youtube.com/watch?v=vyvczSFCwAY",
+    "contentRating": "12",
+    "language": "Dublado",
+    "ratingScore": 7.6,
+    "badge": "Drama Inspirador",
+    "featured": false,
+    "addedAt": "2026-10-10T11:54:04.865Z"
+  },
+  {
+    "id": "movie-DndngGzQKKw",
+    "youtubeVideoId": "DndngGzQKKw",
+    "title": "Boonie Bears e o Robô Destruidor",
+    "originalTitle": "Boonie Bears e o Robô Destruidor",
+    "synopsis": "Os irmãos ursos Briar e Bramble se unem aos seus amigos da floresta para enfrentar uma ameaça tecnológica sem precedentes quando um robô gigante fora de controle coloca todo o ecossistema em perigo.",
+    "genres": [
+      "Animação",
+      "Aventura",
+      "Família"
+    ],
+    "subgenres": [
+      "Desenho Animado",
+      "Kids"
+    ],
+    "tags": [
+      "animação",
+      "aventura",
+      "família",
+      "desenho animado",
+      "kids",
+      "filme completo",
+      "cinema",
+      "dublado"
+    ],
+    "moods": [
+      "divertido",
+      "colorido",
+      "inspirador"
+    ],
+    "releaseYear": 2021,
+    "durationMinutes": 100,
+    "posterUrl": "https://img.youtube.com/vi/DndngGzQKKw/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/DndngGzQKKw/hqdefault.jpg",
+    "channelName": "Cinema Completo / YouTube",
+    "channelUrl": "https://www.youtube.com/watch?v=DndngGzQKKw",
+    "contentRating": "Livre",
+    "language": "Dublado",
+    "ratingScore": 8.5,
+    "badge": "Animação para a Família",
+    "featured": false,
+    "addedAt": "2026-10-10T11:54:04.993Z"
+  },
+  {
+    "id": "movie-fhhmXnbg_08",
+    "youtubeVideoId": "fhhmXnbg_08",
+    "title": "O Milagre",
+    "originalTitle": "O Milagre",
+    "synopsis": "O Milagre narra uma história emocionante e cheia de reviravoltas no gênero Drama, explorando conflitos intensos, coragem e superação em meio a cenários desafiadores e atuações marcantes.",
+    "genres": [
+      "Drama",
+      "Romance"
+    ],
+    "subgenres": [
+      "Drama Emocionante"
+    ],
+    "tags": [
+      "drama",
+      "romance",
+      "drama emocionante",
+      "filme completo",
+      "cinema",
+      "dublado"
+    ],
+    "moods": [
+      "emocionante",
+      "inspirador",
+      "tocante"
+    ],
+    "releaseYear": 2015,
+    "durationMinutes": 102,
+    "posterUrl": "https://img.youtube.com/vi/fhhmXnbg_08/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/fhhmXnbg_08/hqdefault.jpg",
+    "channelName": "Cinema Completo / YouTube",
+    "channelUrl": "https://www.youtube.com/watch?v=fhhmXnbg_08",
+    "contentRating": "12",
+    "language": "Dublado",
+    "ratingScore": 8.3,
+    "badge": "Drama Inspirador",
+    "featured": false,
+    "addedAt": "2026-10-10T11:54:05.121Z"
+  },
+  {
+    "id": "movie-BVE12nA7wyg",
+    "youtubeVideoId": "BVE12nA7wyg",
+    "title": "Um Lugar para Voltar (Ben Winchell)",
+    "originalTitle": "Um Lugar para Voltar (Ben Winchell)",
+    "synopsis": "Um Lugar para Voltar (Ben Winchell) narra uma história emocionante e cheia de reviravoltas no gênero Ação, explorando conflitos intensos, coragem e superação em meio a cenários desafiadores e atuações marcantes.",
+    "genres": [
+      "Ação",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Ação"
+    ],
+    "cast": [
+      "Ben Winchell"
+    ],
+    "tags": [
+      "ação",
+      "suspense",
+      "ben winchell",
+      "filme completo",
+      "cinema",
+      "dublado"
+    ],
+    "moods": [
+      "intenso",
+      "eletrizante"
+    ],
+    "releaseYear": 2021,
+    "durationMinutes": 101,
+    "posterUrl": "https://img.youtube.com/vi/BVE12nA7wyg/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/BVE12nA7wyg/hqdefault.jpg",
+    "channelName": "Cinema Completo / YouTube",
+    "channelUrl": "https://www.youtube.com/watch?v=BVE12nA7wyg",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 7.2,
+    "badge": "Filme em Destaque",
+    "featured": false,
+    "addedAt": "2026-10-10T11:54:05.237Z"
+  },
+  {
+    "id": "movie-_-ZJ4Q8lSAk",
+    "youtubeVideoId": "_-ZJ4Q8lSAk",
+    "title": "A Força da Natureza",
+    "originalTitle": "A Força da Natureza",
+    "synopsis": "A Força da Natureza narra uma história emocionante e cheia de reviravoltas no gênero Ação, explorando conflitos intensos, coragem e superação em meio a cenários desafiadores e atuações marcantes.",
+    "genres": [
+      "Ação",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Ação"
+    ],
+    "tags": [
+      "ação",
+      "suspense",
+      "filme completo",
+      "cinema",
+      "dublado"
+    ],
+    "moods": [
+      "intenso",
+      "eletrizante"
+    ],
+    "releaseYear": 2021,
+    "durationMinutes": 95,
+    "posterUrl": "https://img.youtube.com/vi/_-ZJ4Q8lSAk/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/_-ZJ4Q8lSAk/hqdefault.jpg",
+    "channelName": "Cinema Completo / YouTube",
+    "channelUrl": "https://www.youtube.com/watch?v=_-ZJ4Q8lSAk",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 8.1,
+    "badge": "Filme em Destaque",
+    "featured": false,
+    "addedAt": "2026-10-10T11:54:05.354Z"
+  },
+  {
+    "id": "movie-WsZmLo46xbA",
+    "youtubeVideoId": "WsZmLo46xbA",
+    "title": "Inocência Perdida",
+    "originalTitle": "Inocência Perdida",
+    "synopsis": "Inocência Perdida narra uma história emocionante e cheia de reviravoltas no gênero Drama, explorando conflitos intensos, coragem e superação em meio a cenários desafiadores e atuações marcantes.",
+    "genres": [
+      "Drama",
+      "Romance"
+    ],
+    "subgenres": [
+      "Drama Emocionante"
+    ],
+    "tags": [
+      "drama",
+      "romance",
+      "drama emocionante",
+      "filme completo",
+      "cinema",
+      "dublado"
+    ],
+    "moods": [
+      "emocionante",
+      "inspirador",
+      "tocante"
+    ],
+    "releaseYear": 2021,
+    "durationMinutes": 107,
+    "posterUrl": "https://img.youtube.com/vi/WsZmLo46xbA/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/WsZmLo46xbA/hqdefault.jpg",
+    "channelName": "Cinema Completo / YouTube",
+    "channelUrl": "https://www.youtube.com/watch?v=WsZmLo46xbA",
+    "contentRating": "12",
+    "language": "Dublado",
+    "ratingScore": 7.7,
+    "badge": "Drama Inspirador",
+    "featured": false,
+    "addedAt": "2026-10-10T11:54:05.474Z"
+  },
+  {
+    "id": "movie-yblMCxSKqLg",
+    "youtubeVideoId": "yblMCxSKqLg",
+    "title": "A Casa de Vidro",
+    "originalTitle": "A Casa de Vidro",
+    "synopsis": "A Casa de Vidro narra uma história emocionante e cheia de reviravoltas no gênero Ação, explorando conflitos intensos, coragem e superação em meio a cenários desafiadores e atuações marcantes.",
+    "genres": [
+      "Ação",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Ação"
+    ],
+    "tags": [
+      "ação",
+      "suspense",
+      "filme completo",
+      "cinema",
+      "dublado"
+    ],
+    "moods": [
+      "intenso",
+      "eletrizante"
+    ],
+    "releaseYear": 2021,
+    "durationMinutes": 95,
+    "posterUrl": "https://img.youtube.com/vi/yblMCxSKqLg/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/yblMCxSKqLg/hqdefault.jpg",
+    "channelName": "Cinema Completo / YouTube",
+    "channelUrl": "https://www.youtube.com/watch?v=yblMCxSKqLg",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 8.3,
+    "badge": "Filme em Destaque",
+    "featured": false,
+    "addedAt": "2026-10-10T11:54:05.606Z"
+  },
+  {
+    "id": "movie-FXumSvgBBAk",
+    "youtubeVideoId": "FXumSvgBBAk",
+    "title": "O Último Portal (Johnny Depp)",
+    "originalTitle": "O Último Portal (Johnny Depp)",
+    "synopsis": "O Último Portal (Johnny Depp) narra uma história emocionante e cheia de reviravoltas no gênero Ação, explorando conflitos intensos, coragem e superação em meio a cenários desafiadores e atuações marcantes.",
+    "genres": [
+      "Ação",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Ação"
+    ],
+    "cast": [
+      "Johnny Depp"
+    ],
+    "tags": [
+      "ação",
+      "suspense",
+      "johnny depp",
+      "filme completo",
+      "cinema",
+      "dublado"
+    ],
+    "moods": [
+      "intenso",
+      "eletrizante"
+    ],
+    "releaseYear": 2021,
+    "durationMinutes": 99,
+    "posterUrl": "https://img.youtube.com/vi/FXumSvgBBAk/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/FXumSvgBBAk/hqdefault.jpg",
+    "channelName": "Cinema Completo / YouTube",
+    "channelUrl": "https://www.youtube.com/watch?v=FXumSvgBBAk",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 8.4,
+    "badge": "Filme em Destaque",
+    "featured": false,
+    "addedAt": "2026-10-10T11:54:05.745Z"
+  },
+  {
+    "id": "movie-QR8Fmfc_nn0",
+    "youtubeVideoId": "QR8Fmfc_nn0",
+    "title": "Maré de Sangue (Richard Riehle)",
+    "originalTitle": "Maré de Sangue (Richard Riehle)",
+    "synopsis": "Maré de Sangue (Richard Riehle) narra uma história emocionante e cheia de reviravoltas no gênero Ação, explorando conflitos intensos, coragem e superação em meio a cenários desafiadores e atuações marcantes.",
+    "genres": [
+      "Ação",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Ação"
+    ],
+    "cast": [
+      "Richard Riehle"
+    ],
+    "tags": [
+      "ação",
+      "suspense",
+      "richard riehle",
+      "filme completo",
+      "cinema",
+      "dublado"
+    ],
+    "moods": [
+      "intenso",
+      "eletrizante"
+    ],
+    "releaseYear": 2021,
+    "durationMinutes": 105,
+    "posterUrl": "https://img.youtube.com/vi/QR8Fmfc_nn0/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/QR8Fmfc_nn0/hqdefault.jpg",
+    "channelName": "Cinema Completo / YouTube",
+    "channelUrl": "https://www.youtube.com/watch?v=QR8Fmfc_nn0",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 8.6,
+    "badge": "Filme em Destaque",
+    "featured": false,
+    "addedAt": "2026-10-10T11:54:05.863Z"
+  },
+  {
+    "id": "movie-XNEGT5L5Q0w",
+    "youtubeVideoId": "XNEGT5L5Q0w",
+    "title": "Desolados (James Russo)",
+    "originalTitle": "Desolados (James Russo)",
+    "synopsis": "Desolados (James Russo) narra uma história emocionante e cheia de reviravoltas no gênero Ação, explorando conflitos intensos, coragem e superação em meio a cenários desafiadores e atuações marcantes.",
+    "genres": [
+      "Ação",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Ação"
+    ],
+    "cast": [
+      "James Russo"
+    ],
+    "tags": [
+      "ação",
+      "suspense",
+      "james russo",
+      "filme completo",
+      "cinema",
+      "dublado"
+    ],
+    "moods": [
+      "intenso",
+      "eletrizante"
+    ],
+    "releaseYear": 2021,
+    "durationMinutes": 116,
+    "posterUrl": "https://img.youtube.com/vi/XNEGT5L5Q0w/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/XNEGT5L5Q0w/hqdefault.jpg",
+    "channelName": "Cinema Completo / YouTube",
+    "channelUrl": "https://www.youtube.com/watch?v=XNEGT5L5Q0w",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 8.6,
+    "badge": "Filme em Destaque",
+    "featured": false,
+    "addedAt": "2026-10-10T11:54:05.993Z"
+  },
+  {
+    "id": "movie-xMBT4gXVMyY",
+    "youtubeVideoId": "xMBT4gXVMyY",
+    "title": "O Matador: Missão Resgate",
+    "originalTitle": "O Matador: Missão Resgate",
+    "synopsis": "O Matador: Missão Resgate narra uma história emocionante e cheia de reviravoltas no gênero Ação, explorando conflitos intensos, coragem e superação em meio a cenários desafiadores e atuações marcantes.",
+    "genres": [
+      "Ação",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Ação"
+    ],
+    "tags": [
+      "ação",
+      "suspense",
+      "filme completo",
+      "cinema",
+      "dublado"
+    ],
+    "moods": [
+      "intenso",
+      "eletrizante"
+    ],
+    "releaseYear": 2021,
+    "durationMinutes": 112,
+    "posterUrl": "https://img.youtube.com/vi/xMBT4gXVMyY/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/xMBT4gXVMyY/hqdefault.jpg",
+    "channelName": "Cinema Completo / YouTube",
+    "channelUrl": "https://www.youtube.com/watch?v=xMBT4gXVMyY",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 7.3,
+    "badge": "Filme em Destaque",
+    "featured": false,
+    "addedAt": "2026-10-10T11:54:06.110Z"
+  },
+  {
+    "id": "movie-yG3vgY3u2Lw",
+    "youtubeVideoId": "yG3vgY3u2Lw",
+    "title": "Apenas Uma Vez",
+    "originalTitle": "Apenas Uma Vez",
+    "synopsis": "Apenas Uma Vez narra uma história emocionante e cheia de reviravoltas no gênero Ação, explorando conflitos intensos, coragem e superação em meio a cenários desafiadores e atuações marcantes.",
+    "genres": [
+      "Ação",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Ação"
+    ],
+    "tags": [
+      "ação",
+      "suspense",
+      "filme completo",
+      "cinema",
+      "dublado"
+    ],
+    "moods": [
+      "intenso",
+      "eletrizante"
+    ],
+    "releaseYear": 2021,
+    "durationMinutes": 118,
+    "posterUrl": "https://img.youtube.com/vi/yG3vgY3u2Lw/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/yG3vgY3u2Lw/hqdefault.jpg",
+    "channelName": "Cinema Completo / YouTube",
+    "channelUrl": "https://www.youtube.com/watch?v=yG3vgY3u2Lw",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 7.4,
+    "badge": "Filme em Destaque",
+    "featured": false,
+    "addedAt": "2026-10-10T11:54:06.235Z"
+  },
+  {
+    "id": "movie-PF5aQx4awm0",
+    "youtubeVideoId": "PF5aQx4awm0",
+    "title": "O Homem de Lugar Nenhum",
+    "originalTitle": "O Homem de Lugar Nenhum",
+    "synopsis": "O Homem de Lugar Nenhum narra uma história emocionante e cheia de reviravoltas no gênero Ficção Científica, explorando conflitos intensos, coragem e superação em meio a cenários desafiadores e atuações marcantes.",
+    "genres": [
+      "Ficção Científica",
+      "Aventura"
+    ],
+    "subgenres": [
+      "Sci-Fi",
+      "Espaço"
+    ],
+    "tags": [
+      "ficção científica",
+      "aventura",
+      "sci-fi",
+      "espaço",
+      "filme completo",
+      "cinema",
+      "dublado"
+    ],
+    "moods": [
+      "visionário",
+      "intenso",
+      "fascinante"
+    ],
+    "releaseYear": 2021,
+    "durationMinutes": 106,
+    "posterUrl": "https://img.youtube.com/vi/PF5aQx4awm0/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/PF5aQx4awm0/hqdefault.jpg",
+    "channelName": "Cinema Completo / YouTube",
+    "channelUrl": "https://www.youtube.com/watch?v=PF5aQx4awm0",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 8.5,
+    "badge": "Ficção Científica",
+    "featured": false,
+    "addedAt": "2026-10-10T11:54:06.350Z"
+  },
+  {
+    "id": "movie-0-xWj5HQTFo",
+    "youtubeVideoId": "0-xWj5HQTFo",
+    "title": "O Grande Desafio (Denzel Washington)",
+    "originalTitle": "O Grande Desafio (Denzel Washington)",
+    "synopsis": "O Grande Desafio (Denzel Washington) narra uma história emocionante e cheia de reviravoltas no gênero Ação, explorando conflitos intensos, coragem e superação em meio a cenários desafiadores e atuações marcantes.",
+    "genres": [
+      "Ação",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Ação"
+    ],
+    "cast": [
+      "Denzel Washington"
+    ],
+    "tags": [
+      "ação",
+      "suspense",
+      "denzel washington",
+      "filme completo",
+      "cinema",
+      "dublado"
+    ],
+    "moods": [
+      "intenso",
+      "eletrizante"
+    ],
+    "releaseYear": 2021,
+    "durationMinutes": 103,
+    "posterUrl": "https://img.youtube.com/vi/0-xWj5HQTFo/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/0-xWj5HQTFo/hqdefault.jpg",
+    "channelName": "Cinema Completo / YouTube",
+    "channelUrl": "https://www.youtube.com/watch?v=0-xWj5HQTFo",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 7.3,
+    "badge": "Filme em Destaque",
+    "featured": false,
+    "addedAt": "2026-10-10T11:54:06.471Z"
+  },
+  {
+    "id": "movie-VkMkvK-l0Zw",
+    "youtubeVideoId": "VkMkvK-l0Zw",
+    "title": "Terror no Dia das Bruxas",
+    "originalTitle": "Terror no Dia das Bruxas",
+    "synopsis": "Terror no Dia das Bruxas narra uma história emocionante e cheia de reviravoltas no gênero Terror, explorando conflitos intensos, coragem e superação em meio a cenários desafiadores e atuações marcantes.",
+    "genres": [
+      "Terror",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Sobrenatural",
+      "Slasher"
+    ],
+    "tags": [
+      "terror",
+      "suspense",
+      "sobrenatural",
+      "slasher",
+      "filme completo",
+      "cinema",
+      "dublado"
+    ],
+    "moods": [
+      "arrepiante",
+      "sombrio",
+      "tenso"
+    ],
+    "releaseYear": 2021,
+    "durationMinutes": 97,
+    "posterUrl": "https://img.youtube.com/vi/VkMkvK-l0Zw/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/VkMkvK-l0Zw/hqdefault.jpg",
+    "channelName": "Cinema Completo / YouTube",
+    "channelUrl": "https://www.youtube.com/watch?v=VkMkvK-l0Zw",
+    "contentRating": "16",
+    "language": "Dublado",
+    "ratingScore": 7.8,
+    "badge": "Terror & Mistério",
+    "featured": false,
+    "addedAt": "2026-10-10T11:54:06.588Z"
+  },
+  {
+    "id": "movie-Ehn85jkDW78",
+    "youtubeVideoId": "Ehn85jkDW78",
+    "title": "Sri Asih: A Deusa Guerreira",
+    "originalTitle": "Sri Asih: A Deusa Guerreira",
+    "synopsis": "Sri Asih: A Deusa Guerreira narra uma história emocionante e cheia de reviravoltas no gênero Ação, explorando conflitos intensos, coragem e superação em meio a cenários desafiadores e atuações marcantes.",
+    "genres": [
+      "Ação",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Ação"
+    ],
+    "tags": [
+      "ação",
+      "suspense",
+      "filme completo",
+      "cinema",
+      "dublado"
+    ],
+    "moods": [
+      "intenso",
+      "eletrizante"
+    ],
+    "releaseYear": 2021,
+    "durationMinutes": 101,
+    "posterUrl": "https://img.youtube.com/vi/Ehn85jkDW78/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/Ehn85jkDW78/hqdefault.jpg",
+    "channelName": "Cinema Completo / YouTube",
+    "channelUrl": "https://www.youtube.com/watch?v=Ehn85jkDW78",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 8.2,
+    "badge": "Filme em Destaque",
+    "featured": false,
+    "addedAt": "2026-10-10T11:54:06.701Z"
+  },
+  {
+    "id": "movie-a8OIgPeHRlo",
+    "youtubeVideoId": "a8OIgPeHRlo",
+    "title": "Uma Surpresa de Natal",
+    "originalTitle": "Uma Surpresa de Natal",
+    "synopsis": "Uma Surpresa de Natal narra uma história emocionante e cheia de reviravoltas no gênero Comédia, explorando conflitos intensos, coragem e superação em meio a cenários desafiadores e atuações marcantes.",
+    "genres": [
+      "Comédia",
+      "Família"
+    ],
+    "subgenres": [
+      "Humor",
+      "Divertido"
+    ],
+    "tags": [
+      "comédia",
+      "família",
+      "humor",
+      "divertido",
+      "filme completo",
+      "cinema",
+      "dublado"
+    ],
+    "moods": [
+      "divertido",
+      "leve",
+      "descontraído"
+    ],
+    "releaseYear": 2021,
+    "durationMinutes": 113,
+    "posterUrl": "https://img.youtube.com/vi/a8OIgPeHRlo/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/a8OIgPeHRlo/hqdefault.jpg",
+    "channelName": "Cinema Completo / YouTube",
+    "channelUrl": "https://www.youtube.com/watch?v=a8OIgPeHRlo",
+    "contentRating": "Livre",
+    "language": "Dublado",
+    "ratingScore": 7.9,
+    "badge": "Comédia & Diversão",
+    "featured": false,
+    "addedAt": "2026-10-10T11:54:06.821Z"
+  },
+  {
+    "id": "movie-TFagLq99KEc",
+    "youtubeVideoId": "TFagLq99KEc",
+    "title": "Operação Escorpião",
+    "originalTitle": "Operação Escorpião",
+    "synopsis": "Operação Escorpião narra uma história emocionante e cheia de reviravoltas no gênero Ação, explorando conflitos intensos, coragem e superação em meio a cenários desafiadores e atuações marcantes.",
+    "genres": [
+      "Ação",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Ação"
+    ],
+    "tags": [
+      "ação",
+      "suspense",
+      "filme completo",
+      "cinema",
+      "dublado"
+    ],
+    "moods": [
+      "intenso",
+      "eletrizante"
+    ],
+    "releaseYear": 2021,
+    "durationMinutes": 97,
+    "posterUrl": "https://img.youtube.com/vi/TFagLq99KEc/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/TFagLq99KEc/hqdefault.jpg",
+    "channelName": "Cinema Completo / YouTube",
+    "channelUrl": "https://www.youtube.com/watch?v=TFagLq99KEc",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 8.7,
+    "badge": "Filme em Destaque",
+    "featured": false,
+    "addedAt": "2026-10-10T11:54:06.935Z"
+  },
+  {
+    "id": "movie-2KY_K-mk0kw",
+    "youtubeVideoId": "2KY_K-mk0kw",
+    "title": "O Motorista",
+    "originalTitle": "O Motorista",
+    "synopsis": "O Motorista narra uma história emocionante e cheia de reviravoltas no gênero Terror, explorando conflitos intensos, coragem e superação em meio a cenários desafiadores e atuações marcantes.",
+    "genres": [
+      "Terror",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Sobrenatural",
+      "Slasher"
+    ],
+    "tags": [
+      "terror",
+      "suspense",
+      "sobrenatural",
+      "slasher",
+      "filme completo",
+      "cinema",
+      "dublado"
+    ],
+    "moods": [
+      "arrepiante",
+      "sombrio",
+      "tenso"
+    ],
+    "releaseYear": 2021,
+    "durationMinutes": 96,
+    "posterUrl": "https://img.youtube.com/vi/2KY_K-mk0kw/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/2KY_K-mk0kw/hqdefault.jpg",
+    "channelName": "Cinema Completo / YouTube",
+    "channelUrl": "https://www.youtube.com/watch?v=2KY_K-mk0kw",
+    "contentRating": "16",
+    "language": "Dublado",
+    "ratingScore": 7.3,
+    "badge": "Terror & Mistério",
+    "featured": false,
+    "addedAt": "2026-10-10T11:54:07.049Z"
+  },
+  {
+    "id": "movie-eMtcrIlzcrA",
+    "youtubeVideoId": "eMtcrIlzcrA",
+    "title": "Viver, Amar e Aprender",
+    "originalTitle": "Viver, Amar e Aprender",
+    "synopsis": "Viver, Amar e Aprender narra uma história emocionante e cheia de reviravoltas no gênero Comédia, explorando conflitos intensos, coragem e superação em meio a cenários desafiadores e atuações marcantes.",
+    "genres": [
+      "Comédia",
+      "Família"
+    ],
+    "subgenres": [
+      "Humor",
+      "Divertido"
+    ],
+    "tags": [
+      "comédia",
+      "família",
+      "humor",
+      "divertido",
+      "filme completo",
+      "cinema",
+      "dublado"
+    ],
+    "moods": [
+      "divertido",
+      "leve",
+      "descontraído"
+    ],
+    "releaseYear": 2021,
+    "durationMinutes": 108,
+    "posterUrl": "https://img.youtube.com/vi/eMtcrIlzcrA/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/eMtcrIlzcrA/hqdefault.jpg",
+    "channelName": "Cinema Completo / YouTube",
+    "channelUrl": "https://www.youtube.com/watch?v=eMtcrIlzcrA",
+    "contentRating": "Livre",
+    "language": "Dublado",
+    "ratingScore": 7.8,
+    "badge": "Comédia & Diversão",
+    "featured": false,
+    "addedAt": "2026-10-10T11:54:07.172Z"
+  },
+  {
+    "id": "movie-Ib9E9ke0RSE",
+    "youtubeVideoId": "Ib9E9ke0RSE",
+    "title": "Caos",
+    "originalTitle": "Caos",
+    "synopsis": "Caos narra uma história emocionante e cheia de reviravoltas no gênero Ação, explorando conflitos intensos, coragem e superação em meio a cenários desafiadores e atuações marcantes.",
+    "genres": [
+      "Ação",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Ação"
+    ],
+    "tags": [
+      "ação",
+      "suspense",
+      "filme completo",
+      "cinema",
+      "dublado"
+    ],
+    "moods": [
+      "intenso",
+      "eletrizante"
+    ],
+    "releaseYear": 2021,
+    "durationMinutes": 101,
+    "posterUrl": "https://img.youtube.com/vi/Ib9E9ke0RSE/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/Ib9E9ke0RSE/hqdefault.jpg",
+    "channelName": "Cinema Completo / YouTube",
+    "channelUrl": "https://www.youtube.com/watch?v=Ib9E9ke0RSE",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 7.4,
+    "badge": "Filme em Destaque",
+    "featured": false,
+    "addedAt": "2026-10-10T11:54:07.280Z"
+  },
+  {
+    "id": "movie-WVphsrUhTXg",
+    "youtubeVideoId": "WVphsrUhTXg",
+    "title": "O Observador",
+    "originalTitle": "O Observador",
+    "synopsis": "O Observador narra uma história emocionante e cheia de reviravoltas no gênero Ação, explorando conflitos intensos, coragem e superação em meio a cenários desafiadores e atuações marcantes.",
+    "genres": [
+      "Ação",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Ação"
+    ],
+    "tags": [
+      "ação",
+      "suspense",
+      "filme completo",
+      "cinema",
+      "dublado"
+    ],
+    "moods": [
+      "intenso",
+      "eletrizante"
+    ],
+    "releaseYear": 2021,
+    "durationMinutes": 101,
+    "posterUrl": "https://img.youtube.com/vi/WVphsrUhTXg/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/WVphsrUhTXg/hqdefault.jpg",
+    "channelName": "Cinema Completo / YouTube",
+    "channelUrl": "https://www.youtube.com/watch?v=WVphsrUhTXg",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 7.8,
+    "badge": "Filme em Destaque",
+    "featured": false,
+    "addedAt": "2026-10-10T11:54:07.409Z"
+  },
+  {
+    "id": "movie-COwe72DpMyU",
+    "youtubeVideoId": "COwe72DpMyU",
+    "title": "Dia de Treinamento (Denzel Washington)",
+    "originalTitle": "Dia de Treinamento (Denzel Washington)",
+    "synopsis": "Em seu primeiro dia na divisão de narcóticos de Los Angeles, um policial novato é colocado sob a tutela de um detetive veterano cujos métodos agressivos e corruptos desafiam todos os limites éticos.",
+    "genres": [
+      "Ação",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Ação"
+    ],
+    "cast": [
+      "Denzel Washington"
+    ],
+    "tags": [
+      "ação",
+      "suspense",
+      "denzel washington",
+      "filme completo",
+      "cinema",
+      "dublado"
+    ],
+    "moods": [
+      "intenso",
+      "eletrizante"
+    ],
+    "releaseYear": 2021,
+    "durationMinutes": 106,
+    "posterUrl": "https://img.youtube.com/vi/COwe72DpMyU/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/COwe72DpMyU/hqdefault.jpg",
+    "channelName": "Cinema Completo / YouTube",
+    "channelUrl": "https://www.youtube.com/watch?v=COwe72DpMyU",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 8.7,
+    "badge": "Filme em Destaque",
+    "featured": false,
+    "addedAt": "2026-10-10T11:54:07.531Z"
+  },
+  {
+    "id": "movie-W8rqjTt0OxI",
+    "youtubeVideoId": "W8rqjTt0OxI",
+    "title": "Cidade de Mentiras (Johnny Depp / Forest Whitaker)",
+    "originalTitle": "Cidade de Mentiras (Johnny Depp / Forest Whitaker)",
+    "synopsis": "Um detetive aposentado e um jornalista investigativo unem forças para desvendar os mistérios e as conspirações não resolvidas em torno dos assassinatos dos lendários rappers Tupac Shakur e Notorious B.I.G.",
+    "genres": [
+      "Ação",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Ação"
+    ],
+    "cast": [
+      "Johnny Depp",
+      "Forest Whitaker"
+    ],
+    "tags": [
+      "ação",
+      "suspense",
+      "johnny depp",
+      "forest whitaker",
+      "filme completo",
+      "cinema",
+      "dublado"
+    ],
+    "moods": [
+      "intenso",
+      "eletrizante"
+    ],
+    "releaseYear": 2021,
+    "durationMinutes": 118,
+    "posterUrl": "https://img.youtube.com/vi/W8rqjTt0OxI/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/W8rqjTt0OxI/hqdefault.jpg",
+    "channelName": "Cinema Completo / YouTube",
+    "channelUrl": "https://www.youtube.com/watch?v=W8rqjTt0OxI",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 8,
+    "badge": "Filme em Destaque",
+    "featured": false,
+    "addedAt": "2026-10-10T11:54:07.646Z"
+  },
+  {
+    "id": "movie-jKF32VNqC0w",
+    "youtubeVideoId": "jKF32VNqC0w",
+    "title": "O Infiltrado",
+    "originalTitle": "O Infiltrado",
+    "synopsis": "O Infiltrado narra uma história emocionante e cheia de reviravoltas no gênero Ação, explorando conflitos intensos, coragem e superação em meio a cenários desafiadores e atuações marcantes.",
+    "genres": [
+      "Ação",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Ação"
+    ],
+    "tags": [
+      "ação",
+      "suspense",
+      "filme completo",
+      "cinema",
+      "dublado"
+    ],
+    "moods": [
+      "intenso",
+      "eletrizante"
+    ],
+    "releaseYear": 2021,
+    "durationMinutes": 107,
+    "posterUrl": "https://img.youtube.com/vi/jKF32VNqC0w/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/jKF32VNqC0w/hqdefault.jpg",
+    "channelName": "Cinema Completo / YouTube",
+    "channelUrl": "https://www.youtube.com/watch?v=jKF32VNqC0w",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 7.3,
+    "badge": "Filme em Destaque",
+    "featured": false,
+    "addedAt": "2026-10-10T11:54:07.771Z"
+  },
+  {
+    "id": "movie-c5MXsCUawe8",
+    "youtubeVideoId": "c5MXsCUawe8",
+    "title": "Rota de Fuga",
+    "originalTitle": "Rota de Fuga",
+    "synopsis": "O maior especialista do mundo em segurança estrutural é traído e trancado na prisão mais avançada e impenetrável já construída, precisando usar todo o seu intelecto para orquestrar uma fuga impossível.",
+    "genres": [
+      "Ação",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Ação"
+    ],
+    "tags": [
+      "ação",
+      "suspense",
+      "filme completo",
+      "cinema",
+      "dublado"
+    ],
+    "moods": [
+      "intenso",
+      "eletrizante"
+    ],
+    "releaseYear": 2013,
+    "durationMinutes": 96,
+    "posterUrl": "https://img.youtube.com/vi/c5MXsCUawe8/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/c5MXsCUawe8/hqdefault.jpg",
+    "channelName": "Cinema Completo / YouTube",
+    "channelUrl": "https://www.youtube.com/watch?v=c5MXsCUawe8",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 7.7,
+    "badge": "Filme em Destaque",
+    "featured": false,
+    "addedAt": "2026-10-10T11:54:07.886Z"
+  },
+  {
+    "id": "movie-5Tzy-q9aAZk",
+    "youtubeVideoId": "5Tzy-q9aAZk",
+    "title": "O Roubo (Ação 2022)",
+    "originalTitle": "O Roubo (Ação 2022)",
+    "synopsis": "O Roubo (Ação 2022) narra uma história emocionante e cheia de reviravoltas no gênero Ação, explorando conflitos intensos, coragem e superação em meio a cenários desafiadores e atuações marcantes.",
+    "genres": [
+      "Ação",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Ação"
+    ],
+    "tags": [
+      "ação",
+      "suspense",
+      "filme completo",
+      "cinema",
+      "dublado"
+    ],
+    "moods": [
+      "intenso",
+      "eletrizante"
+    ],
+    "releaseYear": 2022,
+    "durationMinutes": 100,
+    "posterUrl": "https://img.youtube.com/vi/5Tzy-q9aAZk/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/5Tzy-q9aAZk/hqdefault.jpg",
+    "channelName": "Cinema Completo / YouTube",
+    "channelUrl": "https://www.youtube.com/watch?v=5Tzy-q9aAZk",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 8.2,
+    "badge": "Filme em Destaque",
+    "featured": false,
+    "addedAt": "2026-10-10T11:54:08.018Z"
+  },
+  {
+    "id": "movie-ZbEYsxmr4vQ",
+    "youtubeVideoId": "ZbEYsxmr4vQ",
+    "title": "Lutador de Rua",
+    "originalTitle": "Lutador de Rua",
+    "synopsis": "Lutador de Rua narra uma história emocionante e cheia de reviravoltas no gênero Ação, explorando conflitos intensos, coragem e superação em meio a cenários desafiadores e atuações marcantes.",
+    "genres": [
+      "Ação",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Ação"
+    ],
+    "tags": [
+      "ação",
+      "suspense",
+      "filme completo",
+      "cinema",
+      "dublado"
+    ],
+    "moods": [
+      "intenso",
+      "eletrizante"
+    ],
+    "releaseYear": 2021,
+    "durationMinutes": 106,
+    "posterUrl": "https://img.youtube.com/vi/ZbEYsxmr4vQ/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/ZbEYsxmr4vQ/hqdefault.jpg",
+    "channelName": "Cinema Completo / YouTube",
+    "channelUrl": "https://www.youtube.com/watch?v=ZbEYsxmr4vQ",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 7.5,
+    "badge": "Filme em Destaque",
+    "featured": false,
+    "addedAt": "2026-10-10T11:54:08.138Z"
+  },
+  {
+    "id": "movie-OPqIBrTa5iQ",
+    "youtubeVideoId": "OPqIBrTa5iQ",
+    "title": "Operações Especiais (Steven Seagal)",
+    "originalTitle": "Operações Especiais (Steven Seagal)",
+    "synopsis": "Operações Especiais (Steven Seagal) narra uma história emocionante e cheia de reviravoltas no gênero Ação, explorando conflitos intensos, coragem e superação em meio a cenários desafiadores e atuações marcantes.",
+    "genres": [
+      "Ação",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Ação"
+    ],
+    "cast": [
+      "Steven Seagal"
+    ],
+    "tags": [
+      "ação",
+      "suspense",
+      "steven seagal",
+      "filme completo",
+      "cinema",
+      "dublado"
+    ],
+    "moods": [
+      "intenso",
+      "eletrizante"
+    ],
+    "releaseYear": 2021,
+    "durationMinutes": 95,
+    "posterUrl": "https://img.youtube.com/vi/OPqIBrTa5iQ/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/OPqIBrTa5iQ/hqdefault.jpg",
+    "channelName": "Cinema Completo / YouTube",
+    "channelUrl": "https://www.youtube.com/watch?v=OPqIBrTa5iQ",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 8.1,
+    "badge": "Filme em Destaque",
+    "featured": false,
+    "addedAt": "2026-10-10T11:54:08.258Z"
+  },
+  {
+    "id": "movie-_Ey_DJ9I6xs",
+    "youtubeVideoId": "_Ey_DJ9I6xs",
+    "title": "O Cobrador de Dívidas 2",
+    "originalTitle": "O Cobrador de Dívidas 2",
+    "synopsis": "O Cobrador de Dívidas 2 narra uma história emocionante e cheia de reviravoltas no gênero Ação, explorando conflitos intensos, coragem e superação em meio a cenários desafiadores e atuações marcantes.",
+    "genres": [
+      "Ação",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Ação"
+    ],
+    "tags": [
+      "ação",
+      "suspense",
+      "filme completo",
+      "cinema",
+      "dublado"
+    ],
+    "moods": [
+      "intenso",
+      "eletrizante"
+    ],
+    "releaseYear": 2021,
+    "durationMinutes": 105,
+    "posterUrl": "https://img.youtube.com/vi/_Ey_DJ9I6xs/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/_Ey_DJ9I6xs/hqdefault.jpg",
+    "channelName": "Cinema Completo / YouTube",
+    "channelUrl": "https://www.youtube.com/watch?v=_Ey_DJ9I6xs",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 8.4,
+    "badge": "Filme em Destaque",
+    "featured": false,
+    "addedAt": "2026-10-10T11:54:08.378Z"
+  },
+  {
+    "id": "movie-6JebCclDVus",
+    "youtubeVideoId": "6JebCclDVus",
+    "title": "Revólver (Jason Statham)",
+    "originalTitle": "Revólver (Jason Statham)",
+    "synopsis": "Um jogador compulsivo e estrategista sai da prisão após anos de isolamento dominando uma fórmula mental infalível, mas acaba envolvido em um jogo perigoso de poder contra o chefe do submundo.",
+    "genres": [
+      "Ação",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Ação"
+    ],
+    "cast": [
+      "Jason Statham"
+    ],
+    "tags": [
+      "ação",
+      "suspense",
+      "jason statham",
+      "filme completo",
+      "cinema",
+      "dublado"
+    ],
+    "moods": [
+      "intenso",
+      "eletrizante"
+    ],
+    "releaseYear": 2021,
+    "durationMinutes": 99,
+    "posterUrl": "https://img.youtube.com/vi/6JebCclDVus/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/6JebCclDVus/hqdefault.jpg",
+    "channelName": "Cinema Completo / YouTube",
+    "channelUrl": "https://www.youtube.com/watch?v=6JebCclDVus",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 7.9,
+    "badge": "Filme em Destaque",
+    "featured": false,
+    "addedAt": "2026-10-10T11:54:08.501Z"
+  },
+  {
+    "id": "movie-qiHMYSl1oxk",
+    "youtubeVideoId": "qiHMYSl1oxk",
+    "title": "Sob o Domínio do Sistema",
+    "originalTitle": "Sob o Domínio do Sistema",
+    "synopsis": "Sob o Domínio do Sistema narra uma história emocionante e cheia de reviravoltas no gênero Ação, explorando conflitos intensos, coragem e superação em meio a cenários desafiadores e atuações marcantes.",
+    "genres": [
+      "Ação",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Ação"
+    ],
+    "tags": [
+      "ação",
+      "suspense",
+      "filme completo",
+      "cinema",
+      "dublado"
+    ],
+    "moods": [
+      "intenso",
+      "eletrizante"
+    ],
+    "releaseYear": 2021,
+    "durationMinutes": 118,
+    "posterUrl": "https://img.youtube.com/vi/qiHMYSl1oxk/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/qiHMYSl1oxk/hqdefault.jpg",
+    "channelName": "Cinema Completo / YouTube",
+    "channelUrl": "https://www.youtube.com/watch?v=qiHMYSl1oxk",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 7,
+    "badge": "Filme em Destaque",
+    "featured": false,
+    "addedAt": "2026-10-10T11:54:08.619Z"
+  },
+  {
+    "id": "movie-ks1OvbDCgWI",
+    "youtubeVideoId": "ks1OvbDCgWI",
+    "title": "Vingança Sem Piedade",
+    "originalTitle": "Vingança Sem Piedade",
+    "synopsis": "Vingança Sem Piedade narra uma história emocionante e cheia de reviravoltas no gênero Ação, explorando conflitos intensos, coragem e superação em meio a cenários desafiadores e atuações marcantes.",
+    "genres": [
+      "Ação",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Ação"
+    ],
+    "tags": [
+      "ação",
+      "suspense",
+      "filme completo",
+      "cinema",
+      "dublado"
+    ],
+    "moods": [
+      "intenso",
+      "eletrizante"
+    ],
+    "releaseYear": 2021,
+    "durationMinutes": 101,
+    "posterUrl": "https://img.youtube.com/vi/ks1OvbDCgWI/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/ks1OvbDCgWI/hqdefault.jpg",
+    "channelName": "Cinema Completo / YouTube",
+    "channelUrl": "https://www.youtube.com/watch?v=ks1OvbDCgWI",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 7.9,
+    "badge": "Filme em Destaque",
+    "featured": false,
+    "addedAt": "2026-10-10T11:54:08.731Z"
+  },
+  {
+    "id": "movie-awWfq8c3MR8",
+    "youtubeVideoId": "awWfq8c3MR8",
+    "title": "O Lago do Silêncio (Brian Cox)",
+    "originalTitle": "O Lago do Silêncio (Brian Cox)",
+    "synopsis": "O Lago do Silêncio (Brian Cox) narra uma história emocionante e cheia de reviravoltas no gênero Ação, explorando conflitos intensos, coragem e superação em meio a cenários desafiadores e atuações marcantes.",
+    "genres": [
+      "Ação",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Ação"
+    ],
+    "cast": [
+      "Brian Cox"
+    ],
+    "tags": [
+      "ação",
+      "suspense",
+      "brian cox",
+      "filme completo",
+      "cinema",
+      "dublado"
+    ],
+    "moods": [
+      "intenso",
+      "eletrizante"
+    ],
+    "releaseYear": 2021,
+    "durationMinutes": 111,
+    "posterUrl": "https://img.youtube.com/vi/awWfq8c3MR8/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/awWfq8c3MR8/hqdefault.jpg",
+    "channelName": "Cinema Completo / YouTube",
+    "channelUrl": "https://www.youtube.com/watch?v=awWfq8c3MR8",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 8.5,
+    "badge": "Filme em Destaque",
+    "featured": false,
+    "addedAt": "2026-10-10T11:54:08.869Z"
+  },
+  {
+    "id": "movie-nGjQw22bz2k",
+    "youtubeVideoId": "nGjQw22bz2k",
+    "title": "O Enigma do Portal",
+    "originalTitle": "O Enigma do Portal",
+    "synopsis": "O Enigma do Portal narra uma história emocionante e cheia de reviravoltas no gênero Ação, explorando conflitos intensos, coragem e superação em meio a cenários desafiadores e atuações marcantes.",
+    "genres": [
+      "Ação",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Ação"
+    ],
+    "cast": [
+      "Edição Especial"
+    ],
+    "tags": [
+      "ação",
+      "suspense",
+      "edição especial",
+      "filme completo",
+      "cinema",
+      "dublado"
+    ],
+    "moods": [
+      "intenso",
+      "eletrizante"
+    ],
+    "releaseYear": 2021,
+    "durationMinutes": 97,
+    "posterUrl": "https://img.youtube.com/vi/nGjQw22bz2k/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/nGjQw22bz2k/hqdefault.jpg",
+    "channelName": "Cinema Completo / YouTube",
+    "channelUrl": "https://www.youtube.com/watch?v=nGjQw22bz2k",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 7.9,
+    "badge": "Filme em Destaque",
+    "featured": false,
+    "addedAt": "2026-10-10T11:54:08.986Z"
+  },
+  {
+    "id": "movie-lx50ml-LCwM",
+    "youtubeVideoId": "lx50ml-LCwM",
+    "title": "O Resgate Fatal",
+    "originalTitle": "O Resgate Fatal",
+    "synopsis": "O Resgate Fatal narra uma história emocionante e cheia de reviravoltas no gênero Ação, explorando conflitos intensos, coragem e superação em meio a cenários desafiadores e atuações marcantes.",
+    "genres": [
+      "Ação",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Ação"
+    ],
+    "tags": [
+      "ação",
+      "suspense",
+      "filme completo",
+      "cinema",
+      "dublado"
+    ],
+    "moods": [
+      "intenso",
+      "eletrizante"
+    ],
+    "releaseYear": 2021,
+    "durationMinutes": 107,
+    "posterUrl": "https://img.youtube.com/vi/lx50ml-LCwM/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/lx50ml-LCwM/hqdefault.jpg",
+    "channelName": "Cinema Completo / YouTube",
+    "channelUrl": "https://www.youtube.com/watch?v=lx50ml-LCwM",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 7.3,
+    "badge": "Filme em Destaque",
+    "featured": false,
+    "addedAt": "2026-10-10T11:54:09.108Z"
+  },
+  {
+    "id": "movie-rHc5VJKFahA",
+    "youtubeVideoId": "rHc5VJKFahA",
+    "title": "Traído: Vingança Brutal",
+    "originalTitle": "Traído: Vingança Brutal",
+    "synopsis": "Traído: Vingança Brutal narra uma história emocionante e cheia de reviravoltas no gênero Ação, explorando conflitos intensos, coragem e superação em meio a cenários desafiadores e atuações marcantes.",
+    "genres": [
+      "Ação",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Ação"
+    ],
+    "tags": [
+      "ação",
+      "suspense",
+      "filme completo",
+      "cinema",
+      "dublado"
+    ],
+    "moods": [
+      "intenso",
+      "eletrizante"
+    ],
+    "releaseYear": 2021,
+    "durationMinutes": 107,
+    "posterUrl": "https://img.youtube.com/vi/rHc5VJKFahA/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/rHc5VJKFahA/hqdefault.jpg",
+    "channelName": "Cinema Completo / YouTube",
+    "channelUrl": "https://www.youtube.com/watch?v=rHc5VJKFahA",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 7.5,
+    "badge": "Filme em Destaque",
+    "featured": false,
+    "addedAt": "2026-10-10T11:54:09.220Z"
+  },
+  {
+    "id": "movie-7-dnu6n8g9U",
+    "youtubeVideoId": "7-dnu6n8g9U",
+    "title": "Cidade Sem Lei",
+    "originalTitle": "Cidade Sem Lei",
+    "synopsis": "Cidade Sem Lei narra uma história emocionante e cheia de reviravoltas no gênero Ação, explorando conflitos intensos, coragem e superação em meio a cenários desafiadores e atuações marcantes.",
+    "genres": [
+      "Ação",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Ação"
+    ],
+    "tags": [
+      "ação",
+      "suspense",
+      "filme completo",
+      "cinema",
+      "dublado"
+    ],
+    "moods": [
+      "intenso",
+      "eletrizante"
+    ],
+    "releaseYear": 2021,
+    "durationMinutes": 118,
+    "posterUrl": "https://img.youtube.com/vi/7-dnu6n8g9U/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/7-dnu6n8g9U/hqdefault.jpg",
+    "channelName": "Cinema Completo / YouTube",
+    "channelUrl": "https://www.youtube.com/watch?v=7-dnu6n8g9U",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 7.4,
+    "badge": "Filme em Destaque",
+    "featured": false,
+    "addedAt": "2026-10-10T11:54:09.340Z"
+  },
+  {
+    "id": "movie-Z0qHk1Yt0b4",
+    "youtubeVideoId": "Z0qHk1Yt0b4",
+    "title": "Resgate Mortal (Steven Seagal)",
+    "originalTitle": "Resgate Mortal (Steven Seagal)",
+    "synopsis": "Resgate Mortal (Steven Seagal) narra uma história emocionante e cheia de reviravoltas no gênero Ação, explorando conflitos intensos, coragem e superação em meio a cenários desafiadores e atuações marcantes.",
+    "genres": [
+      "Ação",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Ação"
+    ],
+    "cast": [
+      "Steven Seagal"
+    ],
+    "tags": [
+      "ação",
+      "suspense",
+      "steven seagal",
+      "filme completo",
+      "cinema",
+      "dublado"
+    ],
+    "moods": [
+      "intenso",
+      "eletrizante"
+    ],
+    "releaseYear": 2021,
+    "durationMinutes": 98,
+    "posterUrl": "https://img.youtube.com/vi/Z0qHk1Yt0b4/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/Z0qHk1Yt0b4/hqdefault.jpg",
+    "channelName": "Cinema Completo / YouTube",
+    "channelUrl": "https://www.youtube.com/watch?v=Z0qHk1Yt0b4",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 8.5,
+    "badge": "Filme em Destaque",
+    "featured": false,
+    "addedAt": "2026-10-10T11:54:09.452Z"
+  },
+  {
+    "id": "movie-kL4vM0tR9eY",
+    "youtubeVideoId": "kL4vM0tR9eY",
+    "title": "O Último Combate dos Dragões",
+    "originalTitle": "O Último Combate dos Dragões",
+    "synopsis": "O Último Combate dos Dragões narra uma história emocionante e cheia de reviravoltas no gênero Ação, explorando conflitos intensos, coragem e superação em meio a cenários desafiadores e atuações marcantes.",
+    "genres": [
+      "Ação",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Ação"
+    ],
+    "tags": [
+      "ação",
+      "suspense",
+      "filme completo",
+      "cinema",
+      "dublado"
+    ],
+    "moods": [
+      "intenso",
+      "eletrizante"
+    ],
+    "releaseYear": 2021,
+    "durationMinutes": 106,
+    "posterUrl": "https://img.youtube.com/vi/kL4vM0tR9eY/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/kL4vM0tR9eY/hqdefault.jpg",
+    "channelName": "Cinema Completo / YouTube",
+    "channelUrl": "https://www.youtube.com/watch?v=kL4vM0tR9eY",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 7,
+    "badge": "Filme em Destaque",
+    "featured": false,
+    "addedAt": "2026-10-10T11:54:09.575Z"
+  },
+  {
+    "id": "movie-X8tM0vK4p0Y",
+    "youtubeVideoId": "X8tM0vK4p0Y",
+    "title": "Fuga da Prisão de Segurança Máxima",
+    "originalTitle": "Fuga da Prisão de Segurança Máxima",
+    "synopsis": "Fuga da Prisão de Segurança Máxima narra uma história emocionante e cheia de reviravoltas no gênero Ação, explorando conflitos intensos, coragem e superação em meio a cenários desafiadores e atuações marcantes.",
+    "genres": [
+      "Ação",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Ação"
+    ],
+    "tags": [
+      "ação",
+      "suspense",
+      "filme completo",
+      "cinema",
+      "dublado"
+    ],
+    "moods": [
+      "intenso",
+      "eletrizante"
+    ],
+    "releaseYear": 2021,
+    "durationMinutes": 114,
+    "posterUrl": "https://img.youtube.com/vi/X8tM0vK4p0Y/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/X8tM0vK4p0Y/hqdefault.jpg",
+    "channelName": "Cinema Completo / YouTube",
+    "channelUrl": "https://www.youtube.com/watch?v=X8tM0vK4p0Y",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 7.2,
+    "badge": "Filme em Destaque",
+    "featured": false,
+    "addedAt": "2026-10-10T11:54:09.692Z"
+  },
+  {
+    "id": "movie-7mK8vT0pL0E",
+    "youtubeVideoId": "7mK8vT0pL0E",
+    "title": "A Vingança do Guerreiro Solitário",
+    "originalTitle": "A Vingança do Guerreiro Solitário",
+    "synopsis": "A Vingança do Guerreiro Solitário narra uma história emocionante e cheia de reviravoltas no gênero Ação, explorando conflitos intensos, coragem e superação em meio a cenários desafiadores e atuações marcantes.",
+    "genres": [
+      "Ação",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Ação"
+    ],
+    "tags": [
+      "ação",
+      "suspense",
+      "filme completo",
+      "cinema",
+      "dublado"
+    ],
+    "moods": [
+      "intenso",
+      "eletrizante"
+    ],
+    "releaseYear": 2021,
+    "durationMinutes": 116,
+    "posterUrl": "https://img.youtube.com/vi/7mK8vT0pL0E/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/7mK8vT0pL0E/hqdefault.jpg",
+    "channelName": "Cinema Completo / YouTube",
+    "channelUrl": "https://www.youtube.com/watch?v=7mK8vT0pL0E",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 8.5,
+    "badge": "Filme em Destaque",
+    "featured": false,
+    "addedAt": "2026-10-10T11:54:09.821Z"
+  },
+  {
+    "id": "movie-9kL0mT8vY0Y",
+    "youtubeVideoId": "9kL0mT8vY0Y",
+    "title": "Caminho de Sangue",
+    "originalTitle": "Caminho de Sangue",
+    "synopsis": "Caminho de Sangue narra uma história emocionante e cheia de reviravoltas no gênero Faroeste, explorando conflitos intensos, coragem e superação em meio a cenários desafiadores e atuações marcantes.",
+    "genres": [
+      "Faroeste",
+      "Ação"
+    ],
+    "subgenres": [
+      "Faroeste Clássico",
+      "Duelo"
+    ],
+    "tags": [
+      "faroeste",
+      "ação",
+      "faroeste clássico",
+      "duelo",
+      "filme completo",
+      "cinema",
+      "dublado"
+    ],
+    "moods": [
+      "tenso",
+      "emocionante",
+      "épico"
+    ],
+    "releaseYear": 2021,
+    "durationMinutes": 106,
+    "posterUrl": "https://img.youtube.com/vi/9kL0mT8vY0Y/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/9kL0mT8vY0Y/hqdefault.jpg",
+    "channelName": "Cinema Completo / YouTube",
+    "channelUrl": "https://www.youtube.com/watch?v=9kL0mT8vY0Y",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 7.6,
+    "badge": "Faroeste & Bang Bang",
+    "featured": false,
+    "addedAt": "2026-10-10T11:54:09.940Z"
+  },
+  {
+    "id": "movie-4tM8vR4kL0E",
+    "youtubeVideoId": "4tM8vR4kL0E",
+    "title": "Operação Falcão Negro",
+    "originalTitle": "Operação Falcão Negro",
+    "synopsis": "Operação Falcão Negro narra uma história emocionante e cheia de reviravoltas no gênero Guerra, explorando conflitos intensos, coragem e superação em meio a cenários desafiadores e atuações marcantes.",
+    "genres": [
+      "Guerra",
+      "Ação",
+      "Histórico"
+    ],
+    "subgenres": [
+      "Combate Militar"
+    ],
+    "tags": [
+      "guerra",
+      "ação",
+      "histórico",
+      "combate militar",
+      "filme completo",
+      "cinema",
+      "dublado"
+    ],
+    "moods": [
+      "épico",
+      "tenso",
+      "impactante"
+    ],
+    "releaseYear": 2021,
+    "durationMinutes": 112,
+    "posterUrl": "https://img.youtube.com/vi/4tM8vR4kL0E/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/4tM8vR4kL0E/hqdefault.jpg",
+    "channelName": "Cinema Completo / YouTube",
+    "channelUrl": "https://www.youtube.com/watch?v=4tM8vR4kL0E",
+    "contentRating": "16",
+    "language": "Dublado",
+    "ratingScore": 8.1,
+    "badge": "Ação Militar",
+    "featured": false,
+    "addedAt": "2026-10-10T11:54:10.057Z"
+  },
+  {
+    "id": "movie-8kM0vT6kL0Y",
+    "youtubeVideoId": "8kM0vT6kL0Y",
+    "title": "O Resgate da Noiva",
+    "originalTitle": "O Resgate da Noiva",
+    "synopsis": "O Resgate da Noiva narra uma história emocionante e cheia de reviravoltas no gênero Ação, explorando conflitos intensos, coragem e superação em meio a cenários desafiadores e atuações marcantes.",
+    "genres": [
+      "Ação",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Ação"
+    ],
+    "tags": [
+      "ação",
+      "suspense",
+      "filme completo",
+      "cinema",
+      "dublado"
+    ],
+    "moods": [
+      "intenso",
+      "eletrizante"
+    ],
+    "releaseYear": 2021,
+    "durationMinutes": 106,
+    "posterUrl": "https://img.youtube.com/vi/8kM0vT6kL0Y/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/8kM0vT6kL0Y/hqdefault.jpg",
+    "channelName": "Cinema Completo / YouTube",
+    "channelUrl": "https://www.youtube.com/watch?v=8kM0vT6kL0Y",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 7.2,
+    "badge": "Filme em Destaque",
+    "featured": false,
+    "addedAt": "2026-10-10T11:54:10.188Z"
+  },
+  {
+    "id": "movie-5tM8vL0kY0E",
+    "youtubeVideoId": "5tM8vL0kY0E",
+    "title": "No Limite do Perigo",
+    "originalTitle": "No Limite do Perigo",
+    "synopsis": "No Limite do Perigo narra uma história emocionante e cheia de reviravoltas no gênero Ação, explorando conflitos intensos, coragem e superação em meio a cenários desafiadores e atuações marcantes.",
+    "genres": [
+      "Ação",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Ação"
+    ],
+    "tags": [
+      "ação",
+      "suspense",
+      "filme completo",
+      "cinema",
+      "dublado"
+    ],
+    "moods": [
+      "intenso",
+      "eletrizante"
+    ],
+    "releaseYear": 2021,
+    "durationMinutes": 104,
+    "posterUrl": "https://img.youtube.com/vi/5tM8vL0kY0E/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/5tM8vL0kY0E/hqdefault.jpg",
+    "channelName": "Cinema Completo / YouTube",
+    "channelUrl": "https://www.youtube.com/watch?v=5tM8vL0kY0E",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 7.4,
+    "badge": "Filme em Destaque",
+    "featured": false,
+    "addedAt": "2026-10-10T11:54:10.298Z"
+  },
+  {
+    "id": "movie-6kL8vT0kM0Y",
+    "youtubeVideoId": "6kL8vT0kM0Y",
+    "title": "O Cerco dos Rebeldes",
+    "originalTitle": "O Cerco dos Rebeldes",
+    "synopsis": "O Cerco dos Rebeldes narra uma história emocionante e cheia de reviravoltas no gênero Ação, explorando conflitos intensos, coragem e superação em meio a cenários desafiadores e atuações marcantes.",
+    "genres": [
+      "Ação",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Ação"
+    ],
+    "tags": [
+      "ação",
+      "suspense",
+      "filme completo",
+      "cinema",
+      "dublado"
+    ],
+    "moods": [
+      "intenso",
+      "eletrizante"
+    ],
+    "releaseYear": 2021,
+    "durationMinutes": 113,
+    "posterUrl": "https://img.youtube.com/vi/6kL8vT0kM0Y/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/6kL8vT0kM0Y/hqdefault.jpg",
+    "channelName": "Cinema Completo / YouTube",
+    "channelUrl": "https://www.youtube.com/watch?v=6kL8vT0kM0Y",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 7.5,
+    "badge": "Filme em Destaque",
+    "featured": false,
+    "addedAt": "2026-10-10T11:54:10.413Z"
   }
 ];
