@@ -20,6 +20,7 @@ import type { Movie } from '../types/movie';
 import { userService } from '../services/userService';
 import { geminiCurationService } from '../services/geminiCurationService';
 import { playbackSessionService } from '../services/playbackSessionService';
+import { getMovieTips } from '../services/movieTipsService';
 
 interface YouTubePlayerModalProps {
   movie: Movie | null;
@@ -287,6 +288,36 @@ export const YouTubePlayerModal: React.FC<YouTubePlayerModalProps> = ({
               {movie.synopsis}
             </p>
           </div>
+
+          {/* Dica Cinéfila CAIC • Por que vale a pena assistir? */}
+          {(() => {
+            const tips = getMovieTips(movie);
+            return (
+              <div className="p-4 rounded-2xl bg-gradient-to-r from-amber-500/10 via-cyan-500/10 to-indigo-500/10 border border-amber-400/40 dark:border-amber-500/30 shadow-xs space-y-2">
+                <div className="flex flex-wrap items-center justify-between gap-2">
+                  <div className="flex items-center gap-1.5">
+                    <Sparkles className="w-4 h-4 text-amber-500" />
+                    <h4 className="text-xs font-black uppercase tracking-wider text-amber-700 dark:text-amber-300">
+                      Dica Cinéfila CAIC • Por que vale a pena assistir?
+                    </h4>
+                  </div>
+                  <div className="flex flex-wrap items-center gap-1.5">
+                    {tips.highlights.map((h, i) => (
+                      <span
+                        key={i}
+                        className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-200 border border-slate-200 dark:border-slate-700 shadow-xs"
+                      >
+                        {h.icon} {h.label}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+                <p className="text-xs text-slate-700 dark:text-slate-200 leading-relaxed font-medium">
+                  {tips.reason}
+                </p>
+              </div>
+            );
+          })()}
 
           {/* Tags & Genres */}
           <div className="flex flex-wrap gap-2 pt-1">

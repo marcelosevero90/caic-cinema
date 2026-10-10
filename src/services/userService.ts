@@ -6,21 +6,28 @@ const ACTIVE_PROFILE_ID_KEY = 'CAIC_ACTIVE_PROFILE_ID_V4';
 const ALL_ACCOUNTS_STORAGE_KEY = 'CAIC_ALL_ACCOUNTS_V4';
 
 export const AVATAR_PRESETS = [
-  { id: 'cine-1', label: 'Cinéfilo Vintage', url: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80' },
-  { id: 'cine-2', label: 'Diretor Criativo', url: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&q=80' },
-  { id: 'cine-3', label: 'Crítica de Cinema', url: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=150&q=80' },
-  { id: 'cine-4', label: 'Herói de Ação', url: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=150&q=80' },
-  { id: 'cine-5', label: 'Pipoca em Família', url: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=150&q=80' },
-  { id: 'cine-6', label: 'Artes Marciais', url: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=150&q=80' },
-  { id: 'cine-7', label: 'Ficção & Sci-Fi', url: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=150&q=80' },
-  { id: 'cine-8', label: 'Espião Moderno', url: 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=150&q=80' },
-  { id: 'cine-9', label: 'Cinema Retrô', url: 'https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?auto=format&fit=crop&w=150&q=80' },
-  { id: 'cine-10', label: 'Aventureiro Clássico', url: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=150&q=80' },
-  { id: 'cine-11', label: 'Animação & Kids', url: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=150&q=80' },
-  { id: 'cine-12', label: 'Produtor de Cinema', url: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=150&q=80' },
-  { id: 'cine-13', label: 'Suspense & Mistério', url: 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=150&q=80' },
-  { id: 'cine-14', label: 'Astro de Cinema', url: 'https://images.unsplash.com/photo-1501196354995-cbb51c65aaea?auto=format&fit=crop&w=150&q=80' },
+  { id: 'cine-1', label: 'Herói Animado', url: 'https://api.dicebear.com/9.x/adventurer/svg?seed=ShadowHero&backgroundColor=b6e3f4,c0aede,d1d4f9' },
+  { id: 'cine-2', label: 'Robô Cinéfilo', url: 'https://api.dicebear.com/9.x/bottts/svg?seed=CinemaBot&backgroundColor=ffd5dc,ffdfbf,d1d4f9' },
+  { id: 'cine-3', label: 'Maga Estelar', url: 'https://api.dicebear.com/9.x/adventurer/svg?seed=StarMage&backgroundColor=c0aede,ffd5dc' },
+  { id: 'cine-4', label: 'Cyborg Sci-Fi', url: 'https://api.dicebear.com/9.x/bottts/svg?seed=NexusCyborg&backgroundColor=b6e3f4,d1d4f9' },
+  { id: 'cine-5', label: 'Guerreira Fantasia', url: 'https://api.dicebear.com/9.x/adventurer/svg?seed=Valkyrie&backgroundColor=ffd5dc,c0aede' },
+  { id: 'cine-6', label: 'Droide Pipoca', url: 'https://api.dicebear.com/9.x/bottts/svg?seed=PopcornDroid&backgroundColor=ffdfbf,ffd5dc' },
+  { id: 'cine-7', label: 'Ninja Cósmico', url: 'https://api.dicebear.com/9.x/adventurer/svg?seed=CosmicNinja&backgroundColor=b6e3f4,c0aede' },
+  { id: 'cine-8', label: 'Detetive Toon', url: 'https://api.dicebear.com/9.x/adventurer/svg?seed=ToonSherlock&backgroundColor=ffdfbf,d1d4f9' },
+  { id: 'cine-9', label: 'Guardião Galáctico', url: 'https://api.dicebear.com/9.x/bottts/svg?seed=GalacticGuardian&backgroundColor=d1d4f9,b6e3f4' },
+  { id: 'cine-10', label: 'Aventureiro Épico', url: 'https://api.dicebear.com/9.x/adventurer/svg?seed=EpicExplorer&backgroundColor=ffd5dc,ffdfbf' },
+  { id: 'cine-11', label: 'Capitão Espacial', url: 'https://api.dicebear.com/9.x/adventurer/svg?seed=SpaceCaptain&backgroundColor=b6e3f4,ffd5dc' },
+  { id: 'cine-12', label: 'Androide IA', url: 'https://api.dicebear.com/9.x/bottts/svg?seed=GeminiAI&backgroundColor=c0aede,b6e3f4' },
+  { id: 'cine-13', label: 'Piloto Veloz', url: 'https://api.dicebear.com/9.x/adventurer/svg?seed=SkyAce&backgroundColor=ffdfbf,b6e3f4' },
+  { id: 'cine-14', label: 'Mestre da Animação', url: 'https://api.dicebear.com/9.x/adventurer/svg?seed=PixarStyle&backgroundColor=d1d4f9,ffd5dc' },
 ];
+
+export function normalizeAvatar(url?: string): string {
+  if (!url || url.includes('images.unsplash.com')) {
+    return AVATAR_PRESETS[0].url;
+  }
+  return url;
+}
 
 // Registros de demonstração removidos conforme solicitação do usuário para testes 100% limpos
 export const DEMO_ACCOUNTS: Array<{ account: UserAccount; profiles: UserProfile[] }> = [];
@@ -189,6 +196,16 @@ class UserService {
         ? storedActiveId
         : this.profiles[0]?.id || GUEST_PROFILE.id;
 
+      // Normaliza avatares antigos (substitui fotos reais por avatares animados)
+      if (this.currentAccount) {
+        this.currentAccount.avatar = normalizeAvatar(this.currentAccount.avatar);
+      }
+      this.profiles.forEach(p => {
+        p.avatar = normalizeAvatar(p.avatar);
+      });
+      this.allAccounts.forEach(a => {
+        a.avatar = normalizeAvatar(a.avatar);
+      });
     } catch {
       this.currentAccount = GUEST_ACCOUNT;
       this.profiles = [GUEST_PROFILE];
@@ -305,7 +322,8 @@ class UserService {
     email: string,
     _password?: string,
     planType: 'individual' | 'family' | 'monthly' | 'annual' = 'individual',
-    billingCycle: 'monthly' | 'annual' = 'monthly'
+    billingCycle: 'monthly' | 'annual' = 'monthly',
+    phone?: string
   ): { success: boolean; message: string } {
     const trimmedName = name.trim() || 'Usuário CAIC';
     const isFamily = planType === 'family' || planType === 'annual';
@@ -320,6 +338,7 @@ class UserService {
       id: `acc-${Date.now()}`,
       name: trimmedName,
       email: email.trim().toLowerCase(),
+      phone: phone?.trim() || undefined,
       plan: planName,
       subscriptionPlan: chosenPlan,
       billingCycle,
@@ -476,6 +495,12 @@ class UserService {
       }
       this.saveState();
     }
+  }
+
+  public updateAccountPhone(phone: string): void {
+    this.currentAccount.phone = phone.trim();
+    this.syncAccountIntoAllList(this.currentAccount);
+    this.saveState();
   }
 
   public getTrialDaysRemaining(): number {

@@ -94,6 +94,7 @@ export interface UserAccount {
   id: string;
   name: string;
   email: string;
+  phone?: string;
   plan: string;
   subscriptionPlan?: SubscriptionPlan;
   billingCycle?: BillingCycle;

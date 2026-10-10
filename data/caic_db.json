@@ -11,7 +11,7 @@
       "trialStartDate": "2026-10-09T20:49:24.792Z",
       "trialEndDate": "2026-10-16T20:49:24.793Z",
       "createdAt": "2026-10-09T20:49:24.793Z",
-      "avatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80",
+      "avatar": "https://api.dicebear.com/9.x/adventurer/svg?seed=ShadowHero&backgroundColor=b6e3f4,c0aede,d1d4f9",
       "isAuthenticated": false
     },
     {
@@ -37,7 +37,7 @@
         }
       ],
       "createdAt": "2026-10-09T21:17:53.310Z",
-      "avatar": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=150&q=80",
+      "avatar": "https://api.dicebear.com/9.x/bottts/svg?seed=CinemaBot&backgroundColor=ffd5dc,ffdfbf,d1d4f9",
       "isAuthenticated": true
     }
   ],

@@ -1400,6 +1400,7 @@ export const AdminDashboardView: React.FC<AdminDashboardProps> = ({
                                   <div>
                                     <p className="font-bold text-slate-900 dark:text-white">{acc.name}</p>
                                     <p className="text-[11px] text-slate-500">{acc.email}</p>
+                                    {acc.phone && <p className="text-[10px] text-cyan-600 dark:text-cyan-400 font-semibold">📱 {acc.phone}</p>}
                                   </div>
                                 </div>
                               </td>

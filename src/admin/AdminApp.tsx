@@ -1272,6 +1272,7 @@ export const AdminApp: React.FC = () => {
                             <div>
                               <p className="font-extrabold text-white text-xs">{acc.name}</p>
                               <p className="text-[11px] text-slate-400">{acc.email}</p>
+                              {acc.phone && <p className="text-[10px] text-cyan-400 font-semibold">📱 {acc.phone}</p>}
                               <span className="text-[9px] text-slate-500 block">
                                 Desde: {new Date(acc.createdAt).toLocaleDateString()}
                               </span>

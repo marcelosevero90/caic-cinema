@@ -25,7 +25,7 @@ import {
   Lock,
   Upload,
   Camera,
-  ExternalLink,
+  Phone,
 } from 'lucide-react';
 import { userService, AVATAR_PRESETS } from '../services/userService';
 import { catalogService } from '../services/catalogService';
@@ -86,13 +86,20 @@ const UserProfileModalContent: React.FC<UserProfileModalProps> = ({
   const [isRegistering, setIsRegistering] = useState(false);
   const [emailInput, setEmailInput] = useState('');
   const [passwordInput, setPasswordInput] = useState('');
+  const [confirmPasswordInput, setConfirmPasswordInput] = useState('');
+  const [phoneInput, setPhoneInput] = useState('');
   const [nameInput, setNameInput] = useState('');
   const [authMessage, setAuthMessage] = useState<string | null>(null);
 
   // Estados de Verificação de Token de E-mail
   const [isVerifyingEmail, setIsVerifyingEmail] = useState(false);
   const [verificationSandboxCode, setVerificationSandboxCode] = useState<string | undefined>();
-  const [pendingRegisterData, setPendingRegisterData] = useState<{ name: string; email: string; password?: string } | null>(null);
+  const [pendingRegisterData, setPendingRegisterData] = useState<{
+    name: string;
+    email: string;
+    password?: string;
+    phone?: string;
+  } | null>(null);
 
   // Form states para criação de perfil
   const [newProfileName, setNewProfileName] = useState('');
@@ -207,9 +214,29 @@ const UserProfileModalContent: React.FC<UserProfileModalProps> = ({
       e.preventDefault();
       e.stopPropagation();
     }
-    if (!emailInput.trim()) return;
+    if (!emailInput.trim()) {
+      setAuthMessage('Por favor, informe seu endereço de e-mail.');
+      return;
+    }
 
     if (isRegistering) {
+      if (!nameInput.trim()) {
+        setAuthMessage('Por favor, informe seu nome completo.');
+        return;
+      }
+      if (!phoneInput.trim() || phoneInput.replace(/\D/g, '').length < 10) {
+        setAuthMessage('Por favor, informe um número de telefone/WhatsApp válido com DDD.');
+        return;
+      }
+      if (!passwordInput || passwordInput.length < 4) {
+        setAuthMessage('A senha deve conter no mínimo 4 caracteres.');
+        return;
+      }
+      if (passwordInput !== confirmPasswordInput) {
+        setAuthMessage('As senhas digitadas não coincidem. Por favor, confirme a senha corretamente.');
+        return;
+      }
+
       // Solicita envio do token de validação de 6 dígitos para o e-mail
       setAuthMessage('Enviando código de verificação para o seu e-mail...');
       try {
@@ -220,6 +247,7 @@ const UserProfileModalContent: React.FC<UserProfileModalProps> = ({
           name: nameInput.trim() || 'Novo Assinante',
           email: emailInput.trim(),
           password: passwordInput,
+          phone: phoneInput.trim(),
         });
         setIsVerifyingEmail(true);
       } catch (err: any) {
@@ -234,6 +262,8 @@ const UserProfileModalContent: React.FC<UserProfileModalProps> = ({
     if (res.success) {
       setEmailInput('');
       setPasswordInput('');
+      setConfirmPasswordInput('');
+      setPhoneInput('');
       setNameInput('');
       refreshState();
       setTimeout(() => {
@@ -249,11 +279,16 @@ const UserProfileModalContent: React.FC<UserProfileModalProps> = ({
       const res = userService.register(
         pendingRegisterData.name,
         pendingRegisterData.email,
-        pendingRegisterData.password
+        pendingRegisterData.password,
+        'individual',
+        'monthly',
+        pendingRegisterData.phone
       );
       setAuthMessage(res.message);
       setEmailInput('');
       setPasswordInput('');
+      setConfirmPasswordInput('');
+      setPhoneInput('');
       setNameInput('');
       setPendingRegisterData(null);
       refreshState();
@@ -529,6 +564,12 @@ const UserProfileModalContent: React.FC<UserProfileModalProps> = ({
                           </span>
                         </div>
                         <p className="text-xs text-slate-600 dark:text-slate-400">{currentAccount?.email || ''}</p>
+                        {currentAccount?.phone && (
+                          <div className="flex items-center gap-1.5 mt-0.5 text-[11px] text-slate-500">
+                            <Phone className="w-3 h-3 text-cyan-500" />
+                            <span>WhatsApp: <strong>{currentAccount.phone}</strong></span>
+                          </div>
+                        )}
                         <div className="flex items-center gap-2 mt-1 text-[11px] text-slate-500">
                           <CreditCard className="w-3.5 h-3.5 text-cyan-500" />
                           <span>Plano: <strong>{currentAccount?.plan || 'CAIC'}</strong></span>
@@ -544,19 +585,7 @@ const UserProfileModalContent: React.FC<UserProfileModalProps> = ({
                       </div>
                     </div>
 
-                    <div className="flex flex-col sm:flex-row items-center gap-2">
-                      <a
-                        href="http://localhost:5174"
-                        target="_blank"
-                        rel="noreferrer"
-                        className="w-full sm:w-auto px-3.5 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 font-bold text-xs flex items-center justify-center gap-2 transition"
-                        title="Acessar o Painel Administrativo dedicado na porta 5174"
-                      >
-                        <Shield className="w-4 h-4 text-indigo-500" />
-                        <span>Área Administrativa (Porta 5174)</span>
-                        <ExternalLink className="w-3.5 h-3.5 text-slate-400" />
-                      </a>
-
+                    <div className="flex items-center gap-2">
                       <button
                         onClick={handleLogout}
                         className="w-full sm:w-auto px-4 py-2.5 rounded-xl bg-rose-50 hover:bg-rose-100 dark:bg-rose-950/40 dark:hover:bg-rose-900/40 text-rose-600 dark:text-rose-300 border border-rose-200 dark:border-rose-800/60 font-bold text-xs flex items-center justify-center gap-2 transition"
@@ -664,17 +693,47 @@ const UserProfileModalContent: React.FC<UserProfileModalProps> = ({
                     className="space-y-3.5 max-w-md mx-auto"
                   >
                     {isRegistering && (
-                      <div>
-                        <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Seu Nome</label>
-                        <input
-                          type="text"
-                          value={nameInput}
-                          onChange={(e) => setNameInput(e.target.value)}
-                          placeholder="Ex: João da Silva"
-                          required
-                          className="w-full px-3.5 py-2.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl text-xs text-slate-900 dark:text-white focus:outline-none focus:border-cyan-500"
-                        />
-                      </div>
+                      <>
+                        <div>
+                          <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1 flex items-center gap-1.5">
+                            <User className="w-3.5 h-3.5 text-cyan-500" />
+                            <span>Seu Nome Completo</span>
+                          </label>
+                          <input
+                            type="text"
+                            value={nameInput}
+                            onChange={(e) => setNameInput(e.target.value)}
+                            placeholder="Ex: João da Silva"
+                            required
+                            className="w-full px-3.5 py-2.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl text-xs text-slate-900 dark:text-white focus:outline-none focus:border-cyan-500"
+                          />
+                        </div>
+
+                        <div>
+                          <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1 flex items-center gap-1.5">
+                            <Phone className="w-3.5 h-3.5 text-cyan-500" />
+                            <span>Telefone / WhatsApp</span>
+                          </label>
+                          <input
+                            type="tel"
+                            value={phoneInput}
+                            onChange={(e) => {
+                              let val = e.target.value.replace(/\D/g, '').slice(0, 11);
+                              if (val.length > 6) {
+                                val = `(${val.slice(0, 2)}) ${val.slice(2, 7)}-${val.slice(7)}`;
+                              } else if (val.length > 2) {
+                                val = `(${val.slice(0, 2)}) ${val.slice(2)}`;
+                              } else if (val.length > 0) {
+                                val = `(${val}`;
+                              }
+                              setPhoneInput(val);
+                            }}
+                            placeholder="(00) 00000-0000"
+                            required
+                            className="w-full px-3.5 py-2.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl text-xs text-slate-900 dark:text-white focus:outline-none focus:border-cyan-500"
+                          />
+                        </div>
+                      </>
                     )}
 
                     <div>
@@ -696,9 +755,35 @@ const UserProfileModalContent: React.FC<UserProfileModalProps> = ({
                         value={passwordInput}
                         onChange={(e) => setPasswordInput(e.target.value)}
                         placeholder="••••••••"
+                        required
                         className="w-full px-3.5 py-2.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl text-xs text-slate-900 dark:text-white focus:outline-none focus:border-cyan-500"
                       />
                     </div>
+
+                    {isRegistering && (
+                      <div>
+                        <div className="flex items-center justify-between mb-1">
+                          <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300">Confirmar Senha</label>
+                          {passwordInput && confirmPasswordInput && (
+                            <span className={`text-[10px] font-bold ${passwordInput === confirmPasswordInput ? 'text-emerald-500' : 'text-rose-500'}`}>
+                              {passwordInput === confirmPasswordInput ? '✓ Senhas conferem' : '✗ Senhas diferentes'}
+                            </span>
+                          )}
+                        </div>
+                        <input
+                          type="password"
+                          value={confirmPasswordInput}
+                          onChange={(e) => setConfirmPasswordInput(e.target.value)}
+                          placeholder="Repita a mesma senha"
+                          required
+                          className={`w-full px-3.5 py-2.5 bg-slate-50 dark:bg-slate-950 border rounded-xl text-xs text-slate-900 dark:text-white focus:outline-none ${
+                            confirmPasswordInput && passwordInput !== confirmPasswordInput
+                              ? 'border-rose-500 focus:border-rose-500'
+                              : 'border-slate-200 dark:border-slate-800 focus:border-cyan-500'
+                          }`}
+                        />
+                      </div>
+                    )}
 
                     <button
                       type="button"
