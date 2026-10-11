@@ -28383,5 +28383,2422 @@ export const INITIAL_CATALOG: Movie[] = [
     "badge": "Filme em Destaque",
     "featured": false,
     "addedAt": "2026-10-10T11:54:10.413Z"
+  },
+  {
+    "id": "movie-FDNdCDT0Ssc",
+    "youtubeVideoId": "FDNdCDT0Ssc",
+    "title": "Soldado Universal 3: Regeneração",
+    "originalTitle": "Universal Soldier: Regeneration",
+    "synopsis": "Terroristas tomam o controle da usina nuclear de Chernobyl com a ajuda de um Soldado Universal de última geração. O veterano Luc Deveraux é reativado para combater a ameaça e enfrentar seu antigo arqui-inimigo.",
+    "genres": [
+      "Ação",
+      "Ficção Científica",
+      "Suspense"
+    ],
+    "tags": [
+      "jean-claude van damme",
+      "dolph lundgren",
+      "soldado universal",
+      "luta",
+      "tiroteio",
+      "artes marciais",
+      "chernobyl"
+    ],
+    "moods": [
+      "adrenalina",
+      "intenso",
+      "explosivo"
+    ],
+    "releaseYear": 2009,
+    "durationMinutes": 97,
+    "posterUrl": "https://img.youtube.com/vi/FDNdCDT0Ssc/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/FDNdCDT0Ssc/hqdefault.jpg",
+    "channelName": "Swen Filmes",
+    "channelUrl": "https://www.youtube.com/watch?v=FDNdCDT0Ssc",
+    "contentRating": "16",
+    "language": "Dublado",
+    "featured": false,
+    "ratingScore": 7.8,
+    "badge": "Van Damme & Lundgren",
+    "addedAt": "2026-10-11T12:00:00.000Z"
+  },
+  {
+    "id": "movie-aaxm4sagXX4",
+    "youtubeVideoId": "aaxm4sagXX4",
+    "title": "Agentes Duplos",
+    "originalTitle": "Final Score",
+    "synopsis": "Durante uma semifinal de futebol com 35 mil torcedores em um estádio lotado, um ex-militar precisa usar todas as suas habilidades letais para salvar reféns e impedir um ataque terrorista em larga escala.",
+    "genres": [
+      "Ação",
+      "Suspense",
+      "Policial"
+    ],
+    "tags": [
+      "tiroteio",
+      "estadio",
+      "terrorismo",
+      "combate",
+      "adrenalina",
+      "resgate"
+    ],
+    "moods": [
+      "adrenalina",
+      "tenso",
+      "explosivo"
+    ],
+    "releaseYear": 2018,
+    "durationMinutes": 95,
+    "posterUrl": "https://img.youtube.com/vi/aaxm4sagXX4/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/aaxm4sagXX4/hqdefault.jpg",
+    "channelName": "Swen Filmes",
+    "channelUrl": "https://www.youtube.com/watch?v=aaxm4sagXX4",
+    "contentRating": "16",
+    "language": "Dublado",
+    "featured": false,
+    "ratingScore": 7.2,
+    "badge": "Ação Explosiva",
+    "addedAt": "2026-10-11T12:00:00.000Z"
+  },
+  {
+    "id": "movie-sI2Fdvu5bwY",
+    "youtubeVideoId": "sI2Fdvu5bwY",
+    "title": "End Game: Roubo de Identidade",
+    "originalTitle": "End Game",
+    "synopsis": "Um agente secreto e uma jornalista investigativa se unem para desvendar uma intrincada conspiração de espionagem e cibersegurança após o misterioso assassinato do presidente dos Estados Unidos.",
+    "genres": [
+      "Suspense",
+      "Ação",
+      "Policial"
+    ],
+    "tags": [
+      "conspiração",
+      "hacker",
+      "segurança nacional",
+      "investigação",
+      "presidente"
+    ],
+    "moods": [
+      "tenso",
+      "intrigante",
+      "adrenalina"
+    ],
+    "releaseYear": 2006,
+    "durationMinutes": 95,
+    "posterUrl": "https://img.youtube.com/vi/sI2Fdvu5bwY/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/sI2Fdvu5bwY/hqdefault.jpg",
+    "channelName": "Swen Filmes",
+    "channelUrl": "https://www.youtube.com/watch?v=sI2Fdvu5bwY",
+    "contentRating": "14",
+    "language": "Dublado",
+    "featured": false,
+    "ratingScore": 7.1,
+    "badge": "Suspense Político",
+    "addedAt": "2026-10-11T12:00:00.000Z"
+  },
+  {
+    "id": "movie-cq_uHhHvR_w",
+    "youtubeVideoId": "cq_uHhHvR_w",
+    "title": "Você Vai Conhecer o Homem dos Seus Sonhos",
+    "originalTitle": "You Will Meet a Tall Dark Stranger",
+    "synopsis": "Dois casais lidam com desilusões no amor, ambições reprimidas e a obsessão por uma cartomante em Londres, desencadeando situações cômicas e revelações inesperadas sobre o destino.",
+    "genres": [
+      "Comédia",
+      "Romance",
+      "Drama"
+    ],
+    "tags": [
+      "woody allen",
+      "londres",
+      "relacionamentos",
+      "comédia inteligente",
+      "destino"
+    ],
+    "moods": [
+      "divertido",
+      "espirituoso",
+      "leve"
+    ],
+    "releaseYear": 2010,
+    "durationMinutes": 98,
+    "posterUrl": "https://img.youtube.com/vi/cq_uHhHvR_w/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/cq_uHhHvR_w/hqdefault.jpg",
+    "channelName": "Swen Filmes",
+    "channelUrl": "https://www.youtube.com/watch?v=cq_uHhHvR_w",
+    "contentRating": "12",
+    "language": "Dublado",
+    "featured": false,
+    "ratingScore": 7.5,
+    "badge": "Comédia Sofisticada",
+    "addedAt": "2026-10-11T12:00:00.000Z"
+  },
+  {
+    "id": "movie-EfXkBV0x4mc",
+    "youtubeVideoId": "EfXkBV0x4mc",
+    "title": "Rei Lear",
+    "originalTitle": "King Lear",
+    "synopsis": "Adaptação contemporânea e visceral da tragédia de William Shakespeare. Um monarca idoso e autoritário decide dividir seu reino entre as três filhas de acordo com suas declarações de amor filial.",
+    "genres": [
+      "Drama",
+      "Histórico"
+    ],
+    "tags": [
+      "shakespeare",
+      "realeza",
+      "poder",
+      "traição",
+      "atuação magistral"
+    ],
+    "moods": [
+      "dramático",
+      "profundo",
+      "intenso"
+    ],
+    "releaseYear": 2018,
+    "durationMinutes": 115,
+    "posterUrl": "https://img.youtube.com/vi/EfXkBV0x4mc/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/EfXkBV0x4mc/hqdefault.jpg",
+    "channelName": "Swen Filmes",
+    "channelUrl": "https://www.youtube.com/watch?v=EfXkBV0x4mc",
+    "contentRating": "14",
+    "language": "Dublado",
+    "featured": true,
+    "ratingScore": 8.2,
+    "badge": "Anthony Hopkins",
+    "addedAt": "2026-10-11T12:00:00.000Z"
+  },
+  {
+    "id": "movie-cnTaqSvznbQ",
+    "youtubeVideoId": "cnTaqSvznbQ",
+    "title": "Zumbis e Robôs",
+    "originalTitle": "Battle of the Damned",
+    "synopsis": "Após um surto biológico transformar a população de uma cidade em zumbis sanguinários, um mercenário de elite lidera um esquadrão auxiliado por robôs de combate autônomos para resgatar a filha de um cientista.",
+    "genres": [
+      "Ficção Científica",
+      "Terror",
+      "Ação"
+    ],
+    "tags": [
+      "zumbis",
+      "robôs",
+      "dolph lundgren",
+      "apocalipse",
+      "tiroteio",
+      "sobrevivência"
+    ],
+    "moods": [
+      "adrenalina",
+      "sombrio",
+      "arrepiante"
+    ],
+    "releaseYear": 2013,
+    "durationMinutes": 88,
+    "posterUrl": "https://img.youtube.com/vi/cnTaqSvznbQ/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/cnTaqSvznbQ/hqdefault.jpg",
+    "channelName": "Swen Filmes",
+    "channelUrl": "https://www.youtube.com/watch?v=cnTaqSvznbQ",
+    "contentRating": "16",
+    "language": "Dublado",
+    "featured": false,
+    "ratingScore": 6.9,
+    "badge": "Ficção & Ação",
+    "addedAt": "2026-10-11T12:00:00.000Z"
+  },
+  {
+    "id": "movie-rPQLn_t7M1E",
+    "youtubeVideoId": "rPQLn_t7M1E",
+    "title": "Os Acompanhantes",
+    "originalTitle": "The Extra Man",
+    "synopsis": "Um excêntrico cavalheiro nova-iorquino que trabalha como acompanhante de viúvas ricas da alta sociedade decide treinar um jovem escritor tímido na sofisticada e cômica arte da galantaria.",
+    "genres": [
+      "Comédia",
+      "Romance"
+    ],
+    "tags": [
+      "nova york",
+      "alta sociedade",
+      "aprendizado",
+      "comédia leve",
+      "humor inteligente"
+    ],
+    "moods": [
+      "divertido",
+      "leve",
+      "descontraído"
+    ],
+    "releaseYear": 2010,
+    "durationMinutes": 90,
+    "posterUrl": "https://img.youtube.com/vi/rPQLn_t7M1E/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/rPQLn_t7M1E/hqdefault.jpg",
+    "channelName": "Swen Filmes",
+    "channelUrl": "https://www.youtube.com/watch?v=rPQLn_t7M1E",
+    "contentRating": "14",
+    "language": "Dublado",
+    "featured": false,
+    "ratingScore": 7.3,
+    "badge": "Comédia Charmosa",
+    "addedAt": "2026-10-11T12:00:00.000Z"
+  },
+  {
+    "id": "movie-phztookZg-M",
+    "youtubeVideoId": "phztookZg-M",
+    "title": "Implacável: O Cobrador",
+    "originalTitle": "Debt Collectors",
+    "synopsis": "Dois cobradores de dívidas durões trabalham para a máfia em Las Vegas e se veem no fogo cruzado de criminosos perigosos enquanto tentam cumprir um último trabalho mortal.",
+    "genres": [
+      "Ação",
+      "Policial",
+      "Comédia"
+    ],
+    "tags": [
+      "artes marciais",
+      "luta",
+      "scott adkins",
+      "tiroteio",
+      "parceria",
+      "las vegas"
+    ],
+    "moods": [
+      "adrenalina",
+      "divertido",
+      "explosivo"
+    ],
+    "releaseYear": 2019,
+    "durationMinutes": 100,
+    "posterUrl": "https://img.youtube.com/vi/phztookZg-M/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/phztookZg-M/hqdefault.jpg",
+    "channelName": "Swen Filmes",
+    "channelUrl": "https://www.youtube.com/watch?v=phztookZg-M",
+    "contentRating": "16",
+    "language": "Dublado",
+    "featured": false,
+    "ratingScore": 7.6,
+    "badge": "Scott Adkins",
+    "addedAt": "2026-10-11T12:00:00.000Z"
+  },
+  {
+    "id": "movie-cQiQZE41b8s",
+    "youtubeVideoId": "cQiQZE41b8s",
+    "title": "Supremacia",
+    "originalTitle": "Supremacy",
+    "synopsis": "Baseado em fatos reais, um supremacista branco recém-libertado da prisão mata um policial e invade a casa de uma família negra, mantendo-os como reféns em uma noite de extrema tensão psicológica.",
+    "genres": [
+      "Drama",
+      "Suspense",
+      "Policial"
+    ],
+    "tags": [
+      "baseado em fatos reais",
+      "tensão",
+      "conflito",
+      "reféns",
+      "drama social"
+    ],
+    "moods": [
+      "tenso",
+      "impactante",
+      "profundo"
+    ],
+    "releaseYear": 2014,
+    "durationMinutes": 106,
+    "posterUrl": "https://img.youtube.com/vi/cQiQZE41b8s/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/cQiQZE41b8s/hqdefault.jpg",
+    "channelName": "Swen Filmes",
+    "channelUrl": "https://www.youtube.com/watch?v=cQiQZE41b8s",
+    "contentRating": "16",
+    "language": "Dublado",
+    "featured": false,
+    "ratingScore": 7.4,
+    "badge": "Baseado em Fatos Reais",
+    "addedAt": "2026-10-11T12:00:00.000Z"
+  },
+  {
+    "id": "movie-clhZ2UV62tE",
+    "youtubeVideoId": "clhZ2UV62tE",
+    "title": "Bangkok Dog: Artes Marciais em Ação",
+    "originalTitle": "Bangkok Dog",
+    "synopsis": "Nas ruas perigosas de Bangcoc, um habilidoso lutador de artes marciais busca vingança contra o submundo do crime organizado, utilizando técnicas letais de Muay Thai e combate desarmado.",
+    "genres": [
+      "Ação",
+      "Artes Marciais"
+    ],
+    "tags": [
+      "artes marciais",
+      "muay thai",
+      "bangkok",
+      "lutas acrobaticas",
+      "vingança"
+    ],
+    "moods": [
+      "adrenalina",
+      "intenso",
+      "empolgante"
+    ],
+    "releaseYear": 2024,
+    "durationMinutes": 96,
+    "posterUrl": "https://img.youtube.com/vi/clhZ2UV62tE/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/clhZ2UV62tE/hqdefault.jpg",
+    "channelName": "Swen Filmes",
+    "channelUrl": "https://www.youtube.com/watch?v=clhZ2UV62tE",
+    "contentRating": "16",
+    "language": "Dublado",
+    "featured": false,
+    "ratingScore": 7.5,
+    "badge": "Muay Thai & Combate",
+    "addedAt": "2026-10-11T12:00:00.000Z"
+  },
+  {
+    "id": "movie-Sf-5Tnuc-tg",
+    "youtubeVideoId": "Sf-5Tnuc-tg",
+    "title": "Hickok: O Pistoleiro Lendário",
+    "originalTitle": "Hickok",
+    "synopsis": "O lendário pistoleiro Wild Bill Hickok tenta escapar do seu passado sangrento assumindo o cargo de xerife em uma cidade do Kansas tomada pelo caos, onde a lei é ditada pela mira do revólver.",
+    "genres": [
+      "Faroeste",
+      "Ação",
+      "Histórico"
+    ],
+    "tags": [
+      "faroeste",
+      "velho oeste",
+      "wild bill",
+      "duelo",
+      "xerife",
+      "pistoleiro"
+    ],
+    "moods": [
+      "épico",
+      "adrenalina",
+      "tenso"
+    ],
+    "releaseYear": 2017,
+    "durationMinutes": 100,
+    "posterUrl": "https://img.youtube.com/vi/Sf-5Tnuc-tg/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/Sf-5Tnuc-tg/hqdefault.jpg",
+    "channelName": "Swen Filmes",
+    "channelUrl": "https://www.youtube.com/watch?v=Sf-5Tnuc-tg",
+    "contentRating": "14",
+    "language": "Dublado",
+    "featured": false,
+    "ratingScore": 7.3,
+    "badge": "Faroeste Lendário",
+    "addedAt": "2026-10-11T12:00:00.000Z"
+  },
+  {
+    "id": "movie-01FLphv-snQ",
+    "youtubeVideoId": "01FLphv-snQ",
+    "title": "Elsa & Fred: Um Amor de Paixão",
+    "originalTitle": "Elsa & Fred",
+    "synopsis": "Elsa é uma mulher cheia de vitalidade e imaginação que sonha reviver a famosa cena da Fontana di Trevi. Fred é um viúvo rabugento e solitário. Juntos, descobrem que nunca é tarde para amar.",
+    "genres": [
+      "Romance",
+      "Comédia",
+      "Drama"
+    ],
+    "tags": [
+      "romance maduro",
+      "roma",
+      "fontana di trevi",
+      "emocionante",
+      "segunda chance"
+    ],
+    "moods": [
+      "emocionante",
+      "inspirador",
+      "doce"
+    ],
+    "releaseYear": 2014,
+    "durationMinutes": 97,
+    "posterUrl": "https://img.youtube.com/vi/01FLphv-snQ/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/01FLphv-snQ/hqdefault.jpg",
+    "channelName": "Swen Filmes",
+    "channelUrl": "https://www.youtube.com/watch?v=01FLphv-snQ",
+    "contentRating": "Livre",
+    "language": "Dublado",
+    "featured": true,
+    "ratingScore": 8,
+    "badge": "Romance Emocionante",
+    "addedAt": "2026-10-11T12:00:00.000Z"
+  },
+  {
+    "id": "movie-QQGu_bEqUAA",
+    "youtubeVideoId": "QQGu_bEqUAA",
+    "title": "Rastro Mortal",
+    "originalTitle": "Wake of Death",
+    "synopsis": "Após sua esposa ser assassinada cruelmente pela máfia das Tríades chinesas, um ex-membro do submundo de Marselha declara guerra total aos gângsteres para vingar sua família.",
+    "genres": [
+      "Ação",
+      "Suspense",
+      "Policial"
+    ],
+    "tags": [
+      "jean-claude van damme",
+      "vingança",
+      "mafia",
+      "tiroteio",
+      "artes marciais"
+    ],
+    "moods": [
+      "adrenalina",
+      "sombrio",
+      "intenso"
+    ],
+    "releaseYear": 2004,
+    "durationMinutes": 96,
+    "posterUrl": "https://img.youtube.com/vi/QQGu_bEqUAA/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/QQGu_bEqUAA/hqdefault.jpg",
+    "channelName": "Swen Filmes",
+    "channelUrl": "https://www.youtube.com/watch?v=QQGu_bEqUAA",
+    "contentRating": "16",
+    "language": "Dublado",
+    "featured": false,
+    "ratingScore": 7.7,
+    "badge": "Van Damme Implacável",
+    "addedAt": "2026-10-11T12:00:00.000Z"
+  },
+  {
+    "id": "movie-K9TD0-O-1m4",
+    "youtubeVideoId": "K9TD0-O-1m4",
+    "title": "O Massacre da Serra Elétrica",
+    "originalTitle": "The Texas Chain Saw Massacre",
+    "synopsis": "O clássico absoluto e aterrorizante do cinema de horror que revolucionou o gênero. Cinco jovens viajando pelas estradas do Texas caem nas mãos de uma família bizarra e do aterrorizante Leatherface.",
+    "genres": [
+      "Terror",
+      "Clássico",
+      "Suspense"
+    ],
+    "tags": [
+      "leatherface",
+      "classico do terror",
+      "suspense mortal",
+      "anos 70",
+      "obra prima"
+    ],
+    "moods": [
+      "arrepiante",
+      "aterrorizante",
+      "sombrio"
+    ],
+    "releaseYear": 1974,
+    "durationMinutes": 83,
+    "posterUrl": "https://img.youtube.com/vi/K9TD0-O-1m4/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/K9TD0-O-1m4/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=K9TD0-O-1m4",
+    "contentRating": "18",
+    "language": "Dublado",
+    "featured": true,
+    "ratingScore": 8.7,
+    "badge": "Clássico Imortal",
+    "addedAt": "2026-10-11T12:00:00.000Z"
+  },
+  {
+    "id": "movie-0mR3tSlPgvU",
+    "youtubeVideoId": "0mR3tSlPgvU",
+    "title": "Hércules em Nova York",
+    "originalTitle": "Hercules in New York",
+    "synopsis": "O primeiro papel marcante de Arnold Schwarzenegger. Cansado da vida no Monte Olimpo, o semideus Hércules desce à Terra e causa hilárias confusões pelas ruas e academias de Nova York.",
+    "genres": [
+      "Comédia",
+      "Aventura",
+      "Fantasia"
+    ],
+    "tags": [
+      "arnold schwarzenegger",
+      "hercules",
+      "comedia retro",
+      "mitologia",
+      "anos 70"
+    ],
+    "moods": [
+      "divertido",
+      "engraçado",
+      "nostálgico"
+    ],
+    "releaseYear": 1970,
+    "durationMinutes": 84,
+    "posterUrl": "https://img.youtube.com/vi/0mR3tSlPgvU/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/0mR3tSlPgvU/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=0mR3tSlPgvU",
+    "contentRating": "Livre",
+    "language": "Dublado",
+    "featured": false,
+    "ratingScore": 7.1,
+    "badge": "Schwarzenegger Clássico",
+    "addedAt": "2026-10-11T12:00:00.000Z"
+  },
+  {
+    "id": "movie-j9nh7ZqZ4pY",
+    "youtubeVideoId": "j9nh7ZqZ4pY",
+    "title": "Jogo de Sedução",
+    "originalTitle": "Dot the I",
+    "synopsis": "Às vésperas de seu casamento com um noivo abastado, uma jovem impulsiva beija um estranho charmoso em sua despedida de solteira, desencadeando um perigoso jogo de manipulação e reviravoltas.",
+    "genres": [
+      "Suspense",
+      "Drama",
+      "Romance"
+    ],
+    "tags": [
+      "tom hardy",
+      "charlie cox",
+      "triangulo amoroso",
+      "reviravolta",
+      "suspense britanico"
+    ],
+    "moods": [
+      "intrigante",
+      "sedutor",
+      "tenso"
+    ],
+    "releaseYear": 2003,
+    "durationMinutes": 90,
+    "posterUrl": "https://img.youtube.com/vi/j9nh7ZqZ4pY/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/j9nh7ZqZ4pY/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=j9nh7ZqZ4pY",
+    "contentRating": "16",
+    "language": "Dublado",
+    "featured": false,
+    "ratingScore": 7.6,
+    "badge": "Tom Hardy & Charlie Cox",
+    "addedAt": "2026-10-11T12:00:00.000Z"
+  },
+  {
+    "id": "movie-Xpdg-tUt5X0",
+    "youtubeVideoId": "Xpdg-tUt5X0",
+    "title": "Corações Apaixonados",
+    "originalTitle": "Playing by Heart",
+    "synopsis": "Onze pessoas de diferentes gerações em Los Angeles navegam pelos desafios da paixão, do perdão e da solidão em uma crônica comovente sobre as nuances dos relacionamentos humanos.",
+    "genres": [
+      "Romance",
+      "Comédia",
+      "Drama"
+    ],
+    "tags": [
+      "angelina jolie",
+      "sean connery",
+      "relacionamentos",
+      "los angeles",
+      "elenco estelar"
+    ],
+    "moods": [
+      "emocionante",
+      "romântico",
+      "inspirador"
+    ],
+    "releaseYear": 1998,
+    "durationMinutes": 121,
+    "posterUrl": "https://img.youtube.com/vi/Xpdg-tUt5X0/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/Xpdg-tUt5X0/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=Xpdg-tUt5X0",
+    "contentRating": "14",
+    "language": "Dublado",
+    "featured": false,
+    "ratingScore": 7.9,
+    "badge": "Angelina Jolie & Sean Connery",
+    "addedAt": "2026-10-11T12:00:00.000Z"
+  },
+  {
+    "id": "movie-qduhzCfD1lI",
+    "youtubeVideoId": "qduhzCfD1lI",
+    "title": "O Apocalipse: A Revelação",
+    "originalTitle": "San Giovanni - L'Apocalisse",
+    "synopsis": "No ano 90 d.C., o imperador romano Domiciano declara guerra implacável aos cristãos. O idoso apóstolo João, exilado na ilha de Patmos, tem a visão divina das profecias sobre o fim dos tempos.",
+    "genres": [
+      "Drama",
+      "Bíblico",
+      "Histórico"
+    ],
+    "tags": [
+      "bíblico",
+      "apocalipse",
+      "apóstolo joão",
+      "império romano",
+      "fé",
+      "profecia"
+    ],
+    "moods": [
+      "espiritual",
+      "reflexivo",
+      "épico"
+    ],
+    "releaseYear": 2002,
+    "durationMinutes": 96,
+    "posterUrl": "https://img.youtube.com/vi/qduhzCfD1lI/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/qduhzCfD1lI/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=qduhzCfD1lI",
+    "contentRating": "12",
+    "language": "Dublado",
+    "featured": false,
+    "ratingScore": 7.8,
+    "badge": "Épico Bíblico",
+    "addedAt": "2026-10-11T12:00:00.000Z"
+  },
+  {
+    "id": "movie-Nx5sSnmWGGM",
+    "youtubeVideoId": "Nx5sSnmWGGM",
+    "title": "Rise: A Ressurreição",
+    "originalTitle": "Rise: Blood Hunter",
+    "synopsis": "Uma repórter investigativa acorda em um necrotério transformada em vampira e decide perseguir impiedosamente a seita secreta de predadores sobrenaturais responsável por sua maldição.",
+    "genres": [
+      "Terror",
+      "Ação",
+      "Suspense"
+    ],
+    "tags": [
+      "vampiros",
+      "vingança",
+      "lucy liu",
+      "sobrenatural",
+      "investigação"
+    ],
+    "moods": [
+      "sombrio",
+      "adrenalina",
+      "arrepiante"
+    ],
+    "releaseYear": 2007,
+    "durationMinutes": 97,
+    "posterUrl": "https://img.youtube.com/vi/Nx5sSnmWGGM/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/Nx5sSnmWGGM/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=Nx5sSnmWGGM",
+    "contentRating": "16",
+    "language": "Dublado",
+    "featured": false,
+    "ratingScore": 7,
+    "badge": "Lucy Liu em Ação",
+    "addedAt": "2026-10-11T12:00:00.000Z"
+  },
+  {
+    "id": "movie-eTGqAQx2TXk",
+    "youtubeVideoId": "eTGqAQx2TXk",
+    "title": "Um a Menos",
+    "originalTitle": "The Minus Man",
+    "synopsis": "Vann Siegert é um homem aparentemente pacífico, gentil e prestativo, mas que esconde uma compulsão secreta: envenenar pessoas que expressam um profundo desejo de desaparecer do mundo.",
+    "genres": [
+      "Suspense",
+      "Drama"
+    ],
+    "tags": [
+      "owen wilson",
+      "assassino em série",
+      "psicológico",
+      "mistério",
+      "veneno"
+    ],
+    "moods": [
+      "intrigante",
+      "tenso",
+      "sombrio"
+    ],
+    "releaseYear": 1999,
+    "durationMinutes": 108,
+    "posterUrl": "https://img.youtube.com/vi/eTGqAQx2TXk/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/eTGqAQx2TXk/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=eTGqAQx2TXk",
+    "contentRating": "16",
+    "language": "Dublado",
+    "featured": false,
+    "ratingScore": 7.4,
+    "badge": "Owen Wilson Inédito",
+    "addedAt": "2026-10-11T12:00:00.000Z"
+  },
+  {
+    "id": "movie-F3TX_u9BA78",
+    "youtubeVideoId": "F3TX_u9BA78",
+    "title": "Nove Milhas para o Inferno",
+    "originalTitle": "Nine Miles Down",
+    "synopsis": "Um especialista em segurança é enviado a uma remota estação de pesquisa geológica no deserto do Saara, onde cientistas perfuraram 9 milhas na crosta da terra e liberaram alucinações aterrorizantes.",
+    "genres": [
+      "Suspense",
+      "Terror",
+      "Ficção Científica"
+    ],
+    "tags": [
+      "deserto",
+      "paranoia",
+      "pesquisa científica",
+      "sobrenatural",
+      "inferno"
+    ],
+    "moods": [
+      "tenso",
+      "claustrofóbico",
+      "arrepiante"
+    ],
+    "releaseYear": 2009,
+    "durationMinutes": 86,
+    "posterUrl": "https://img.youtube.com/vi/F3TX_u9BA78/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/F3TX_u9BA78/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=F3TX_u9BA78",
+    "contentRating": "16",
+    "language": "Dublado",
+    "featured": false,
+    "ratingScore": 7.1,
+    "badge": "Suspense Sci-Fi",
+    "addedAt": "2026-10-11T12:00:00.000Z"
+  },
+  {
+    "id": "movie-uWKVQ8DfYHQ",
+    "youtubeVideoId": "uWKVQ8DfYHQ",
+    "title": "Batalha Na Fronteira Norte",
+    "originalTitle": "Northern Limit Line",
+    "synopsis": "Em junho de 2002, enquanto toda a Coreia do Sul vibra com a Copa do Mundo, marinheiros heróicos enfrentam uma emboscada letal de navios norte-coreanos na tensa linha de fronteira marítima.",
+    "genres": [
+      "Guerra",
+      "Ação",
+      "Histórico"
+    ],
+    "tags": [
+      "guerra naval",
+      "baseado em fatos reais",
+      "combate",
+      "copa do mundo",
+      "heroismo militar"
+    ],
+    "moods": [
+      "adrenalina",
+      "emocionante",
+      "impactante"
+    ],
+    "releaseYear": 2015,
+    "durationMinutes": 104,
+    "posterUrl": "https://img.youtube.com/vi/uWKVQ8DfYHQ/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/uWKVQ8DfYHQ/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=uWKVQ8DfYHQ",
+    "contentRating": "16",
+    "language": "Dublado",
+    "featured": true,
+    "ratingScore": 8.1,
+    "badge": "Guerra & Fatos Reais",
+    "addedAt": "2026-10-11T12:00:00.000Z"
+  },
+  {
+    "id": "movie-4Mw0GoFN4vc",
+    "youtubeVideoId": "4Mw0GoFN4vc",
+    "title": "O Dominador",
+    "originalTitle": "Move On",
+    "synopsis": "Um misterioso homem recebe uma maleta com ordens para viajar através de oito países da Europa sem nunca olhar o que está dentro, enfrentando agentes letais a cada parada de sua jornada.",
+    "genres": [
+      "Suspense",
+      "Ação",
+      "Espionagem"
+    ],
+    "tags": [
+      "mads mikkelsen",
+      "europa",
+      "espionagem",
+      "perseguição",
+      "conspiração"
+    ],
+    "moods": [
+      "intrigante",
+      "adrenalina",
+      "tenso"
+    ],
+    "releaseYear": 2012,
+    "durationMinutes": 95,
+    "posterUrl": "https://img.youtube.com/vi/4Mw0GoFN4vc/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/4Mw0GoFN4vc/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=4Mw0GoFN4vc",
+    "contentRating": "14",
+    "language": "Dublado",
+    "featured": false,
+    "ratingScore": 7.3,
+    "badge": "Mads Mikkelsen",
+    "addedAt": "2026-10-11T12:00:00.000Z"
+  },
+  {
+    "id": "movie-QBIc-Cycvgg",
+    "youtubeVideoId": "QBIc-Cycvgg",
+    "title": "Mortdecai: A Arte da Trapaça",
+    "originalTitle": "Mortdecai",
+    "synopsis": "O excêntrico aristocrata britânico e negociante de arte Lord Charlie Mortdecai viaja pelo mundo para recuperar uma pintura roubada que contém a chave para uma conta bancária repleta de ouro nazista.",
+    "genres": [
+      "Comédia",
+      "Aventura",
+      "Mistério"
+    ],
+    "tags": [
+      "johnny depp",
+      "gwyneth paltrow",
+      "comédia britânica",
+      "arte",
+      "espiões"
+    ],
+    "moods": [
+      "divertido",
+      "engraçado",
+      "espirituoso"
+    ],
+    "releaseYear": 2015,
+    "durationMinutes": 107,
+    "posterUrl": "https://img.youtube.com/vi/QBIc-Cycvgg/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/QBIc-Cycvgg/hqdefault.jpg",
+    "channelName": "Film Plus Emotion",
+    "channelUrl": "https://www.youtube.com/watch?v=QBIc-Cycvgg",
+    "contentRating": "14",
+    "language": "Dublado",
+    "featured": false,
+    "ratingScore": 7.2,
+    "badge": "Johnny Depp",
+    "addedAt": "2026-10-11T12:00:00.000Z"
+  },
+  {
+    "id": "movie-IhAsbXpEjPU",
+    "youtubeVideoId": "IhAsbXpEjPU",
+    "title": "Deu a Louca nos Bichos",
+    "originalTitle": "Furry Vengeance",
+    "synopsis": "Um ambicioso corretor imobiliário assume um projeto de construção no meio de uma floresta protegida, sem imaginar que os animais silvestres locais estão determinados a sabotar suas máquinas.",
+    "genres": [
+      "Comédia",
+      "Família"
+    ],
+    "tags": [
+      "brendan fraser",
+      "animais",
+      "comédia em família",
+      "natureza",
+      "confusão"
+    ],
+    "moods": [
+      "divertido",
+      "leve",
+      "engraçado"
+    ],
+    "releaseYear": 2010,
+    "durationMinutes": 92,
+    "posterUrl": "https://img.youtube.com/vi/IhAsbXpEjPU/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/IhAsbXpEjPU/hqdefault.jpg",
+    "channelName": "Film Plus Emotion",
+    "channelUrl": "https://www.youtube.com/watch?v=IhAsbXpEjPU",
+    "contentRating": "Livre",
+    "language": "Dublado",
+    "featured": false,
+    "ratingScore": 7,
+    "badge": "Comédia para Toda a Família",
+    "addedAt": "2026-10-11T12:00:00.000Z"
+  },
+  {
+    "id": "movie-b_4ALQ2FjxM",
+    "youtubeVideoId": "b_4ALQ2FjxM",
+    "title": "Milagre na Cela 7",
+    "originalTitle": "7. Kogustaki Mucize",
+    "synopsis": "Um pai amoroso com deficiência intelectual é injustamente acusado do assassinato da filha de um comandante militar e enviado para o corredor da morte, contando com a cumplicidade dos colegas de cela para rever a filha.",
+    "genres": [
+      "Drama",
+      "Família",
+      "Superação"
+    ],
+    "tags": [
+      "superação",
+      "amor paterno",
+      "emocionante",
+      "prisão",
+      "lágrimas garantidas"
+    ],
+    "moods": [
+      "emocionante",
+      "inspirador",
+      "tocante"
+    ],
+    "releaseYear": 2019,
+    "durationMinutes": 132,
+    "posterUrl": "https://img.youtube.com/vi/b_4ALQ2FjxM/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/b_4ALQ2FjxM/hqdefault.jpg",
+    "channelName": "Film Plus Emotion",
+    "channelUrl": "https://www.youtube.com/watch?v=b_4ALQ2FjxM",
+    "contentRating": "14",
+    "language": "Dublado",
+    "featured": true,
+    "ratingScore": 8.9,
+    "badge": "Fenômeno Mundial de Emoção",
+    "addedAt": "2026-10-11T12:00:00.000Z"
+  },
+  {
+    "id": "movie-dMSim-U5yjs",
+    "youtubeVideoId": "dMSim-U5yjs",
+    "title": "12 Horas",
+    "originalTitle": "Gone",
+    "synopsis": "Uma jovem que sobreviveu a um sequestrador serial anos atrás chega em casa e descobre que sua irmã foi levada pelo mesmo homem. Desacreditada pela polícia, ela inicia uma caçada solitária contra o relógio.",
+    "genres": [
+      "Suspense",
+      "Mistério",
+      "Drama"
+    ],
+    "tags": [
+      "amanda seyfried",
+      "contra o tempo",
+      "sequestro",
+      "investigação",
+      "adrenalina"
+    ],
+    "moods": [
+      "tenso",
+      "adrenalina",
+      "intrigante"
+    ],
+    "releaseYear": 2012,
+    "durationMinutes": 94,
+    "posterUrl": "https://img.youtube.com/vi/dMSim-U5yjs/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/dMSim-U5yjs/hqdefault.jpg",
+    "channelName": "Film Plus Emotion",
+    "channelUrl": "https://www.youtube.com/watch?v=dMSim-U5yjs",
+    "contentRating": "14",
+    "language": "Dublado",
+    "featured": false,
+    "ratingScore": 7.5,
+    "badge": "Amanda Seyfried",
+    "addedAt": "2026-10-11T12:00:00.000Z"
+  },
+  {
+    "id": "movie-AOL_llTDDJ8",
+    "youtubeVideoId": "AOL_llTDDJ8",
+    "title": "Por Que Eu Me Casei?",
+    "originalTitle": "Why Did I Get Married?",
+    "synopsis": "Quatro casais de amigos de longa data se reúnem nas montanhas para seu retiro anual de férias. No entanto, revelações dolorosas e segredos guardados testam o limite de seus casamentos.",
+    "genres": [
+      "Comédia",
+      "Romance",
+      "Drama"
+    ],
+    "tags": [
+      "tyler perry",
+      "casamento",
+      "relacionamentos",
+      "comédia dramática",
+      "amizade"
+    ],
+    "moods": [
+      "divertido",
+      "emocionante",
+      "reflexivo"
+    ],
+    "releaseYear": 2007,
+    "durationMinutes": 113,
+    "posterUrl": "https://img.youtube.com/vi/AOL_llTDDJ8/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/AOL_llTDDJ8/hqdefault.jpg",
+    "channelName": "Film Plus Emotion",
+    "channelUrl": "https://www.youtube.com/watch?v=AOL_llTDDJ8",
+    "contentRating": "14",
+    "language": "Dublado",
+    "featured": false,
+    "ratingScore": 7.6,
+    "badge": "Tyler Perry & Janet Jackson",
+    "addedAt": "2026-10-11T12:00:00.000Z"
+  },
+  {
+    "id": "movie-h3AUiZDlIHk",
+    "youtubeVideoId": "h3AUiZDlIHk",
+    "title": "Minha Festa de 30 Anos",
+    "originalTitle": "30 Miles from Nowhere",
+    "synopsis": "Amigos de faculdade se reúnem em uma cabana remota após o funeral de um colega. No meio de uma nevasca implacável, tensões antigas resurgem e segredos sombrios vêm à tona.",
+    "genres": [
+      "Suspense",
+      "Drama",
+      "Mistério"
+    ],
+    "tags": [
+      "nevasca",
+      "amigos de faculdade",
+      "cabana remota",
+      "mistério",
+      "segredos"
+    ],
+    "moods": [
+      "tenso",
+      "sombrio",
+      "intrigante"
+    ],
+    "releaseYear": 2018,
+    "durationMinutes": 84,
+    "posterUrl": "https://img.youtube.com/vi/h3AUiZDlIHk/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/h3AUiZDlIHk/hqdefault.jpg",
+    "channelName": "Film Plus Emotion",
+    "channelUrl": "https://www.youtube.com/watch?v=h3AUiZDlIHk",
+    "contentRating": "16",
+    "language": "Dublado",
+    "featured": false,
+    "ratingScore": 6.8,
+    "badge": "Suspense na Neve",
+    "addedAt": "2026-10-11T12:00:00.000Z"
+  },
+  {
+    "id": "movie-Xy9QqYbim4Q",
+    "youtubeVideoId": "Xy9QqYbim4Q",
+    "title": "O Substituto",
+    "originalTitle": "Detachment",
+    "synopsis": "Henry Barthes é um professor substituto com um dom genuíno para se conectar com seus alunos, mas que evita vínculos emocionais para não enfrentar seus próprios traumas do passado.",
+    "genres": [
+      "Drama",
+      "Superação"
+    ],
+    "tags": [
+      "adrien brody",
+      "educação",
+      "escola",
+      "superação",
+      "reflexão profunda"
+    ],
+    "moods": [
+      "profundo",
+      "tocante",
+      "reflexivo"
+    ],
+    "releaseYear": 2011,
+    "durationMinutes": 98,
+    "posterUrl": "https://img.youtube.com/vi/Xy9QqYbim4Q/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/Xy9QqYbim4Q/hqdefault.jpg",
+    "channelName": "Film Plus Emotion",
+    "channelUrl": "https://www.youtube.com/watch?v=Xy9QqYbim4Q",
+    "contentRating": "16",
+    "language": "Dublado",
+    "featured": true,
+    "ratingScore": 8.5,
+    "badge": "Adrien Brody Obra Prima",
+    "addedAt": "2026-10-11T12:00:00.000Z"
+  },
+  {
+    "id": "movie-yZqakD5BYLg",
+    "youtubeVideoId": "yZqakD5BYLg",
+    "title": "211: O Grande Assalto",
+    "originalTitle": "211",
+    "synopsis": "Inspirado em um dos mais sangrentos tiroteios da história dos Estados Unidos. Um experiente policial e um jovem passageiro se veem cercados por mercenários fortemente armados assaltando um banco.",
+    "genres": [
+      "Ação",
+      "Policial",
+      "Suspense"
+    ],
+    "tags": [
+      "nicolas cage",
+      "tiroteio",
+      "assalto a banco",
+      "policial",
+      "adrenalina pura"
+    ],
+    "moods": [
+      "adrenalina",
+      "tenso",
+      "explosivo"
+    ],
+    "releaseYear": 2018,
+    "durationMinutes": 86,
+    "posterUrl": "https://img.youtube.com/vi/yZqakD5BYLg/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/yZqakD5BYLg/hqdefault.jpg",
+    "channelName": "Adrenalina Pura",
+    "channelUrl": "https://www.youtube.com/watch?v=yZqakD5BYLg",
+    "contentRating": "16",
+    "language": "Dublado",
+    "featured": false,
+    "ratingScore": 7.3,
+    "badge": "Nicolas Cage em Ação",
+    "addedAt": "2026-10-11T12:00:00.000Z"
+  },
+  {
+    "id": "movie-IJbPg8AxRtA",
+    "youtubeVideoId": "IJbPg8AxRtA",
+    "title": "Agente do Futuro",
+    "originalTitle": "Autómata",
+    "synopsis": "Em 2044, a humanidade sobrevive em cidades muradas após desastres solares. Um inspetor de seguros de robôs descobre que máquinas autônomas estão violando seus protocolos para evoluir por conta própria.",
+    "genres": [
+      "Ficção Científica",
+      "Ação",
+      "Suspense"
+    ],
+    "tags": [
+      "antonio banderas",
+      "inteligência artificial",
+      "robôs",
+      "cyberpunk",
+      "futuro"
+    ],
+    "moods": [
+      "intrigante",
+      "futurista",
+      "profundo"
+    ],
+    "releaseYear": 2014,
+    "durationMinutes": 109,
+    "posterUrl": "https://img.youtube.com/vi/IJbPg8AxRtA/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/IJbPg8AxRtA/hqdefault.jpg",
+    "channelName": "Adrenalina Pura",
+    "channelUrl": "https://www.youtube.com/watch?v=IJbPg8AxRtA",
+    "contentRating": "14",
+    "language": "Dublado",
+    "featured": false,
+    "ratingScore": 7.7,
+    "badge": "Antonio Banderas & IA",
+    "addedAt": "2026-10-11T12:00:00.000Z"
+  },
+  {
+    "id": "movie-TzECk3Kmlr8",
+    "youtubeVideoId": "TzECk3Kmlr8",
+    "title": "Coriolano",
+    "originalTitle": "Coriolanus",
+    "synopsis": "Um reverenciado general romano é banido da cidade pelo povo que jurou proteger. Furioso com a ingratidão, ele se alia ao seu mais mortal inimigo para liderar uma vingança armada sem precedentes.",
+    "genres": [
+      "Guerra",
+      "Drama",
+      "Suspense"
+    ],
+    "tags": [
+      "ralph fiennes",
+      "gerard butler",
+      "guerra moderna",
+      "combate tático",
+      "vingança"
+    ],
+    "moods": [
+      "intenso",
+      "épico",
+      "adrenalina"
+    ],
+    "releaseYear": 2011,
+    "durationMinutes": 123,
+    "posterUrl": "https://img.youtube.com/vi/TzECk3Kmlr8/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/TzECk3Kmlr8/hqdefault.jpg",
+    "channelName": "Adrenalina Pura",
+    "channelUrl": "https://www.youtube.com/watch?v=TzECk3Kmlr8",
+    "contentRating": "16",
+    "language": "Dublado",
+    "featured": true,
+    "ratingScore": 8,
+    "badge": "Gerard Butler & Ralph Fiennes",
+    "addedAt": "2026-10-11T12:00:00.000Z"
+  },
+  {
+    "id": "movie-51RUIPxyCUw",
+    "youtubeVideoId": "51RUIPxyCUw",
+    "title": "Sangue e Honra",
+    "originalTitle": "Ironclad",
+    "synopsis": "Em 1215, após ser forçado a assinar a Carta Magna, o tirânico Rei João contrata um exército de mercenários para retomar o poder absoluto. Um grupo rebelde de cavaleiros templários defende o Castelo de Rochester até o último homem.",
+    "genres": [
+      "Ação",
+      "Histórico",
+      "Guerra"
+    ],
+    "tags": [
+      "medieval",
+      "templários",
+      "espadas",
+      "batalha sangrenta",
+      "paul giamatti"
+    ],
+    "moods": [
+      "épico",
+      "adrenalina",
+      "sangrento"
+    ],
+    "releaseYear": 2011,
+    "durationMinutes": 121,
+    "posterUrl": "https://img.youtube.com/vi/51RUIPxyCUw/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/51RUIPxyCUw/hqdefault.jpg",
+    "channelName": "Adrenalina Pura",
+    "channelUrl": "https://www.youtube.com/watch?v=51RUIPxyCUw",
+    "contentRating": "16",
+    "language": "Dublado",
+    "featured": false,
+    "ratingScore": 7.9,
+    "badge": "Épico Medieval de Batalha",
+    "addedAt": "2026-10-11T12:00:00.000Z"
+  },
+  {
+    "id": "movie-vHVEOiwy_zc",
+    "youtubeVideoId": "vHVEOiwy_zc",
+    "title": "O Cobrador de Dívidas 2",
+    "originalTitle": "Debt Collectors 2",
+    "synopsis": "French e Sue sobrevivem ao tiroteio e retornam aos negócios em Las Vegas, cobrando dívidas perigosas com pancadaria desenfreada, tiradas cômicas e perseguições eletrizantes.",
+    "genres": [
+      "Ação",
+      "Artes Marciais",
+      "Comédia"
+    ],
+    "tags": [
+      "scott adkins",
+      "artes marciais",
+      "lutas de rua",
+      "tiroteio",
+      "dupla implacavel"
+    ],
+    "moods": [
+      "adrenalina",
+      "explosivo",
+      "divertido"
+    ],
+    "releaseYear": 2020,
+    "durationMinutes": 96,
+    "posterUrl": "https://img.youtube.com/vi/vHVEOiwy_zc/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/vHVEOiwy_zc/hqdefault.jpg",
+    "channelName": "Adrenalina Pura",
+    "channelUrl": "https://www.youtube.com/watch?v=vHVEOiwy_zc",
+    "contentRating": "16",
+    "language": "Dublado",
+    "featured": false,
+    "ratingScore": 7.5,
+    "badge": "Artes Marciais & Porrada",
+    "addedAt": "2026-10-11T12:00:00.000Z"
+  },
+  {
+    "id": "movie-R77ESxgaSUE",
+    "youtubeVideoId": "R77ESxgaSUE",
+    "title": "Marcando Território",
+    "originalTitle": "Biker Boyz",
+    "synopsis": "No universo das corridas clandestinas de motocicletas esportivas de alta cilindrada na Califórnia, o campeão lendário Smoke enfrenta o desafio destemido de um jovem piloto prodígio.",
+    "genres": [
+      "Ação",
+      "Policial",
+      "Drama"
+    ],
+    "tags": [
+      "motos",
+      "velocidade",
+      "laurence fishburne",
+      "adrenalina",
+      "corridas ilegais"
+    ],
+    "moods": [
+      "adrenalina",
+      "empolgante",
+      "rápido"
+    ],
+    "releaseYear": 2003,
+    "durationMinutes": 110,
+    "posterUrl": "https://img.youtube.com/vi/R77ESxgaSUE/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/R77ESxgaSUE/hqdefault.jpg",
+    "channelName": "Adrenalina Pura",
+    "channelUrl": "https://www.youtube.com/watch?v=R77ESxgaSUE",
+    "contentRating": "14",
+    "language": "Dublado",
+    "featured": false,
+    "ratingScore": 7.4,
+    "badge": "Velocidade em Duas Rodas",
+    "addedAt": "2026-10-11T12:00:00.000Z"
+  },
+  {
+    "id": "movie-AZpRRUgvqKM",
+    "youtubeVideoId": "AZpRRUgvqKM",
+    "title": "Lavalântula",
+    "originalTitle": "Lavalantula",
+    "synopsis": "Erupções vulcânicas em Santa Mônica despertam aranhas gigantescas pré-históricas capazes de cuspir lava e fogo. Um astro decadente de filmes de ação de Hollywood precisa liderar a resistência com armas pesadas.",
+    "genres": [
+      "Ação",
+      "Terror",
+      "Comédia"
+    ],
+    "tags": [
+      "aranhas gigantes",
+      "monstros",
+      "lava",
+      "los angeles",
+      "diversao trash"
+    ],
+    "moods": [
+      "divertido",
+      "adrenalina",
+      "engraçado"
+    ],
+    "releaseYear": 2015,
+    "durationMinutes": 83,
+    "posterUrl": "https://img.youtube.com/vi/AZpRRUgvqKM/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/AZpRRUgvqKM/hqdefault.jpg",
+    "channelName": "Adrenalina Pura",
+    "channelUrl": "https://www.youtube.com/watch?v=AZpRRUgvqKM",
+    "contentRating": "14",
+    "language": "Dublado",
+    "featured": false,
+    "ratingScore": 6.8,
+    "badge": "Ação & Monstros",
+    "addedAt": "2026-10-11T12:00:00.000Z"
+  },
+  {
+    "id": "movie-XzNEDzYU61E",
+    "youtubeVideoId": "XzNEDzYU61E",
+    "title": "Pterodáctilo: A Ameaça Alada",
+    "originalTitle": "Pterodactyl",
+    "synopsis": "Cientistas e um esquadrão das Forças Especiais dos EUA nas florestas da Armênia descobrem que um vulcão dormente chocou ovos de pterodáctilos gigantes predadores sedentos por carne humana.",
+    "genres": [
+      "Ação",
+      "Aventura",
+      "Terror"
+    ],
+    "tags": [
+      "dinossauros",
+      "pterodactilo",
+      "floresta",
+      "forças especiais",
+      "sobrevivencia"
+    ],
+    "moods": [
+      "adrenalina",
+      "susto",
+      "intenso"
+    ],
+    "releaseYear": 2005,
+    "durationMinutes": 89,
+    "posterUrl": "https://img.youtube.com/vi/XzNEDzYU61E/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/XzNEDzYU61E/hqdefault.jpg",
+    "channelName": "Adrenalina Pura",
+    "channelUrl": "https://www.youtube.com/watch?v=XzNEDzYU61E",
+    "contentRating": "14",
+    "language": "Dublado",
+    "featured": false,
+    "ratingScore": 6.7,
+    "badge": "Predadores Pré-Históricos",
+    "addedAt": "2026-10-11T12:00:00.000Z"
+  },
+  {
+    "id": "movie-XK5EUWY3J50",
+    "youtubeVideoId": "XK5EUWY3J50",
+    "title": "Sob Custódia",
+    "originalTitle": "Under Suspicion",
+    "synopsis": "Durante um festival em Porto Rico, um influente advogado é chamado pelo capitão de polícia para um depoimento de rotina sobre o assassinato de duas meninas, iniciando um devastador duelo de intelectos.",
+    "genres": [
+      "Suspense",
+      "Policial",
+      "Drama"
+    ],
+    "tags": [
+      "gene hackman",
+      "morgan freeman",
+      "monica bellucci",
+      "interrogatório",
+      "genial"
+    ],
+    "moods": [
+      "intrigante",
+      "tenso",
+      "profundo"
+    ],
+    "releaseYear": 2000,
+    "durationMinutes": 110,
+    "posterUrl": "https://img.youtube.com/vi/XK5EUWY3J50/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/XK5EUWY3J50/hqdefault.jpg",
+    "channelName": "Adrenalina Pura",
+    "channelUrl": "https://www.youtube.com/watch?v=XK5EUWY3J50",
+    "contentRating": "16",
+    "language": "Dublado",
+    "featured": true,
+    "ratingScore": 8.3,
+    "badge": "Morgan Freeman & Gene Hackman",
+    "addedAt": "2026-10-11T12:00:00.000Z"
+  },
+  {
+    "id": "movie-aeF2u_QCy6A",
+    "youtubeVideoId": "aeF2u_QCy6A",
+    "title": "O Devorador de Ossos",
+    "originalTitle": "Bone Eater",
+    "synopsis": "Trabalhadores da construção civil profanam terras sagradas indígenas e despertam um monstro sobrenatural ancestral feito de poeira e ossos que desintegra qualquer um que cruze seu caminho no deserto.",
+    "genres": [
+      "Terror",
+      "Suspense",
+      "Fantasia"
+    ],
+    "tags": [
+      "monstro",
+      "lenda indigena",
+      "deserto",
+      "sobrenatural",
+      "xerife"
+    ],
+    "moods": [
+      "arrepiante",
+      "tenso",
+      "sombrio"
+    ],
+    "releaseYear": 2007,
+    "durationMinutes": 90,
+    "posterUrl": "https://img.youtube.com/vi/aeF2u_QCy6A/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/aeF2u_QCy6A/hqdefault.jpg",
+    "channelName": "Adrenalina Pura",
+    "channelUrl": "https://www.youtube.com/watch?v=aeF2u_QCy6A",
+    "contentRating": "14",
+    "language": "Dublado",
+    "featured": false,
+    "ratingScore": 6.6,
+    "badge": "Terror Sobrenatural",
+    "addedAt": "2026-10-11T12:00:00.000Z"
+  },
+  {
+    "id": "movie-RJ6KETv9ihg",
+    "youtubeVideoId": "RJ6KETv9ihg",
+    "title": "A Hora Tranquila",
+    "originalTitle": "The Quiet Hour",
+    "synopsis": "Após uma invasão extraterrestre devastar a civilização e cobrir a Terra de radiação e silêncio, uma garota corajosa protege a fazenda remota de sua família contra forasteiros violentos.",
+    "genres": [
+      "Ficção Científica",
+      "Suspense",
+      "Drama"
+    ],
+    "tags": [
+      "invasão alienígena",
+      "pós-apocalíptico",
+      "sobrevivência",
+      "tensão rural"
+    ],
+    "moods": [
+      "tenso",
+      "sombrio",
+      "emocionante"
+    ],
+    "releaseYear": 2014,
+    "durationMinutes": 85,
+    "posterUrl": "https://img.youtube.com/vi/RJ6KETv9ihg/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/RJ6KETv9ihg/hqdefault.jpg",
+    "channelName": "Adrenalina Pura",
+    "channelUrl": "https://www.youtube.com/watch?v=RJ6KETv9ihg",
+    "contentRating": "14",
+    "language": "Dublado",
+    "featured": false,
+    "ratingScore": 7.2,
+    "badge": "Ficção Pós-Apocalipse",
+    "addedAt": "2026-10-11T12:00:00.000Z"
+  },
+  {
+    "id": "movie-PxtC-1bMix0",
+    "youtubeVideoId": "PxtC-1bMix0",
+    "title": "Uma Aventura Selvagem",
+    "originalTitle": "Wild Adventure",
+    "synopsis": "Dois irmãos e seu fiel cão de resgate se perdem na imensidão das florestas geladas do Canadá e precisam enfrentar ursos selvagens, rios congelados e o frio extremo para encontrar o caminho de volta para casa.",
+    "genres": [
+      "Ação",
+      "Aventura",
+      "Família"
+    ],
+    "tags": [
+      "cães",
+      "animais",
+      "floresta gelada",
+      "canadá",
+      "sobrevivência",
+      "família"
+    ],
+    "moods": [
+      "emocionante",
+      "inspirador",
+      "adrenalina"
+    ],
+    "releaseYear": 2019,
+    "durationMinutes": 98,
+    "posterUrl": "https://img.youtube.com/vi/PxtC-1bMix0/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/PxtC-1bMix0/hqdefault.jpg",
+    "channelName": "NetMovies",
+    "channelUrl": "https://www.youtube.com/watch?v=PxtC-1bMix0",
+    "contentRating": "Livre",
+    "language": "Dublado",
+    "featured": false,
+    "ratingScore": 7.7,
+    "badge": "Aventura Animal & Família",
+    "addedAt": "2026-10-11T12:00:00.000Z"
+  },
+  {
+    "id": "movie-mH8t22CU2Ec",
+    "youtubeVideoId": "mH8t22CU2Ec",
+    "title": "Bata Antes de Entrar",
+    "originalTitle": "Knock Knock",
+    "synopsis": "Um dedicado pai de família fica sozinho em casa durante o fim de semana. Quando duas jovens atraentes batem à sua porta pedindo ajuda na chuva, ele as deixa entrar, sem imaginar o jogo sádico de gato e rato que está prestes a começar.",
+    "genres": [
+      "Terror",
+      "Suspense"
+    ],
+    "tags": [
+      "keanu reeves",
+      "ana de armas",
+      "invasao",
+      "psicologico",
+      "jogos mentais"
+    ],
+    "moods": [
+      "tenso",
+      "perturbador",
+      "intenso"
+    ],
+    "releaseYear": 2015,
+    "durationMinutes": 99,
+    "posterUrl": "https://img.youtube.com/vi/mH8t22CU2Ec/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/mH8t22CU2Ec/hqdefault.jpg",
+    "channelName": "NetMovies",
+    "channelUrl": "https://www.youtube.com/watch?v=mH8t22CU2Ec",
+    "contentRating": "16",
+    "language": "Dublado",
+    "featured": false,
+    "ratingScore": 7.2,
+    "badge": "Keanu Reeves & Ana de Armas",
+    "addedAt": "2026-10-11T12:00:00.000Z"
+  },
+  {
+    "id": "movie-2XtP_hhk1vI",
+    "youtubeVideoId": "2XtP_hhk1vI",
+    "title": "Fuga Implacável",
+    "originalTitle": "The Cold Light of Day",
+    "synopsis": "Durante férias na Espanha, um jovem executivo de Wall Street tem sua família sequestrada por agentes corruptos. Ele descobre que seu pai é um agente secreto da CIA e agora precisa correr contra o tempo para salvá-los.",
+    "genres": [
+      "Ação",
+      "Suspense"
+    ],
+    "tags": [
+      "bruce willis",
+      "henry cavill",
+      "sigourney weaver",
+      "espionagem",
+      "perseguicao",
+      "cia"
+    ],
+    "moods": [
+      "adrenalina",
+      "eletrizante",
+      "intenso"
+    ],
+    "releaseYear": 2012,
+    "durationMinutes": 93,
+    "posterUrl": "https://img.youtube.com/vi/2XtP_hhk1vI/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/2XtP_hhk1vI/hqdefault.jpg",
+    "channelName": "NetMovies",
+    "channelUrl": "https://www.youtube.com/watch?v=2XtP_hhk1vI",
+    "contentRating": "14",
+    "language": "Dublado",
+    "featured": false,
+    "ratingScore": 7.4,
+    "badge": "Bruce Willis & Henry Cavill",
+    "addedAt": "2026-10-11T12:00:00.000Z"
+  },
+  {
+    "id": "movie-SuvKyIT0J3Q",
+    "youtubeVideoId": "SuvKyIT0J3Q",
+    "title": "À Procura",
+    "originalTitle": "The Captive",
+    "synopsis": "Oito anos após o desaparecimento misterioso de sua filha de 9 anos, novos indícios sugerem que ela ainda pode estar viva, desencadeando uma obsessiva investigação policial e o confronto com uma rede obscura.",
+    "genres": [
+      "Suspense",
+      "Policial",
+      "Mistério"
+    ],
+    "tags": [
+      "ryan reynolds",
+      "sequestro",
+      "investigacao",
+      "suspense psicologico",
+      "policial"
+    ],
+    "moods": [
+      "angustiante",
+      "sombrio",
+      "intrigante"
+    ],
+    "releaseYear": 2014,
+    "durationMinutes": 112,
+    "posterUrl": "https://img.youtube.com/vi/SuvKyIT0J3Q/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/SuvKyIT0J3Q/hqdefault.jpg",
+    "channelName": "Adrenalina Pura",
+    "channelUrl": "https://www.youtube.com/watch?v=SuvKyIT0J3Q",
+    "contentRating": "16",
+    "language": "Dublado",
+    "featured": false,
+    "ratingScore": 7.5,
+    "badge": "Estrelando Ryan Reynolds",
+    "addedAt": "2026-10-11T12:00:00.000Z"
+  },
+  {
+    "id": "movie-6Z7KH4fNgWA",
+    "youtubeVideoId": "6Z7KH4fNgWA",
+    "title": "Caçada Brutal",
+    "originalTitle": "First Kill",
+    "synopsis": "Para se reaproximar do filho, um corretor de Wall Street o leva para caçar na floresta. Lá, eles testemunham o tiroteio de um assalto a banco e o menino é feito refém pelos criminosos, forçando o pai a ajudá-los a recuperar o dinheiro.",
+    "genres": [
+      "Ação",
+      "Suspense",
+      "Policial"
+    ],
+    "tags": [
+      "bruce willis",
+      "hayden christensen",
+      "assalto",
+      "resgate",
+      "tiroteio"
+    ],
+    "moods": [
+      "tenso",
+      "explosivo",
+      "adrenalina"
+    ],
+    "releaseYear": 2017,
+    "durationMinutes": 101,
+    "posterUrl": "https://img.youtube.com/vi/6Z7KH4fNgWA/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/6Z7KH4fNgWA/hqdefault.jpg",
+    "channelName": "Adrenalina Pura",
+    "channelUrl": "https://www.youtube.com/watch?v=6Z7KH4fNgWA",
+    "contentRating": "16",
+    "language": "Dublado",
+    "featured": false,
+    "ratingScore": 7.3,
+    "badge": "Bruce Willis",
+    "addedAt": "2026-10-11T12:00:00.000Z"
+  },
+  {
+    "id": "movie-5DwJlPWLh-k",
+    "youtubeVideoId": "5DwJlPWLh-k",
+    "title": "Morte Súbita",
+    "originalTitle": "Extraction",
+    "synopsis": "Quando um ex-agente da CIA é capturado por terroristas, seu filho, também analista de inteligência, decide lançar sua própria missão de resgate não autorizada para salvar o pai.",
+    "genres": [
+      "Ação",
+      "Suspense"
+    ],
+    "tags": [
+      "bruce willis",
+      "kellan lutz",
+      "gina carano",
+      "cia",
+      "resgate",
+      "combate"
+    ],
+    "moods": [
+      "dinamico",
+      "ação pura",
+      "adrenalina"
+    ],
+    "releaseYear": 2015,
+    "durationMinutes": 82,
+    "posterUrl": "https://img.youtube.com/vi/5DwJlPWLh-k/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/5DwJlPWLh-k/hqdefault.jpg",
+    "channelName": "Adrenalina Pura",
+    "channelUrl": "https://www.youtube.com/watch?v=5DwJlPWLh-k",
+    "contentRating": "16",
+    "language": "Dublado",
+    "featured": false,
+    "ratingScore": 7,
+    "badge": "Ação Explosiva",
+    "addedAt": "2026-10-11T12:00:00.000Z"
+  },
+  {
+    "id": "movie-wnnihlYh-5o",
+    "youtubeVideoId": "wnnihlYh-5o",
+    "title": "Carga Explosiva: O Legado",
+    "originalTitle": "The Transporter Refueled",
+    "synopsis": "No submundo da Riviera Francesa, Frank Martin é contratado por uma femme fatale e suas companheiras para orquestrar o golpe do século contra um implacável chefe da máfia russa que sequestrou seu pai.",
+    "genres": [
+      "Ação",
+      "Suspense",
+      "Policial"
+    ],
+    "tags": [
+      "ed skrein",
+      "carros",
+      "velocidade",
+      "artes marciais",
+      "mafia",
+      "adrenalina"
+    ],
+    "moods": [
+      "eletrizante",
+      "alta velocidade",
+      "empolgante"
+    ],
+    "releaseYear": 2015,
+    "durationMinutes": 96,
+    "posterUrl": "https://img.youtube.com/vi/wnnihlYh-5o/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/wnnihlYh-5o/hqdefault.jpg",
+    "channelName": "Adrenalina Pura",
+    "channelUrl": "https://www.youtube.com/watch?v=wnnihlYh-5o",
+    "contentRating": "14",
+    "language": "Dublado",
+    "featured": false,
+    "ratingScore": 7.6,
+    "badge": "Adrenalina & Carros",
+    "addedAt": "2026-10-11T12:00:00.000Z"
+  },
+  {
+    "id": "movie-_UQYaSQpNO4",
+    "youtubeVideoId": "_UQYaSQpNO4",
+    "title": "Fúria",
+    "originalTitle": "Rage / Tokarev",
+    "synopsis": "Paul Maguire é um ex-criminoso que agora vive como empresário respeitável e homem de família. Mas quando sua filha adolescente é sequestrada por gângsteres da máfia russa, ele reúne sua antiga gangue em busca de vingança sangrenta.",
+    "genres": [
+      "Ação",
+      "Policial",
+      "Suspense"
+    ],
+    "tags": [
+      "nicolas cage",
+      "vinganca",
+      "mafia russa",
+      "tiroteio",
+      "submundo"
+    ],
+    "moods": [
+      "implacavel",
+      "sombrio",
+      "violento"
+    ],
+    "releaseYear": 2014,
+    "durationMinutes": 98,
+    "posterUrl": "https://img.youtube.com/vi/_UQYaSQpNO4/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/_UQYaSQpNO4/hqdefault.jpg",
+    "channelName": "Adrenalina Pura",
+    "channelUrl": "https://www.youtube.com/watch?v=_UQYaSQpNO4",
+    "contentRating": "16",
+    "language": "Dublado",
+    "featured": false,
+    "ratingScore": 7.4,
+    "badge": "Nicolas Cage Implacável",
+    "addedAt": "2026-10-11T12:00:00.000Z"
+  },
+  {
+    "id": "movie-2mvqfmLagfc",
+    "youtubeVideoId": "2mvqfmLagfc",
+    "title": "6 Balas",
+    "originalTitle": "6 Bullets",
+    "synopsis": "Um veterano mercenário especializado em resgatar crianças raptadas é contratado por um campeão de artes marciais cuja filha foi levada por uma perigosa rede de tráfico humano no Leste Europeu.",
+    "genres": [
+      "Ação",
+      "Policial",
+      "Suspense"
+    ],
+    "tags": [
+      "jean-claude van damme",
+      "luta",
+      "resgate",
+      "trafico",
+      "mercenario"
+    ],
+    "moods": [
+      "intenso",
+      "combate",
+      "adrenalina"
+    ],
+    "releaseYear": 2012,
+    "durationMinutes": 115,
+    "posterUrl": "https://img.youtube.com/vi/2mvqfmLagfc/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/2mvqfmLagfc/hqdefault.jpg",
+    "channelName": "Adrenalina Pura",
+    "channelUrl": "https://www.youtube.com/watch?v=2mvqfmLagfc",
+    "contentRating": "16",
+    "language": "Dublado",
+    "featured": false,
+    "ratingScore": 7.7,
+    "badge": "Van Damme",
+    "addedAt": "2026-10-11T12:00:00.000Z"
+  },
+  {
+    "id": "movie-YR2giGfY3OM",
+    "youtubeVideoId": "YR2giGfY3OM",
+    "title": "Mente Criminosa",
+    "originalTitle": "Criminal",
+    "synopsis": "Para evitar uma catástrofe global após a morte de um agente da CIA, as memórias, habilidades e segredos do agente falecido são implantados cirurgicamente no cérebro de um perigoso e imprevisível presidiário no corredor da morte.",
+    "genres": [
+      "Ação",
+      "Ficção Científica",
+      "Suspense"
+    ],
+    "tags": [
+      "kevin costner",
+      "gal gadot",
+      "ryan reynolds",
+      "tommy lee jones",
+      "gary oldman",
+      "cia",
+      "ficcao"
+    ],
+    "moods": [
+      "inteligente",
+      "impactante",
+      "eletrizante"
+    ],
+    "releaseYear": 2016,
+    "durationMinutes": 113,
+    "posterUrl": "https://img.youtube.com/vi/YR2giGfY3OM/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/YR2giGfY3OM/hqdefault.jpg",
+    "channelName": "Adrenalina Pura",
+    "channelUrl": "https://www.youtube.com/watch?v=YR2giGfY3OM",
+    "contentRating": "16",
+    "language": "Dublado",
+    "featured": false,
+    "ratingScore": 7.9,
+    "badge": "Elenco Estelar",
+    "addedAt": "2026-10-11T12:00:00.000Z"
+  },
+  {
+    "id": "movie-MreTSv59ids",
+    "youtubeVideoId": "MreTSv59ids",
+    "title": "Caos",
+    "originalTitle": "Chaos",
+    "synopsis": "Um experiente detetive afastado da polícia é chamado de volta à ativa para negociar durante um assalto meticuloso a um banco em Seattle, liderado por um criminoso genial que parece ter planejado todos os passos com base na Teoria do Caos.",
+    "genres": [
+      "Ação",
+      "Policial",
+      "Suspense"
+    ],
+    "tags": [
+      "jason statham",
+      "wesley snipes",
+      "ryan phillippe",
+      "assalto a banco",
+      "reviravolta",
+      "detetive"
+    ],
+    "moods": [
+      "intrigante",
+      "ritmo acelerado",
+      "adrenalina"
+    ],
+    "releaseYear": 2005,
+    "durationMinutes": 106,
+    "posterUrl": "https://img.youtube.com/vi/MreTSv59ids/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/MreTSv59ids/hqdefault.jpg",
+    "channelName": "Booh!",
+    "channelUrl": "https://www.youtube.com/watch?v=MreTSv59ids",
+    "contentRating": "16",
+    "language": "Dublado",
+    "featured": false,
+    "ratingScore": 7.8,
+    "badge": "Jason Statham & Wesley Snipes",
+    "addedAt": "2026-10-11T12:00:00.000Z"
+  },
+  {
+    "id": "movie-_xgKc4rmKQw",
+    "youtubeVideoId": "_xgKc4rmKQw",
+    "title": "Crime e Desejo",
+    "originalTitle": "Above Suspicion",
+    "synopsis": "Um jovem agente do FBI recém-casado é transferido para uma pequena cidade nas montanhas do Kentucky. Lá, ele recruta uma mulher local vulnerável como sua principal informante, iniciando um caso obsessivo que culmina em tragédia e escândalo.",
+    "genres": [
+      "Suspense",
+      "Policial",
+      "Drama"
+    ],
+    "tags": [
+      "emilia clarke",
+      "jack huston",
+      "baseado em fatos reais",
+      "fbi",
+      "obssessao",
+      "crime"
+    ],
+    "moods": [
+      "tenso",
+      "sedutor",
+      "tragico"
+    ],
+    "releaseYear": 2019,
+    "durationMinutes": 104,
+    "posterUrl": "https://img.youtube.com/vi/_xgKc4rmKQw/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/_xgKc4rmKQw/hqdefault.jpg",
+    "channelName": "Adrenalina Pura",
+    "channelUrl": "https://www.youtube.com/watch?v=_xgKc4rmKQw",
+    "contentRating": "16",
+    "language": "Dublado",
+    "featured": false,
+    "ratingScore": 7.5,
+    "badge": "Estrelando Emilia Clarke",
+    "addedAt": "2026-10-11T12:00:00.000Z"
+  },
+  {
+    "id": "movie-3_mfo7bgQMU",
+    "youtubeVideoId": "3_mfo7bgQMU",
+    "title": "A Fortuna Desafia A Morte",
+    "originalTitle": "Crooked House",
+    "synopsis": "Adaptação da clássica obra de Agatha Christie: quando o patriarca bilionário Aristide Leonides é misteriosamente envenenado em sua mansão, um detetive particular é chamado por sua neta para desvendar o culpado antes que a polícia intervenha.",
+    "genres": [
+      "Mistério",
+      "Drama",
+      "Policial"
+    ],
+    "tags": [
+      "agatha christie",
+      "glen close",
+      "gillian anderson",
+      "assassinato",
+      "heranca",
+      "detetive"
+    ],
+    "moods": [
+      "elegante",
+      "enigmatico",
+      "intrigante"
+    ],
+    "releaseYear": 2017,
+    "durationMinutes": 115,
+    "posterUrl": "https://img.youtube.com/vi/3_mfo7bgQMU/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/3_mfo7bgQMU/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=3_mfo7bgQMU",
+    "contentRating": "14",
+    "language": "Dublado",
+    "featured": false,
+    "ratingScore": 7.6,
+    "badge": "Mistério de Agatha Christie",
+    "addedAt": "2026-10-11T12:00:00.000Z"
+  },
+  {
+    "id": "movie-j9lIOvKx_yU",
+    "youtubeVideoId": "j9lIOvKx_yU",
+    "title": "O Último Pistoleiro",
+    "originalTitle": "The Shootist",
+    "synopsis": "O lendário pistoleiro envelhecido J.B. Books descobre que está com câncer terminal. Decidido a passar seus últimos dias em paz em Carson City, ele se depara com pistoleiros rivais em busca de fama e moradores locais curiosos por sua lenda.",
+    "genres": [
+      "Faroeste",
+      "Drama"
+    ],
+    "tags": [
+      "john wayne",
+      "lauren bacall",
+      "ron howard",
+      "james stewart",
+      "classico",
+      "faroeste lendario"
+    ],
+    "moods": [
+      "nostalgico",
+      "emocionante",
+      "epico"
+    ],
+    "releaseYear": 1976,
+    "durationMinutes": 100,
+    "posterUrl": "https://img.youtube.com/vi/j9lIOvKx_yU/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/j9lIOvKx_yU/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=j9lIOvKx_yU",
+    "contentRating": "14",
+    "language": "Dublado",
+    "featured": false,
+    "ratingScore": 8.2,
+    "badge": "Obra Prima de John Wayne",
+    "addedAt": "2026-10-11T12:00:00.000Z"
+  },
+  {
+    "id": "movie-N52mW4W88KY",
+    "youtubeVideoId": "N52mW4W88KY",
+    "title": "O Impaciente",
+    "originalTitle": "The Patient",
+    "synopsis": "Após um grave acidente, um homem acorda do coma em um hospital isolado sem memória de como chegou lá. Cercado por enfermeiros peculiares e situações hilárias e absurdas, ele tenta reconstruir os fatos de sua vida.",
+    "genres": [
+      "Comédia",
+      "Drama"
+    ],
+    "tags": [
+      "humor",
+      "comedia leve",
+      "divertido",
+      "superacao",
+      "reviravolta"
+    ],
+    "moods": [
+      "divertido",
+      "leve",
+      "descontraido"
+    ],
+    "releaseYear": 2020,
+    "durationMinutes": 94,
+    "posterUrl": "https://img.youtube.com/vi/N52mW4W88KY/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/N52mW4W88KY/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=N52mW4W88KY",
+    "contentRating": "12",
+    "language": "Dublado",
+    "featured": false,
+    "ratingScore": 7.1,
+    "badge": "Comédia Imperdível",
+    "addedAt": "2026-10-11T12:00:00.000Z"
+  },
+  {
+    "id": "movie-yTSJ3QoJL8Q",
+    "youtubeVideoId": "yTSJ3QoJL8Q",
+    "title": "A Última Ceia",
+    "originalTitle": "Monster's Ball",
+    "synopsis": "Um guarda prisional racista que comanda o corredor da morte passa por uma tragédia familiar. De forma inesperada, ele se apaixona por uma mulher negra humilde, sem saber que o falecido marido dela foi o último homem que ele executou na cadeira elétrica.",
+    "genres": [
+      "Drama",
+      "Romance"
+    ],
+    "tags": [
+      "halle berry",
+      "billy bob thornton",
+      "heath ledger",
+      "oscar",
+      "drama premiado",
+      "redencao"
+    ],
+    "moods": [
+      "comovente",
+      "intenso",
+      "profundo"
+    ],
+    "releaseYear": 2001,
+    "durationMinutes": 111,
+    "posterUrl": "https://img.youtube.com/vi/yTSJ3QoJL8Q/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/yTSJ3QoJL8Q/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=yTSJ3QoJL8Q",
+    "contentRating": "16",
+    "language": "Dublado",
+    "featured": false,
+    "ratingScore": 8.3,
+    "badge": "Vencedor do Oscar",
+    "addedAt": "2026-10-11T12:00:00.000Z"
+  },
+  {
+    "id": "movie-J4vAWY0b-n0",
+    "youtubeVideoId": "J4vAWY0b-n0",
+    "title": "Rota de Fuga",
+    "originalTitle": "Escape Plan",
+    "synopsis": "Ray Breslin é a maior autoridade do mundo em segurança e projeto de penitenciárias de segurança máxima. Após ser traído e trancado em 'A Tumba', uma fortaleza secreta de alta tecnologia, ele se une ao engenhoso detento Emil Rottmayer para planejar a fuga impossível.",
+    "genres": [
+      "Ação",
+      "Suspense",
+      "Policial"
+    ],
+    "tags": [
+      "sylvester stallone",
+      "arnold schwarzenegger",
+      "jim caviezel",
+      "prisao",
+      "fuga",
+      "tiroteio"
+    ],
+    "moods": [
+      "adrenalina",
+      "eletrizante",
+      "estrategico"
+    ],
+    "releaseYear": 2013,
+    "durationMinutes": 115,
+    "posterUrl": "https://img.youtube.com/vi/J4vAWY0b-n0/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/J4vAWY0b-n0/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=J4vAWY0b-n0",
+    "contentRating": "16",
+    "language": "Dublado",
+    "featured": false,
+    "ratingScore": 8,
+    "badge": "Stallone & Schwarzenegger",
+    "addedAt": "2026-10-11T12:00:00.000Z"
+  },
+  {
+    "id": "movie-r6-sGXgILro",
+    "youtubeVideoId": "r6-sGXgILro",
+    "title": "O Falsificador",
+    "originalTitle": "The Forger / Der Passfälscher",
+    "synopsis": "Berlim, 1942. Um jovem judeu talentoso usa sua habilidade gráfica para falsificar passaportes e identidades, salvando centenas de vidas durante o auge da perseguição nazista enquanto vive perigosamente à vista de todos.",
+    "genres": [
+      "Drama",
+      "Histórico",
+      "Guerra"
+    ],
+    "tags": [
+      "segunda guerra",
+      "falsificacao",
+      "berlim",
+      "resistencia",
+      "historia real",
+      "emocionante"
+    ],
+    "moods": [
+      "comovente",
+      "tenso",
+      "inspirador"
+    ],
+    "releaseYear": 2022,
+    "durationMinutes": 116,
+    "posterUrl": "https://img.youtube.com/vi/r6-sGXgILro/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/r6-sGXgILro/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=r6-sGXgILro",
+    "contentRating": "14",
+    "language": "Dublado",
+    "featured": false,
+    "ratingScore": 7.7,
+    "badge": "Drama Histórico",
+    "addedAt": "2026-10-11T12:00:00.000Z"
+  },
+  {
+    "id": "movie-JGg6Qkmz5Cs",
+    "youtubeVideoId": "JGg6Qkmz5Cs",
+    "title": "Blowback: Anjo da Morte",
+    "originalTitle": "Blowback",
+    "synopsis": "Após planejar o assalto perfeito a um banco para pagar o tratamento médico de sua filha doente, um criminoso é traído por seu bando e deixado para morrer. Sobrevivendo aos ferimentos, ele inicia uma caçada implacável para resgatar sua filha e se vingar.",
+    "genres": [
+      "Ação",
+      "Suspense",
+      "Policial"
+    ],
+    "tags": [
+      "cam gigandet",
+      "randy couture",
+      "assalto",
+      "vinganca",
+      "tiroteio"
+    ],
+    "moods": [
+      "adrenalina",
+      "implacavel",
+      "tenso"
+    ],
+    "releaseYear": 2022,
+    "durationMinutes": 93,
+    "posterUrl": "https://img.youtube.com/vi/JGg6Qkmz5Cs/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/JGg6Qkmz5Cs/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=JGg6Qkmz5Cs",
+    "contentRating": "16",
+    "language": "Dublado",
+    "featured": false,
+    "ratingScore": 7.2,
+    "badge": "Ação e Vingança",
+    "addedAt": "2026-10-11T12:00:00.000Z"
+  },
+  {
+    "id": "movie-I0VHY5KeQXE",
+    "youtubeVideoId": "I0VHY5KeQXE",
+    "title": "Mutante: Destino Sombrio",
+    "originalTitle": "Mutant Chronicles",
+    "synopsis": "No futuro pós-apocalíptico do século 23, a Terra foi esgotada e guerras brutais libertam uma antiga máquina necromante que transforma humanos em mutantes assassinos. Um pequeno esquadrão de soldados corajosos se infiltra no coração do submundo para deter a praga.",
+    "genres": [
+      "Ficção Científica",
+      "Ação",
+      "Terror"
+    ],
+    "tags": [
+      "thomas jane",
+      "ron perlman",
+      "john malkovich",
+      "pos-apocaliptico",
+      "monstros",
+      "ficcao cientifica"
+    ],
+    "moods": [
+      "sombrio",
+      "explosivo",
+      "distopico"
+    ],
+    "releaseYear": 2008,
+    "durationMinutes": 111,
+    "posterUrl": "https://img.youtube.com/vi/I0VHY5KeQXE/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/I0VHY5KeQXE/hqdefault.jpg",
+    "channelName": "A2 Filmes",
+    "channelUrl": "https://www.youtube.com/watch?v=I0VHY5KeQXE",
+    "contentRating": "16",
+    "language": "Dublado",
+    "featured": false,
+    "ratingScore": 7.3,
+    "badge": "Sci-Fi Apocalíptico",
+    "addedAt": "2026-10-11T12:00:00.000Z"
+  },
+  {
+    "id": "movie-ZJDpWt7AStE",
+    "youtubeVideoId": "ZJDpWt7AStE",
+    "title": "Canibais: A Selva Maldita",
+    "originalTitle": "The Green Inferno / Jungle",
+    "synopsis": "Um grupo de estudantes ativistas parte de Nova York em missão para defender uma tribo indígena ameaçada no coração da Floresta Amazônica. Mas quando o avião cai na mata fechada, eles são capturados pela mesma tribo que tentavam salvar.",
+    "genres": [
+      "Terror",
+      "Aventura",
+      "Suspense"
+    ],
+    "tags": [
+      "selva",
+      "canibalismo",
+      "amazonia",
+      "sobrevivencia",
+      "terror psicologico"
+    ],
+    "moods": [
+      "perturbador",
+      "chocante",
+      "angustiante"
+    ],
+    "releaseYear": 2013,
+    "durationMinutes": 100,
+    "posterUrl": "https://img.youtube.com/vi/ZJDpWt7AStE/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/ZJDpWt7AStE/hqdefault.jpg",
+    "channelName": "A2 Filmes",
+    "channelUrl": "https://www.youtube.com/watch?v=ZJDpWt7AStE",
+    "contentRating": "18",
+    "language": "Dublado",
+    "featured": false,
+    "ratingScore": 7.1,
+    "badge": "Terror Selvagem",
+    "addedAt": "2026-10-11T12:00:00.000Z"
+  },
+  {
+    "id": "movie-lsOfW8FnDlE",
+    "youtubeVideoId": "lsOfW8FnDlE",
+    "title": "30 Minutos",
+    "originalTitle": "30 Minutes",
+    "synopsis": "Um esquadrão tático tem exatamente meia hora para neutralizar uma célula terrorista e desarmar uma bomba nuclear oculta no centro de uma metrópole antes da detonação programada.",
+    "genres": [
+      "Ação",
+      "Suspense"
+    ],
+    "tags": [
+      "contra o relogio",
+      "bomba",
+      "tatico",
+      "swat",
+      "adrenalina"
+    ],
+    "moods": [
+      "urgente",
+      "eletrizante",
+      "tenso"
+    ],
+    "releaseYear": 2020,
+    "durationMinutes": 88,
+    "posterUrl": "https://img.youtube.com/vi/lsOfW8FnDlE/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/lsOfW8FnDlE/hqdefault.jpg",
+    "channelName": "A2 Filmes",
+    "channelUrl": "https://www.youtube.com/watch?v=lsOfW8FnDlE",
+    "contentRating": "16",
+    "language": "Dublado",
+    "featured": false,
+    "ratingScore": 7,
+    "badge": "Contra o Relógio",
+    "addedAt": "2026-10-11T12:00:00.000Z"
+  },
+  {
+    "id": "movie-v_77TWQSGb0",
+    "youtubeVideoId": "v_77TWQSGb0",
+    "title": "Apartamento 212: A Infestação",
+    "originalTitle": "Gnaw / Apartment 212",
+    "synopsis": "Uma mulher escapa de um casamento abusivo e aluga um modesto apartamento para recomeçar sua vida. Logo ela começa a acordar com feridas misteriosas e descobre que algo horripilante vive dentro das paredes do prédio.",
+    "genres": [
+      "Terror",
+      "Mistério"
+    ],
+    "tags": [
+      "casa assombrada",
+      "criaturas",
+      "claustrofobia",
+      "isolamento",
+      "terror"
+    ],
+    "moods": [
+      "assustador",
+      "claustrofobico",
+      "arrepiante"
+    ],
+    "releaseYear": 2017,
+    "durationMinutes": 99,
+    "posterUrl": "https://img.youtube.com/vi/v_77TWQSGb0/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/v_77TWQSGb0/hqdefault.jpg",
+    "channelName": "Booh!",
+    "channelUrl": "https://www.youtube.com/watch?v=v_77TWQSGb0",
+    "contentRating": "16",
+    "language": "Dublado",
+    "featured": false,
+    "ratingScore": 7,
+    "badge": "Terror Psicológico",
+    "addedAt": "2026-10-11T12:00:00.000Z"
+  },
+  {
+    "id": "movie-G1eUVo_QlL8",
+    "youtubeVideoId": "G1eUVo_QlL8",
+    "title": "O Sentido da Vida",
+    "originalTitle": "The Meaning of Life",
+    "synopsis": "Diagnosticado com uma grave doença, um executivo egocêntrico faz amizade com uma jovem artista de espírito livre em uma clínica de recuperação, aprendendo lições inesquecíveis sobre compaixão, perdão e o valor das pequenas coisas.",
+    "genres": [
+      "Drama",
+      "Comédia"
+    ],
+    "tags": [
+      "emocionante",
+      "licoes de vida",
+      "superacao",
+      "amizade",
+      "reflexivo"
+    ],
+    "moods": [
+      "inspirador",
+      "comovente",
+      "aquecer o coracao"
+    ],
+    "releaseYear": 2018,
+    "durationMinutes": 102,
+    "posterUrl": "https://img.youtube.com/vi/G1eUVo_QlL8/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/G1eUVo_QlL8/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=G1eUVo_QlL8",
+    "contentRating": "12",
+    "language": "Dublado",
+    "featured": false,
+    "ratingScore": 7.8,
+    "badge": "História Inspiradora",
+    "addedAt": "2026-10-11T12:00:00.000Z"
+  },
+  {
+    "id": "movie-BiyjJDjF3nE",
+    "youtubeVideoId": "BiyjJDjF3nE",
+    "title": "Protocolo de Fuga",
+    "originalTitle": "Escape Protocol",
+    "synopsis": "Um hacker brilhante que descobriu segredos governamentais ultrassecretos é colocado no programa de proteção a testemunhas, mas um ataque militar à casa segura o força a fugir através de território hostil com uma agente federal.",
+    "genres": [
+      "Ação",
+      "Suspense",
+      "Ficção Científica"
+    ],
+    "tags": [
+      "cyberpunk",
+      "hacker",
+      "conspiracao",
+      "perseguicao",
+      "tiroteio"
+    ],
+    "moods": [
+      "eletrizante",
+      "tecnologico",
+      "adrenalina"
+    ],
+    "releaseYear": 2021,
+    "durationMinutes": 92,
+    "posterUrl": "https://img.youtube.com/vi/BiyjJDjF3nE/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/BiyjJDjF3nE/hqdefault.jpg",
+    "channelName": "A2 Filmes",
+    "channelUrl": "https://www.youtube.com/watch?v=BiyjJDjF3nE",
+    "contentRating": "14",
+    "language": "Dublado",
+    "featured": false,
+    "ratingScore": 7.1,
+    "badge": "Suspense Tecnológico",
+    "addedAt": "2026-10-11T12:00:00.000Z"
+  },
+  {
+    "id": "movie-vS3H4mjOddk",
+    "youtubeVideoId": "vS3H4mjOddk",
+    "title": "Baleia Assassina: Fúria no Oceano",
+    "originalTitle": "Orca Attack",
+    "synopsis": "Cientistas marítimos em uma estação oceânica isolada investigam o comportamento agressivo incomum de uma matilha de orcas, descobrindo que o aquecimento das correntes e a poluição sonora tornaram os predadores mais implacáveis do que nunca.",
+    "genres": [
+      "Suspense",
+      "Terror",
+      "Aventura"
+    ],
+    "tags": [
+      "oceano",
+      "monstro marinho",
+      "sobrevivencia",
+      "mar aberto",
+      "predador"
+    ],
+    "moods": [
+      "tenso",
+      "frio na barriga",
+      "adrenalina"
+    ],
+    "releaseYear": 2021,
+    "durationMinutes": 89,
+    "posterUrl": "https://img.youtube.com/vi/vS3H4mjOddk/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/vS3H4mjOddk/hqdefault.jpg",
+    "channelName": "A2 Filmes",
+    "channelUrl": "https://www.youtube.com/watch?v=vS3H4mjOddk",
+    "contentRating": "14",
+    "language": "Dublado",
+    "featured": false,
+    "ratingScore": 7,
+    "badge": "Terror Oceânico",
+    "addedAt": "2026-10-11T12:00:00.000Z"
   }
 ];

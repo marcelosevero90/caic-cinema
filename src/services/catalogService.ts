@@ -3,7 +3,7 @@ import { INITIAL_CATALOG } from '../data/catalog';
 import { deriveMovieSubgenres, deriveMovieCast } from '../data/genreTaxonomy';
 
 const STORAGE_KEY = 'CINEAI_CUSTOM_MOVIES';
-const CATALOG_VERSION_KEY = 'CINEAI_CATALOG_VERSION_V4';
+const CATALOG_VERSION_KEY = 'CINEAI_CATALOG_VERSION_V5';
 
 
 const STOP_WORDS = new Set([
@@ -137,10 +137,10 @@ class CatalogService {
   private loadCatalog(): void {
     try {
       const currentVer = localStorage.getItem(CATALOG_VERSION_KEY);
-      if (currentVer !== '4.0') {
-        // Limpa resquícios de filmes mock antigos e atualiza para versão 4.0 com 467 títulos
+      if (currentVer !== '5.0') {
+        // Limpa resquícios de filmes mock antigos e atualiza para versão 5.0 com mais de 800 títulos
         localStorage.removeItem(STORAGE_KEY);
-        localStorage.setItem(CATALOG_VERSION_KEY, '4.0');
+        localStorage.setItem(CATALOG_VERSION_KEY, '5.0');
       }
 
       const stored = localStorage.getItem(STORAGE_KEY);

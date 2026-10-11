@@ -51,9 +51,13 @@ class DeepSeekService {
 
     // 1. Tentar endpoint interno /api/ai/deepseek
     try {
+      const headers: Record<string, string> = { 'Content-Type': 'application/json' };
+      if (apiKey) {
+        headers['Authorization'] = `Bearer ${apiKey}`;
+      }
       const proxyRes = await fetch('/api/ai/deepseek', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers,
         body: JSON.stringify(payload),
       });
 

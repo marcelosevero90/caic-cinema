@@ -24,10 +24,12 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
   }
 
   try {
-    const payload = JSON.parse(body || '{}');
+    const authHeader = (req.headers['authorization'] || req.headers['x-deepseek-key']) as string | undefined;
+    const headerKey = authHeader?.startsWith('Bearer ') ? authHeader.slice(7) : authHeader;
     const apiKey =
       process.env.DEEPSEEK_API_KEY ||
       process.env.VITE_DEEPSEEK_API_KEY ||
+      headerKey ||
       '';
 
     if (!apiKey) {

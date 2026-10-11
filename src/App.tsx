@@ -70,6 +70,7 @@ export const App: React.FC = () => {
   const [selectedMood, setSelectedMood] = useState<string | null>(null);
   const [showActorPicker, setShowActorPicker] = useState<boolean>(false);
   const [webSearchNotice, setWebSearchNotice] = useState<string | null>(null);
+  const [isFullCatalogView, setIsFullCatalogView] = useState<boolean>(false);
 
   // Controle do Tema (Padrão: Cores Leves / Light Mode conforme solicitado)
   const [isDarkMode, setIsDarkMode] = useState<boolean>(() => {
@@ -158,6 +159,7 @@ export const App: React.FC = () => {
     setSelectedSubgenre(null);
     setSelectedActor(null);
     setSelectedMood(null);
+    setIsFullCatalogView(false);
     if (filter === 'Todos') {
       setSearchQuery('');
       setSearchDraft('');
@@ -171,6 +173,7 @@ export const App: React.FC = () => {
     setSelectedSubgenre(null);
     setSelectedActor(null);
     setSelectedMood(null);
+    setIsFullCatalogView(false);
     if (trimmed) {
       setActiveFilter('Todos');
     }
@@ -188,6 +191,7 @@ export const App: React.FC = () => {
     setSelectedSubgenre(null);
     setSelectedActor(null);
     setSelectedMood(null);
+    setIsFullCatalogView(false);
   };
 
   const handleVoiceSearch = () => {
@@ -860,12 +864,17 @@ export const App: React.FC = () => {
         </div>
 
         {/* Resultado de Busca ou Visualização Filtrada */}
-        {searchQuery || activeFilter !== 'Todos' || selectedSubgenre || selectedActor || selectedMood ? (
+        {isFullCatalogView || searchQuery || activeFilter !== 'Todos' || selectedSubgenre || selectedActor || selectedMood ? (
           <section className="space-y-6">
             <div className="flex items-center justify-between flex-wrap gap-3">
               <div className="space-y-1">
                 <h2 className="text-lg font-extrabold text-slate-950 dark:text-white flex items-center gap-2 flex-wrap">
-                  {activeFilter === 'Minha Lista' ? (
+                  {isFullCatalogView ? (
+                    <>
+                      <Film className="w-5 h-5 text-cyan-500" />
+                      <span>Catálogo Completo CAIC ({allMovies.length} títulos)</span>
+                    </>
+                  ) : activeFilter === 'Minha Lista' ? (
                     <>
                       <Heart className="w-4 h-4 fill-rose-500 text-rose-500" />
                       <span>Minha Lista de Favoritos ({activeProfile.name})</span>
@@ -900,6 +909,17 @@ export const App: React.FC = () => {
 
                 {/* Chips com filtros ativos */}
                 <div className="flex flex-wrap items-center gap-1.5 pt-1">
+                  {isFullCatalogView && (
+                    <button
+                      onClick={() => setIsFullCatalogView(false)}
+                      className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-cyan-100 dark:bg-cyan-950 text-cyan-800 dark:text-cyan-300 border border-cyan-300 dark:border-cyan-800 hover:bg-cyan-200 transition"
+                      title="Voltar aos destaques"
+                    >
+                      <Film className="w-3 h-3 text-cyan-600" />
+                      <span>Exibindo Catálogo Completo</span>
+                      <X className="w-3 h-3 ml-0.5" />
+                    </button>
+                  )}
                   {searchQuery && (
                     <button
                       onClick={handleClearSearch}
@@ -965,7 +985,7 @@ export const App: React.FC = () => {
                   title="Limpar todos os filtros e voltar para a página inicial"
                 >
                   <RotateCcw className="w-3.5 h-3.5" />
-                  <span>Ver Todos os Filmes</span>
+                  <span>{isFullCatalogView ? 'Voltar aos Destaques' : 'Ver Todos os Filmes'}</span>
                 </button>
               </div>
             </div>
@@ -1167,8 +1187,11 @@ export const App: React.FC = () => {
                 <div className="flex items-center gap-2">
                   <span className="text-xs text-slate-600 dark:text-slate-400 font-semibold">{allMovies.length} títulos</span>
                   <button
-                    onClick={() => handleSelectFilter('Todos')}
-                    className="text-xs text-cyan-600 dark:text-cyan-400 font-bold hover:underline flex items-center gap-0.5"
+                    onClick={() => {
+                      setIsFullCatalogView(true);
+                      window.scrollTo({ top: 380, behavior: 'smooth' });
+                    }}
+                    className="text-xs text-cyan-600 dark:text-cyan-400 font-bold hover:underline flex items-center gap-0.5 cursor-pointer"
                   >
                     Ver catálogo completo ({allMovies.length}) →
                   </button>

@@ -19,6 +19,7 @@ import type { Movie, ChatMessage, UserProfile } from '../types/movie';
 import { geminiCurationService } from '../services/geminiCurationService';
 import { userService } from '../services/userService';
 import { movieRequestService } from '../services/movieRequestService';
+import { catalogService } from '../services/catalogService';
 
 interface AICuratorDrawerProps {
   isOpen: boolean;
@@ -282,10 +283,11 @@ export const AICuratorDrawer: React.FC<AICuratorDrawerProps> = ({
       timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
     };
 
+    const totalTitles = catalogService.getAll().length || 800;
     const thinkingMsg: ChatMessage = {
       id: `thinking-${Date.now()}`,
       role: 'assistant',
-      content: 'Consultando o catálogo de 200 títulos e avaliando a melhor afinidade para você...',
+      content: `Consultando o acervo de mais de ${totalTitles} títulos e avaliando a melhor afinidade para você...`,
       timestamp: 'Agora',
       isThinking: true
     };
