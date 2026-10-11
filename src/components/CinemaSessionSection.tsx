@@ -12,6 +12,7 @@ import {
   Calendar,
   Heart,
   CheckCircle2,
+  SkipForward,
 } from 'lucide-react';
 import type { CinemaSession } from '../types/cinemaSession';
 import type { Movie } from '../types/movie';
@@ -74,6 +75,8 @@ export const CinemaSessionSection: React.FC<CinemaSessionSectionProps> = ({
   };
 
   const firstMovie = movies[0];
+  const nextUnwatchedMovie = movies.find((m) => !isWatched(m.id)) || firstMovie;
+  const hasWatchedAny = movies.some((m) => isWatched(m.id));
 
   return (
     <section className="relative rounded-3xl overflow-hidden border border-slate-800 bg-gradient-to-br from-slate-900 via-slate-950 to-slate-900 p-5 sm:p-7 shadow-2xl transition-all animate-fadeIn">
@@ -140,13 +143,26 @@ export const CinemaSessionSection: React.FC<CinemaSessionSectionProps> = ({
             </div>
 
             {firstMovie && (
-              <button
-                onClick={() => onPlayMovie(firstMovie)}
-                className={`px-5 py-3 rounded-2xl font-black text-xs sm:text-sm flex items-center gap-2 shadow-lg bg-gradient-to-r ${getButtonGradient()} transition transform hover:scale-105 active:scale-95 cursor-pointer`}
-              >
-                <Play className="w-4 h-4 fill-current" />
-                <span>Iniciar Maratona</span>
-              </button>
+              <div className="flex items-center gap-2 flex-wrap">
+                {hasWatchedAny && nextUnwatchedMovie && nextUnwatchedMovie.id !== firstMovie.id && (
+                  <button
+                    onClick={() => onPlayMovie(nextUnwatchedMovie)}
+                    className="px-4 py-3 rounded-2xl font-black text-xs sm:text-sm flex items-center gap-2 shadow-lg bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 hover:from-amber-400 hover:to-orange-400 text-slate-950 transition transform hover:scale-105 active:scale-95 cursor-pointer"
+                    title={`Continuar maratona no próximo filme: ${nextUnwatchedMovie.title}`}
+                  >
+                    <SkipForward className="w-4 h-4 fill-current" />
+                    <span>Próximo Filme ({nextUnwatchedMovie.title.length > 18 ? `${nextUnwatchedMovie.title.slice(0, 18)}...` : nextUnwatchedMovie.title})</span>
+                  </button>
+                )}
+
+                <button
+                  onClick={() => onPlayMovie(firstMovie)}
+                  className={`px-5 py-3 rounded-2xl font-black text-xs sm:text-sm flex items-center gap-2 shadow-lg bg-gradient-to-r ${getButtonGradient()} transition transform hover:scale-105 active:scale-95 cursor-pointer`}
+                >
+                  <Play className="w-4 h-4 fill-current" />
+                  <span>{hasWatchedAny ? 'Reiniciar Maratona' : 'Iniciar Maratona'}</span>
+                </button>
+              </div>
             )}
           </div>
         </div>

@@ -14,7 +14,8 @@ import {
   Send,
   Loader2,
   Globe,
-  Bot
+  Bot,
+  SkipForward
 } from 'lucide-react';
 import type { Movie } from '../types/movie';
 import { userService } from '../services/userService';
@@ -28,6 +29,8 @@ interface YouTubePlayerModalProps {
   onAskSimilar: (movie: Movie) => void;
   isFavorite?: boolean;
   onToggleFavorite?: (movieId: string) => void;
+  nextMovie?: Movie | null;
+  onNextMovie?: () => void;
 }
 
 interface MovieInsightMessage {
@@ -44,6 +47,8 @@ export const YouTubePlayerModal: React.FC<YouTubePlayerModalProps> = ({
   onAskSimilar,
   isFavorite,
   onToggleFavorite,
+  nextMovie,
+  onNextMovie,
 }) => {
   const [watched, setWatched] = useState(false);
   const [chatMessages, setChatMessages] = useState<MovieInsightMessage[]>([]);
@@ -71,13 +76,17 @@ export const YouTubePlayerModal: React.FC<YouTubePlayerModalProps> = ({
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' || e.key === 'Backspace') {
+      const isInput = (e.target as HTMLElement)?.tagName === 'INPUT' || (e.target as HTMLElement)?.tagName === 'TEXTAREA';
+      if (!isInput && (e.key === 'Escape' || e.key === 'Backspace')) {
         onClose();
+      }
+      if (!isInput && (e.key === 'n' || e.key === 'N') && onNextMovie && nextMovie) {
+        onNextMovie();
       }
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [onClose]);
+  }, [onClose, onNextMovie, nextMovie]);
 
   useEffect(() => {
     const unsub = playbackSessionService.onTerminated((newSession) => {
@@ -199,6 +208,19 @@ export const YouTubePlayerModal: React.FC<YouTubePlayerModalProps> = ({
               <span>Ver Semelhantes</span>
             </button>
 
+            {/* Botão Próximo Filme */}
+            {nextMovie && onNextMovie && (
+              <button
+                id="btn-next-movie"
+                onClick={onNextMovie}
+                className="tv-focusable flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-slate-950 font-black text-xs shadow-md transition transform hover:scale-105 active:scale-95 cursor-pointer"
+                title={`Passar para o próximo filme: ${nextMovie.title} (${nextMovie.releaseYear})`}
+              >
+                <SkipForward className="w-3.5 h-3.5 fill-current" />
+                <span>Próximo Filme</span>
+              </button>
+            )}
+
             {/* Fechar */}
             <button
               id="btn-close-player"
@@ -233,6 +255,35 @@ export const YouTubePlayerModal: React.FC<YouTubePlayerModalProps> = ({
             />
           )}
         </div>
+
+        {/* Banner do Próximo Filme na Maratona / Fila */}
+        {nextMovie && onNextMovie && (
+          <div className="mx-6 mt-4 p-3.5 sm:p-4 rounded-2xl bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 border border-amber-500/30 text-white shadow-lg flex flex-col sm:flex-row items-center justify-between gap-3 animate-fadeIn">
+            <div className="flex items-center gap-3.5 w-full sm:w-auto">
+              <div className="w-10 h-14 rounded-lg overflow-hidden bg-slate-950 shrink-0 border border-slate-700">
+                <img src={nextMovie.posterUrl} alt={nextMovie.title} className="w-full h-full object-cover" />
+              </div>
+              <div className="space-y-0.5 min-w-0">
+                <div className="flex items-center gap-2 flex-wrap">
+                  <span className="text-[10px] font-black uppercase tracking-wider text-amber-400 px-2 py-0.5 rounded-md bg-amber-400/10 border border-amber-400/30">
+                    Próximo na Sequência
+                  </span>
+                  <span className="text-[11px] text-slate-400">{nextMovie.releaseYear} • {nextMovie.durationMinutes}m</span>
+                </div>
+                <p className="text-sm font-bold text-white truncate max-w-sm sm:max-w-md">{nextMovie.title}</p>
+                <p className="text-[11px] text-slate-400 truncate">{(nextMovie.genres || []).join(' • ')}</p>
+              </div>
+            </div>
+
+            <button
+              onClick={onNextMovie}
+              className="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-slate-950 font-black text-xs flex items-center justify-center gap-2 transition transform hover:scale-105 active:scale-95 shadow-md cursor-pointer shrink-0"
+            >
+              <SkipForward className="w-4 h-4 fill-current" />
+              <span>Passar para Este Filme</span>
+            </button>
+          </div>
+        )}
 
         {/* Information & Metadata Bar */}
         <div className="p-6 sm:p-8 space-y-5 bg-white dark:bg-slate-900/90 text-slate-800 dark:text-slate-200">

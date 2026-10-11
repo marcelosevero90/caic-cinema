@@ -32,6 +32,9 @@ import {
   LogOut,
   ArrowUp,
   ArrowDown,
+  Headphones,
+  MessageCircle,
+  Mail,
 } from 'lucide-react';
 import { geminiCurationService } from '../services/geminiCurationService';
 import { catalogService } from '../services/catalogService';
@@ -39,6 +42,7 @@ import { movieRequestService, type MovieRequest } from '../services/movieRequest
 import { jellyfinService, type JellyfinConfig } from '../services/jellyfinService';
 import { userService } from '../services/userService';
 import { cinemaSessionService, SESSION_PRESETS } from '../services/cinemaSessionService';
+import { supportConfigService, type SupportConfig } from '../services/supportConfigService';
 import type { CinemaSession } from '../types/cinemaSession';
 import type { Movie, ContentRating, MovieLanguage, UserAccount } from '../types/movie';
 
@@ -100,7 +104,7 @@ export const AdminDashboardView: React.FC<AdminDashboardProps> = ({
     setIsAdminAuthenticated(false);
   };
 
-  const [activeTab, setActiveTab] = useState<'manage' | 'session' | 'add' | 'requests' | 'jellyfin' | 'subscriptions'>('manage');
+  const [activeTab, setActiveTab] = useState<'manage' | 'session' | 'add' | 'requests' | 'jellyfin' | 'subscriptions' | 'support'>('manage');
   const [searchTerm, setSearchTerm] = useState('');
   const [catalogList, setCatalogList] = useState<Movie[]>(catalogService.getAll());
   const [requestsList, setRequestsList] = useState<MovieRequest[]>(movieRequestService.getAll());
@@ -175,6 +179,30 @@ export const AdminDashboardView: React.FC<AdminDashboardProps> = ({
   const [jfTesting, setJfTesting] = useState(false);
   const [jfSyncing, setJfSyncing] = useState(false);
   const [jfSyncMessage, setJfSyncMessage] = useState<string | null>(null);
+
+  // Estados de Configuração de Suporte
+  const [supportSettings, setSupportSettings] = useState<SupportConfig>(() => supportConfigService.getConfig());
+  const [supportSaveFeedback, setSupportSaveFeedback] = useState<boolean>(false);
+
+  const handleSaveSupport = (e: React.FormEvent) => {
+    e.preventDefault();
+    supportConfigService.saveConfig(supportSettings);
+    setSupportSaveFeedback(true);
+    setAdminActionMessage('Configurações de Suporte salvas com sucesso!');
+    setTimeout(() => {
+      setSupportSaveFeedback(false);
+      setAdminActionMessage(null);
+    }, 3500);
+  };
+
+  const handleResetSupport = () => {
+    if (window.confirm('Deseja restaurar as configurações padrão de suporte?')) {
+      const def = supportConfigService.resetDefaults();
+      setSupportSettings(def);
+      setAdminActionMessage('Configurações de Suporte restauradas para o padrão!');
+      setTimeout(() => setAdminActionMessage(null), 3500);
+    }
+  };
 
   useEffect(() => {
     const unsub = movieRequestService.subscribe(() => {
@@ -774,6 +802,28 @@ export const AdminDashboardView: React.FC<AdminDashboardProps> = ({
                 activeTab === 'jellyfin' ? 'bg-white/20 text-white' : 'bg-purple-100 dark:bg-purple-950 text-purple-700 dark:text-purple-300 border border-purple-300 dark:border-purple-800'
               }`}>
                 API Remota
+              </span>
+            </button>
+
+            {/* TAB 6: SUPORTE & CONTATO (WHATSAPP E E-MAIL) */}
+            <button
+              onClick={() => setActiveTab('support')}
+              className={`tv-focusable px-3.5 py-2 rounded-xl text-xs font-bold flex items-center gap-2 transition cursor-pointer ${
+                activeTab === 'support'
+                  ? 'bg-emerald-600 text-white shadow-md shadow-emerald-600/25 ring-2 ring-emerald-500/20'
+                  : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white border border-slate-200 dark:border-slate-800 hover:border-slate-300'
+              }`}
+            >
+              <Headphones className="w-4 h-4 shrink-0" />
+              <span>Suporte &amp; Contato</span>
+              <span className={`text-[10px] px-1.5 py-0.2 rounded-full font-bold ${
+                activeTab === 'support'
+                  ? 'bg-white/20 text-white'
+                  : supportSettings.enabled
+                  ? 'bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300'
+                  : 'bg-slate-100 dark:bg-slate-800 text-slate-500'
+              }`}>
+                {supportSettings.enabled ? 'Ativo' : 'Pausado'}
               </span>
             </button>
           </div>
@@ -2158,6 +2208,196 @@ export const AdminDashboardView: React.FC<AdminDashboardProps> = ({
             </div>
           )}
 
+          {/* TAB 6: CONFIGURAÇÃO DE SUPORTE & CONTATO (WHATSAPP E E-MAIL) */}
+          {activeTab === 'support' && (
+            <div className="space-y-6">
+              <div className="p-6 rounded-3xl bg-slate-50 dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 shadow-sm space-y-6">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-800 pb-5">
+                  <div className="space-y-1">
+                    <div className="flex items-center gap-2">
+                      <div className="p-2 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+                        <Headphones className="w-5 h-5" />
+                      </div>
+                      <h3 className="text-lg font-black text-slate-900 dark:text-white">
+                        Canais de Suporte &amp; Atendimento ao Cliente
+                      </h3>
+                    </div>
+                    <p className="text-xs text-slate-500 dark:text-slate-400">
+                      Configure os dados de WhatsApp e E-mail exibidos no rodapé do portal para tirar dúvidas e atender assinantes.
+                    </p>
+                  </div>
+
+                  <div className="flex items-center gap-2">
+                    <span className={`px-3 py-1 rounded-full text-xs font-bold border flex items-center gap-1.5 ${
+                      supportSettings.enabled
+                        ? 'bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 border-emerald-300 dark:border-emerald-800'
+                        : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 border-slate-300 dark:border-slate-700'
+                    }`}>
+                      <span className={`w-2 h-2 rounded-full ${supportSettings.enabled ? 'bg-emerald-500 animate-pulse' : 'bg-slate-400'}`} />
+                      <span>{supportSettings.enabled ? 'Suporte Ativo no Rodapé' : 'Suporte Oculto'}</span>
+                    </span>
+                  </div>
+                </div>
+
+                <form onSubmit={handleSaveSupport} className="space-y-5">
+                  {/* Status Toggle */}
+                  <div className="flex items-center justify-between p-4 rounded-2xl bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800">
+                    <div>
+                      <p className="text-xs font-bold text-slate-900 dark:text-white">Exibir Opção "Fale com o Suporte" no Rodapé</p>
+                      <p className="text-[11px] text-slate-500 dark:text-slate-400">Permite aos visitantes e assinantes acionar o suporte diretamente na parte inferior da página.</p>
+                    </div>
+                    <label className="relative inline-flex items-center cursor-pointer">
+                      <input
+                        type="checkbox"
+                        checked={supportSettings.enabled}
+                        onChange={(e) => setSupportSettings({ ...supportSettings, enabled: e.target.checked })}
+                        className="sr-only peer"
+                      />
+                      <div className="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer dark:bg-slate-800 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-slate-600 peer-checked:bg-emerald-600"></div>
+                    </label>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    {/* WhatsApp */}
+                    <div className="p-5 rounded-2xl bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 space-y-4">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                          <MessageCircle className="w-4 h-4 text-emerald-500" />
+                          <h4 className="text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-white">WhatsApp de Atendimento</h4>
+                        </div>
+                        <span className="text-[10px] text-emerald-600 dark:text-emerald-400 font-bold bg-emerald-50 dark:bg-emerald-950/60 px-2 py-0.5 rounded-md border border-emerald-200 dark:border-emerald-800">
+                          wa.me Oficial
+                        </span>
+                      </div>
+
+                      <div className="space-y-1.5">
+                        <label className="text-xs font-semibold text-slate-700 dark:text-slate-300">
+                          Número com DDD (ex: 49 9 88595465)
+                        </label>
+                        <input
+                          type="text"
+                          value={supportSettings.whatsappPhone}
+                          onChange={(e) => setSupportSettings({ ...supportSettings, whatsappPhone: e.target.value })}
+                          placeholder="49 9 88595465"
+                          className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white text-xs font-mono focus:ring-2 focus:ring-emerald-500 outline-none"
+                        />
+                      </div>
+
+                      <div className="space-y-1.5">
+                        <label className="text-xs font-semibold text-slate-700 dark:text-slate-300">
+                          Mensagem Inicial Pré-definida
+                        </label>
+                        <textarea
+                          rows={2}
+                          value={supportSettings.whatsappMessage}
+                          onChange={(e) => setSupportSettings({ ...supportSettings, whatsappMessage: e.target.value })}
+                          placeholder="Olá! Preciso de suporte com o aplicativo CAIC Cinema."
+                          className="w-full px-3.5 py-2 rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white text-xs focus:ring-2 focus:ring-emerald-500 outline-none resize-none"
+                        />
+                      </div>
+
+                      {/* Prévia e Teste */}
+                      <div className="pt-2 border-t border-slate-100 dark:border-slate-800/80 flex items-center justify-between gap-2">
+                        <div className="text-[11px] text-slate-500">
+                          Exibição: <strong className="text-slate-800 dark:text-slate-200">{supportConfigService.formatDisplayPhone(supportSettings.whatsappPhone)}</strong>
+                        </div>
+                        <a
+                          href={supportConfigService.getWhatsAppUrl(supportSettings.whatsappPhone, supportSettings.whatsappMessage)}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="px-3 py-1.5 rounded-lg bg-emerald-50 hover:bg-emerald-100 dark:bg-emerald-950/60 dark:hover:bg-emerald-900/60 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800 text-[11px] font-bold flex items-center gap-1 transition"
+                        >
+                          <ExternalLink className="w-3 h-3" />
+                          <span>Testar WhatsApp</span>
+                        </a>
+                      </div>
+                    </div>
+
+                    {/* E-mail de Suporte */}
+                    <div className="p-5 rounded-2xl bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 space-y-4">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                          <Mail className="w-4 h-4 text-cyan-500" />
+                          <h4 className="text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-white">E-mail de Suporte</h4>
+                        </div>
+                        <span className="text-[10px] text-cyan-600 dark:text-cyan-400 font-bold bg-cyan-50 dark:bg-cyan-950/60 px-2 py-0.5 rounded-md border border-cyan-200 dark:border-cyan-800">
+                          Gmail / Oficial
+                        </span>
+                      </div>
+
+                      <div className="space-y-1.5">
+                        <label className="text-xs font-semibold text-slate-700 dark:text-slate-300">
+                          Endereço de E-mail de Atendimento
+                        </label>
+                        <input
+                          type="email"
+                          value={supportSettings.supportEmail}
+                          onChange={(e) => setSupportSettings({ ...supportSettings, supportEmail: e.target.value })}
+                          placeholder="caic.cinema.app@gmail.com"
+                          className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white text-xs font-mono focus:ring-2 focus:ring-cyan-500 outline-none"
+                        />
+                      </div>
+
+                      <div className="space-y-1.5">
+                        <label className="text-xs font-semibold text-slate-700 dark:text-slate-300">
+                          Horários / Texto Informativo
+                        </label>
+                        <input
+                          type="text"
+                          value={supportSettings.supportHoursText}
+                          onChange={(e) => setSupportSettings({ ...supportSettings, supportHoursText: e.target.value })}
+                          placeholder="Atendimento via WhatsApp e E-mail todos os dias"
+                          className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white text-xs focus:ring-2 focus:ring-cyan-500 outline-none"
+                        />
+                      </div>
+
+                      {/* Teste E-mail */}
+                      <div className="pt-2 border-t border-slate-100 dark:border-slate-800/80 flex items-center justify-between gap-2">
+                        <div className="text-[11px] text-slate-500 truncate max-w-[180px]">
+                          E-mail: <strong className="text-slate-800 dark:text-slate-200">{supportSettings.supportEmail}</strong>
+                        </div>
+                        <a
+                          href={supportConfigService.getEmailUrl(supportSettings.supportEmail, 'Suporte CAIC Cinema')}
+                          className="px-3 py-1.5 rounded-lg bg-cyan-50 hover:bg-cyan-100 dark:bg-cyan-950/60 dark:hover:bg-cyan-900/60 text-cyan-700 dark:text-cyan-300 border border-cyan-200 dark:border-cyan-800 text-[11px] font-bold flex items-center gap-1 transition"
+                        >
+                          <ExternalLink className="w-3 h-3" />
+                          <span>Testar E-mail</span>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Botões de Ação */}
+                  <div className="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-slate-200 dark:border-slate-800">
+                    <button
+                      type="button"
+                      onClick={handleResetSupport}
+                      className="px-4 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs font-semibold transition"
+                    >
+                      Restaurar Padrão (WhatsApp &amp; Gmail)
+                    </button>
+
+                    <div className="flex items-center gap-3">
+                      {supportSaveFeedback && (
+                        <span className="text-xs text-emerald-600 dark:text-emerald-400 font-bold flex items-center gap-1.5 animate-fadeIn">
+                          <CheckCircle2 className="w-4 h-4" />
+                          <span>Salvo com sucesso!</span>
+                        </span>
+                      )}
+
+                      <button
+                        type="submit"
+                        className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold text-xs flex items-center gap-2 shadow-lg shadow-emerald-600/25 transition transform hover:scale-105 active:scale-95 cursor-pointer"
+                      >
+                        <Save className="w-4 h-4" />
+                        <span>Salvar Configurações de Suporte</span>
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>

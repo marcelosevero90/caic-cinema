@@ -17,6 +17,7 @@ import { MovieSuggestionModal } from './components/MovieSuggestionModal';
 import { VisitorTrialModal } from './components/VisitorTrialModal';
 import { CinemaSessionSection } from './components/CinemaSessionSection';
 import { cinemaSessionService } from './services/cinemaSessionService';
+import { supportConfigService, type SupportConfig } from './services/supportConfigService';
 import type { CinemaSession } from './types/cinemaSession';
 import { useTvNavigation } from './hooks/useTvNavigation';
 import { GENRE_TAXONOMY, FAMOUS_ACTORS, MOOD_OPTIONS } from './data/genreTaxonomy';
@@ -40,6 +41,9 @@ import {
   AlertCircle,
   Server,
   Smile,
+  Headphones,
+  MessageCircle,
+  Mail,
 } from 'lucide-react';
 
 export const App: React.FC = () => {
@@ -98,6 +102,7 @@ export const App: React.FC = () => {
   const [currentAccount, setCurrentAccount] = useState<UserAccount>(userService.getAccount());
   const [activeProfile, setActiveProfile] = useState<UserProfile>(userService.getActiveProfile());
   const [cinemaSession, setCinemaSession] = useState<CinemaSession>(() => cinemaSessionService.getActiveSession());
+  const [supportConfig, setSupportConfig] = useState<SupportConfig>(() => supportConfigService.getConfig());
 
   useEffect(() => {
     catalogService.syncJellyfinMovies();
@@ -112,10 +117,14 @@ export const App: React.FC = () => {
     const unsubSession = cinemaSessionService.subscribe(() => {
       setCinemaSession(cinemaSessionService.getActiveSession());
     });
+    const unsubSupport = supportConfigService.subscribe((cfg) => {
+      setSupportConfig(cfg);
+    });
     return () => {
       unsubCatalog();
       unsubUser();
       unsubSession();
+      unsubSupport();
     };
   }, []);
 
@@ -362,6 +371,41 @@ export const App: React.FC = () => {
     if (activeFilter !== 'Todos') return `🌟 Destaque em ${activeFilter}`;
     return 'Destaque Recomendado pelo CAIC';
   }, [searchQuery, activeFilter, selectedSubgenre, selectedActor, selectedMood, cinemaSession]);
+
+  // Próximo filme para maratona da Sessão Cinema ou fila de reprodução sequencial
+  const nextMovie = useMemo(() => {
+    if (!selectedMovie) return null;
+
+    // 1. Se o filme está na Sessão Cinema Especial
+    if (cinemaSession?.active && cinemaSessionMovies.length > 0) {
+      const idx = cinemaSessionMovies.findIndex((m) => m.id === selectedMovie.id);
+      if (idx !== -1 && idx < cinemaSessionMovies.length - 1) {
+        return cinemaSessionMovies[idx + 1];
+      }
+    }
+
+    // 2. Se há filtro ou busca ativa
+    if (filteredMovies.length > 0) {
+      const idx = filteredMovies.findIndex((m) => m.id === selectedMovie.id);
+      if (idx !== -1 && idx < filteredMovies.length - 1) {
+        return filteredMovies[idx + 1];
+      }
+    }
+
+    // 3. Catálogo geral
+    const allIdx = allMovies.findIndex((m) => m.id === selectedMovie.id);
+    if (allIdx !== -1 && allIdx < allMovies.length - 1) {
+      return allMovies[allIdx + 1];
+    }
+
+    return null;
+  }, [selectedMovie, cinemaSession, cinemaSessionMovies, filteredMovies, allMovies]);
+
+  const handlePlayNextMovie = () => {
+    if (nextMovie) {
+      handlePlayMovie(nextMovie);
+    }
+  };
 
   // Seções temáticas do novo catálogo oficial
   const actionMovies = useMemo(() => catalogService.getByGenre('Ação'), [catalogVersion]);
@@ -1598,16 +1642,73 @@ export const App: React.FC = () => {
         )}
       </main>
 
-      {/* Footer */}
-      <footer className="mt-16 border-t border-slate-200 dark:border-slate-800 bg-white/90 dark:bg-slate-900/60 py-8 px-4 text-center text-xs text-slate-600 dark:text-slate-400">
-        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p>© 2026 CAIC - Streaming Inteligente Multiplataforma (Web, Mobile e Android TV).</p>
-          <div className="flex items-center gap-3 text-slate-600 dark:text-slate-400 flex-wrap justify-center">
-            <span>Powered by Google Gemini 3.8 Flash</span>
-            <span>•</span>
-            <span>YouTube Official IFrame API</span>
-            <span>•</span>
-            <span>Pix Dinâmico Seguro (Mercado Pago)</span>
+      {/* Footer com Suporte e Informações */}
+      <footer className="mt-16 border-t border-slate-200 dark:border-slate-800 bg-white/95 dark:bg-slate-900/80 py-10 px-4 text-xs text-slate-600 dark:text-slate-400">
+        <div className="max-w-7xl mx-auto space-y-8">
+          
+          {/* Fale com o Suporte (WhatsApp & E-mail Configuráveis no Admin) */}
+          {supportConfig.enabled && (
+            <div className="p-6 rounded-3xl bg-gradient-to-r from-slate-50 via-slate-100/70 to-slate-50 dark:from-slate-950/80 dark:via-slate-900/90 dark:to-slate-950/80 border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col md:flex-row items-center justify-between gap-6">
+              <div className="space-y-1.5 text-center md:text-left">
+                <div className="flex items-center justify-center md:justify-start gap-2">
+                  <span className="p-1.5 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+                    <Headphones className="w-4 h-4" />
+                  </span>
+                  <h3 className="text-sm sm:text-base font-extrabold text-slate-900 dark:text-white">
+                    Fale com o Suporte CAIC
+                  </h3>
+                  <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-800">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping" />
+                    Online
+                  </span>
+                </div>
+                <p className="text-xs text-slate-600 dark:text-slate-400 max-w-xl leading-relaxed">
+                  Dúvidas com filmes, pedidos de catálogo ou problemas de acesso? Fale diretamente com nossa equipe via WhatsApp ou E-mail. {supportConfig.supportHoursText}
+                </p>
+              </div>
+
+              <div className="flex flex-wrap items-center justify-center gap-3 shrink-0">
+                {/* Botão WhatsApp */}
+                <a
+                  href={supportConfigService.getWhatsAppUrl(supportConfig.whatsappPhone, supportConfig.whatsappMessage)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-4 py-2.5 rounded-2xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs flex items-center gap-2.5 shadow-md shadow-emerald-600/20 transition transform hover:scale-105 active:scale-95 cursor-pointer"
+                  title="Conversar no WhatsApp"
+                >
+                  <MessageCircle className="w-4 h-4 fill-current" />
+                  <div className="text-left">
+                    <div className="text-[10px] opacity-80 leading-none">WhatsApp</div>
+                    <div className="font-extrabold leading-tight">{supportConfigService.formatDisplayPhone(supportConfig.whatsappPhone)}</div>
+                  </div>
+                </a>
+
+                {/* Botão E-mail */}
+                <a
+                  href={supportConfigService.getEmailUrl(supportConfig.supportEmail, 'Suporte CAIC Cinema')}
+                  className="px-4 py-2.5 rounded-2xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 border border-slate-200 dark:border-slate-700 font-bold text-xs flex items-center gap-2.5 transition transform hover:scale-105 active:scale-95 cursor-pointer"
+                  title="Enviar e-mail para o suporte"
+                >
+                  <Mail className="w-4 h-4 text-cyan-600 dark:text-cyan-400" />
+                  <div className="text-left">
+                    <div className="text-[10px] text-slate-500 dark:text-slate-400 leading-none">E-mail de Suporte</div>
+                    <div className="font-extrabold leading-tight">{supportConfig.supportEmail}</div>
+                  </div>
+                </a>
+              </div>
+            </div>
+          )}
+
+          {/* Copyright e Tecnologias */}
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-4 border-t border-slate-200/70 dark:border-slate-800/80">
+            <p>© 2026 CAIC - Streaming Inteligente Multiplataforma (Web, Mobile e Android TV).</p>
+            <div className="flex items-center gap-3 text-slate-600 dark:text-slate-400 flex-wrap justify-center">
+              <span>Powered by Google Gemini 3.8 Flash</span>
+              <span>•</span>
+              <span>YouTube Official IFrame API</span>
+              <span>•</span>
+              <span>Pix Dinâmico Seguro (Mercado Pago)</span>
+            </div>
           </div>
         </div>
       </footer>
@@ -1626,6 +1727,8 @@ export const App: React.FC = () => {
         }}
         isFavorite={selectedMovie ? activeProfile.favoriteMovieIds.includes(selectedMovie.id) : false}
         onToggleFavorite={handleToggleFavorite}
+        nextMovie={nextMovie}
+        onNextMovie={handlePlayNextMovie}
       />
 
       {/* Ajudante IA Drawer */}
