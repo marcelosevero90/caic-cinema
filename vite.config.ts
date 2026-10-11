@@ -725,9 +725,67 @@ function mercadoPagoDevPlugin(): Plugin {
   };
 }
 
+function deepseekDevPlugin(): Plugin {
+  return {
+    name: 'deepseek-dev-plugin',
+    configureServer(server) {
+      server.middlewares.use(async (req, res, next) => {
+        if (req.method === 'POST' && req.url === '/api/ai/deepseek') {
+          let body = '';
+          req.on('data', chunk => { body += chunk; });
+          req.on('end', async () => {
+            try {
+              const payload = JSON.parse(body || '{}');
+              const apiKey = process.env.DEEPSEEK_API_KEY || process.env.VITE_DEEPSEEK_API_KEY || '';
+              if (!apiKey) {
+                res.statusCode = 500;
+                res.setHeader('Content-Type', 'application/json');
+                res.end(JSON.stringify({ error: 'DEEPSEEK_API_KEY não configurada no ambiente.' }));
+                return;
+              }
+              const dsResponse = await fetch('https://api.deepseek.com/chat/completions', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                  'Authorization': `Bearer ${apiKey}`,
+                },
+                body: JSON.stringify({
+                  model: payload.model || 'deepseek-chat',
+                  messages: payload.messages || [],
+                  temperature: payload.temperature ?? 0.7,
+                  max_tokens: payload.max_tokens ?? 1800,
+                  response_format: payload.response_format,
+                }),
+              });
+              const data = await dsResponse.json();
+              res.statusCode = dsResponse.status;
+              res.setHeader('Content-Type', 'application/json');
+              res.end(JSON.stringify(data));
+            } catch (err: any) {
+              res.statusCode = 500;
+              res.setHeader('Content-Type', 'application/json');
+              res.end(JSON.stringify({ error: err.message || 'Erro no proxy DeepSeek' }));
+            }
+          });
+          return;
+        }
+        next();
+      });
+    },
+  };
+}
+
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [react(), tailwindcss(), emailAuthPlugin(), playbackSessionPlugin(), sharedDatabasePlugin(), mercadoPagoDevPlugin()],
+  plugins: [
+    react(),
+    tailwindcss(),
+    emailAuthPlugin(),
+    playbackSessionPlugin(),
+    sharedDatabasePlugin(),
+    mercadoPagoDevPlugin(),
+    deepseekDevPlugin()
+  ],
   server: {
     port: 5173,
     host: true,
@@ -737,3 +795,4 @@ export default defineConfig({
     },
   },
 })
+

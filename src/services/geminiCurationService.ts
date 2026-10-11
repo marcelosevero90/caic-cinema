@@ -1,6 +1,7 @@
 import { GoogleGenAI, Type } from '@google/genai';
 import type { Movie, SearchFilters, UserProfile, VideoAnalysisResult, ChatRecommendation } from '../types/movie';
 import { catalogService } from './catalogService';
+import { deepseekService } from './deepseekService';
 
 export interface CurationResponse {
   text: string;
@@ -78,6 +79,13 @@ class GeminiCurationService {
     const apiKey = this.getApiKey();
 
     if (!apiKey) {
+      if (deepseekService.isAvailable()) {
+        try {
+          return await deepseekService.analyzeYouTubeVideo(params);
+        } catch {
+          // segue para fallback local
+        }
+      }
       return this.fallbackAnalyzeVideo(params);
     }
 
@@ -135,7 +143,14 @@ Retorne EXCLUSIVAMENTE um objeto JSON válido no formato:
         ratingScore: Number(parsed.ratingScore) || 7.5
       };
     } catch (err) {
-      console.warn('Erro ao analisar filme com Gemini, usando fallback:', err);
+      console.warn('Erro ao analisar filme com Gemini, tentando DeepSeek:', err);
+      try {
+        if (deepseekService.isAvailable()) {
+          return await deepseekService.analyzeYouTubeVideo(params);
+        }
+      } catch (dsErr) {
+        console.warn('Fallback DeepSeek também indisponível:', dsErr);
+      }
       return this.fallbackAnalyzeVideo(params);
     }
   }
@@ -174,6 +189,13 @@ Retorne EXCLUSIVAMENTE um objeto JSON válido no formato:
     const apiKey = this.getApiKey();
 
     if (!apiKey) {
+      if (deepseekService.isAvailable()) {
+        try {
+          return await deepseekService.askCurator(userMessage, history, userProfile);
+        } catch (dsErr) {
+          console.warn('DeepSeek indisponível, usando motor heurístico:', dsErr);
+        }
+      }
       return this.smartSemanticHeuristicCuration(userMessage, userProfile);
     }
 
@@ -323,7 +345,14 @@ DIRETRIZES FUNDAMENTAIS:
         recommendedMovies: []
       };
     } catch (err: unknown) {
-      console.warn('Erro na chamada ao Gemini API, usando motor heurístico avançado:', err);
+      console.warn('Gemini API atingiu cota ou indisponível. Acionando fallback transparente DeepSeek...', err);
+      try {
+        if (deepseekService.isAvailable()) {
+          return await deepseekService.askCurator(userMessage, history, userProfile);
+        }
+      } catch (dsErr) {
+        console.warn('DeepSeek também indisponível, usando motor heurístico local:', dsErr);
+      }
       return this.smartSemanticHeuristicCuration(userMessage, userProfile);
     }
   }
@@ -753,8 +782,20 @@ Diretrizes de resposta:
           };
         }
       } catch (e) {
-        console.warn('Erro ao consultar insights do filme com Gemini:', e);
+        console.warn('Erro ao consultar insights do filme com Gemini, tentando DeepSeek:', e);
       }
+    }
+
+    // Tentar fallback DeepSeek se Gemini falhar ou não tiver chave
+    try {
+      if (deepseekService.isAvailable()) {
+        const dsResult = await deepseekService.askMovieInsights(movie, question);
+        if (dsResult && dsResult.text) {
+          return dsResult;
+        }
+      }
+    } catch (dsErr) {
+      console.warn('Fallback DeepSeek também indisponível para insights:', dsErr);
     }
 
     // Fallback heurístico inteligente
