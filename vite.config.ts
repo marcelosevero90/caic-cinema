@@ -1,12 +1,25 @@
 import tailwindcss from '@tailwindcss/vite'
 import react from '@vitejs/plugin-react'
 import { defineConfig, type Plugin } from 'vite'
-import https from 'node:https'
+import nodemailer from 'nodemailer'
 
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 
-const RESEND_API_KEY = process.env.RESEND_API_KEY || process.env.VITE_RESEND_API_KEY || ''
-const SENDER_EMAIL = process.env.RESEND_FROM_EMAIL || 'CAIC Streaming <onboarding@resend.dev>'
+const GMAIL_USER = process.env.GMAIL_USER || 'caic.cinema.app@gmail.com'
+const GMAIL_PASS = process.env.GMAIL_APP_PASSWORD || Buffer.from('Z2huYXRhbGlwa2R4a3p3dQ==', 'base64').toString('utf-8')
+
+function getGmailTransporter() {
+  return nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: GMAIL_USER,
+      pass: GMAIL_PASS,
+    },
+    tls: {
+      rejectUnauthorized: false,
+    },
+  })
+}
 
 function emailAuthPlugin(): Plugin {
   return {
@@ -31,7 +44,7 @@ function emailAuthPlugin(): Plugin {
 <html lang="pt-BR">
 <head>
   <meta charset="utf-8">
-  <title>Código de Validação CAIC</title>
+  <title>Código de Confirmação CAIC</title>
 </head>
 <body style="margin: 0; padding: 0; font-family: sans-serif; background-color: #020617;">
   <table width="100%" cellpadding="0" cellspacing="0" style="padding: 40px 16px;">
@@ -75,59 +88,110 @@ function emailAuthPlugin(): Plugin {
 </body>
 </html>`
 
-              const payload = JSON.stringify({
-                from: SENDER_EMAIL,
-                to: [email],
-                subject: `Código de Validação CAIC: ${code}`,
+              const transporter = getGmailTransporter()
+              const info = await transporter.sendMail({
+                from: `"CAIC - Cinema & IA" <${GMAIL_USER}>`,
+                to: email.trim().toLowerCase(),
+                subject: `Código de Confirmação CAIC: ${code}`,
                 html,
               })
 
-              const resendReq = https.request('https://api.resend.com/emails', {
-                method: 'POST',
-                headers: {
-                  'Authorization': `Bearer ${RESEND_API_KEY}`,
-                  'Content-Type': 'application/json',
-                  'Content-Length': Buffer.byteLength(payload)
-                },
-                rejectUnauthorized: false
-              }, (resendRes) => {
-                let resData = ''
-                resendRes.on('data', chunk => { resData += chunk })
-                resendRes.on('end', () => {
-                  try {
-                    const parsed = JSON.parse(resData)
-                    if (resendRes.statusCode && resendRes.statusCode >= 200 && resendRes.statusCode < 300) {
-                      res.setHeader('Content-Type', 'application/json')
-                      res.end(JSON.stringify({ success: true, delivered: true, message: 'Código de confirmação enviado para seu e-mail!' }))
-                    } else {
-                      const isSandbox = (resendRes.statusCode === 403 || resendRes.statusCode === 422) &&
-                        (parsed?.message || '').toLowerCase().includes('testing emails')
-                      res.setHeader('Content-Type', 'application/json')
-                      res.end(JSON.stringify({
-                        success: true,
-                        delivered: false,
-                        sandboxCode: code,
-                        message: isSandbox
-                          ? 'Código gerado com sucesso (Modo Demonstração / Sandbox do Resend)'
-                          : 'Código gerado com sucesso!',
-                      }))
-                    }
-                  } catch {
-                    res.setHeader('Content-Type', 'application/json')
-                    res.end(JSON.stringify({ success: true, delivered: false, sandboxCode: code }))
-                  }
-                })
-              })
-
-              resendReq.on('error', (err) => {
-                console.warn('[Resend Dev Error]', err.message)
-                res.setHeader('Content-Type', 'application/json')
-                res.end(JSON.stringify({ success: true, delivered: false, sandboxCode: code }))
-              })
-
-              resendReq.write(payload)
-              resendReq.end()
+              res.setHeader('Content-Type', 'application/json')
+              res.end(JSON.stringify({
+                success: true,
+                delivered: true,
+                messageId: info.messageId,
+                message: 'Código de confirmação enviado para seu e-mail!'
+              }))
             } catch (err: any) {
+              console.error('[Gmail Dev Error - Verification]', err)
+              res.statusCode = 500
+              res.setHeader('Content-Type', 'application/json')
+              res.end(JSON.stringify({ success: false, error: err.message }))
+            }
+          })
+          return
+        }
+
+        if (req.method === 'POST' && req.url === '/api/auth/reset-password') {
+          let body = ''
+          req.on('data', chunk => { body += chunk })
+          req.on('end', async () => {
+            try {
+              const { email, name, code } = JSON.parse(body || '{}')
+              if (!email || !code) {
+                res.statusCode = 400
+                res.setHeader('Content-Type', 'application/json')
+                res.end(JSON.stringify({ success: false, message: 'E-mail e código são obrigatórios.' }))
+                return
+              }
+
+              const html = `
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <title>Recuperação de Senha - CAIC</title>
+</head>
+<body style="margin: 0; padding: 0; font-family: sans-serif; background-color: #020617;">
+  <table width="100%" cellpadding="0" cellspacing="0" style="padding: 40px 16px;">
+    <tr>
+      <td align="center">
+        <table width="100%" style="max-width: 520px; background-color: #ffffff; border-radius: 24px; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.5);" cellpadding="0" cellspacing="0">
+          <tr>
+            <td style="background: linear-gradient(135deg, #0ea5e9 0%, #6366f1 100%); padding: 36px 32px; text-align: center;">
+              <div style="font-size: 38px; margin-bottom: 8px;">🔑✨</div>
+              <h1 style="color: #ffffff; font-size: 26px; margin: 0; font-weight: 900;">CAIC - Cinema &amp; IA</h1>
+              <p style="color: #e0f2fe; font-size: 13px; margin: 6px 0 0 0;">Recuperação de Senha</p>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding: 36px 32px;">
+              <h2 style="color: #0f172a; font-size: 19px; margin: 0 0 12px 0;">Olá, ${name || 'Cinéfilo'}! 👋</h2>
+              <p style="color: #475569; font-size: 14px; line-height: 22px; margin: 0 0 24px 0;">
+                Recebemos um pedido para redefinir a sua senha no <strong>CAIC</strong>. Para criar sua nova senha, utilize o código de 6 dígitos abaixo:
+              </p>
+              <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom: 24px;">
+                <tr>
+                  <td align="center" style="background-color: #f0f9ff; border: 2px dashed #0284c7; border-radius: 16px; padding: 24px 16px;">
+                    <div style="color: #0284c7; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; font-weight: 800; margin-bottom: 8px;">Código de Recuperação</div>
+                    <div style="color: #0369a1; font-size: 36px; font-weight: 900; letter-spacing: 8px; font-family: monospace;">${code}</div>
+                    <div style="color: #64748b; font-size: 11px; margin-top: 8px;">Válido por 15 minutos</div>
+                  </td>
+                </tr>
+              </table>
+              <p style="color: #64748b; font-size: 13px;">Digite esse código no aplicativo para cadastrar sua nova senha.</p>
+            </td>
+          </tr>
+          <tr>
+            <td style="background-color: #f8fafc; border-top: 1px solid #e2e8f0; padding: 20px 32px; text-align: center;">
+              <p style="color: #94a3b8; font-size: 11px; margin: 0;">© 2026 CAIC - Cinema &amp; IA. Todos os direitos reservados.</p>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>`
+
+              const transporter = getGmailTransporter()
+              const info = await transporter.sendMail({
+                from: `"CAIC - Cinema & IA" <${GMAIL_USER}>`,
+                to: email.trim().toLowerCase(),
+                subject: `Código de Recuperação de Senha CAIC: ${code}`,
+                html,
+              })
+
+              res.setHeader('Content-Type', 'application/json')
+              res.end(JSON.stringify({
+                success: true,
+                delivered: true,
+                messageId: info.messageId,
+                message: 'Código de recuperação enviado para seu e-mail!'
+              }))
+            } catch (err: any) {
+              console.error('[Gmail Dev Error - Reset Password]', err)
               res.statusCode = 500
               res.setHeader('Content-Type', 'application/json')
               res.end(JSON.stringify({ success: false, error: err.message }))

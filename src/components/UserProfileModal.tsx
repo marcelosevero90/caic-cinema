@@ -27,6 +27,9 @@ import {
   Upload,
   Camera,
   Phone,
+  Key,
+  ArrowLeft,
+  Mail,
 } from 'lucide-react';
 import { userService, AVATAR_PRESETS } from '../services/userService';
 import { catalogService } from '../services/catalogService';
@@ -112,6 +115,16 @@ const UserProfileModalContent: React.FC<UserProfileModalProps> = ({
     password?: string;
     phone?: string;
   } | null>(null);
+
+  // Estados de Recuperação de Senha
+  const [isResettingPassword, setIsResettingPassword] = useState(false);
+  const [resetStep, setResetStep] = useState<'email' | 'code'>('email');
+  const [resetEmail, setResetEmail] = useState('');
+  const [resetCode, setResetCode] = useState('');
+  const [resetNewPassword, setResetNewPassword] = useState('');
+  const [resetConfirmPassword, setResetConfirmPassword] = useState('');
+  const [resetLoading, setResetLoading] = useState(false);
+  const [resetMessage, setResetMessage] = useState<string | null>(null);
 
   // Form states para criação de perfil
   const [newProfileName, setNewProfileName] = useState('');
@@ -283,6 +296,86 @@ const UserProfileModalContent: React.FC<UserProfileModalProps> = ({
         setActiveTab('account');
         onClose();
       }, 900);
+    }
+  };
+
+  const handleSendResetCode = async (e?: React.FormEvent | React.MouseEvent) => {
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+    const clean = resetEmail.trim().toLowerCase();
+    if (!clean) {
+      setResetMessage('Informe o seu endereço de e-mail.');
+      return;
+    }
+    setResetLoading(true);
+    setResetMessage(null);
+    try {
+      const res = await emailVerificationService.sendPasswordResetCode(clean);
+      if (res.success) {
+        setResetStep('code');
+        setResetMessage('Código de recuperação enviado para seu e-mail! Verifique sua caixa de entrada.');
+      } else {
+        setResetMessage(res.message || 'Falha ao enviar código.');
+      }
+    } catch (err: any) {
+      setResetMessage(err.message || 'Erro ao enviar código de recuperação.');
+    } finally {
+      setResetLoading(false);
+    }
+  };
+
+  const handleConfirmResetPassword = async (e?: React.FormEvent | React.MouseEvent) => {
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+    if (!resetCode.trim()) {
+      setResetMessage('Digite o código de 6 dígitos recebido no e-mail.');
+      return;
+    }
+    if (!resetNewPassword || resetNewPassword.length < 4) {
+      setResetMessage('A nova senha deve ter no mínimo 4 caracteres.');
+      return;
+    }
+    if (resetNewPassword !== resetConfirmPassword) {
+      setResetMessage('As senhas digitadas não coincidem.');
+      return;
+    }
+
+    setResetLoading(true);
+    setResetMessage(null);
+    try {
+      const verif = emailVerificationService.verifyPasswordResetCode(resetEmail, resetCode);
+      if (!verif.success) {
+        setResetMessage(verif.message);
+        setResetLoading(false);
+        return;
+      }
+
+      const updateRes = userService.resetPassword(resetEmail, resetNewPassword);
+      if (!updateRes.success) {
+        setResetMessage(updateRes.message);
+        setResetLoading(false);
+        return;
+      }
+
+      // Login automático com a nova senha
+      userService.login(resetEmail, resetNewPassword);
+      refreshState();
+      if (onAccountChanged) onAccountChanged();
+      setIsResettingPassword(false);
+      setResetStep('email');
+      setResetEmail('');
+      setResetCode('');
+      setResetNewPassword('');
+      setResetConfirmPassword('');
+      setAuthMessage('Senha redefinida com sucesso! Você já está conectado.');
+    } catch (err: any) {
+      setResetMessage(err.message || 'Erro ao redefinir a senha.');
+    } finally {
+      setResetLoading(false);
     }
   };
 
@@ -687,6 +780,170 @@ const UserProfileModalContent: React.FC<UserProfileModalProps> = ({
                     </div>
                   </div>
                 </div>
+              ) : isResettingPassword ? (
+                /* ESTADO: RECUPERAÇÃO DE SENHA */
+                <div className="space-y-6 animate-fadeIn">
+                  <div className="text-center space-y-1">
+                    <div className="w-12 h-12 rounded-2xl bg-cyan-100 dark:bg-cyan-950 text-cyan-600 dark:text-cyan-400 mx-auto flex items-center justify-center mb-2 shadow-md">
+                      <Key className="w-6 h-6" />
+                    </div>
+                    <h4 className="text-lg font-extrabold text-slate-950 dark:text-white">
+                      Recuperação de Senha
+                    </h4>
+                    <p className="text-xs text-slate-600 dark:text-slate-400 max-w-md mx-auto">
+                      {resetStep === 'email'
+                        ? 'Informe seu e-mail cadastrado para enviarmos um código de 6 dígitos via Gmail.'
+                        : `Digite o código de 6 dígitos enviado para ${resetEmail} e escolha sua nova senha.`}
+                    </p>
+                  </div>
+
+                  {resetMessage && (
+                    <div className={`p-3 rounded-xl text-xs font-medium text-center ${
+                      resetMessage.includes('sucesso') || resetMessage.includes('enviado')
+                        ? 'bg-cyan-50 dark:bg-cyan-950/50 text-cyan-700 dark:text-cyan-300 border border-cyan-200 dark:border-cyan-800'
+                        : 'bg-rose-50 dark:bg-rose-950/50 text-rose-700 dark:text-rose-300 border border-rose-200 dark:border-rose-800'
+                    }`}>
+                      {resetMessage}
+                    </div>
+                  )}
+
+                  {resetStep === 'email' ? (
+                    <form
+                      onSubmit={(e) => {
+                        e.preventDefault();
+                        handleSendResetCode(e);
+                      }}
+                      className="space-y-3.5 max-w-md mx-auto"
+                    >
+                      <div>
+                        <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1 flex items-center gap-1.5">
+                          <Mail className="w-3.5 h-3.5 text-cyan-500" />
+                          <span>Seu E-mail Cadastrado</span>
+                        </label>
+                        <input
+                          type="email"
+                          value={resetEmail}
+                          onChange={(e) => setResetEmail(e.target.value)}
+                          placeholder="seu-email@exemplo.com"
+                          required
+                          className="w-full px-3.5 py-2.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl text-xs text-slate-900 dark:text-white focus:outline-none focus:border-cyan-500"
+                        />
+                      </div>
+
+                      <button
+                        type="submit"
+                        disabled={resetLoading}
+                        className="w-full py-2.5 bg-gradient-to-r from-cyan-600 to-indigo-600 hover:from-cyan-500 hover:to-indigo-500 text-white font-bold text-xs rounded-xl shadow-md shadow-cyan-600/20 transition flex items-center justify-center gap-1.5 cursor-pointer disabled:opacity-50"
+                      >
+                        {resetLoading ? (
+                          <RefreshCw className="w-4 h-4 animate-spin" />
+                        ) : (
+                          <Key className="w-4 h-4" />
+                        )}
+                        <span>{resetLoading ? 'Enviando código...' : 'Enviar Código de Recuperação'}</span>
+                      </button>
+
+                      <div className="text-center pt-2">
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setIsResettingPassword(false);
+                            setResetMessage(null);
+                          }}
+                          className="text-xs text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 font-semibold flex items-center justify-center gap-1 mx-auto cursor-pointer"
+                        >
+                          <ArrowLeft className="w-3.5 h-3.5" />
+                          <span>Voltar para o Login</span>
+                        </button>
+                      </div>
+                    </form>
+                  ) : (
+                    <form
+                      onSubmit={(e) => {
+                        e.preventDefault();
+                        handleConfirmResetPassword(e);
+                      }}
+                      className="space-y-3.5 max-w-md mx-auto"
+                    >
+                      <div>
+                        <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                          Código de 6 Dígitos
+                        </label>
+                        <input
+                          type="text"
+                          maxLength={6}
+                          value={resetCode}
+                          onChange={(e) => setResetCode(e.target.value.replace(/\D/g, ''))}
+                          placeholder="123456"
+                          required
+                          className="w-full px-3.5 py-2.5 bg-slate-50 dark:bg-slate-950 border border-cyan-500/50 rounded-xl text-center text-lg font-mono font-bold tracking-widest text-cyan-600 dark:text-cyan-400 focus:outline-none focus:border-cyan-500"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                          Nova Senha
+                        </label>
+                        <input
+                          type="password"
+                          value={resetNewPassword}
+                          onChange={(e) => setResetNewPassword(e.target.value)}
+                          placeholder="Mínimo 4 caracteres"
+                          required
+                          className="w-full px-3.5 py-2.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl text-xs text-slate-900 dark:text-white focus:outline-none focus:border-cyan-500"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                          Confirmar Nova Senha
+                        </label>
+                        <input
+                          type="password"
+                          value={resetConfirmPassword}
+                          onChange={(e) => setResetConfirmPassword(e.target.value)}
+                          placeholder="Repita a nova senha"
+                          required
+                          className="w-full px-3.5 py-2.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl text-xs text-slate-900 dark:text-white focus:outline-none focus:border-cyan-500"
+                        />
+                      </div>
+
+                      <button
+                        type="submit"
+                        disabled={resetLoading}
+                        className="w-full py-2.5 bg-gradient-to-r from-emerald-600 to-cyan-600 hover:from-emerald-500 hover:to-cyan-500 text-white font-bold text-xs rounded-xl shadow-md shadow-emerald-600/20 transition flex items-center justify-center gap-1.5 cursor-pointer disabled:opacity-50"
+                      >
+                        {resetLoading ? (
+                          <RefreshCw className="w-4 h-4 animate-spin" />
+                        ) : (
+                          <Check className="w-4 h-4" />
+                        )}
+                        <span>{resetLoading ? 'Salvando...' : 'Salvar Nova Senha e Conectar'}</span>
+                      </button>
+
+                      <div className="flex items-center justify-between pt-2 text-xs">
+                        <button
+                          type="button"
+                          onClick={() => setResetStep('email')}
+                          className="text-cyan-600 dark:text-cyan-400 hover:underline font-semibold cursor-pointer"
+                        >
+                          Reenviar código
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setIsResettingPassword(false);
+                            setResetMessage(null);
+                          }}
+                          className="text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 font-semibold flex items-center gap-1 cursor-pointer"
+                        >
+                          <ArrowLeft className="w-3.5 h-3.5" />
+                          <span>Cancelar</span>
+                        </button>
+                      </div>
+                    </form>
+                  )}
+                </div>
               ) : (
                 /* ESTADO DESLOGADO (LOGIN / CADASTRO) */
                 <div className="space-y-6 animate-fadeIn">
@@ -767,7 +1024,23 @@ const UserProfileModalContent: React.FC<UserProfileModalProps> = ({
                     </div>
 
                     <div>
-                      <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Senha</label>
+                      <div className="flex items-center justify-between mb-1">
+                        <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300">Senha</label>
+                        {!isRegistering && (
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setIsResettingPassword(true);
+                              setResetStep('email');
+                              setResetEmail(emailInput);
+                              setResetMessage(null);
+                            }}
+                            className="text-[11px] text-cyan-600 dark:text-cyan-400 hover:underline font-semibold cursor-pointer"
+                          >
+                            Esqueci minha senha
+                          </button>
+                        )}
+                      </div>
                       <input
                         type="password"
                         value={passwordInput}

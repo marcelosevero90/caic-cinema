@@ -4,8 +4,9 @@
  */
 
 const RESEND_API_KEY = (import.meta as any).env?.VITE_RESEND_API_KEY || '';
-const SENDER_EMAIL = (import.meta as any).env?.VITE_RESEND_FROM_EMAIL || 'CAIC Streaming <onboarding@resend.dev>';
+const SENDER_EMAIL = 'CAIC - Cinema & IA <caic.cinema.app@gmail.com>';
 const STORAGE_VERIF_KEY = 'CAIC_EMAIL_VERIFICATIONS';
+const STORAGE_RESET_KEY = 'CAIC_PASSWORD_RESET_TOKENS';
 
 export interface VerificationRecord {
   email: string;
@@ -236,6 +237,100 @@ class EmailVerificationService {
     record.verified = true;
     this.saveStoredTokens(stored);
     return { success: true, message: 'E-mail validado com sucesso!' };
+  }
+
+  /**
+   * Envia o código de recuperação de senha via Gmail
+   */
+  public async sendPasswordResetCode(email: string, name?: string): Promise<{
+    success: boolean;
+    message: string;
+    delivered?: boolean;
+    sandboxCode?: string;
+  }> {
+    const cleanEmail = email.trim().toLowerCase();
+    const cleanName = (name || 'Cinéfilo').trim();
+
+    // Gera código numérico de 6 dígitos
+    const code = Math.floor(100000 + Math.random() * 900000).toString();
+    const expiresAt = Date.now() + 15 * 60 * 1000; // 15 minutos
+
+    // Salva localmente
+    try {
+      const raw = localStorage.getItem(STORAGE_RESET_KEY);
+      const tokens: Record<string, VerificationRecord> = raw ? JSON.parse(raw) : {};
+      tokens[cleanEmail] = {
+        email: cleanEmail,
+        code,
+        expiresAt,
+        name: cleanName,
+        verified: false,
+      };
+      localStorage.setItem(STORAGE_RESET_KEY, JSON.stringify(tokens));
+    } catch {
+      // ignore
+    }
+
+    try {
+      const res = await fetch('/api/auth/reset-password', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: cleanEmail, name: cleanName, code })
+      });
+
+      if (res.ok) {
+        const data = await res.json();
+        return {
+          success: true,
+          message: data.message || 'Código de recuperação enviado para seu e-mail!',
+          delivered: data.delivered ?? true,
+        };
+      } else {
+        const errData = await res.json().catch(() => ({}));
+        return {
+          success: false,
+          message: errData.message || 'Não foi possível enviar o e-mail de recuperação. Tente novamente.',
+        };
+      }
+    } catch (e: any) {
+      console.warn('Erro ao conectar ao endpoint de recuperação de senha:', e);
+      return {
+        success: false,
+        message: 'Erro de conexão ao enviar o código. Tente novamente mais tarde.',
+      };
+    }
+  }
+
+  /**
+   * Valida o código de recuperação digitado pelo usuário
+   */
+  public verifyPasswordResetCode(email: string, code: string): { success: boolean; message: string } {
+    const cleanEmail = email.trim().toLowerCase();
+    const cleanCode = code.trim();
+
+    try {
+      const raw = localStorage.getItem(STORAGE_RESET_KEY);
+      const tokens: Record<string, VerificationRecord> = raw ? JSON.parse(raw) : {};
+      const record = tokens[cleanEmail];
+
+      if (!record) {
+        return { success: false, message: 'Nenhum código de recuperação pendente para este e-mail. Solicite novamente.' };
+      }
+
+      if (Date.now() > record.expiresAt) {
+        return { success: false, message: 'O código de recuperação expirou (válido por 15 minutos). Solicite um novo.' };
+      }
+
+      if (record.code !== cleanCode) {
+        return { success: false, message: 'Código incorreto. Por favor, verifique os 6 dígitos digitados no e-mail.' };
+      }
+
+      record.verified = true;
+      localStorage.setItem(STORAGE_RESET_KEY, JSON.stringify(tokens));
+      return { success: true, message: 'Código validado com sucesso!' };
+    } catch {
+      return { success: false, message: 'Falha ao validar o código.' };
+    }
   }
 }
 

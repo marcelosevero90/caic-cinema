@@ -277,6 +277,12 @@ class UserService {
     const found = this.allAccounts.find((a) => a.email.toLowerCase() === normalized);
 
     if (found) {
+      if (found.password && _password && found.password !== _password) {
+        return { success: false, message: 'Senha incorreta. Tente novamente ou use "Esqueci minha senha".' };
+      }
+      if (!found.password && _password) {
+        found.password = _password;
+      }
       this.currentAccount = { ...found, isAuthenticated: true };
       const storedProfiles = localStorage.getItem(`CAIC_PROFILES_${found.id}`);
       if (storedProfiles) {
@@ -319,6 +325,25 @@ class UserService {
     return this.register(capitalized, normalized, _password, 'individual');
   }
 
+  public findAccountByEmail(email: string): UserAccount | undefined {
+    const normalized = email.trim().toLowerCase();
+    return this.allAccounts.find((a) => a.email.toLowerCase() === normalized);
+  }
+
+  public resetPassword(email: string, newPassword: string): { success: boolean; message: string } {
+    const normalized = email.trim().toLowerCase();
+    const idx = this.allAccounts.findIndex((a) => a.email.toLowerCase() === normalized);
+    if (idx < 0) {
+      return { success: false, message: 'Nenhuma conta encontrada com este e-mail.' };
+    }
+    this.allAccounts[idx].password = newPassword;
+    if (this.currentAccount && this.currentAccount.email.toLowerCase() === normalized) {
+      this.currentAccount.password = newPassword;
+    }
+    this.saveState();
+    return { success: true, message: 'Senha redefinida com sucesso!' };
+  }
+
   public register(
     name: string,
     email: string,
@@ -340,6 +365,7 @@ class UserService {
       id: `acc-${Date.now()}`,
       name: trimmedName,
       email: email.trim().toLowerCase(),
+      password: _password?.trim() || undefined,
       phone: phone?.trim() || undefined,
       plan: planName,
       subscriptionPlan: chosenPlan,
