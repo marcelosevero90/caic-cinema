@@ -529,7 +529,7 @@ function mercadoPagoDevPlugin(): Plugin {
           return sendJson({}, 200);
         }
 
-        const accessToken = process.env.MERCADO_PAGO_ACCESS_TOKEN || process.env.VITE_MERCADO_PAGO_ACCESS_TOKEN || 'APP_USR-4224601832018002-101008-bdb29565adb00c30ba9ee47c84c19ff6-143943210';
+        const accessToken = process.env.MERCADO_PAGO_ACCESS_TOKEN || process.env.VITE_MERCADO_PAGO_ACCESS_TOKEN || '';
 
         // 1. POST /api/payments/create-pix
         if (req.method === 'POST' && req.url?.startsWith('/api/payments/create-pix')) {
