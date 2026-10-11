@@ -111,22 +111,28 @@ export const App: React.FC = () => {
     };
   }, []);
 
-  // Rota administrativa dedicada via hash (#admin)
+  // Rota administrativa dedicada via hash (#admin) ou path (/admin)
   useEffect(() => {
-    const handleHash = () => {
-      if (window.location.hash === '#admin') {
+    const handleAdminRoute = () => {
+      const isHash = window.location.hash === '#admin';
+      const isPath = window.location.pathname.replace(/\/+$/, '') === '/admin';
+      if (isHash || isPath) {
         setIsAdminOpen(true);
       }
     };
-    handleHash();
-    window.addEventListener('hashchange', handleHash);
-    return () => window.removeEventListener('hashchange', handleHash);
+    handleAdminRoute();
+    window.addEventListener('hashchange', handleAdminRoute);
+    window.addEventListener('popstate', handleAdminRoute);
+    return () => {
+      window.removeEventListener('hashchange', handleAdminRoute);
+      window.removeEventListener('popstate', handleAdminRoute);
+    };
   }, []);
 
   const handleCloseAdmin = () => {
     setIsAdminOpen(false);
-    if (window.location.hash === '#admin') {
-      window.history.replaceState(null, '', window.location.pathname + window.location.search);
+    if (window.location.hash === '#admin' || window.location.pathname.replace(/\/+$/, '') === '/admin') {
+      window.history.replaceState(null, '', '/');
     }
   };
 

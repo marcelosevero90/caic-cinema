@@ -25,6 +25,11 @@ import {
   CreditCard,
   Key,
   ShieldCheck,
+  Lock,
+  User,
+  Eye,
+  EyeOff,
+  LogOut,
 } from 'lucide-react';
 import { geminiCurationService } from '../services/geminiCurationService';
 import { catalogService } from '../services/catalogService';
@@ -46,6 +51,51 @@ export const AdminDashboardView: React.FC<AdminDashboardProps> = ({
   onMovieUpdated,
   onPreviewMovie,
 }) => {
+  // Estados de Autenticação do Administrador
+  const [isAdminAuthenticated, setIsAdminAuthenticated] = useState<boolean>(() => {
+    return (
+      sessionStorage.getItem('CAIC_ADMIN_AUTH') === 'true' ||
+      localStorage.getItem('CAIC_ADMIN_AUTH') === 'true'
+    );
+  });
+  const [adminUserDraft, setAdminUserDraft] = useState('');
+  const [adminPasswordDraft, setAdminPasswordDraft] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [loginError, setLoginError] = useState<string | null>(null);
+  const [isLoggingIn, setIsLoggingIn] = useState(false);
+
+  const handleAdminLogin = (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoginError(null);
+    setIsLoggingIn(true);
+
+    const user = adminUserDraft.trim().toLowerCase();
+    const pass = adminPasswordDraft.trim();
+
+    // Aceita admin ou caic ou marcelo
+    const validUsers = ['admin', 'caic', 'marcelo'];
+    const validPasswords = ['caic@2026', 'admin123', 'admin@2026', 'admin'];
+
+    setTimeout(() => {
+      if (validUsers.includes(user) && validPasswords.includes(pass)) {
+        sessionStorage.setItem('CAIC_ADMIN_AUTH', 'true');
+        localStorage.setItem('CAIC_ADMIN_AUTH', 'true');
+        setIsAdminAuthenticated(true);
+        setIsLoggingIn(false);
+        setAdminPasswordDraft('');
+      } else {
+        setIsLoggingIn(false);
+        setLoginError('Usuário ou senha incorretos. Verifique suas credenciais.');
+      }
+    }, 250);
+  };
+
+  const handleAdminLogout = () => {
+    sessionStorage.removeItem('CAIC_ADMIN_AUTH');
+    localStorage.removeItem('CAIC_ADMIN_AUTH');
+    setIsAdminAuthenticated(false);
+  };
+
   const [activeTab, setActiveTab] = useState<'manage' | 'add' | 'requests' | 'jellyfin' | 'subscriptions'>('manage');
   const [searchTerm, setSearchTerm] = useState('');
   const [catalogList, setCatalogList] = useState<Movie[]>(catalogService.getAll());
@@ -376,112 +426,279 @@ export const AdminDashboardView: React.FC<AdminDashboardProps> = ({
     );
   });
 
+  if (!isAdminAuthenticated) {
+    return (
+      <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md animate-fadeIn">
+        <div className="relative w-full max-w-md bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl shadow-2xl p-6 sm:p-8 overflow-hidden">
+          {/* Botão de Fechar */}
+          <button
+            onClick={onClose}
+            className="absolute top-4 right-4 p-2 rounded-xl text-slate-400 hover:text-slate-700 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition cursor-pointer"
+            title="Fechar"
+          >
+            <X className="w-5 h-5" />
+          </button>
+
+          {/* Top Icon & Título */}
+          <div className="text-center mb-6">
+            <div className="w-16 h-16 mx-auto mb-3.5 rounded-2xl bg-gradient-to-tr from-cyan-500 via-indigo-500 to-purple-600 p-0.5 flex items-center justify-center shadow-lg shadow-cyan-500/25">
+              <div className="w-full h-full bg-white dark:bg-slate-900 rounded-[14px] flex items-center justify-center text-cyan-500 dark:text-cyan-400">
+                <ShieldCheck className="w-8 h-8" />
+              </div>
+            </div>
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-cyan-100 dark:bg-cyan-950/80 text-cyan-700 dark:text-cyan-300 text-[11px] font-bold border border-cyan-300 dark:border-cyan-800 mb-2">
+              <Lock className="w-3 h-3" />
+              <span>Acesso Restrito</span>
+            </div>
+            <h2 className="text-xl font-black text-slate-900 dark:text-white">
+              Painel Administrativo CAIC
+            </h2>
+            <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+              Informe suas credenciais de administrador para acessar a gestão de filmes, clientes e assinaturas.
+            </p>
+          </div>
+
+          {/* Formulário de Login */}
+          <form onSubmit={handleAdminLogin} className="space-y-4">
+            {loginError && (
+              <div className="p-3 rounded-xl bg-rose-50 dark:bg-rose-950/50 border border-rose-200 dark:border-rose-900/60 text-rose-600 dark:text-rose-400 text-xs flex items-center gap-2 animate-fadeIn">
+                <AlertCircle className="w-4 h-4 shrink-0" />
+                <span>{loginError}</span>
+              </div>
+            )}
+
+            <div>
+              <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
+                Usuário Administrador
+              </label>
+              <div className="relative">
+                <User className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+                <input
+                  type="text"
+                  required
+                  autoFocus
+                  value={adminUserDraft}
+                  onChange={(e) => setAdminUserDraft(e.target.value)}
+                  placeholder="admin"
+                  className="w-full pl-10 pr-3.5 py-2.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl text-xs text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
+                Senha de Acesso
+              </label>
+              <div className="relative">
+                <Lock className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+                <input
+                  type={showPassword ? 'text' : 'password'}
+                  required
+                  value={adminPasswordDraft}
+                  onChange={(e) => setAdminPasswordDraft(e.target.value)}
+                  placeholder="••••••••"
+                  className="w-full pl-10 pr-10 py-2.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl text-xs text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 p-1 cursor-pointer"
+                  title={showPassword ? 'Ocultar senha' : 'Exibir senha'}
+                >
+                  {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                </button>
+              </div>
+            </div>
+
+            {/* Dica de Acesso Padrão */}
+            <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-800 text-[11px] text-slate-600 dark:text-slate-300 space-y-1">
+              <div className="flex items-center justify-between">
+                <span>Usuário padrão:</span>
+                <span className="font-mono font-bold text-cyan-600 dark:text-cyan-400">admin</span>
+              </div>
+              <div className="flex items-center justify-between">
+                <span>Senha padrão:</span>
+                <span className="font-mono font-bold text-cyan-600 dark:text-cyan-400">caic@2026</span>
+              </div>
+            </div>
+
+            <button
+              type="submit"
+              disabled={isLoggingIn}
+              className="w-full py-3 rounded-xl bg-gradient-to-r from-cyan-600 to-indigo-600 hover:from-cyan-500 hover:to-indigo-500 text-white font-bold text-xs flex items-center justify-center gap-2 shadow-lg shadow-cyan-600/25 transition disabled:opacity-60 cursor-pointer"
+            >
+              {isLoggingIn ? (
+                <>
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                  <span>Autenticando...</span>
+                </>
+              ) : (
+                <>
+                  <ShieldCheck className="w-4 h-4" />
+                  <span>Entrar no Painel</span>
+                </>
+              )}
+            </button>
+
+            <button
+              type="button"
+              onClick={onClose}
+              className="w-full py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400 text-xs font-semibold transition cursor-pointer"
+            >
+              Voltar para o Streaming
+            </button>
+          </form>
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div className="fixed inset-0 z-[60] flex items-center justify-center p-3 sm:p-6 bg-slate-950/80 backdrop-blur-md animate-fadeIn">
-      <div className="relative w-full max-w-5xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[92vh]">
+    <div className="fixed inset-0 z-[60] flex items-center justify-center p-2 sm:p-6 bg-slate-950/80 backdrop-blur-md animate-fadeIn">
+      <div className="relative w-full max-w-5xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[94vh]">
         
         {/* Top Header */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/95 sticky top-0 z-10">
+        <div className="flex items-center justify-between px-4 sm:px-6 py-4 border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/95 shrink-0 z-10">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-500 to-indigo-600 p-0.5 flex items-center justify-center shadow-md shadow-cyan-500/20">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-500 to-indigo-600 p-0.5 flex items-center justify-center shadow-md shadow-cyan-500/20 shrink-0">
               <div className="w-full h-full bg-white dark:bg-slate-900 rounded-[10px] flex items-center justify-center text-cyan-600 dark:text-cyan-400">
                 <Settings className="w-5 h-5" />
               </div>
             </div>
             <div>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 flex-wrap">
                 <h3 className="text-base font-bold text-slate-900 dark:text-white">Painel Administrativo CAIC</h3>
                 <span className="text-[10px] px-2 py-0.5 rounded-full bg-cyan-100 dark:bg-cyan-950 text-cyan-700 dark:text-cyan-300 font-bold border border-cyan-300 dark:border-cyan-800">
                   Gestão &amp; Controle
                 </span>
               </div>
-              <p className="text-xs text-slate-500 dark:text-slate-400">Gestão do acervo, assinaturas de usuários, pagamentos e chaves de IA</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400 hidden sm:block">Gestão do acervo, assinaturas de usuários, pagamentos e chaves de IA</p>
             </div>
           </div>
 
-          <button
-            onClick={onClose}
-            className="tv-focusable p-2 rounded-xl text-slate-400 hover:text-slate-700 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition"
-          >
-            <X className="w-5 h-5" />
-          </button>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={handleAdminLogout}
+              title="Desconectar do Admin"
+              className="px-3 py-1.5 rounded-xl border border-rose-200 dark:border-rose-900/60 bg-rose-50 dark:bg-rose-950/40 text-rose-600 dark:text-rose-400 hover:bg-rose-100 dark:hover:bg-rose-900/60 text-xs font-semibold flex items-center gap-1.5 transition shadow-sm cursor-pointer"
+            >
+              <LogOut className="w-3.5 h-3.5" />
+              <span className="hidden sm:inline">Sair</span>
+            </button>
+            <button
+              onClick={onClose}
+              title="Fechar Janela"
+              className="tv-focusable p-2 rounded-xl text-slate-400 hover:text-slate-700 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition cursor-pointer"
+            >
+              <X className="w-5 h-5" />
+            </button>
+          </div>
         </div>
 
-        {/* Navigation Tabs */}
-        <div className="flex border-b border-slate-200 dark:border-slate-800 bg-slate-100/60 dark:bg-slate-950/60 px-6 gap-2 text-xs font-semibold overflow-x-auto no-scrollbar">
-          <button
-            onClick={() => {
-              setActiveTab('manage');
-              resetForm();
-            }}
-            className={`tv-focusable py-3 px-4 border-b-2 flex items-center gap-2 transition whitespace-nowrap ${
-              activeTab === 'manage'
-                ? 'border-cyan-500 text-cyan-600 dark:text-cyan-400 font-bold'
-                : 'border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
-            }`}
-          >
-            <Layers className="w-4 h-4" />
-            <span>Gerenciar Catálogo ({catalogList.length})</span>
-          </button>
-
-          <button
-            onClick={() => setActiveTab('add')}
-            className={`tv-focusable py-3 px-4 border-b-2 flex items-center gap-2 transition whitespace-nowrap ${
-              activeTab === 'add'
-                ? 'border-cyan-500 text-cyan-600 dark:text-cyan-400 font-bold'
-                : 'border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
-            }`}
-          >
-            <Plus className="w-4 h-4" />
-            <span>{editingMovieId ? 'Editar Filme' : 'Adicionar Filme com IA'}</span>
-          </button>
-
-          <button
-            onClick={() => setActiveTab('requests')}
-            className={`tv-focusable py-3 px-4 border-b-2 flex items-center gap-2 transition whitespace-nowrap ${
-              activeTab === 'requests'
-                ? 'border-amber-500 text-amber-600 dark:text-amber-400 font-bold'
-                : 'border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
-            }`}
-          >
-            <Film className="w-4 h-4" />
-            <span>Pedidos dos Usuários ({requestsList.length})</span>
-            {movieRequestService.getPendingCount() > 0 && (
-              <span className="px-1.5 py-0.5 rounded-full text-[10px] bg-amber-500 text-white font-bold animate-pulse">
-                {movieRequestService.getPendingCount()}
+        {/* Navigation Tabs Bar */}
+        <div className="shrink-0 w-full bg-slate-100/90 dark:bg-slate-950/90 border-b border-slate-200 dark:border-slate-800 px-3 sm:px-6 py-2.5 overflow-x-auto no-scrollbar">
+          <div className="flex items-center gap-2 min-w-max">
+            {/* TAB 1: GERENCIAR CATÁLOGO */}
+            <button
+              onClick={() => {
+                setActiveTab('manage');
+                resetForm();
+              }}
+              className={`tv-focusable px-3.5 py-2 rounded-xl text-xs font-bold flex items-center gap-2 transition cursor-pointer ${
+                activeTab === 'manage'
+                  ? 'bg-cyan-600 text-white shadow-md shadow-cyan-600/25 ring-2 ring-cyan-500/20'
+                  : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white border border-slate-200 dark:border-slate-800 hover:border-slate-300'
+              }`}
+            >
+              <Layers className="w-4 h-4 shrink-0" />
+              <span>Gerenciar Catálogo</span>
+              <span className={`text-[10px] px-1.5 py-0.2 rounded-full font-bold ${
+                activeTab === 'manage' ? 'bg-white/20 text-white' : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400'
+              }`}>
+                {catalogList.length}
               </span>
-            )}
-          </button>
+            </button>
 
-          <button
-            onClick={() => setActiveTab('jellyfin')}
-            className={`tv-focusable py-3 px-4 border-b-2 flex items-center gap-2 transition whitespace-nowrap ${
-              activeTab === 'jellyfin'
-                ? 'border-purple-500 text-purple-600 dark:text-purple-400 font-bold'
-                : 'border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
-            }`}
-          >
-            <HardDrive className="w-4 h-4" />
-            <span>Servidor Jellyfin</span>
-            <span className="px-1.5 py-0.5 rounded-full text-[10px] bg-purple-100 dark:bg-purple-950 text-purple-700 dark:text-purple-300 font-bold border border-purple-300 dark:border-purple-800">
-              API
-            </span>
-          </button>
+            {/* TAB 2: ADICIONAR FILME COM IA */}
+            <button
+              onClick={() => setActiveTab('add')}
+              className={`tv-focusable px-3.5 py-2 rounded-xl text-xs font-bold flex items-center gap-2 transition cursor-pointer ${
+                activeTab === 'add'
+                  ? 'bg-cyan-600 text-white shadow-md shadow-cyan-600/25 ring-2 ring-cyan-500/20'
+                  : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white border border-slate-200 dark:border-slate-800 hover:border-slate-300'
+              }`}
+            >
+              <Plus className="w-4 h-4 shrink-0" />
+              <span>{editingMovieId ? 'Editar Filme' : 'Adicionar Filme com IA'}</span>
+              <span className={`text-[10px] px-1.5 py-0.2 rounded-full font-bold ${
+                activeTab === 'add' ? 'bg-white/20 text-white' : 'bg-cyan-100 dark:bg-cyan-950 text-cyan-700 dark:text-cyan-300'
+              }`}>
+                IA
+              </span>
+            </button>
 
-          <button
-            onClick={() => {
-              setActiveTab('subscriptions');
-              refreshAccounts();
-            }}
-            className={`tv-focusable py-3 px-4 border-b-2 flex items-center gap-2 transition whitespace-nowrap ${
-              activeTab === 'subscriptions'
-                ? 'border-emerald-500 text-emerald-600 dark:text-emerald-400 font-bold'
-                : 'border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
-            }`}
-          >
-            <CreditCard className="w-4 h-4" />
-            <span>Assinaturas &amp; Pagamentos</span>
-          </button>
+            {/* TAB 3: PEDIDOS DOS USUÁRIOS */}
+            <button
+              onClick={() => setActiveTab('requests')}
+              className={`tv-focusable px-3.5 py-2 rounded-xl text-xs font-bold flex items-center gap-2 transition cursor-pointer ${
+                activeTab === 'requests'
+                  ? 'bg-amber-600 text-white shadow-md shadow-amber-600/25 ring-2 ring-amber-500/20'
+                  : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white border border-slate-200 dark:border-slate-800 hover:border-slate-300'
+              }`}
+            >
+              <Film className="w-4 h-4 shrink-0" />
+              <span>Pedidos dos Usuários</span>
+              <span className={`text-[10px] px-1.5 py-0.2 rounded-full font-bold ${
+                activeTab === 'requests' ? 'bg-white/20 text-white' : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400'
+              }`}>
+                {requestsList.length}
+              </span>
+              {movieRequestService.getPendingCount() > 0 && (
+                <span className="px-1.5 py-0.5 rounded-full text-[10px] bg-amber-500 text-white font-bold animate-pulse">
+                  {movieRequestService.getPendingCount()} pendentes
+                </span>
+              )}
+            </button>
+
+            {/* TAB 4: ASSINATURAS & CLIENTES */}
+            <button
+              onClick={() => {
+                setActiveTab('subscriptions');
+                refreshAccounts();
+              }}
+              className={`tv-focusable px-3.5 py-2 rounded-xl text-xs font-bold flex items-center gap-2 transition cursor-pointer ${
+                activeTab === 'subscriptions'
+                  ? 'bg-emerald-600 text-white shadow-md shadow-emerald-600/25 ring-2 ring-emerald-500/20'
+                  : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white border border-slate-200 dark:border-slate-800 hover:border-slate-300'
+              }`}
+            >
+              <CreditCard className="w-4 h-4 shrink-0" />
+              <span>Assinaturas &amp; Pagamentos</span>
+              <span className={`text-[10px] px-1.5 py-0.2 rounded-full font-bold ${
+                activeTab === 'subscriptions' ? 'bg-white/20 text-white' : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400'
+              }`}>
+                {accountsList.length}
+              </span>
+            </button>
+
+            {/* TAB 5: SERVIDOR JELLYFIN */}
+            <button
+              onClick={() => setActiveTab('jellyfin')}
+              className={`tv-focusable px-3.5 py-2 rounded-xl text-xs font-bold flex items-center gap-2 transition cursor-pointer ${
+                activeTab === 'jellyfin'
+                  ? 'bg-purple-600 text-white shadow-md shadow-purple-600/25 ring-2 ring-purple-500/20'
+                  : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white border border-slate-200 dark:border-slate-800 hover:border-slate-300'
+              }`}
+            >
+              <HardDrive className="w-4 h-4 shrink-0" />
+              <span>Servidor Jellyfin</span>
+              <span className={`text-[10px] px-1.5 py-0.2 rounded-full font-bold ${
+                activeTab === 'jellyfin' ? 'bg-white/20 text-white' : 'bg-purple-100 dark:bg-purple-950 text-purple-700 dark:text-purple-300 border border-purple-300 dark:border-purple-800'
+              }`}>
+                API Remota
+              </span>
+            </button>
+          </div>
         </div>
 
         {/* Content Area */}
