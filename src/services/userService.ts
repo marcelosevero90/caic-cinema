@@ -451,6 +451,49 @@ class UserService {
     }
   }
 
+  public confirmPixPayment(
+    paymentId: string | number,
+    planType: 'individual' | 'family' = 'individual',
+    billingCycle: 'monthly' | 'annual' = 'monthly',
+    amount?: number
+  ): { success: boolean; message: string } {
+    const isFamily = planType === 'family';
+    const chosenPlan: 'individual' | 'family' = isFamily ? 'family' : 'individual';
+    const cycle = billingCycle;
+    const price = amount !== undefined ? amount : (isFamily ? (cycle === 'annual' ? 29.90 : 9.90) : (cycle === 'annual' ? 19.90 : 5.90));
+    const planName = isFamily
+      ? (cycle === 'annual' ? 'Plano Família Anual (R$ 29,90/ano)' : 'Plano Família Mensal (R$ 9,90/mês)')
+      : (cycle === 'annual' ? 'Plano Individual Anual (R$ 19,90/ano)' : 'Plano Individual Mensal (R$ 5,90/mês)');
+    const now = new Date();
+    const durationDays = cycle === 'annual' ? 365 : 30;
+    const expires = new Date(now.getTime() + durationDays * 86400000);
+
+    const newRecord: PaymentRecord = {
+      id: `pix-${paymentId}-${Date.now()}`,
+      date: now.toISOString(),
+      amount: price,
+      plan: planName,
+      status: 'paid',
+      method: 'PIX (Mercado Pago)',
+    };
+
+    this.currentAccount = {
+      ...this.currentAccount,
+      plan: planName,
+      subscriptionPlan: chosenPlan,
+      billingCycle: cycle,
+      subscriptionStatus: 'active',
+      subscriptionExpiresAt: expires.toISOString(),
+      lastPaymentDate: now.toISOString(),
+      lastPaymentAmount: price,
+      paymentMethod: 'PIX (Mercado Pago)',
+      paymentHistory: [newRecord, ...(this.currentAccount.paymentHistory || [])],
+    };
+
+    this.saveState();
+    return { success: true, message: `Pagamento Pix aprovado com sucesso! Bem-vindo ao ${planName}.` };
+  }
+
   public getMaxProfilesAllowed(): number {
     if (this.currentAccount.subscriptionPlan === 'family') {
       return 3;

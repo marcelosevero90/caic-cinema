@@ -31,6 +31,7 @@ import { userService, AVATAR_PRESETS } from '../services/userService';
 import { catalogService } from '../services/catalogService';
 import { emailVerificationService } from '../services/emailVerificationService';
 import { EmailVerificationModal } from './EmailVerificationModal';
+import { PixPaymentModal } from './PixPaymentModal';
 import type { UserProfile, Movie, UserAccount, EraPreference, PacingPreference } from '../types/movie';
 
 interface UserProfileModalProps {
@@ -81,6 +82,8 @@ const UserProfileModalContent: React.FC<UserProfileModalProps> = ({
   // Subscription state
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState<'Cartão de Crédito' | 'PIX' | 'Boleto'>('PIX');
   const [subscribingMessage, setSubscribingMessage] = useState<string | null>(null);
+  const [isPixModalOpen, setIsPixModalOpen] = useState<boolean>(false);
+  const [pixTargetPlan, setPixTargetPlan] = useState<'individual' | 'family'>('individual');
 
   // Form states para Login / Cadastro
   const [isRegistering, setIsRegistering] = useState(false);
@@ -338,6 +341,12 @@ const UserProfileModalContent: React.FC<UserProfileModalProps> = ({
 
   const handleSubscribe = (plan: 'individual' | 'family', cycle?: 'monthly' | 'annual') => {
     const chosenCycle = cycle || selectedBillingCycle;
+    if (selectedPaymentMethod === 'PIX') {
+      setPixTargetPlan(plan);
+      setSelectedBillingCycle(chosenCycle);
+      setIsPixModalOpen(true);
+      return;
+    }
     const res = userService.subscribePlan(plan, chosenCycle, selectedPaymentMethod);
     setSubscribingMessage(res.message);
     refreshState();
@@ -912,6 +921,12 @@ const UserProfileModalContent: React.FC<UserProfileModalProps> = ({
                     </button>
                   ))}
                 </div>
+                {selectedPaymentMethod === 'PIX' && (
+                  <div className="p-2.5 rounded-xl bg-cyan-500/10 border border-cyan-500/25 flex items-center gap-2 text-xs text-cyan-800 dark:text-cyan-300">
+                    <Sparkles className="w-4 h-4 text-cyan-500 flex-shrink-0" />
+                    <span><strong>Pix Instantâneo:</strong> QR Code na tela e código Copia e Cola com liberação automática pelo Mercado Pago.</span>
+                  </div>
+                )}
               </div>
 
               {/* Aviso Importante de Concorrência: 1 Acesso por Vez */}
@@ -1033,6 +1048,8 @@ const UserProfileModalContent: React.FC<UserProfileModalProps> = ({
                       <span>
                         {currentAccount.subscriptionPlan === 'individual' && currentAccount.subscriptionStatus === 'active'
                           ? 'Plano Atual Ativo'
+                          : selectedPaymentMethod === 'PIX'
+                          ? `Pagar com Pix (Individual - R$ ${selectedBillingCycle === 'annual' ? '19,90/ano' : '5,90/mês'})`
                           : `Iniciar 7 Dias Grátis (Individual - R$ ${selectedBillingCycle === 'annual' ? '19,90/ano' : '5,90/mês'})`}
                       </span>
                     </button>
@@ -1111,6 +1128,8 @@ const UserProfileModalContent: React.FC<UserProfileModalProps> = ({
                       <span>
                         {currentAccount.subscriptionPlan === 'family' && currentAccount.subscriptionStatus === 'active'
                           ? 'Plano Atual Ativo'
+                          : selectedPaymentMethod === 'PIX'
+                          ? `Pagar com Pix (Família - R$ ${selectedBillingCycle === 'annual' ? '29,90/ano' : '9,90/mês'})`
                           : `Iniciar 7 Dias Grátis (Família - R$ ${selectedBillingCycle === 'annual' ? '29,90/ano' : '9,90/mês'})`}
                       </span>
                     </button>
@@ -1648,6 +1667,19 @@ const UserProfileModalContent: React.FC<UserProfileModalProps> = ({
         userName={pendingRegisterData?.name || nameInput || 'Novo Assinante'}
         initialSandboxCode={verificationSandboxCode}
         onVerificationSuccess={handleEmailVerificationSuccess}
+      />
+
+      {/* Modal de Pagamento via Pix (Mercado Pago) */}
+      <PixPaymentModal
+        isOpen={isPixModalOpen}
+        onClose={() => setIsPixModalOpen(false)}
+        planType={pixTargetPlan}
+        billingCycle={selectedBillingCycle}
+        onSuccess={() => {
+          refreshState();
+          setSubscribingMessage('Pagamento Pix aprovado com sucesso! Sua assinatura foi ativada.');
+          setTimeout(() => setSubscribingMessage(null), 4500);
+        }}
       />
     </div>
   );

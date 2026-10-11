@@ -498,9 +498,163 @@ function sharedDatabasePlugin(): Plugin {
   }
 }
 
+function mercadoPagoDevPlugin(): Plugin {
+  return {
+    name: 'mercadopago-dev-plugin',
+    configureServer(server) {
+      server.middlewares.use(async (req, res, next) => {
+        if (!req.url?.startsWith('/api/payments/') && !req.url?.startsWith('/api/webhooks/mercadopago')) {
+          return next();
+        }
+
+        const parseBody = (): Promise<any> =>
+          new Promise((resolve) => {
+            let body = '';
+            req.on('data', (chunk) => { body += chunk; });
+            req.on('end', () => {
+              try { resolve(JSON.parse(body || '{}')); } catch { resolve({}); }
+            });
+          });
+
+        const sendJson = (data: any, status = 200) => {
+          res.statusCode = status;
+          res.setHeader('Content-Type', 'application/json');
+          res.setHeader('Access-Control-Allow-Origin', '*');
+          res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+          res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+          res.end(JSON.stringify(data));
+        };
+
+        if (req.method === 'OPTIONS') {
+          return sendJson({}, 200);
+        }
+
+        const accessToken = process.env.MERCADO_PAGO_ACCESS_TOKEN || process.env.VITE_MERCADO_PAGO_ACCESS_TOKEN || 'APP_USR-4224601832018002-101008-bdb29565adb00c30ba9ee47c84c19ff6-143943210';
+
+        // 1. POST /api/payments/create-pix
+        if (req.method === 'POST' && req.url?.startsWith('/api/payments/create-pix')) {
+          try {
+            const body = await parseBody();
+            const { amount, description, email, name, planType, billingCycle } = body;
+
+            if (!amount || !email) {
+              return sendJson({ success: false, message: 'Valor (amount) e e-mail são obrigatórios.' }, 400);
+            }
+
+            const nameParts = (name || 'Assinante CAIC').trim().split(' ');
+            const firstName = nameParts[0] || 'Assinante';
+            const lastName = nameParts.slice(1).join(' ') || 'CAIC';
+            const idempotencyKey = `caic-${Date.now()}-${Math.random().toString(36).substring(2, 9)}`;
+
+            const mpPayload = {
+              transaction_amount: Number(amount),
+              description: description || `Assinatura CAIC Cinema (${planType || 'Plano'} - ${billingCycle || 'mensal'})`,
+              payment_method_id: 'pix',
+              payer: {
+                email: email.trim().toLowerCase(),
+                first_name: firstName,
+                last_name: lastName,
+              },
+            };
+
+            const mpResponse = await fetch('https://api.mercadopago.com/v1/payments', {
+              method: 'POST',
+              headers: {
+                'Authorization': `Bearer ${accessToken}`,
+                'Content-Type': 'application/json',
+                'X-Idempotency-Key': idempotencyKey,
+              },
+              body: JSON.stringify(mpPayload),
+            });
+
+            const mpData: any = await mpResponse.json();
+
+            if (!mpResponse.ok) {
+              console.error('[Mercado Pago Dev Pix Error]', mpData);
+              let userFriendlyMessage = mpData.message || 'Erro ao gerar cobrança Pix no Mercado Pago.';
+              if (mpData.message?.includes('Collector user without key enabled for QR render')) {
+                userFriendlyMessage = 'Sua conta do Mercado Pago precisa ter pelo menos 1 Chave Pix cadastrada para emitir cobranças. Abra o app do Mercado Pago e cadastre uma Chave Aleatória ou CPF no menu Pix.';
+              }
+              return sendJson({
+                success: false,
+                message: userFriendlyMessage,
+                details: mpData,
+              }, mpResponse.status || 400);
+            }
+
+            const qrCode = mpData.point_of_interaction?.transaction_data?.qr_code;
+            const qrCodeBase64 = mpData.point_of_interaction?.transaction_data?.qr_code_base64;
+            const ticketUrl = mpData.point_of_interaction?.transaction_data?.ticket_url;
+            const expirationDate = mpData.date_of_expiration;
+
+            return sendJson({
+              success: true,
+              paymentId: mpData.id,
+              status: mpData.status,
+              statusDetail: mpData.status_detail,
+              amount: mpData.transaction_amount,
+              qrCode,
+              qrCodeBase64,
+              ticketUrl,
+              expirationDate,
+            });
+          } catch (err: any) {
+            console.error('[Mercado Pago Dev Pix Exception]', err);
+            return sendJson({ success: false, message: err?.message || 'Erro interno ao processar Pix.' }, 500);
+          }
+        }
+
+        // 2. GET /api/payments/status
+        if (req.method === 'GET' && req.url?.startsWith('/api/payments/status')) {
+          try {
+            const urlObj = new URL(req.url, 'http://localhost');
+            const paymentId = urlObj.searchParams.get('paymentId');
+            if (!paymentId) {
+              return sendJson({ success: false, message: 'paymentId é obrigatório.' }, 400);
+            }
+
+            const mpRes = await fetch(`https://api.mercadopago.com/v1/payments/${paymentId}`, {
+              method: 'GET',
+              headers: {
+                'Authorization': `Bearer ${accessToken}`,
+                'Content-Type': 'application/json',
+              },
+            });
+
+            const data: any = await mpRes.json();
+            if (!mpRes.ok) {
+              return sendJson({ success: false, message: data.message || 'Erro ao consultar pagamento.', details: data }, mpRes.status);
+            }
+
+            return sendJson({
+              success: true,
+              paymentId: data.id,
+              status: data.status,
+              statusDetail: data.status_detail,
+              isApproved: data.status === 'approved',
+              amount: data.transaction_amount,
+              payerEmail: data.payer?.email,
+              dateApproved: data.date_approved,
+            });
+          } catch (err: any) {
+            return sendJson({ success: false, message: err?.message || 'Erro ao consultar status.' }, 500);
+          }
+        }
+
+        // 3. Webhook: GET / POST /api/webhooks/mercadopago
+        if (req.url?.startsWith('/api/webhooks/mercadopago')) {
+          return sendJson({ received: true });
+        }
+
+        next();
+      });
+    },
+  };
+}
+
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [react(), tailwindcss(), emailAuthPlugin(), playbackSessionPlugin(), sharedDatabasePlugin()],
+  plugins: [react(), tailwindcss(), emailAuthPlugin(), playbackSessionPlugin(), sharedDatabasePlugin(), mercadoPagoDevPlugin()],
   server: {
     port: 5173,
     host: true,
