@@ -641,7 +641,80 @@ function mercadoPagoDevPlugin(): Plugin {
           }
         }
 
-        // 3. Webhook: GET / POST /api/webhooks/mercadopago
+        // 3. GET /api/payments/verify-subscription
+        if (req.method === 'GET' && req.url?.startsWith('/api/payments/verify-subscription')) {
+          try {
+            const urlObj = new URL(req.url, 'http://localhost');
+            const emailParam = (urlObj.searchParams.get('email') || '').trim().toLowerCase();
+            const paymentIdParam = (urlObj.searchParams.get('paymentId') || '').trim();
+
+            const mpRes = await fetch('https://api.mercadopago.com/v1/payments/search?sort=date_created&criteria=desc&limit=30', {
+              method: 'GET',
+              headers: {
+                'Authorization': `Bearer ${accessToken}`,
+                'Content-Type': 'application/json',
+              },
+            });
+
+            const data: any = await mpRes.json();
+            const results: any[] = Array.isArray(data.results) ? data.results : [];
+            const now = Date.now();
+
+            const approvedPayments = results.filter((p: any) => {
+              if (p.status !== 'approved') return false;
+              const desc = (p.description || '').toLowerCase();
+              return desc.includes('caic cinema') || desc.includes('caic');
+            });
+
+            let matchedPayment = paymentIdParam ? approvedPayments.find((p) => String(p.id) === String(paymentIdParam)) : null;
+
+            if (!matchedPayment && emailParam) {
+              matchedPayment = approvedPayments.find((p) => {
+                const payerEmail = (p.payer?.email || '').toLowerCase();
+                const extRef = (p.external_reference || '').toLowerCase();
+                return payerEmail === emailParam || extRef.includes(emailParam);
+              });
+            }
+
+            if (!matchedPayment && approvedPayments.length > 0) {
+              matchedPayment = approvedPayments[0];
+            }
+
+            if (matchedPayment) {
+              const isAnnual = (matchedPayment.description || '').toLowerCase().includes('anual') || matchedPayment.transaction_amount >= 19.0;
+              const durationDays = isAnnual ? 365 : 30;
+              const approvedDate = matchedPayment.date_approved ? new Date(matchedPayment.date_approved).getTime() : now;
+              const expiresAtMs = approvedDate + durationDays * 86400000;
+              const isActive = expiresAtMs > now;
+
+              const isFamily = (matchedPayment.description || '').toLowerCase().includes('família') || (matchedPayment.description || '').toLowerCase().includes('familia');
+              const planName = isFamily
+                ? (isAnnual ? 'Plano Família Anual (R$ 29,90/ano)' : 'Plano Família Mensal (R$ 9,90/mês)')
+                : (isAnnual ? 'Plano Individual Anual (R$ 19,90/ano)' : 'Plano Individual Mensal (R$ 5,90/mês)');
+
+              return sendJson({
+                success: true,
+                hasActiveSubscription: isActive,
+                paymentId: matchedPayment.id,
+                status: matchedPayment.status,
+                amount: matchedPayment.transaction_amount,
+                plan: planName,
+                subscriptionPlan: isFamily ? 'family' : 'individual',
+                billingCycle: isAnnual ? 'annual' : 'monthly',
+                dateApproved: matchedPayment.date_approved,
+                expiresAt: new Date(expiresAtMs).toISOString(),
+                payerEmail: matchedPayment.payer?.email,
+                description: matchedPayment.description,
+              });
+            }
+
+            return sendJson({ success: true, hasActiveSubscription: false });
+          } catch (err: any) {
+            return sendJson({ success: false, message: err?.message }, 500);
+          }
+        }
+
+        // 4. Webhook: GET / POST /api/webhooks/mercadopago
         if (req.url?.startsWith('/api/webhooks/mercadopago')) {
           return sendJson({ received: true });
         }

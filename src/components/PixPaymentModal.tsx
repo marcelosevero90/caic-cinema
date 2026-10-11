@@ -80,6 +80,7 @@ export const PixPaymentModal: React.FC<PixPaymentModalProps> = ({
       if (response.success && response.paymentId) {
         setPixData(response);
         setCountdown(30 * 60);
+        try { localStorage.setItem('CAIC_PENDING_PIX_ID', String(response.paymentId)); } catch {}
       } else {
         const msg = response.message || 'Erro ao gerar o código Pix no Mercado Pago.';
         setErrorMessage(msg);

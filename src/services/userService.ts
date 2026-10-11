@@ -1,4 +1,5 @@
 import type { UserProfile, Movie, UserAccount, UserTasteQuiz, PaymentRecord } from '../types/movie';
+import { mercadoPagoService } from './mercadoPagoService';
 
 const ACCOUNT_STORAGE_KEY = 'CAIC_USER_ACCOUNT_V4';
 const PROFILES_STORAGE_KEY = 'CAIC_USER_PROFILES_V4';
@@ -67,6 +68,7 @@ class UserService {
   constructor() {
     this.loadState();
     this.syncFromSharedDb();
+    this.syncSubscriptionFromMercadoPago();
   }
 
   private async syncToSharedDb(): Promise<void> {
@@ -492,6 +494,55 @@ class UserService {
 
     this.saveState();
     return { success: true, message: `Pagamento Pix aprovado com sucesso! Bem-vindo ao ${planName}.` };
+  }
+
+  public async syncSubscriptionFromMercadoPago(): Promise<{ updated: boolean; message?: string }> {
+    try {
+      if (typeof window === 'undefined') return { updated: false };
+      const pendingId = localStorage.getItem('CAIC_PENDING_PIX_ID') || undefined;
+      const email = this.currentAccount.email && this.currentAccount.email !== 'visitante@caic.com.br'
+        ? this.currentAccount.email
+        : undefined;
+
+      const res = await mercadoPagoService.verifySubscription(email, pendingId);
+      if (res.success && res.hasActiveSubscription) {
+        const isFam = res.subscriptionPlan === 'family';
+        const cycle = res.billingCycle || 'monthly';
+        const planName = res.plan || (isFam ? 'Plano Família Mensal (R$ 9,90/mês)' : 'Plano Individual Mensal (R$ 5,90/mês)');
+        const price = res.amount || (isFam ? (cycle === 'annual' ? 29.90 : 9.90) : (cycle === 'annual' ? 19.90 : 5.90));
+        const paymentRecord: PaymentRecord = {
+          id: `mp-${res.paymentId || Date.now()}`,
+          date: res.dateApproved || new Date().toISOString(),
+          amount: price,
+          plan: planName,
+          status: 'paid',
+          method: 'PIX (Mercado Pago)',
+        };
+
+        const existingHist = this.currentAccount.paymentHistory || [];
+        const alreadyHasPay = existingHist.some((p) => String(p.id).includes(String(res.paymentId)));
+
+        this.currentAccount = {
+          ...this.currentAccount,
+          plan: planName,
+          subscriptionPlan: isFam ? 'family' : 'individual',
+          billingCycle: cycle,
+          subscriptionStatus: 'active',
+          subscriptionExpiresAt: res.expiresAt,
+          lastPaymentDate: res.dateApproved || new Date().toISOString(),
+          lastPaymentAmount: price,
+          paymentMethod: 'PIX (Mercado Pago)',
+          paymentHistory: alreadyHasPay ? existingHist : [paymentRecord, ...existingHist],
+        };
+
+        try { localStorage.removeItem('CAIC_PENDING_PIX_ID'); } catch {}
+        this.saveState();
+        return { updated: true, message: `Assinatura confirmada pelo Mercado Pago (${planName})!` };
+      }
+    } catch (e: any) {
+      console.warn('[syncSubscriptionFromMercadoPago error]', e);
+    }
+    return { updated: false };
   }
 
   public getMaxProfilesAllowed(): number {

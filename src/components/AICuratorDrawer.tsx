@@ -12,7 +12,8 @@ import {
   Heart,
   Search,
   Check,
-  Globe
+  Globe,
+  Mic
 } from 'lucide-react';
 import type { Movie, ChatMessage, UserProfile } from '../types/movie';
 import { geminiCurationService } from '../services/geminiCurationService';
@@ -135,10 +136,89 @@ export const AICuratorDrawer: React.FC<AICuratorDrawerProps> = ({
   const [loading, setLoading] = useState(false);
   const [showMoodPicker, setShowMoodPicker] = useState(false);
   const [visibleMovieCounts, setVisibleMovieCounts] = useState<Record<string, number>>({});
+  const [isListeningVoice, setIsListeningVoice] = useState(false);
+  const [voiceNotice, setVoiceNotice] = useState<string | null>(null);
+  const recognitionRef = useRef<any>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  useEffect(() => {
+    if (!isOpen && recognitionRef.current) {
+      try {
+        recognitionRef.current.stop();
+      } catch {
+        // ignore
+      }
+      setIsListeningVoice(false);
+      setVoiceNotice(null);
+    }
+  }, [isOpen]);
+
+  const handleVoiceInput = () => {
+    const SpeechRecognition =
+      (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+
+    if (!SpeechRecognition) {
+      setVoiceNotice('Reconhecimento de voz não suportado neste navegador. Use Chrome ou Edge.');
+      setTimeout(() => setVoiceNotice(null), 4000);
+      return;
+    }
+
+    if (isListeningVoice) {
+      try {
+        recognitionRef.current?.stop();
+      } catch {
+        // ignore
+      }
+      setIsListeningVoice(false);
+      setVoiceNotice(null);
+      return;
+    }
+
+    try {
+      const recognition = new SpeechRecognition();
+      recognition.lang = 'pt-BR';
+      recognition.continuous = false;
+      recognition.interimResults = false;
+
+      recognition.onstart = () => {
+        setIsListeningVoice(true);
+        setVoiceNotice('🎙️ Ouvindo você... Fale o filme ou tema desejado!');
+      };
+
+      recognition.onresult = (event: any) => {
+        const transcript = event.results?.[0]?.[0]?.transcript || '';
+        if (transcript) {
+          setInput(transcript);
+          setVoiceNotice(`✅ Entendido: "${transcript}"`);
+          setTimeout(() => setVoiceNotice(null), 3500);
+        }
+        setIsListeningVoice(false);
+      };
+
+      recognition.onerror = (event: any) => {
+        setIsListeningVoice(false);
+        if (event.error === 'not-allowed') {
+          setVoiceNotice('Permissão do microfone negada. Autorize no seu navegador.');
+        } else {
+          setVoiceNotice('Não foi possível identificar sua voz. Tente falar novamente.');
+        }
+        setTimeout(() => setVoiceNotice(null), 4000);
+      };
+
+      recognition.onend = () => {
+        setIsListeningVoice(false);
+      };
+
+      recognitionRef.current = recognition;
+      recognition.start();
+    } catch (err) {
+      console.warn('Speech recognition error:', err);
+      setIsListeningVoice(false);
+    }
   };
 
   useEffect(() => {
@@ -278,59 +358,69 @@ export const AICuratorDrawer: React.FC<AICuratorDrawerProps> = ({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-y-0 right-0 z-50 w-full sm:w-[500px] md:w-[560px] bg-white dark:bg-slate-900 border-l border-slate-200 dark:border-slate-800 shadow-2xl flex flex-col animate-slideLeft">
-      
-      {/* Top Header */}
-      <div className="flex items-center justify-between px-5 py-4 border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/95 backdrop-blur-md">
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-cyan-500 via-indigo-600 to-fuchsia-600 p-0.5 shadow-md shadow-cyan-500/20">
-            <div className="w-full h-full bg-white dark:bg-slate-900 rounded-[14px] flex items-center justify-center text-cyan-600 dark:text-cyan-400">
-              <Bot className="w-5 h-5" />
+    <>
+      {/* Backdrop overlay para fechar ao clicar/tocar fora no celular ou computador */}
+      <div
+        onClick={onClose}
+        className="fixed inset-0 bg-slate-950/60 backdrop-blur-xs z-50 transition-opacity animate-fadeIn"
+        aria-label="Fechar ao tocar fora"
+      />
+
+      <div className="fixed inset-y-0 right-0 z-50 w-full sm:w-[500px] md:w-[560px] max-w-full bg-white dark:bg-slate-900 border-l border-slate-200 dark:border-slate-800 shadow-2xl flex flex-col animate-slideLeft">
+        
+        {/* Top Header - Otimizado para celular sem quebra e com botão fechar sempre visível */}
+        <div className="flex items-center justify-between px-3 sm:px-5 py-3 sm:py-4 border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/95 backdrop-blur-md gap-2">
+          <div className="flex items-center gap-2.5 min-w-0 flex-1 mr-1">
+            <div className="w-9 h-9 sm:w-10 sm:h-10 shrink-0 rounded-2xl bg-gradient-to-tr from-cyan-500 via-indigo-600 to-fuchsia-600 p-0.5 shadow-md shadow-cyan-500/20">
+              <div className="w-full h-full bg-white dark:bg-slate-900 rounded-[14px] flex items-center justify-center text-cyan-600 dark:text-cyan-400">
+                <Bot className="w-4 h-4 sm:w-5 sm:h-5" />
+              </div>
+            </div>
+            <div className="min-w-0 flex-1">
+              <div className="flex items-center gap-1.5 min-w-0">
+                <h3 className="text-sm font-extrabold text-slate-950 dark:text-white truncate">CAIC IA</h3>
+                <span className="hidden sm:inline-flex text-[10px] uppercase px-2 py-0.5 rounded-full bg-cyan-100 dark:bg-cyan-950 text-cyan-700 dark:text-cyan-300 border border-cyan-300 dark:border-cyan-800 font-bold shrink-0">
+                  IA Conversacional
+                </span>
+              </div>
+              <p className="text-[10px] sm:text-[11px] text-slate-600 dark:text-slate-400 truncate">
+                {activeProfile ? `Para ${activeProfile.name}` : 'Assistente Inteligente'}
+              </p>
             </div>
           </div>
-          <div>
-            <div className="flex items-center gap-1.5">
-              <h3 className="text-sm font-extrabold text-slate-950 dark:text-white">CAIC Assistente IA</h3>
-              <span className="text-[10px] uppercase px-2 py-0.5 rounded-full bg-cyan-100 dark:bg-cyan-950 text-cyan-700 dark:text-cyan-300 border border-cyan-300 dark:border-cyan-800 font-bold">
-                IA Conversacional
-              </span>
-            </div>
-            <p className="text-[11px] text-slate-600 dark:text-slate-400">
-              {activeProfile ? `Personalizado para ${activeProfile.name}` : 'Assistente Inteligente de Filmes'}
-            </p>
+
+          <div className="flex items-center gap-1 sm:gap-1.5 shrink-0">
+            <button
+              onClick={() => setShowMoodPicker((prev) => !prev)}
+              title="Como me sinto hoje?"
+              className={`tv-focusable px-2 sm:px-3 py-1.5 rounded-xl border text-xs font-bold flex items-center gap-1 transition shrink-0 ${
+                showMoodPicker
+                  ? 'bg-cyan-600 text-white border-cyan-600 shadow-md'
+                  : 'bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 border-slate-200 dark:border-slate-700 hover:border-cyan-500'
+              }`}
+            >
+              <Smile className="w-3.5 h-3.5 text-amber-500 shrink-0" />
+              <span className="hidden sm:inline">Meu Humor</span>
+            </button>
+
+            <button
+              onClick={handleClearChat}
+              title="Limpar conversa"
+              className="tv-focusable p-1.5 sm:p-2 rounded-xl text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition shrink-0"
+            >
+              <Trash2 className="w-4 h-4" />
+            </button>
+
+            <button
+              onClick={onClose}
+              title="Fechar chat"
+              aria-label="Fechar chat"
+              className="tv-focusable p-1.5 sm:p-2 rounded-xl bg-slate-100 hover:bg-red-50 text-slate-600 hover:text-red-600 dark:bg-slate-800 dark:hover:bg-red-950/50 dark:text-slate-200 dark:hover:text-red-400 border border-slate-200 dark:border-slate-700 transition shrink-0 flex items-center justify-center"
+            >
+              <X className="w-5 h-5" />
+            </button>
           </div>
         </div>
-
-        <div className="flex items-center gap-1.5">
-          <button
-            onClick={() => setShowMoodPicker((prev) => !prev)}
-            title="Como me sinto hoje?"
-            className={`tv-focusable px-3 py-1.5 rounded-xl border text-xs font-bold flex items-center gap-1.5 transition ${
-              showMoodPicker
-                ? 'bg-cyan-600 text-white border-cyan-600 shadow-md'
-                : 'bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 border-slate-200 dark:border-slate-700 hover:border-cyan-500'
-            }`}
-          >
-            <Smile className="w-3.5 h-3.5 text-amber-500" />
-            <span>Meu Humor</span>
-          </button>
-
-          <button
-            onClick={handleClearChat}
-            title="Limpar conversa"
-            className="tv-focusable p-2 rounded-xl text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition"
-          >
-            <Trash2 className="w-4 h-4" />
-          </button>
-
-          <button
-            onClick={onClose}
-            className="tv-focusable p-2 rounded-xl text-slate-400 hover:text-slate-700 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition"
-          >
-            <X className="w-5 h-5" />
-          </button>
-        </div>
-      </div>
 
       {/* COMPONENTE INTERATIVO: COMO ME SINTO HOJE? */}
       {showMoodPicker && (
@@ -641,30 +731,54 @@ export const AICuratorDrawer: React.FC<AICuratorDrawerProps> = ({
         </div>
       </div>
 
-      {/* Input de Envio */}
+      {/* Aviso de Reconhecimento de Voz */}
+      {voiceNotice && (
+        <div className="px-4 py-2 bg-cyan-50 dark:bg-cyan-950/80 border-t border-cyan-200 dark:border-cyan-800 text-center text-xs font-bold text-cyan-800 dark:text-cyan-200 flex items-center justify-center gap-1.5 animate-fadeIn">
+          <Mic className="w-3.5 h-3.5 text-cyan-500 animate-pulse" />
+          <span>{voiceNotice}</span>
+        </div>
+      )}
+
+      {/* Input de Envio com Microfone */}
       <form
         onSubmit={(e) => {
           e.preventDefault();
           handleSend();
         }}
-        className="p-4 border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 flex items-center gap-2"
+        className="p-3 sm:p-4 border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 flex items-center gap-2"
       >
+        <button
+          type="button"
+          onClick={handleVoiceInput}
+          title={isListeningVoice ? 'Ouvindo... Clique para cancelar' : 'Falar com o CAIC pelo microfone'}
+          disabled={loading}
+          className={`tv-focusable p-2.5 rounded-xl border transition flex items-center justify-center shrink-0 ${
+            isListeningVoice
+              ? 'bg-rose-500 text-white border-rose-600 animate-pulse ring-2 ring-rose-400 shadow-md'
+              : 'bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-cyan-600 dark:text-cyan-400 border-slate-200 dark:border-slate-700'
+          }`}
+        >
+          <Mic className={`w-4 h-4 ${isListeningVoice ? 'text-white animate-bounce' : ''}`} />
+        </button>
+
         <input
           type="text"
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          placeholder="Ex: 'Quero um suspense psicológico dos anos 90 sem diálogos pesados'..."
+          placeholder={isListeningVoice ? 'Ouvindo... Fale agora!' : "Ex: 'Quero um suspense psicológico' ou fale no microfone..."}
           disabled={loading}
-          className="flex-1 px-4 py-2.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-700 rounded-xl text-xs sm:text-sm text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:border-cyan-500 transition disabled:opacity-50"
+          className="flex-1 min-w-0 px-3 sm:px-4 py-2.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-700 rounded-xl text-xs sm:text-sm text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:border-cyan-500 transition disabled:opacity-50"
         />
+
         <button
           type="submit"
           disabled={loading || !input.trim()}
-          className="tv-focusable px-4 py-2.5 bg-gradient-to-r from-cyan-600 to-indigo-600 hover:from-cyan-500 hover:to-indigo-500 text-white rounded-xl font-bold text-xs flex items-center gap-1 shadow-md shadow-cyan-600/20 disabled:opacity-40 transition"
+          className="tv-focusable px-3.5 sm:px-4 py-2.5 bg-gradient-to-r from-cyan-600 to-indigo-600 hover:from-cyan-500 hover:to-indigo-500 text-white rounded-xl font-bold text-xs flex items-center gap-1 shadow-md shadow-cyan-600/20 disabled:opacity-40 transition shrink-0"
         >
           <Send className="w-4 h-4" />
         </button>
       </form>
     </div>
+    </>
   );
 };

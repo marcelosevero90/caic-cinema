@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import {
   Sparkles,
   Tv,
@@ -9,14 +10,19 @@ import {
   Lightbulb,
   Lock,
   Server,
+  MoreVertical,
+  Crown,
+  X,
 } from 'lucide-react';
 import type { UserProfile, UserAccount } from '../types/movie';
+import { jellyfinService } from '../services/jellyfinService';
 
 interface HeaderProps {
   onOpenCurator: () => void;
   onOpenProfileModal: () => void;
   onOpenMobileAccess: () => void;
   onOpenMovieSuggestion?: () => void;
+  onOpenSubscription?: () => void;
   isDarkMode: boolean;
   onToggleTheme: () => void;
   activeProfile: UserProfile;
@@ -29,13 +35,12 @@ interface HeaderProps {
   currentAccount?: UserAccount;
 }
 
-import { jellyfinService } from '../services/jellyfinService';
-
 export const Header: React.FC<HeaderProps> = ({
   onOpenCurator,
   onOpenProfileModal,
   onOpenMobileAccess,
   onOpenMovieSuggestion,
+  onOpenSubscription,
   isDarkMode,
   onToggleTheme,
   activeProfile,
@@ -44,73 +49,164 @@ export const Header: React.FC<HeaderProps> = ({
   onSelectFilter,
   currentAccount,
 }) => {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const isJfEnabled = jellyfinService.getConfig().enabled;
   const genres = ['Todos', ...(isJfEnabled ? ['Jellyfin'] : []), 'Minha Lista', 'Ação', 'Guerra', 'Drama', 'Comédia', 'Terror', 'Suspense', 'Ficção Científica'];
+  const isSubscriberActive = currentAccount?.subscriptionStatus === 'active';
+
+  const handleOpenSub = () => {
+    if (onOpenSubscription) {
+      onOpenSubscription();
+    } else {
+      onOpenProfileModal();
+    }
+  };
 
   return (
-    <header className="sticky top-0 z-30 glass-panel border-b border-slate-200 dark:border-slate-800 px-4 md:px-8 py-3 transition-colors">
-      <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-3.5">
+    <header className="sticky top-0 z-30 glass-panel border-b border-slate-200 dark:border-slate-800 px-3 sm:px-4 md:px-8 py-2.5 sm:py-3 transition-colors">
+      <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-3">
         
-        {/* Logo and Brand */}
+        {/* Top bar on Mobile / Left brand on Desktop */}
         <div className="flex items-center justify-between w-full md:w-auto">
-          <div className="flex items-center gap-3 cursor-pointer" onClick={() => onSelectFilter('Todos')}>
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-500 via-indigo-600 to-fuchsia-600 p-0.5 shadow-md shadow-cyan-500/20 flex items-center justify-center">
+          {/* Logo compact on mobile */}
+          <div className="flex items-center gap-2 sm:gap-2.5 cursor-pointer" onClick={() => onSelectFilter('Todos')}>
+            <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-gradient-to-tr from-cyan-500 via-indigo-600 to-fuchsia-600 p-0.5 shadow-md shadow-cyan-500/20 flex items-center justify-center flex-shrink-0">
               <div className="w-full h-full bg-white dark:bg-slate-900 rounded-[10px] flex items-center justify-center">
-                <Film className="w-5 h-5 text-cyan-600 dark:text-cyan-400" />
+                <Film className="w-4 h-4 sm:w-5 sm:h-5 text-cyan-600 dark:text-cyan-400" />
               </div>
             </div>
             <div>
               <div className="flex items-center gap-1.5">
-                <span className="text-xl font-black tracking-tight text-slate-950 dark:text-white">
+                <span className="text-lg sm:text-xl font-black tracking-tight text-slate-950 dark:text-white leading-none">
                   CA<span className="bg-gradient-to-r from-cyan-600 via-sky-600 to-indigo-600 bg-clip-text text-transparent">IC</span>
                 </span>
-                <span className="text-[10px] uppercase font-bold tracking-wider px-1.5 py-0.5 rounded bg-cyan-100 dark:bg-cyan-950/80 text-cyan-800 dark:text-cyan-300 border border-cyan-300 dark:border-cyan-800">
+                <span className="hidden sm:inline-block text-[9px] uppercase font-bold tracking-wider px-1.5 py-0.5 rounded bg-cyan-100 dark:bg-cyan-950/80 text-cyan-800 dark:text-cyan-300 border border-cyan-300 dark:border-cyan-800">
                   Cinema & IA
                 </span>
               </div>
-              <p className="text-[11px] text-slate-600 dark:text-slate-400 font-medium">Plataforma Inteligente</p>
+              <p className="hidden md:block text-[11px] text-slate-600 dark:text-slate-400 font-medium">Plataforma Inteligente</p>
             </div>
           </div>
 
-          {/* Mobile Quick Action Buttons */}
-          <div className="flex items-center gap-1.5 md:hidden">
-            <button
-              onClick={onOpenMobileAccess}
-              className="p-2 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 border border-slate-200 dark:border-slate-700 font-semibold"
-              title="Acessar no Celular"
-            >
-              <Smartphone className="w-4 h-4 text-cyan-600 dark:text-cyan-400" />
-            </button>
-            <button
-              onClick={onOpenProfileModal}
-              className="p-1 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700"
-            >
-              <img
-                src={activeProfile.avatar}
-                alt={activeProfile.name}
-                className="w-7 h-7 rounded-lg object-cover"
-              />
-            </button>
-            {onOpenMovieSuggestion && (
+          {/* Mobile Actions: Clean, well-spaced, essential buttons */}
+          <div className="flex items-center gap-1.5 sm:gap-2 md:hidden">
+            {/* Botão de Assinar / Pagamento Pix em destaque */}
+            {!isSubscriberActive && (
               <button
-                onClick={onOpenMovieSuggestion}
-                title="Sugerir Filme"
-                className="p-2 rounded-xl bg-amber-50 dark:bg-amber-950/60 border border-amber-200 dark:border-amber-800/60 text-amber-700 dark:text-amber-300"
+                onClick={handleOpenSub}
+                className="flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 text-slate-950 font-black text-xs shadow-sm shadow-amber-500/25 active:scale-95 transition"
+                title="Assinar Planos Pix"
               >
-                <Lightbulb className="w-4 h-4 text-amber-500" />
+                <Crown className="w-3.5 h-3.5 fill-slate-950" />
+                <span>Assinar</span>
               </button>
             )}
+
+            {/* Botão do CAIC Assistente IA */}
             <button
               onClick={onOpenCurator}
-              className="flex items-center gap-1 px-3 py-1.5 rounded-xl bg-gradient-to-r from-cyan-600 to-indigo-600 text-white text-xs font-bold shadow-md"
+              className="flex items-center gap-1 px-2.5 sm:px-3 py-1.5 rounded-xl bg-gradient-to-r from-cyan-600 to-indigo-600 text-white text-xs font-black shadow-md shadow-cyan-600/20 active:scale-95 transition"
+              title="Abrir Assistente CAIC"
             >
               <Sparkles className="w-3.5 h-3.5" />
               <span>CAIC</span>
             </button>
+
+            {/* Botão da Conta do Usuário (Avatar com toque fácil) */}
+            <button
+              onClick={onOpenProfileModal}
+              className="p-0.5 rounded-xl border-2 border-cyan-500 shadow-sm active:scale-95 transition"
+              title={currentAccount?.isAuthenticated ? `Conta: ${activeProfile.name}` : 'Entrar na Conta'}
+            >
+              <img
+                src={activeProfile.avatar}
+                alt={activeProfile.name}
+                className="w-8 h-8 rounded-[10px] object-cover"
+              />
+            </button>
+
+            {/* Botão '...' para Mais Opções */}
+            <div className="relative">
+              <button
+                onClick={() => setIsMobileMenuOpen((prev) => !prev)}
+                className={`p-2 rounded-xl border transition ${
+                  isMobileMenuOpen
+                    ? 'bg-cyan-600 text-white border-cyan-600'
+                    : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:bg-slate-200'
+                }`}
+                title="Mais opções do menu"
+              >
+                <MoreVertical className="w-4 h-4" />
+              </button>
+
+              {/* Dropdown Menu Mobile */}
+              {isMobileMenuOpen && (
+                <>
+                  <div
+                    className="fixed inset-0 z-40 bg-slate-950/40 backdrop-blur-xs"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  />
+                  <div className="absolute right-0 mt-2 w-56 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-2xl p-2 z-50 space-y-1 animate-fadeIn">
+                    <div className="px-3 py-1.5 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between text-xs font-bold text-slate-500">
+                      <span>Menu Rápido</span>
+                      <button onClick={() => setIsMobileMenuOpen(false)} className="p-1 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800">
+                        <X className="w-3.5 h-3.5" />
+                      </button>
+                    </div>
+
+                    <button
+                      onClick={() => {
+                        onToggleTheme();
+                        setIsMobileMenuOpen(false);
+                      }}
+                      className="w-full text-left px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center gap-2.5 transition"
+                    >
+                      {isDarkMode ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-indigo-500" />}
+                      <span>{isDarkMode ? 'Modo Claro (Cores Leves)' : 'Modo Escuro'}</span>
+                    </button>
+
+                    {onOpenMovieSuggestion && (
+                      <button
+                        onClick={() => {
+                          onOpenMovieSuggestion();
+                          setIsMobileMenuOpen(false);
+                        }}
+                        className="w-full text-left px-3 py-2 rounded-xl text-xs font-semibold text-amber-800 dark:text-amber-300 hover:bg-amber-50 dark:hover:bg-amber-950/40 flex items-center gap-2.5 transition"
+                      >
+                        <Lightbulb className="w-4 h-4 text-amber-500" />
+                        <span>Sugerir / Pedir Filme</span>
+                      </button>
+                    )}
+
+                    <button
+                      onClick={() => {
+                        onOpenMobileAccess();
+                        setIsMobileMenuOpen(false);
+                      }}
+                      className="w-full text-left px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center gap-2.5 transition"
+                    >
+                      <Smartphone className="w-4 h-4 text-cyan-500" />
+                      <span>Acessar no Celular (QR Code)</span>
+                    </button>
+
+                    <button
+                      onClick={() => {
+                        handleOpenSub();
+                        setIsMobileMenuOpen(false);
+                      }}
+                      className="w-full text-left px-3 py-2 rounded-xl text-xs font-bold text-amber-700 dark:text-amber-300 hover:bg-amber-50 dark:hover:bg-amber-950/40 flex items-center gap-2.5 transition border-t border-slate-100 dark:border-slate-800"
+                    >
+                      <Crown className="w-4 h-4 text-amber-500" />
+                      <span>Planos &amp; Assinatura Pix</span>
+                    </button>
+                  </div>
+                </>
+              )}
+            </div>
           </div>
         </div>
 
-        {/* Quick Genre Filters */}
+        {/* Quick Genre Filters (Desktop & Tablet) */}
         <div className="hidden lg:flex items-center gap-1.5">
           {genres.map((g) => {
             const isFavFilter = g === 'Minha Lista';
@@ -151,32 +247,43 @@ export const Header: React.FC<HeaderProps> = ({
           })}
         </div>
 
-        {/* Actions */}
-        <div className="flex items-center gap-2 w-full md:w-auto justify-end">
+        {/* Desktop Actions */}
+        <div className="hidden md:flex items-center gap-2 justify-end">
+          {/* Botão de Assinar em destaque para quem ainda não é assinante */}
+          {!isSubscriberActive && (
+            <button
+              onClick={handleOpenSub}
+              className="tv-focusable flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-slate-950 font-black text-xs shadow-md shadow-amber-500/20 active:scale-95 transition"
+              title="Assinar com Pix"
+            >
+              <Crown className="w-3.5 h-3.5 fill-slate-950" />
+              <span>Assinar Plano Pix</span>
+            </button>
+          )}
 
           {/* Botão Sugerir Filme */}
           {onOpenMovieSuggestion && (
             <button
               onClick={onOpenMovieSuggestion}
               title="Pedir ou sugerir um filme para o catálogo"
-              className="tv-focusable hidden md:flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-amber-50 dark:bg-amber-950/50 hover:bg-amber-100 dark:hover:bg-amber-900/50 border border-amber-300 dark:border-amber-700/60 text-amber-800 dark:text-amber-300 text-xs font-semibold transition"
+              className="tv-focusable flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-amber-50 dark:bg-amber-950/50 hover:bg-amber-100 dark:hover:bg-amber-900/50 border border-amber-300 dark:border-amber-700/60 text-amber-800 dark:text-amber-300 text-xs font-semibold transition"
             >
               <Lightbulb className="w-3.5 h-3.5 text-amber-500" />
               <span>Sugerir Filme</span>
             </button>
           )}
 
-          {/* Botão Acessar no Celular (QR Code) */}
+          {/* Botão Acessar no Celular */}
           <button
             onClick={onOpenMobileAccess}
             title="Acessar no Celular (Mesmo Wi-Fi)"
-            className="tv-focusable hidden md:flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 text-xs font-medium transition"
+            className="tv-focusable flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 text-xs font-medium transition"
           >
             <Smartphone className="w-3.5 h-3.5 text-cyan-600 dark:text-cyan-400" />
             <span>No Celular</span>
           </button>
 
-          {/* Botão Alternador de Tema Claro / Escuro */}
+          {/* Botão Alternador de Tema */}
           <button
             onClick={onToggleTheme}
             title={isDarkMode ? 'Mudar para Cores Leves (Modo Claro)' : 'Mudar para Modo Escuro'}
@@ -202,16 +309,16 @@ export const Header: React.FC<HeaderProps> = ({
           <button
             id="btn-header-curator"
             onClick={onOpenCurator}
-            className="tv-focusable hidden md:flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-cyan-600 via-indigo-600 to-fuchsia-600 hover:from-cyan-500 hover:to-fuchsia-500 text-white font-bold text-xs tracking-wide shadow-md shadow-cyan-500/20 transition-all"
+            className="tv-focusable flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-cyan-600 via-indigo-600 to-fuchsia-600 hover:from-cyan-500 hover:to-fuchsia-500 text-white font-bold text-xs tracking-wide shadow-md shadow-cyan-500/20 transition-all"
           >
             <Sparkles className="w-3.5 h-3.5" />
             <span>CAIC</span>
           </button>
 
-          {/* Netflix/Prime Style Profile & Account Button */}
+          {/* Profile & Account Button */}
           <button
             onClick={onOpenProfileModal}
-            className={`tv-focusable hidden md:flex items-center gap-2 p-1.5 pl-3 rounded-2xl border transition group cursor-pointer ${
+            className={`tv-focusable flex items-center gap-2 p-1.5 pl-3 rounded-2xl border transition group cursor-pointer ${
               currentAccount?.isAuthenticated
                 ? 'bg-slate-100 dark:bg-slate-900 border-slate-200 dark:border-slate-700 hover:border-cyan-500 shadow-xs'
                 : 'bg-cyan-50 dark:bg-cyan-950/60 border-cyan-400/80 text-cyan-900 dark:text-cyan-200 hover:bg-cyan-100 shadow-sm'

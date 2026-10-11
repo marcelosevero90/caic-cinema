@@ -45,6 +45,7 @@ export const App: React.FC = () => {
   const [curatorPrompt, setCuratorPrompt] = useState<string>('');
   const [isApiKeyModalOpen, setIsApiKeyModalOpen] = useState<boolean>(false);
   const [isProfileModalOpen, setIsProfileModalOpen] = useState<boolean>(false);
+  const [profileModalInitialTab, setProfileModalInitialTab] = useState<'account' | 'subscription'>('account');
   const [isAdminOpen, setIsAdminOpen] = useState<boolean>(false);
   const [isMobileAccessOpen, setIsMobileAccessOpen] = useState<boolean>(false);
   const [isSuggestionModalOpen, setIsSuggestionModalOpen] = useState<boolean>(false);
@@ -441,7 +442,14 @@ export const App: React.FC = () => {
           setCuratorPrompt('');
           setIsCuratorOpen(true);
         }}
-        onOpenProfileModal={() => setIsProfileModalOpen(true)}
+        onOpenProfileModal={() => {
+          setProfileModalInitialTab('account');
+          setIsProfileModalOpen(true);
+        }}
+        onOpenSubscription={() => {
+          setProfileModalInitialTab('subscription');
+          setIsProfileModalOpen(true);
+        }}
         onOpenMobileAccess={() => setIsMobileAccessOpen(true)}
         onOpenMovieSuggestion={() => handleOpenSuggestionModal()}
         isDarkMode={isDarkMode}
@@ -1583,6 +1591,7 @@ export const App: React.FC = () => {
       <UserProfileModal
         isOpen={isProfileModalOpen}
         onClose={() => setIsProfileModalOpen(false)}
+        initialTab={profileModalInitialTab}
         onSelectMovie={(movie) => handlePlayMovie(movie)}
         onOpenAdmin={() => {
           window.location.hash = '#admin';

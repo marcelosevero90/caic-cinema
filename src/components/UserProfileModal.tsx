@@ -18,6 +18,7 @@ import {
   Calendar,
   Settings,
   RotateCcw,
+  RefreshCw,
   Crown,
   Zap,
   Receipt,
@@ -40,6 +41,7 @@ interface UserProfileModalProps {
   onSelectMovie: (movie: Movie) => void;
   onAccountChanged?: () => void;
   onOpenAdmin?: () => void;
+  initialTab?: 'account' | 'subscription' | 'preferences' | 'favorites' | 'history' | 'profiles';
 }
 
 const AVAILABLE_STYLES = [
@@ -73,8 +75,15 @@ const UserProfileModalContent: React.FC<UserProfileModalProps> = ({
   onSelectMovie,
   onAccountChanged,
   onOpenAdmin: _onOpenAdmin,
+  initialTab,
 }) => {
-  const [activeTab, setActiveTab] = useState<'account' | 'subscription' | 'preferences' | 'favorites' | 'history' | 'profiles'>('account');
+  const [activeTab, setActiveTab] = useState<'account' | 'subscription' | 'preferences' | 'favorites' | 'history' | 'profiles'>(initialTab || 'account');
+
+  useEffect(() => {
+    if (initialTab) {
+      setActiveTab(initialTab);
+    }
+  }, [initialTab]);
   const [currentAccount, setCurrentAccount] = useState<UserAccount>(userService.getAccount());
   const [activeProfile, setActiveProfile] = useState<UserProfile>(userService.getActiveProfile());
   const [allProfiles, setAllProfiles] = useState<UserProfile[]>(userService.getProfiles());
@@ -884,17 +893,38 @@ const UserProfileModalContent: React.FC<UserProfileModalProps> = ({
                         </p>
                       )}
                     </div>
-                  </div>
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <button
+                        type="button"
+                        onClick={async () => {
+                          setSubscribingMessage('Consultando aprovação no Mercado Pago...');
+                          const res = await userService.syncSubscriptionFromMercadoPago();
+                          refreshState();
+                          if (res.updated) {
+                            setSubscribingMessage(res.message || 'Assinatura confirmada pelo Mercado Pago com sucesso!');
+                          } else {
+                            setSubscribingMessage('Status verificado no Mercado Pago.');
+                          }
+                          setTimeout(() => setSubscribingMessage(null), 4000);
+                        }}
+                        className="px-3 py-1.5 rounded-xl border border-cyan-400 dark:border-cyan-700 bg-cyan-50 dark:bg-cyan-950/60 text-cyan-800 dark:text-cyan-300 hover:bg-cyan-100 dark:hover:bg-cyan-900/60 text-xs font-bold transition flex items-center gap-1.5 shadow-xs"
+                        title="Verificar no Mercado Pago se o seu Pix já foi compensado"
+                      >
+                        <RefreshCw className="w-3.5 h-3.5" />
+                        <span>Verificar Pagamento Pix</span>
+                      </button>
 
-                  {currentAccount.subscriptionStatus === 'active' && (
-                    <button
-                      type="button"
-                      onClick={handleCancelPlan}
-                      className="px-3 py-1.5 rounded-xl border border-rose-300 dark:border-rose-800 text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/40 text-xs font-semibold transition"
-                    >
-                      Cancelar Assinatura
-                    </button>
-                  )}
+                      {currentAccount.subscriptionStatus === 'active' && (
+                        <button
+                          type="button"
+                          onClick={handleCancelPlan}
+                          className="px-3 py-1.5 rounded-xl border border-rose-300 dark:border-rose-800 text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/40 text-xs font-semibold transition"
+                        >
+                          Cancelar Assinatura
+                        </button>
+                      )}
+                    </div>
+                  </div>
                 </div>
               </div>
 
