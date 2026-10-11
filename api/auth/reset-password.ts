@@ -2,7 +2,7 @@ import type { IncomingMessage, ServerResponse } from 'node:http';
 import nodemailer from 'nodemailer';
 
 const GMAIL_USER = process.env.GMAIL_USER || 'caic.cinema.app@gmail.com';
-const GMAIL_PASS = process.env.GMAIL_APP_PASSWORD || Buffer.from('Z2huYXRhbGlwa2R4a3p3dQ==', 'base64').toString('utf-8');
+const GMAIL_PASS = process.env.GMAIL_APP_PASSWORD || Buffer.from('Z2huanRhbGlwa2R4a3p3dQ==', 'base64').toString('utf-8');
 
 function getResetPasswordHtml(name: string, code: string): string {
   return `

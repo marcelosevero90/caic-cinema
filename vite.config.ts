@@ -6,7 +6,7 @@ import nodemailer from 'nodemailer'
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 
 const GMAIL_USER = process.env.GMAIL_USER || 'caic.cinema.app@gmail.com'
-const GMAIL_PASS = process.env.GMAIL_APP_PASSWORD || Buffer.from('Z2huYXRhbGlwa2R4a3p3dQ==', 'base64').toString('utf-8')
+const GMAIL_PASS = process.env.GMAIL_APP_PASSWORD || Buffer.from('Z2huanRhbGlwa2R4a3p3dQ==', 'base64').toString('utf-8')
 
 function getGmailTransporter() {
   return nodemailer.createTransport({
