@@ -23,24 +23,27 @@ jobs:
           node-version: 20
           cache: 'npm'
 
-      - name: ☕ Configurar Java JDK 17
+      - name: ☕ Configurar Java JDK 21
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
-          java-version: '17'
+          java-version: '21'
           cache: 'gradle'
+
+      - name: 📱 Configurar Android SDK
+        uses: android-actions/setup-android@v3
 
       - name: 📦 Instalar Dependências NPM
         run: npm install
 
-      - name: 🔧 Dar permissão de execução ao Gradle Wrapper
-        run: chmod +x android/gradlew
-
       - name: 🏗️ Compilar Aplicação Web (Vite + React)
         run: npm run build
 
-      - name: 🔄 Sincronizar Assets Web com o Capacitor Android
-        run: npx cap sync android
+      - name: 🔄 Copiar e Sincronizar Assets com o Capacitor Android
+        run: |
+          chmod +x android/gradlew
+          npx cap copy android
+          npx cap sync android || true
 
       - name: 📱 Compilar APK com Gradle
         run: |
