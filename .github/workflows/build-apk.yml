@@ -1,0 +1,82 @@
+name: Build Android APK (Mobile & Box TV)
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-apk:
+    name: Compilar APK Universal (Celular + TV Box)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 Checkout do Repositório
+        uses: actions/checkout@v4
+
+      - name: ⚙️ Configurar Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: 📦 Instalar Dependências NPM
+        run: npm install
+
+      - name: 🏗️ Compilar Aplicação Web (Vite + React)
+        run: npm run build
+
+      - name: 🔄 Sincronizar Assets Web com o Capacitor Android
+        run: npx cap sync android
+
+      - name: ☕ Configurar Java JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+          cache: 'gradle'
+
+      - name: 🔧 Dar permissão de execução ao Gradle Wrapper
+        run: chmod +x android/gradlew
+
+      - name: 📱 Compilar APK com Gradle
+        run: |
+          cd android
+          ./gradlew assembleDebug --stacktrace
+
+      - name: 🏷️ Renomear APK para Distribuição
+        run: |
+          cp android/app/build/outputs/apk/debug/app-debug.apk ./CAIC-Cinema-Universal.apk
+          ls -lh ./CAIC-Cinema-Universal.apk
+
+      - name: 📤 Salvar APK como Artefato da Execução (Download no GitHub Actions)
+        uses: actions/upload-artifact@v4
+        with:
+          name: CAIC-Cinema-Universal-APK
+          path: CAIC-Cinema-Universal.apk
+          retention-days: 30
+
+      - name: 🚀 Criar ou Atualizar Release no GitHub com Download Direto do APK
+        uses: softprops/action-gh-release@v2
+        if: startsWith(github.ref, 'refs/heads/main')
+        with:
+          tag_name: v1.0.0-android
+          name: "CAIC Cinema - APK Universal (Celular & Box TV)"
+          body: |
+            ### 🍿 CAIC Cinema - Aplicativo Nativo Android
+            
+            Este APK funciona tanto em **Celular / Tablet (Touchscreen)** quanto em **Android TV / TV Box / Fire TV (Controle Remoto D-Pad)**.
+            
+            - **Arquivo:** `CAIC-Cinema-Universal.apk`
+            - **Compatibilidade:** Android 7.0+ (Nougat até Android 15)
+            - **Recursos:** Player YouTube nativo, streaming Jellyfin, curadoria IA Gemini/DeepSeek, maratona da Sessão Cinema e navegação via controle remoto.
+            
+            #### Como instalar:
+            1. **No Celular:** Baixe o arquivo `CAIC-Cinema-Universal.apk` abaixo e abra para instalar (permita "Instalar apps de fontes desconhecidas").
+            2. **Na Box TV:** Baixe pelo app **Downloader** ou passe o APK via pendrive e instale com qualquer gerenciador de arquivos.
+          files: CAIC-Cinema-Universal.apk
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -7,10 +7,15 @@
     "dev": "vite --host",
     "admin": "vite --config vite.admin.config.ts --port 5174 --host",
     "build": "tsc -b && vite build",
+    "cap:sync": "cap sync",
+    "cap:copy": "cap copy",
     "lint": "oxlint",
     "preview": "vite preview"
   },
   "dependencies": {
+    "@capacitor/android": "^8.5.3",
+    "@capacitor/cli": "^8.5.3",
+    "@capacitor/core": "^8.5.3",
     "@google/genai": "^2.27.0",
     "@tailwindcss/vite": "^4.3.3",
     "lucide-react": "^1.52.0",
