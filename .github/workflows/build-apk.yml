@@ -36,10 +36,14 @@ jobs:
       - name: 🏗️ Compilar Aplicação Web (Vite + React)
         run: npm run build
 
-      - name: 🔄 Copiar e Sincronizar Assets com o Capacitor Android
+      - name: 🔄 Copiar Assets e Configurações para o Capacitor Android
         run: |
+          sed -i -e 's/\r$//' android/gradlew
           chmod +x android/gradlew
-          npx cap copy android
+          mkdir -p android/app/src/main/assets/public
+          cp -r dist/* android/app/src/main/assets/public/
+          cp capacitor.config.json android/app/src/main/assets/capacitor.config.json
+          npx cap copy android || true
 
       - name: 📱 Compilar APK com Gradle
         run: |
