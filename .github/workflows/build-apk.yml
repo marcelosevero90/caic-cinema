@@ -30,9 +30,6 @@ jobs:
           java-version: '21'
           cache: 'gradle'
 
-      - name: 📱 Configurar Android SDK
-        uses: android-actions/setup-android@v3
-
       - name: 📦 Instalar Dependências NPM
         run: npm install
 
@@ -43,12 +40,11 @@ jobs:
         run: |
           chmod +x android/gradlew
           npx cap copy android
-          npx cap sync android || true
 
       - name: 📱 Compilar APK com Gradle
         run: |
           cd android
-          ./gradlew assembleDebug --stacktrace
+          ./gradlew assembleDebug --no-daemon --stacktrace
 
       - name: 🏷️ Renomear APK para Distribuição
         run: |
