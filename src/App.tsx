@@ -24,7 +24,6 @@ import {
   Heart,
   RotateCcw,
   ThumbsUp,
-  Shield,
   Smartphone,
   Lightbulb,
   Film,
@@ -1542,16 +1541,7 @@ export const App: React.FC = () => {
             <span>•</span>
             <span>YouTube Official IFrame API</span>
             <span>•</span>
-            <a
-              href="http://localhost:5174"
-              target="_blank"
-              rel="noreferrer"
-              className="text-slate-500 hover:text-indigo-600 dark:hover:text-indigo-400 transition font-medium hover:underline flex items-center gap-1"
-              title="Acessar o Painel Administrativo dedicado na porta 5174"
-            >
-              <Shield className="w-3.5 h-3.5 text-indigo-500" />
-              <span>Painel Administrativo (Porta 5174)</span>
-            </a>
+            <span>Pix Dinâmico Seguro (Mercado Pago)</span>
           </div>
         </div>
       </footer>

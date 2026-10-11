@@ -79,8 +79,8 @@ const UserProfileModalContent: React.FC<UserProfileModalProps> = ({
   const [activeProfile, setActiveProfile] = useState<UserProfile>(userService.getActiveProfile());
   const [allProfiles, setAllProfiles] = useState<UserProfile[]>(userService.getProfiles());
 
-  // Subscription state
-  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState<'Cartão de Crédito' | 'PIX' | 'Boleto'>('PIX');
+  // Subscription state (Exclusivo PIX Mercado Pago)
+  const [selectedPaymentMethod] = useState<'PIX'>('PIX');
   const [subscribingMessage, setSubscribingMessage] = useState<string | null>(null);
   const [isPixModalOpen, setIsPixModalOpen] = useState<boolean>(false);
   const [pixTargetPlan, setPixTargetPlan] = useState<'individual' | 'family'>('individual');
@@ -898,35 +898,30 @@ const UserProfileModalContent: React.FC<UserProfileModalProps> = ({
                 </div>
               </div>
 
-              {/* Escolha do Método de Pagamento preferencial */}
-              <div className="space-y-2">
-                <label className="text-xs font-bold text-slate-800 dark:text-slate-200 uppercase tracking-wider flex items-center gap-1.5">
-                  <CreditCard className="w-4 h-4 text-cyan-500" />
-                  <span>Método de Pagamento Preferencial (Cobrança somente após os 7 dias):</span>
-                </label>
-                <div className="grid grid-cols-3 gap-2">
-                  {(['PIX', 'Cartão de Crédito', 'Boleto'] as const).map((method) => (
-                    <button
-                      key={method}
-                      type="button"
-                      onClick={() => setSelectedPaymentMethod(method)}
-                      className={`p-2.5 rounded-xl border text-xs font-bold transition flex items-center justify-center gap-1.5 ${
-                        selectedPaymentMethod === method
-                          ? 'bg-cyan-50 dark:bg-cyan-950/70 border-cyan-500 text-cyan-900 dark:text-cyan-100 shadow-sm'
-                          : 'bg-slate-50 dark:bg-slate-900 border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:border-slate-400'
-                      }`}
-                    >
-                      {selectedPaymentMethod === method && <Check className="w-3.5 h-3.5 text-cyan-600 dark:text-cyan-400" />}
-                      <span>{method}</span>
-                    </button>
-                  ))}
-                </div>
-                {selectedPaymentMethod === 'PIX' && (
-                  <div className="p-2.5 rounded-xl bg-cyan-500/10 border border-cyan-500/25 flex items-center gap-2 text-xs text-cyan-800 dark:text-cyan-300">
-                    <Sparkles className="w-4 h-4 text-cyan-500 flex-shrink-0" />
-                    <span><strong>Pix Instantâneo:</strong> QR Code na tela e código Copia e Cola com liberação automática pelo Mercado Pago.</span>
+              {/* Método de Pagamento Exclusivo: PIX Dinâmico Mercado Pago */}
+              <div className="p-4 rounded-2xl bg-gradient-to-r from-cyan-500/10 via-indigo-500/10 to-transparent border border-cyan-500/30 flex items-center justify-between gap-3">
+                <div className="flex items-center gap-3.5">
+                  <div className="w-11 h-11 rounded-2xl bg-gradient-to-tr from-cyan-500 to-indigo-600 text-white font-black flex items-center justify-center shadow-md text-xs tracking-wider">
+                    PIX
                   </div>
-                )}
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <h5 className="text-xs font-extrabold text-slate-900 dark:text-white uppercase tracking-wider">
+                        Pagamento Exclusivo via Pix
+                      </h5>
+                      <span className="text-[10px] px-2 py-0.5 rounded-full font-bold bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-800">
+                        Aprovação Instantânea
+                      </span>
+                    </div>
+                    <p className="text-[11px] text-slate-600 dark:text-slate-400 mt-0.5">
+                      Geração de QR Code dinâmico e código Copia e Cola oficial do Mercado Pago com liberação automática em segundos.
+                    </p>
+                  </div>
+                </div>
+                <div className="hidden sm:flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 border border-emerald-300 dark:border-emerald-800 text-xs font-bold">
+                  <Check className="w-3.5 h-3.5 stroke-[3]" />
+                  <span>Ativo</span>
+                </div>
               </div>
 
               {/* Aviso Importante de Concorrência: 1 Acesso por Vez */}

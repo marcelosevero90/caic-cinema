@@ -345,7 +345,7 @@ class UserService {
       subscriptionStatus: 'trial',
       trialStartDate: now.toISOString(),
       trialEndDate: trialEnd.toISOString(),
-      paymentMethod: 'Cartão de Crédito (7 Dias Grátis)',
+      paymentMethod: 'PIX (Mercado Pago)',
       lastPaymentAmount: 0,
       paymentHistory: [
         {
@@ -383,7 +383,7 @@ class UserService {
   public subscribePlan(
     planType: 'individual' | 'family' | 'monthly' | 'annual',
     billingCycle: 'monthly' | 'annual' = 'monthly',
-    paymentMethod = 'Cartão de Crédito'
+    paymentMethod = 'PIX (Mercado Pago)'
   ): { success: boolean; message: string } {
     const isFamily = planType === 'family' || planType === 'annual';
     const chosenPlan: 'individual' | 'family' = isFamily ? 'family' : 'individual';
