@@ -23,15 +23,6 @@ jobs:
           node-version: 20
           cache: 'npm'
 
-      - name: 📦 Instalar Dependências NPM
-        run: npm install
-
-      - name: 🏗️ Compilar Aplicação Web (Vite + React)
-        run: npm run build
-
-      - name: 🔄 Sincronizar Assets Web com o Capacitor Android
-        run: npx cap sync android
-
       - name: ☕ Configurar Java JDK 17
         uses: actions/setup-java@v4
         with:
@@ -39,8 +30,17 @@ jobs:
           java-version: '17'
           cache: 'gradle'
 
+      - name: 📦 Instalar Dependências NPM
+        run: npm install
+
       - name: 🔧 Dar permissão de execução ao Gradle Wrapper
         run: chmod +x android/gradlew
+
+      - name: 🏗️ Compilar Aplicação Web (Vite + React)
+        run: npm run build
+
+      - name: 🔄 Sincronizar Assets Web com o Capacitor Android
+        run: npx cap sync android
 
       - name: 📱 Compilar APK com Gradle
         run: |
