@@ -30,12 +30,16 @@ import {
   Eye,
   EyeOff,
   LogOut,
+  ArrowUp,
+  ArrowDown,
 } from 'lucide-react';
 import { geminiCurationService } from '../services/geminiCurationService';
 import { catalogService } from '../services/catalogService';
 import { movieRequestService, type MovieRequest } from '../services/movieRequestService';
 import { jellyfinService, type JellyfinConfig } from '../services/jellyfinService';
 import { userService } from '../services/userService';
+import { cinemaSessionService, SESSION_PRESETS } from '../services/cinemaSessionService';
+import type { CinemaSession } from '../types/cinemaSession';
 import type { Movie, ContentRating, MovieLanguage, UserAccount } from '../types/movie';
 
 interface AdminDashboardProps {
@@ -96,12 +100,68 @@ export const AdminDashboardView: React.FC<AdminDashboardProps> = ({
     setIsAdminAuthenticated(false);
   };
 
-  const [activeTab, setActiveTab] = useState<'manage' | 'add' | 'requests' | 'jellyfin' | 'subscriptions'>('manage');
+  const [activeTab, setActiveTab] = useState<'manage' | 'session' | 'add' | 'requests' | 'jellyfin' | 'subscriptions'>('manage');
   const [searchTerm, setSearchTerm] = useState('');
   const [catalogList, setCatalogList] = useState<Movie[]>(catalogService.getAll());
   const [requestsList, setRequestsList] = useState<MovieRequest[]>(movieRequestService.getAll());
   const [requestFilter, setRequestFilter] = useState<'all' | 'pending' | 'added'>('all');
   const [originatingRequestId, setOriginatingRequestId] = useState<string | null>(null);
+
+  // Estados da Sessão Cinema Especial
+  const [adminSession, setAdminSession] = useState<CinemaSession>(() => cinemaSessionService.getActiveSession());
+  const [sessionSaveFeedback, setSessionSaveFeedback] = useState<boolean>(false);
+  const [sessionSearchMovie, setSessionSearchMovie] = useState<string>('');
+
+  const handleSelectPreset = (presetId: string) => {
+    const updated = cinemaSessionService.setPreset(presetId);
+    setAdminSession(updated);
+    setAdminActionMessage(`Sessão Cinema alterada para: "${updated.title}"!`);
+    setTimeout(() => setAdminActionMessage(null), 3500);
+  };
+
+  const handleSaveSession = (e: React.FormEvent) => {
+    e.preventDefault();
+    cinemaSessionService.updateSession(adminSession);
+    setSessionSaveFeedback(true);
+    setAdminActionMessage(`Sessão Cinema "${adminSession.title}" salva e ativada no portal!`);
+    setTimeout(() => {
+      setSessionSaveFeedback(false);
+      setAdminActionMessage(null);
+    }, 3500);
+  };
+
+  const handleAddMovieToSession = (movie: Movie) => {
+    if (adminSession.movieIds.includes(movie.id)) return;
+    const updated = {
+      ...adminSession,
+      movieIds: [...adminSession.movieIds, movie.id],
+    };
+    setAdminSession(updated);
+    cinemaSessionService.updateSession(updated);
+    setAdminActionMessage(`"${movie.title}" adicionado à Sessão Cinema!`);
+    setTimeout(() => setAdminActionMessage(null), 3000);
+  };
+
+  const handleRemoveMovieFromSession = (movieId: string) => {
+    const updated = {
+      ...adminSession,
+      movieIds: adminSession.movieIds.filter((id) => id !== movieId),
+    };
+    setAdminSession(updated);
+    cinemaSessionService.updateSession(updated);
+  };
+
+  const handleMoveMovieInSession = (index: number, direction: 'up' | 'down') => {
+    const newIds = [...adminSession.movieIds];
+    const targetIdx = direction === 'up' ? index - 1 : index + 1;
+    if (targetIdx < 0 || targetIdx >= newIds.length) return;
+    const temp = newIds[index];
+    newIds[index] = newIds[targetIdx];
+    newIds[targetIdx] = temp;
+    const updated = { ...adminSession, movieIds: newIds };
+    setAdminSession(updated);
+    cinemaSessionService.updateSession(updated);
+  };
 
   // Estados de Assinaturas e Pagamentos
   const [accountsList, setAccountsList] = useState<UserAccount[]>(userService.getAllAccounts());
@@ -619,6 +679,24 @@ export const AdminDashboardView: React.FC<AdminDashboardProps> = ({
               </span>
             </button>
 
+            {/* TAB: SESSÃO CINEMA ESPECIAL */}
+            <button
+              onClick={() => setActiveTab('session')}
+              className={`tv-focusable px-3.5 py-2 rounded-xl text-xs font-bold flex items-center gap-2 transition cursor-pointer ${
+                activeTab === 'session'
+                  ? 'bg-amber-500 text-slate-950 shadow-md shadow-amber-500/30 ring-2 ring-amber-400/40 font-black'
+                  : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white border border-slate-200 dark:border-slate-800 hover:border-slate-300'
+              }`}
+            >
+              <span className="text-sm">🍿</span>
+              <span>Sessão Cinema</span>
+              <span className={`text-[10px] px-1.5 py-0.2 rounded-full font-bold ${
+                activeTab === 'session' ? 'bg-slate-950 text-amber-400' : 'bg-amber-100 dark:bg-amber-950/80 text-amber-700 dark:text-amber-300'
+              }`}>
+                {adminSession.dateBadge}
+              </span>
+            </button>
+
             {/* TAB 2: ADICIONAR FILME COM IA */}
             <button
               onClick={() => setActiveTab('add')}
@@ -826,6 +904,362 @@ export const AdminDashboardView: React.FC<AdminDashboardProps> = ({
                   </table>
                 </div>
               </div>
+            </div>
+          )}
+
+          {/* TAB: CONFIGURAÇÃO DA SESSÃO CINEMA ESPECIAL */}
+          {activeTab === 'session' && (
+            <div className="space-y-6 max-w-4xl mx-auto">
+              {/* Notificação de Sucesso */}
+              {adminActionMessage && (
+                <div className="p-3.5 rounded-2xl bg-emerald-500 text-slate-950 font-bold text-xs flex items-center gap-2 shadow-md animate-fadeIn">
+                  <CheckCircle2 className="w-4 h-4 flex-shrink-0" />
+                  <span>{adminActionMessage}</span>
+                </div>
+              )}
+
+              {/* Card de Apresentação e Status */}
+              <div className="p-5 rounded-3xl bg-gradient-to-r from-amber-500/10 via-orange-500/10 to-red-500/10 border border-amber-300 dark:border-amber-800 shadow-sm">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                  <div className="flex items-center gap-3">
+                    <div className="w-12 h-12 rounded-2xl bg-amber-500 text-slate-950 flex items-center justify-center text-2xl shadow-md">
+                      🍿
+                    </div>
+                    <div>
+                      <h4 className="text-sm font-extrabold text-slate-900 dark:text-white flex items-center gap-2">
+                        <span>Sessão Cinema em Cartaz</span>
+                        <span className="text-[10px] px-2 py-0.5 rounded-full bg-amber-100 dark:bg-amber-950 text-amber-800 dark:text-amber-300 font-bold border border-amber-300 dark:border-amber-800">
+                          {adminSession.active ? 'Ativa no Portal' : 'Pausada'}
+                        </span>
+                      </h4>
+                      <p className="text-xs text-slate-600 dark:text-slate-400 mt-0.5">
+                        Esta sessão especial fica em destaque no topo da tela inicial com maratona sequencial para todos os usuários.
+                      </p>
+                    </div>
+                  </div>
+
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const updated = { ...adminSession, active: !adminSession.active };
+                      setAdminSession(updated);
+                      cinemaSessionService.updateSession(updated);
+                    }}
+                    className={`px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-1.5 cursor-pointer ${
+                      adminSession.active
+                        ? 'bg-rose-100 hover:bg-rose-200 text-rose-700 border border-rose-300 dark:bg-rose-950/40 dark:text-rose-300 dark:border-rose-800'
+                        : 'bg-emerald-600 hover:bg-emerald-500 text-white shadow-md'
+                    }`}
+                  >
+                    {adminSession.active ? 'Pausar Sessão' : 'Ativar Sessão'}
+                  </button>
+                </div>
+              </div>
+
+              {/* CARD DE PRESETS RÁPIDOS (1 CLIQUE) */}
+              <div className="space-y-2.5">
+                <div className="flex items-center justify-between">
+                  <h4 className="text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
+                    <Sparkles className="w-3.5 h-3.5 text-amber-500" />
+                    <span>Escolher Tema Rápido (1 Clique)</span>
+                  </h4>
+                  <span className="text-[11px] text-slate-500">Alterne instantaneamente o tema</span>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
+                  {SESSION_PRESETS.map((preset) => {
+                    const isSelected = adminSession.id === preset.id;
+                    const presetEmoji =
+                      preset.id === 'velozes_furiosos' ? '🏎️' :
+                      preset.id === 'jackie_chan' ? '🥋' :
+                      preset.id === 'natal' ? '🎄' : '💥';
+
+                    return (
+                      <button
+                        key={preset.id}
+                        type="button"
+                        onClick={() => handleSelectPreset(preset.id)}
+                        className={`p-3.5 rounded-2xl text-left border transition-all cursor-pointer flex flex-col justify-between ${
+                          isSelected
+                            ? 'bg-amber-500/10 border-amber-500 dark:border-amber-400 shadow-md shadow-amber-500/10 ring-2 ring-amber-500/20'
+                            : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700'
+                        }`}
+                      >
+                        <div className="flex items-center justify-between mb-2">
+                          <span className="text-xl">{presetEmoji}</span>
+                          <span className="text-[10px] px-2 py-0.5 rounded-full font-bold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700">
+                            {preset.dateBadge}
+                          </span>
+                        </div>
+                        <div>
+                          <p className="font-bold text-xs text-slate-900 dark:text-white line-clamp-1">
+                            {preset.title.replace('Sessão Cinema: ', '').replace('Sessão ', '')}
+                          </p>
+                          <p className="text-[10px] text-slate-500 dark:text-slate-400 line-clamp-2 mt-0.5">
+                            {preset.subtitle}
+                          </p>
+                        </div>
+                        <div className="mt-2 pt-2 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-[10px]">
+                          <span className="text-slate-400 font-semibold">{preset.movieIds.length} filmes</span>
+                          {isSelected && <span className="font-bold text-amber-600 dark:text-amber-400">Ativo ✓</span>}
+                        </div>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* FORMULÁRIO DE EDIÇÃO DA SESSÃO */}
+              <form onSubmit={handleSaveSession} className="space-y-4 p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
+                <div className="flex items-center justify-between pb-2 border-b border-slate-200 dark:border-slate-800">
+                  <h4 className="text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">
+                    Personalizar Detalhes da Sessão
+                  </h4>
+                  <span className="text-[11px] text-slate-500">Altere títulos, datas e sequência livremente</span>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                      Título da Sessão Cinema
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      value={adminSession.title}
+                      onChange={(e) => setAdminSession({ ...adminSession, title: e.target.value })}
+                      placeholder="Ex: Sessão Velozes & Furiosos"
+                      className="w-full px-3.5 py-2 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl text-xs text-slate-900 dark:text-white focus:outline-none focus:border-amber-500"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                      Selo de Data / Período
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      value={adminSession.dateBadge}
+                      onChange={(e) => setAdminSession({ ...adminSession, dateBadge: e.target.value })}
+                      placeholder="Ex: Especial 13/10 ou Temporada de Natal"
+                      className="w-full px-3.5 py-2 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl text-xs text-slate-900 dark:text-white focus:outline-none focus:border-amber-500"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                    Subtítulo / Descrição da Maratona
+                  </label>
+                  <textarea
+                    rows={2}
+                    required
+                    value={adminSession.subtitle}
+                    onChange={(e) => setAdminSession({ ...adminSession, subtitle: e.target.value })}
+                    placeholder="Descrição da programação especial para os cinéfilos..."
+                    className="w-full px-3.5 py-2 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl text-xs text-slate-900 dark:text-white focus:outline-none focus:border-amber-500"
+                  />
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                  <div>
+                    <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                      Etiqueta de Destaque
+                    </label>
+                    <input
+                      type="text"
+                      value={adminSession.highlightTag}
+                      onChange={(e) => setAdminSession({ ...adminSession, highlightTag: e.target.value })}
+                      placeholder="Ex: MARATONA EM SEQUÊNCIA"
+                      className="w-full px-3.5 py-2 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl text-xs text-slate-900 dark:text-white focus:outline-none focus:border-amber-500"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                      Cor do Tema
+                    </label>
+                    <select
+                      value={adminSession.accentColor}
+                      onChange={(e) => setAdminSession({ ...adminSession, accentColor: e.target.value as any })}
+                      className="w-full px-3.5 py-2 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl text-xs text-slate-900 dark:text-white focus:outline-none focus:border-amber-500"
+                    >
+                      <option value="amber">Âmbar / Laranja (Adrenalina)</option>
+                      <option value="cyan">Ciano / Azul (Artes Marciais / Sci-Fi)</option>
+                      <option value="emerald">Esmeralda / Verde (Natal / Família)</option>
+                      <option value="purple">Roxo / Índigo (Clássicos Retrô)</option>
+                      <option value="rose">Rosa / Vermelho (Ação Intensa)</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                      Ícone Visual
+                    </label>
+                    <select
+                      value={adminSession.icon}
+                      onChange={(e) => setAdminSession({ ...adminSession, icon: e.target.value as any })}
+                      className="w-full px-3.5 py-2 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl text-xs text-slate-900 dark:text-white focus:outline-none focus:border-amber-500"
+                    >
+                      <option value="car">Carro de Corrida 🏎️</option>
+                      <option value="swords">Espadas / Artes Marciais ⚔️</option>
+                      <option value="gift">Presente de Natal 🎁</option>
+                      <option value="flame">Fogo / Adrenalina 🔥</option>
+                      <option value="clapperboard">Claquete de Cinema 🎬</option>
+                      <option value="star">Estrela ⭐</option>
+                    </select>
+                  </div>
+                </div>
+
+                {/* FILMES NA SEQUÊNCIA DA SESSÃO */}
+                <div className="pt-4 border-t border-slate-200 dark:border-slate-800 space-y-3">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <h4 className="text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">
+                        Sequência de Filmes da Maratona ({adminSession.movieIds.length})
+                      </h4>
+                      <p className="text-[11px] text-slate-500">
+                        Estes filmes serão exibidos na ordem exata definida abaixo: 1º, 2º, 3º...
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Lista de Filmes Selecionados */}
+                  <div className="space-y-2 border border-slate-200 dark:border-slate-800 rounded-2xl p-2.5 bg-slate-50 dark:bg-slate-950/60 max-h-80 overflow-y-auto">
+                    {adminSession.movieIds.map((movieId, idx) => {
+                      const movie = catalogList.find((m) => m.id === movieId);
+                      if (!movie) return null;
+
+                      return (
+                        <div
+                          key={`session-item-${movie.id}`}
+                          className="flex items-center justify-between p-2.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm gap-2"
+                        >
+                          <div className="flex items-center gap-3">
+                            <span className="w-6 h-6 rounded-lg bg-amber-100 dark:bg-amber-950/80 text-amber-800 dark:text-amber-300 font-bold text-xs flex items-center justify-center shrink-0">
+                              {idx + 1}º
+                            </span>
+                            <img
+                              src={movie.posterUrl}
+                              alt=""
+                              className="w-8 h-11 object-cover rounded-md shrink-0 border border-slate-200 dark:border-slate-800"
+                            />
+                            <div className="min-w-0">
+                              <p className="font-bold text-xs text-slate-900 dark:text-white truncate">
+                                {movie.title}
+                              </p>
+                              <p className="text-[10px] text-slate-500">
+                                {movie.releaseYear} • {movie.durationMinutes} min • {(movie.genres || []).slice(0, 2).join(', ')}
+                              </p>
+                            </div>
+                          </div>
+
+                          <div className="flex items-center gap-1 shrink-0">
+                            <button
+                              type="button"
+                              disabled={idx === 0}
+                              onClick={() => handleMoveMovieInSession(idx, 'up')}
+                              className="p-1.5 rounded-lg text-slate-400 hover:text-slate-700 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 disabled:opacity-30 transition cursor-pointer"
+                              title="Mover para cima"
+                            >
+                              <ArrowUp className="w-3.5 h-3.5" />
+                            </button>
+                            <button
+                              type="button"
+                              disabled={idx === adminSession.movieIds.length - 1}
+                              onClick={() => handleMoveMovieInSession(idx, 'down')}
+                              className="p-1.5 rounded-lg text-slate-400 hover:text-slate-700 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 disabled:opacity-30 transition cursor-pointer"
+                              title="Mover para baixo"
+                            >
+                              <ArrowDown className="w-3.5 h-3.5" />
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => handleRemoveMovieFromSession(movie.id)}
+                              className="p-1.5 rounded-lg text-slate-400 hover:text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-950/40 transition cursor-pointer"
+                              title="Remover da sessão"
+                            >
+                              <Trash2 className="w-3.5 h-3.5" />
+                            </button>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+
+                  {/* Campo de Busca para Adicionar Mais Filmes do Catálogo */}
+                  <div className="pt-2">
+                    <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                      Adicionar Filme do Catálogo à Sessão
+                    </label>
+                    <div className="relative">
+                      <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+                      <input
+                        type="text"
+                        value={sessionSearchMovie}
+                        onChange={(e) => setSessionSearchMovie(e.target.value)}
+                        placeholder="Buscar por título para incluir na sequência..."
+                        className="w-full pl-10 pr-3.5 py-2 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl text-xs text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:border-amber-500"
+                      />
+                    </div>
+
+                    {sessionSearchMovie.trim().length > 1 && (
+                      <div className="mt-2 border border-slate-200 dark:border-slate-800 rounded-xl max-h-48 overflow-y-auto divide-y divide-slate-100 dark:divide-slate-800 bg-white dark:bg-slate-900 shadow-md">
+                        {catalogList
+                          .filter((m) =>
+                            m.title.toLowerCase().includes(sessionSearchMovie.toLowerCase().trim())
+                          )
+                          .slice(0, 8)
+                          .map((m) => {
+                            const alreadyInSession = adminSession.movieIds.includes(m.id);
+
+                            return (
+                              <div
+                                key={`search-add-${m.id}`}
+                                className="p-2 flex items-center justify-between gap-2 hover:bg-slate-50 dark:hover:bg-slate-800/60"
+                              >
+                                <div className="flex items-center gap-2 min-w-0">
+                                  <img src={m.posterUrl} alt="" className="w-6 h-8 object-cover rounded shrink-0" />
+                                  <span className="text-xs font-semibold text-slate-800 dark:text-slate-200 truncate">
+                                    {m.title} ({m.releaseYear})
+                                  </span>
+                                </div>
+
+                                <button
+                                  type="button"
+                                  disabled={alreadyInSession}
+                                  onClick={() => {
+                                    handleAddMovieToSession(m);
+                                    setSessionSearchMovie('');
+                                  }}
+                                  className={`px-2.5 py-1 rounded-lg text-xs font-bold transition ${
+                                    alreadyInSession
+                                      ? 'bg-slate-100 dark:bg-slate-800 text-slate-400 cursor-not-allowed'
+                                      : 'bg-amber-500 hover:bg-amber-400 text-slate-950 cursor-pointer shadow-sm'
+                                  }`}
+                                >
+                                  {alreadyInSession ? 'Já Incluído' : '+ Adicionar'}
+                                </button>
+                              </div>
+                            );
+                          })}
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                {/* Botão de Salvar Alterações */}
+                <div className="pt-3">
+                  <button
+                    type="submit"
+                    className="w-full py-3 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-slate-950 font-black text-xs flex items-center justify-center gap-2 shadow-lg shadow-amber-500/25 transition cursor-pointer"
+                  >
+                    <Save className="w-4 h-4" />
+                    <span>{sessionSaveFeedback ? 'Sessão Salva com Sucesso!' : 'Salvar e Ativar Sessão Cinema no Portal'}</span>
+                  </button>
+                </div>
+              </form>
             </div>
           )}
 

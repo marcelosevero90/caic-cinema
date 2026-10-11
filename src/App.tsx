@@ -15,6 +15,9 @@ import { AdminDashboard } from './components/AdminDashboard';
 import { MobileAccessModal } from './components/MobileAccessModal';
 import { MovieSuggestionModal } from './components/MovieSuggestionModal';
 import { VisitorTrialModal } from './components/VisitorTrialModal';
+import { CinemaSessionSection } from './components/CinemaSessionSection';
+import { cinemaSessionService } from './services/cinemaSessionService';
+import type { CinemaSession } from './types/cinemaSession';
 import { useTvNavigation } from './hooks/useTvNavigation';
 import { GENRE_TAXONOMY, FAMOUS_ACTORS, MOOD_OPTIONS } from './data/genreTaxonomy';
 import { movieRequestService } from './services/movieRequestService';
@@ -94,6 +97,7 @@ export const App: React.FC = () => {
   const [profileVersion, setProfileVersion] = useState<number>(0);
   const [currentAccount, setCurrentAccount] = useState<UserAccount>(userService.getAccount());
   const [activeProfile, setActiveProfile] = useState<UserProfile>(userService.getActiveProfile());
+  const [cinemaSession, setCinemaSession] = useState<CinemaSession>(() => cinemaSessionService.getActiveSession());
 
   useEffect(() => {
     catalogService.syncJellyfinMovies();
@@ -105,9 +109,13 @@ export const App: React.FC = () => {
       setActiveProfile(userService.getActiveProfile());
       setProfileVersion((v) => v + 1);
     });
+    const unsubSession = cinemaSessionService.subscribe(() => {
+      setCinemaSession(cinemaSessionService.getActiveSession());
+    });
     return () => {
       unsubCatalog();
       unsubUser();
+      unsubSession();
     };
   }, []);
 
@@ -283,6 +291,11 @@ export const App: React.FC = () => {
   const allMovies = useMemo(() => catalogService.getAll(), [catalogVersion]);
   const featuredMovies = useMemo(() => catalogService.getFeatured(), [catalogVersion]);
   
+  // Filmes da Sessão Cinema Temática Atual (Velozes & Furiosos, Jackie Chan, Natal, etc.)
+  const cinemaSessionMovies = useMemo(() => {
+    return cinemaSessionService.getResolvedMovies(cinemaSession, allMovies);
+  }, [cinemaSession, allMovies]);
+  
   // Rotação dinâmica do filme de sugestão principal (Hero) a cada acesso/recarregamento
   const [heroSeed] = useState<number>(() => Math.floor(Math.random() * 50));
   const heroMovie = useMemo(() => {
@@ -304,6 +317,10 @@ export const App: React.FC = () => {
 
   // Filtros combinados de busca, gênero, subgênero, ator e humor
   const filteredMovies = useMemo(() => {
+    if (activeFilter === '🍿 Sessão Cinema') {
+      return cinemaSessionMovies;
+    }
+
     if (activeFilter === 'Minha Lista') {
       const favSet = new Set(activeProfile.favoriteMovieIds);
       let list = allMovies.filter((m) => favSet.has(m.id));
@@ -341,9 +358,10 @@ export const App: React.FC = () => {
     if (selectedActor) return `🌟 Filmes com ${selectedActor}`;
     if (selectedSubgenre) return `🎭 Subgênero: ${selectedSubgenre}`;
     if (searchQuery.trim().length > 0) return `🔍 Destaque da busca: "${searchQuery}"`;
+    if (activeFilter === '🍿 Sessão Cinema') return `🍿 ${cinemaSession.title} (${cinemaSession.dateBadge})`;
     if (activeFilter !== 'Todos') return `🌟 Destaque em ${activeFilter}`;
     return 'Destaque Recomendado pelo CAIC';
-  }, [searchQuery, activeFilter, selectedSubgenre, selectedActor, selectedMood]);
+  }, [searchQuery, activeFilter, selectedSubgenre, selectedActor, selectedMood, cinemaSession]);
 
   // Seções temáticas do novo catálogo oficial
   const actionMovies = useMemo(() => catalogService.getByGenre('Ação'), [catalogVersion]);
@@ -1112,6 +1130,17 @@ export const App: React.FC = () => {
         ) : (
           <div className="space-y-12">
             
+            {/* SESSÃO CINEMA ESPECIAL (MARATONA TEMÁTICA COM PROGRAMAÇÃO ATUALIZÁVEL) */}
+            <CinemaSessionSection
+              session={cinemaSession}
+              movies={cinemaSessionMovies}
+              onPlayMovie={(m) => handlePlayMovie(m)}
+              isFavorite={(id) => activeProfile.favoriteMovieIds.includes(id)}
+              onToggleFavorite={handleToggleFavorite}
+              isWatched={(id) => (activeProfile.watchedMovieIds || []).includes(id)}
+              onToggleWatched={handleToggleWatched}
+            />
+
             {/* FILEIRA 1: ASSISTIR NOVAMENTE (FILMES JÁ VISTOS PELO USUÁRIO) */}
             {watchedMovies.length > 0 && (
               <section className="space-y-4">
