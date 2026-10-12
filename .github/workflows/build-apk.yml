@@ -58,18 +58,6 @@ jobs:
           cd android
           ./gradlew assembleDebug --no-daemon --stacktrace 2>&1 | tee ../gradle-build.log
 
-      - name: 📝 Salvar Log no Branch build-logs se Falhar
-        if: failure()
-        run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git checkout -B build-logs
-          git rm -rf . 2>/dev/null || true
-          cp gradle-build.log build.log 2>/dev/null || echo "Log não disponível" > build.log
-          git add build.log
-          git commit -m "build log run ${{ github.run_id }}"
-          git push -f origin build-logs || true
-
       - name: 🏷️ Renomear APK para Distribuição
         run: |
           APK_PATH=$(find android -type f -name "*debug*.apk" -o -name "*.apk" | head -n 1)
