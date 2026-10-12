@@ -29,7 +29,6 @@ import {
   Heart,
   RotateCcw,
   ThumbsUp,
-  Smartphone,
   Lightbulb,
   Film,
   User,
@@ -526,7 +525,6 @@ export const App: React.FC = () => {
           setProfileModalInitialTab('subscription');
           setIsProfileModalOpen(true);
         }}
-        onOpenMobileAccess={() => setIsMobileAccessOpen(true)}
         onOpenMovieSuggestion={() => handleOpenSuggestionModal()}
 
         activeProfile={activeProfile}
@@ -743,14 +741,6 @@ export const App: React.FC = () => {
               >
                 <Lightbulb className="w-3.5 h-3.5 text-amber-500" />
                 <span>Sugerir Filme</span>
-              </button>
-
-              <button
-                onClick={() => setIsMobileAccessOpen(true)}
-                className="tv-focusable hidden sm:flex px-3.5 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 font-semibold text-xs border border-slate-200 dark:border-slate-700 items-center justify-center gap-1.5 transition"
-              >
-                <Smartphone className="w-3.5 h-3.5 text-cyan-600 dark:text-cyan-400" />
-                <span>Celular</span>
               </button>
 
               <button
