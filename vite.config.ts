@@ -1,4 +1,3 @@
-import tailwindcss from '@tailwindcss/vite'
 import react from '@vitejs/plugin-react'
 import legacy from '@vitejs/plugin-legacy'
 import { defineConfig, type Plugin } from 'vite'
@@ -848,7 +847,6 @@ export default defineConfig({
       targets: ['chrome >= 49', 'android >= 7', 'defaults', 'not IE 11'],
       additionalLegacyPolyfills: ['regenerator-runtime/runtime'],
     }),
-    tailwindcss(),
     emailAuthPlugin(),
     playbackSessionPlugin(),
     sharedDatabasePlugin(),

@@ -16,18 +16,6 @@
         overflow-x: hidden;
       }
     </style>
-    <script>
-      window.addEventListener('error', function(e) {
-        console.error('CAIC TV Error:', e.message, e.filename, e.lineno);
-        var errDiv = document.getElementById('app-loading-screen');
-        if (errDiv) {
-          errDiv.innerHTML = '<div style="font-size:42px;margin-bottom:12px;">⚠️</div>' +
-            '<h2 style="color:#ef4444;margin:0 0 8px 0;font-size:20px;">Falha ao carregar na TV Box</h2>' +
-            '<p style="color:#cbd5e1;font-size:13px;max-width:440px;margin:0 auto 12px auto;line-height:1.5;">' + (e.message || 'Erro de execução de script') + '</p>' +
-            '<p style="color:#94a3b8;font-size:11px;">Dica: Abra a Google Play Store na sua TV Box e atualize o "Android System WebView".</p>';
-        }
-      });
-    </script>
   </head>
   <body style="background-color: #020617; color: #ffffff;">
     <div id="root">
