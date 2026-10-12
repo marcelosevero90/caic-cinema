@@ -1,3 +1,5 @@
+import { apiUrl } from './apiConfig';
+
 export interface CreatePixParams {
   amount: number;
   description?: string;
@@ -55,7 +57,7 @@ class MercadoPagoService {
    */
   public async createPixPayment(params: CreatePixParams): Promise<CreatePixResponse> {
     try {
-      const response = await fetch('/api/payments/create-pix', {
+      const response = await fetch(apiUrl('/api/payments/create-pix'), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -79,7 +81,7 @@ class MercadoPagoService {
    */
   public async checkPixStatus(paymentId: string | number): Promise<CheckPixStatusResponse> {
     try {
-      const response = await fetch(`/api/payments/status?paymentId=${encodeURIComponent(paymentId)}`, {
+      const response = await fetch(apiUrl(`/api/payments/status?paymentId=${encodeURIComponent(paymentId)}`), {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -105,7 +107,7 @@ class MercadoPagoService {
       const params = new URLSearchParams();
       if (email) params.set('email', email);
       if (paymentId) params.set('paymentId', String(paymentId));
-      const response = await fetch(`/api/payments/verify-subscription?${params.toString()}`);
+      const response = await fetch(apiUrl(`/api/payments/verify-subscription?${params.toString()}`));
       const data: VerifySubscriptionResponse = await response.json();
       return data;
     } catch (error: any) {

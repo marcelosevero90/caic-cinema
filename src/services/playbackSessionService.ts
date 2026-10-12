@@ -1,4 +1,5 @@
 import type { Movie, UserAccount, UserProfile, ActivePlaybackSession } from '../types/movie';
+import { apiUrl } from './apiConfig';
 
 const LOCAL_STORAGE_KEY = 'CAIC_ACTIVE_PLAYBACK_SESSION_V1';
 const BROADCAST_CHANNEL_NAME = 'caic_playback_channel_v1';
@@ -70,7 +71,7 @@ class PlaybackSessionService {
 
     // 1. Verificação via Servidor Backend (Cross-device: celular vs TV box via rede)
     try {
-      const res = await fetch('/api/playback/start', {
+      const res = await fetch(apiUrl('/api/playback/start'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
@@ -133,7 +134,7 @@ class PlaybackSessionService {
     };
 
     try {
-      await fetch('/api/playback/takeover', {
+      await fetch(apiUrl('/api/playback/takeover'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
@@ -158,7 +159,7 @@ class PlaybackSessionService {
       };
 
       try {
-        await fetch('/api/playback/stop', {
+        await fetch(apiUrl('/api/playback/stop'), {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(payload),
@@ -192,7 +193,7 @@ class PlaybackSessionService {
       this.setLocalSession({ ...payload, startedAt: '', lastHeartbeat: Date.now() } as ActivePlaybackSession);
 
       try {
-        const res = await fetch('/api/playback/heartbeat', {
+        const res = await fetch(apiUrl('/api/playback/heartbeat'), {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(payload),

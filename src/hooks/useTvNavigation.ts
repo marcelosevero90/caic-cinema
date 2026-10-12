@@ -1,8 +1,9 @@
 import { useEffect, useState, useCallback } from 'react';
 
 /**
- * Hook universal de navegação por controle remoto para Box TV, Android TV e Smart TVs.
+ * Hook universal de navegação por controle remoto para Box TV, Android TV e Smart TVs estilo Netflix.
  * Suporta D-Pad (Cima, Baixo, Esquerda, Direita), Botão OK/Enter (KeyCode 13/23/66) e Voltar (KeyCode 4/27).
+ * Centraliza automaticamente linhas horizontais e rola a tela verticalmente para manter o foco sempre visível.
  */
 export function useTvNavigation(onBack?: () => void) {
   const [isTvMode] = useState<boolean>(true);
@@ -29,7 +30,7 @@ export function useTvNavigation(onBack?: () => void) {
     window.addEventListener('focusin', handleFocusIn);
     window.addEventListener('focusout', handleFocusOut);
 
-    // Tentar focar no primeiro elemento interativo assim que o app carregar
+    // Foca no primeiro elemento interativo assim que o app carrega
     const initTimer = setTimeout(() => {
       const first = document.querySelector<HTMLElement>('.tv-focusable:not([disabled])');
       if (first && (!document.activeElement || document.activeElement === document.body)) {
@@ -37,7 +38,7 @@ export function useTvNavigation(onBack?: () => void) {
         first.classList.add('tv-focused');
         setCurrentFocusId(first.id || null);
       }
-    }, 800);
+    }, 600);
 
     return () => {
       window.removeEventListener('focusin', handleFocusIn);
@@ -61,7 +62,6 @@ export function useTvNavigation(onBack?: () => void) {
 
     if (isTyping && !isBack) {
       if (isEnter) {
-        // Permitir enter no input
         return;
       }
       return;
@@ -99,38 +99,62 @@ export function useTvNavigation(onBack?: () => void) {
       let currentIndex = focusables.findIndex((el) => el === current);
 
       if (currentIndex === -1 || !current) {
-        // Se nenhum está focado, foca no primeiro
         focusables[0].focus();
         focusables[0].classList.add('tv-focused');
-        focusables[0].scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' });
         setCurrentFocusId(focusables[0].id || null);
         return;
       }
 
       const currentRect = current.getBoundingClientRect();
+      const currentCenterX = currentRect.left + currentRect.width / 2;
+      const currentCenterY = currentRect.top + currentRect.height / 2;
+
       let bestCandidate: HTMLElement | null = null;
       let minDistance = Infinity;
 
-      // Algoritmo espacial 2D baseado nas coordenadas da tela da TV
       focusables.forEach((candidate, idx) => {
         if (idx === currentIndex) return;
         const rect = candidate.getBoundingClientRect();
+        const candCenterX = rect.left + rect.width / 2;
+        const candCenterY = rect.top + rect.height / 2;
 
         let isCorrectDirection = false;
-        let dist = 0;
+        let dist = Infinity;
 
-        if (isRight && rect.left >= currentRect.left + 5) {
-          isCorrectDirection = true;
-          dist = Math.hypot(rect.left - currentRect.right, (rect.top - currentRect.top) * 1.5);
-        } else if (isLeft && rect.right <= currentRect.right - 5) {
-          isCorrectDirection = true;
-          dist = Math.hypot(currentRect.left - rect.right, (rect.top - currentRect.top) * 1.5);
-        } else if (isDown && rect.top >= currentRect.top + 5) {
-          isCorrectDirection = true;
-          dist = Math.hypot(rect.top - currentRect.bottom, (rect.left - currentRect.left) * 0.7);
-        } else if (isUp && rect.bottom <= currentRect.bottom - 5) {
-          isCorrectDirection = true;
-          dist = Math.hypot(currentRect.top - rect.bottom, (rect.left - currentRect.left) * 0.7);
+        if (isRight) {
+          // Movendo para a direita: prefere elementos na mesma linha vertical
+          if (rect.left >= currentRect.left + 5) {
+            isCorrectDirection = true;
+            const isSameRow = Math.abs(currentCenterY - candCenterY) < 60;
+            const xDist = rect.left - currentRect.right;
+            const yDist = Math.abs(currentCenterY - candCenterY);
+            dist = isSameRow ? xDist : xDist * 1.5 + yDist * 3.0;
+          }
+        } else if (isLeft) {
+          // Movendo para a esquerda: prefere elementos na mesma linha vertical
+          if (rect.right <= currentRect.right - 5) {
+            isCorrectDirection = true;
+            const isSameRow = Math.abs(currentCenterY - candCenterY) < 60;
+            const xDist = currentRect.left - rect.right;
+            const yDist = Math.abs(currentCenterY - candCenterY);
+            dist = isSameRow ? xDist : xDist * 1.5 + yDist * 3.0;
+          }
+        } else if (isDown) {
+          // Movendo para baixo: pula para a próxima linha/categoria
+          if (rect.top >= currentRect.top + 30) {
+            isCorrectDirection = true;
+            const yDist = rect.top - currentRect.bottom;
+            const xDist = Math.abs(currentCenterX - candCenterX);
+            dist = yDist * 1.2 + xDist * 0.5;
+          }
+        } else if (isUp) {
+          // Movendo para cima: pula para a linha/categoria anterior
+          if (rect.bottom <= currentRect.bottom - 30) {
+            isCorrectDirection = true;
+            const yDist = currentRect.top - rect.bottom;
+            const xDist = Math.abs(currentCenterX - candCenterX);
+            dist = yDist * 1.2 + xDist * 0.5;
+          }
         }
 
         if (isCorrectDirection && dist < minDistance) {
@@ -141,10 +165,46 @@ export function useTvNavigation(onBack?: () => void) {
 
       if (bestCandidate) {
         document.querySelectorAll('.tv-focused').forEach(el => el.classList.remove('tv-focused'));
-        (bestCandidate as HTMLElement).focus();
-        (bestCandidate as HTMLElement).classList.add('tv-focused');
-        (bestCandidate as HTMLElement).scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' });
-        setCurrentFocusId((bestCandidate as HTMLElement).id || null);
+        const targetEl = bestCandidate as HTMLElement;
+        targetEl.focus();
+        targetEl.classList.add('tv-focused');
+        setCurrentFocusId(targetEl.id || null);
+
+        // 1. Centraliza horizontalmente dentro do container de scroll se houver
+        let parent: HTMLElement | null = targetEl.parentElement;
+        while (parent && parent !== document.body) {
+          const overflowX = window.getComputedStyle(parent).overflowX;
+          if (overflowX === 'auto' || overflowX === 'scroll' || parent.classList.contains('movie-carousel')) {
+            const pRect = parent.getBoundingClientRect();
+            const elRect = targetEl.getBoundingClientRect();
+            const offset = (elRect.left - pRect.left) - (pRect.width / 2 - elRect.width / 2);
+            if (parent.scrollBy) {
+              try {
+                parent.scrollBy({ left: offset, behavior: 'smooth' });
+              } catch {
+                parent.scrollLeft += offset;
+              }
+            } else {
+              parent.scrollLeft += offset;
+            }
+            break;
+          }
+          parent = parent.parentElement;
+        }
+
+        // 2. Centraliza verticalmente a janela no elemento focado
+        const finalRect = targetEl.getBoundingClientRect();
+        const screenCenterOffset = (finalRect.top + finalRect.height / 2) - (window.innerHeight / 2);
+        if (Math.abs(screenCenterOffset) > 40) {
+          const targetY = window.pageYOffset + screenCenterOffset;
+          if (window.scrollTo) {
+            try {
+              window.scrollTo({ top: targetY, behavior: 'smooth' });
+            } catch {
+              window.scrollTo(0, targetY);
+            }
+          }
+        }
       }
     }
   }, [onBack]);

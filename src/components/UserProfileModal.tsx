@@ -192,6 +192,11 @@ const UserProfileModalContent: React.FC<UserProfileModalProps> = ({
 
   useEffect(() => {
     refreshState();
+    userService.syncSubscriptionFromMercadoPago().then((res) => {
+      if (res.updated) {
+        refreshState();
+      }
+    });
   }, []);
 
   useEffect(() => {
@@ -291,6 +296,11 @@ const UserProfileModalContent: React.FC<UserProfileModalProps> = ({
       setPhoneInput('');
       setNameInput('');
       refreshState();
+      userService.syncSubscriptionFromMercadoPago(emailInput).then((syncRes) => {
+        if (syncRes.updated) {
+          refreshState();
+        }
+      });
       setTimeout(() => {
         setAuthMessage(null);
         setActiveTab('account');

@@ -1,6 +1,7 @@
 import type { Movie, UserProfile, VideoAnalysisResult, ChatRecommendation } from '../types/movie';
 import type { CurationResponse } from './geminiCurationService';
 import { catalogService } from './catalogService';
+import { apiUrl } from './apiConfig';
 
 export interface DeepSeekChatMessage {
   role: 'system' | 'user' | 'assistant';
@@ -55,7 +56,7 @@ class DeepSeekService {
       if (apiKey) {
         headers['Authorization'] = `Bearer ${apiKey}`;
       }
-      const proxyRes = await fetch('/api/ai/deepseek', {
+      const proxyRes = await fetch(apiUrl('/api/ai/deepseek'), {
         method: 'POST',
         headers,
         body: JSON.stringify(payload),

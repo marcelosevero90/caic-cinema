@@ -1,5 +1,6 @@
 import type { Movie, ContentRating, MovieLanguage } from '../types/movie';
 import { deriveMovieSubgenres, deriveMovieCast } from '../data/genreTaxonomy';
+import { apiUrl } from './apiConfig';
 
 export interface JellyfinConfig {
   serverUrl: string;
@@ -43,7 +44,7 @@ export class JellyfinService {
   private async syncFromSharedDb(): Promise<void> {
     try {
       if (typeof window !== 'undefined') {
-        const res = await fetch('/api/admin/db');
+        const res = await fetch(apiUrl('/api/admin/db'));
         if (res.ok) {
           const data = await res.json();
           if (data.jellyfinConfig && data.jellyfinConfig.serverUrl) {
@@ -84,7 +85,7 @@ export class JellyfinService {
   private async syncToSharedDb(): Promise<void> {
     try {
       if (typeof window !== 'undefined') {
-        await fetch('/api/admin/db', {
+        await fetch(apiUrl('/api/admin/db'), {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ jellyfinConfig: this.config }),
@@ -322,7 +323,7 @@ export class JellyfinService {
     // 1. Tenta carregar primeiro através da API interna do Vite (/api/jellyfin/movies)
     try {
       if (typeof window !== 'undefined') {
-        const backendRes = await fetch('/api/jellyfin/movies');
+        const backendRes = await fetch(apiUrl('/api/jellyfin/movies'));
         if (backendRes.ok) {
           const backendData = await backendRes.json();
           if (Array.isArray(backendData.movies) && backendData.movies.length > 0) {

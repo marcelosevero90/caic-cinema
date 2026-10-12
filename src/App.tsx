@@ -6,6 +6,7 @@ import type { Movie, UserProfile, UserAccount, ActivePlaybackSession } from './t
 import { Header } from './components/Header';
 import { HeroBanner } from './components/HeroBanner';
 import { MovieCard } from './components/MovieCard';
+import { MovieRow } from './components/MovieRow';
 import { YouTubePlayerModal } from './components/YouTubePlayerModal';
 import { ConcurrentPlaybackModal } from './components/ConcurrentPlaybackModal';
 import { AICuratorDrawer } from './components/AICuratorDrawer';
@@ -44,6 +45,8 @@ import {
   Headphones,
   MessageCircle,
   Mail,
+  Flame,
+  Swords,
 } from 'lucide-react';
 
 export const App: React.FC = () => {
@@ -106,6 +109,7 @@ export const App: React.FC = () => {
 
   useEffect(() => {
     catalogService.syncJellyfinMovies();
+    userService.syncSubscriptionFromMercadoPago();
     const unsubCatalog = catalogService.subscribe(() => {
       setCatalogVersion((v) => v + 1);
     });
@@ -1187,422 +1191,192 @@ export const App: React.FC = () => {
 
             {/* FILEIRA 1: ASSISTIR NOVAMENTE (FILMES JÁ VISTOS PELO USUÁRIO) */}
             {watchedMovies.length > 0 && (
-              <section className="space-y-4">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <h2 className="text-lg sm:text-xl font-extrabold text-slate-950 dark:text-white tracking-tight flex items-center gap-2">
-                      <RotateCcw className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
-                      <span>Assistir Novamente</span>
-                    </h2>
-                    <p className="text-xs text-slate-600 dark:text-slate-400">
-                      Filmes que você já assistiu e pode rever a qualquer momento
-                    </p>
-                  </div>
-                  <span className="text-xs text-slate-600 dark:text-slate-400 font-semibold">{watchedMovies.length} títulos já vistos</span>
-                </div>
-
-                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-                  {watchedMovies.map((movie, idx) => (
-                    <MovieCard
-                      key={`watched-${movie.id}`}
-                      movie={movie}
-                      onPlay={(m) => handlePlayMovie(m)}
-                      index={idx}
-                      isFavorite={activeProfile.favoriteMovieIds.includes(movie.id)}
-                      onToggleFavorite={handleToggleFavorite}
-                      isWatched={true}
-                      onToggleWatched={handleToggleWatched}
-                    />
-                  ))}
-                </div>
-              </section>
+              <MovieRow
+                rowId="row-watched"
+                title="Assistir Novamente"
+                subtitle="Filmes que você já assistiu e pode rever a qualquer momento"
+                icon={<RotateCcw className="w-5 h-5 text-emerald-500" />}
+                movies={watchedMovies}
+                onPlayMovie={handlePlayMovie}
+                isFavorite={(id) => activeProfile.favoriteMovieIds.includes(id)}
+                onToggleFavorite={handleToggleFavorite}
+                isWatched={() => true}
+                onToggleWatched={handleToggleWatched}
+                badge={`${watchedMovies.length} títulos`}
+              />
             )}
 
             {/* FILEIRA 2: RECOMENDADOS PARA VOCÊ (IA + HISTÓRICO DE GOSTO) */}
-            <section className="space-y-4">
-              <div className="flex items-center justify-between">
-                <div>
-                  <h2 className="text-lg sm:text-xl font-extrabold text-slate-950 dark:text-white tracking-tight flex items-center gap-2">
-                    <ThumbsUp className="w-4 h-4 text-cyan-600 dark:text-cyan-400" />
-                    <span>Recomendados Especialmente para Você, {activeProfile.name}</span>
-                  </h2>
-                  <p className="text-xs text-slate-600 dark:text-slate-400">
-                    Calculado com base nas suas preferências ({(activeProfile?.preferredGenres || []).join(', ')})
-                  </p>
-                </div>
-                <button
-                  onClick={() => setIsProfileModalOpen(true)}
-                  className="text-xs text-cyan-600 dark:text-cyan-400 hover:underline font-semibold"
-                >
-                  Ajustar Meu Gosto
-                </button>
-              </div>
+            <MovieRow
+              rowId="row-recommended"
+              title={`Recomendados Especialmente para Você, ${activeProfile.name}`}
+              subtitle={`Calculado com base nas suas preferências (${(activeProfile?.preferredGenres || []).join(', ')})`}
+              icon={<ThumbsUp className="w-5 h-5 text-cyan-500" />}
+              movies={personalizedRecommendations}
+              onPlayMovie={handlePlayMovie}
+              isFavorite={(id) => activeProfile.favoriteMovieIds.includes(id)}
+              onToggleFavorite={handleToggleFavorite}
+              isWatched={(id) => (activeProfile.watchedMovieIds || []).includes(id)}
+              onToggleWatched={handleToggleWatched}
+              onSeeAll={() => setIsProfileModalOpen(true)}
+              seeAllText="Ajustar Meu Gosto"
+            />
 
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-                {personalizedRecommendations.map((movie, idx) => (
-                  <MovieCard
-                    key={`rec-${movie.id}`}
-                    movie={movie}
-                    onPlay={(m) => handlePlayMovie(m)}
-                    index={idx}
-                    isFavorite={activeProfile.favoriteMovieIds.includes(movie.id)}
-                    onToggleFavorite={handleToggleFavorite}
-                    isWatched={(activeProfile.watchedMovieIds || []).includes(movie.id)}
-                    onToggleWatched={handleToggleWatched}
-                  />
-                ))}
-              </div>
-            </section>
+            {/* FILEIRA 3: CATÁLOGO GERAL EM DESTAQUE */}
+            <MovieRow
+              rowId="row-catalog"
+              title="Catálogo Geral em Destaque"
+              subtitle="Filmes gratuitos, de domínio público e licenciados no YouTube"
+              icon={<Sparkles className="w-5 h-5 text-amber-500" />}
+              movies={allMovies.slice(0, 30)}
+              onPlayMovie={handlePlayMovie}
+              isFavorite={(id) => activeProfile.favoriteMovieIds.includes(id)}
+              onToggleFavorite={handleToggleFavorite}
+              isWatched={(id) => (activeProfile.watchedMovieIds || []).includes(id)}
+              onToggleWatched={handleToggleWatched}
+              onSeeAll={() => {
+                setIsFullCatalogView(true);
+                window.scrollTo({ top: 380, behavior: 'smooth' });
+              }}
+              seeAllText="Ver catálogo completo"
+              badge={`${allMovies.length} títulos`}
+            />
 
-            {/* Seção: Catálogo Geral em Destaque */}
-            <section className="space-y-4">
-              <div className="flex items-center justify-between">
-                <div>
-                  <h2 className="text-lg sm:text-xl font-extrabold text-slate-950 dark:text-white tracking-tight">
-                    Catálogo Geral em Destaque
-                  </h2>
-                  <p className="text-xs text-slate-600 dark:text-slate-400">Filmes gratuitos, de domínio público e licenciados no YouTube</p>
-                </div>
-                <div className="flex items-center gap-2">
-                  <span className="text-xs text-slate-600 dark:text-slate-400 font-semibold">{allMovies.length} títulos</span>
-                  <button
-                    onClick={() => {
-                      setIsFullCatalogView(true);
-                      window.scrollTo({ top: 380, behavior: 'smooth' });
-                    }}
-                    className="text-xs text-cyan-600 dark:text-cyan-400 font-bold hover:underline flex items-center gap-0.5 cursor-pointer"
-                  >
-                    Ver catálogo completo ({allMovies.length}) →
-                  </button>
-                </div>
-              </div>
-
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-                {allMovies.slice(0, 20).map((movie, idx) => (
-                  <MovieCard
-                    key={movie.id}
-                    movie={movie}
-                    onPlay={(m) => handlePlayMovie(m)}
-                    index={idx}
-                    isFavorite={activeProfile.favoriteMovieIds.includes(movie.id)}
-                    onToggleFavorite={handleToggleFavorite}
-                    isWatched={(activeProfile.watchedMovieIds || []).includes(movie.id)}
-                    onToggleWatched={handleToggleWatched}
-                  />
-                ))}
-              </div>
-            </section>
-
-            {/* Seção: Servidor Remoto Jellyfin */}
+            {/* FILEIRA 4: SERVIDOR REMOTO JELLYFIN */}
             {jellyfinMovies.length > 0 && (
-              <section className="space-y-4">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <div className="flex items-center gap-2">
-                      <h2 className="text-lg sm:text-xl font-extrabold text-slate-950 dark:text-white tracking-tight flex items-center gap-2">
-                        <Server className="w-5 h-5 text-indigo-500" />
-                        <span>Filmes do Servidor Jellyfin</span>
-                      </h2>
-                      <span className="text-[10px] px-2 py-0.5 rounded-full bg-indigo-100 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300 font-bold border border-indigo-300 dark:border-indigo-800">
-                        filme.manerostream.com.br
-                      </span>
-                    </div>
-                    <p className="text-xs text-slate-600 dark:text-slate-400">
-                      Filmes transmitidos diretamente do seu acervo remoto Jellyfin
-                    </p>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <span className="text-xs text-slate-600 dark:text-slate-400 font-semibold">{jellyfinMovies.length} títulos</span>
-                    <button
-                      onClick={() => handleSelectFilter('Jellyfin')}
-                      className="text-xs text-indigo-600 dark:text-indigo-400 font-bold hover:underline flex items-center gap-0.5"
-                    >
-                      Ver todos ({jellyfinMovies.length}) →
-                    </button>
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-                  {jellyfinMovies.slice(0, 20).map((movie, idx) => (
-                    <MovieCard
-                      key={`jellyfin-${movie.id}`}
-                      movie={movie}
-                      onPlay={(m) => handlePlayMovie(m)}
-                      index={idx}
-                      isFavorite={activeProfile.favoriteMovieIds.includes(movie.id)}
-                      onToggleFavorite={handleToggleFavorite}
-                      isWatched={(activeProfile.watchedMovieIds || []).includes(movie.id)}
-                      onToggleWatched={handleToggleWatched}
-                    />
-                  ))}
-                </div>
-              </section>
+              <MovieRow
+                rowId="row-jellyfin"
+                title="Filmes do Servidor Jellyfin"
+                subtitle="Filmes transmitidos diretamente do seu acervo remoto Jellyfin"
+                icon={<Server className="w-5 h-5 text-indigo-500" />}
+                movies={jellyfinMovies}
+                onPlayMovie={handlePlayMovie}
+                isFavorite={(id) => activeProfile.favoriteMovieIds.includes(id)}
+                onToggleFavorite={handleToggleFavorite}
+                isWatched={(id) => (activeProfile.watchedMovieIds || []).includes(id)}
+                onToggleWatched={handleToggleWatched}
+                onSeeAll={() => handleSelectFilter('Jellyfin')}
+                badge="filme.manerostream.com.br"
+              />
             )}
 
-            {/* Seção: Ação & Artes Marciais */}
+            {/* FILEIRA 5: AÇÃO, ARTES MARCIAIS & TIROTEIOS */}
             {actionMovies.length > 0 && (
-              <section className="space-y-4">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <h2 className="text-lg sm:text-xl font-extrabold text-slate-950 dark:text-white tracking-tight">
-                      Ação, Artes Marciais & Tiroteios
-                    </h2>
-                    <p className="text-xs text-slate-600 dark:text-slate-400">Grandes produções com Jackie Chan, Jet Li e combate tático</p>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <span className="text-xs text-slate-600 dark:text-slate-400 font-semibold">{actionMovies.length} títulos</span>
-                    <button
-                      onClick={() => handleSelectFilter('Ação')}
-                      className="text-xs text-cyan-600 dark:text-cyan-400 font-bold hover:underline flex items-center gap-0.5"
-                    >
-                      Ver todos ({actionMovies.length}) →
-                    </button>
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-                  {actionMovies.slice(0, 20).map((movie, idx) => (
-                    <MovieCard
-                      key={movie.id}
-                      movie={movie}
-                      onPlay={(m) => handlePlayMovie(m)}
-                      index={idx}
-                      isFavorite={activeProfile.favoriteMovieIds.includes(movie.id)}
-                      onToggleFavorite={handleToggleFavorite}
-                      isWatched={(activeProfile.watchedMovieIds || []).includes(movie.id)}
-                      onToggleWatched={handleToggleWatched}
-                    />
-                  ))}
-                </div>
-              </section>
+              <MovieRow
+                rowId="row-action"
+                title="Ação, Artes Marciais & Tiroteios"
+                subtitle="Grandes produções com Jackie Chan, Jet Li e combate tático"
+                icon={<Swords className="w-5 h-5 text-cyan-500" />}
+                movies={actionMovies}
+                onPlayMovie={handlePlayMovie}
+                isFavorite={(id) => activeProfile.favoriteMovieIds.includes(id)}
+                onToggleFavorite={handleToggleFavorite}
+                isWatched={(id) => (activeProfile.watchedMovieIds || []).includes(id)}
+                onToggleWatched={handleToggleWatched}
+                onSeeAll={() => handleSelectFilter('Ação')}
+              />
             )}
 
-            {/* Seção: Guerra, Batalhas Históricas & Tanques */}
+            {/* FILEIRA 6: GUERRA, BATALHAS HISTÓRICAS & TANQUES */}
             {warMovies.length > 0 && (
-              <section className="space-y-4">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <h2 className="text-lg sm:text-xl font-extrabold text-slate-950 dark:text-white tracking-tight">
-                      Guerra, Batalhas Históricas & Tanques
-                    </h2>
-                    <p className="text-xs text-slate-600 dark:text-slate-400">Segunda Guerra Mundial, Ardenas, Sobibor e confrontos táticos de blindados</p>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <span className="text-xs text-slate-600 dark:text-slate-400 font-semibold">{warMovies.length} títulos</span>
-                    <button
-                      onClick={() => handleSelectFilter('Guerra')}
-                      className="text-xs text-cyan-600 dark:text-cyan-400 font-bold hover:underline flex items-center gap-0.5"
-                    >
-                      Ver todos ({warMovies.length}) →
-                    </button>
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-                  {warMovies.slice(0, 20).map((movie, idx) => (
-                    <MovieCard
-                      key={movie.id}
-                      movie={movie}
-                      onPlay={(m) => handlePlayMovie(m)}
-                      index={idx}
-                      isFavorite={activeProfile.favoriteMovieIds.includes(movie.id)}
-                      onToggleFavorite={handleToggleFavorite}
-                      isWatched={(activeProfile.watchedMovieIds || []).includes(movie.id)}
-                      onToggleWatched={handleToggleWatched}
-                    />
-                  ))}
-                </div>
-              </section>
+              <MovieRow
+                rowId="row-war"
+                title="Guerra, Batalhas Históricas & Tanques"
+                subtitle="Segunda Guerra Mundial, Ardenas, Sobibor e confrontos táticos de blindados"
+                icon={<Flame className="w-5 h-5 text-orange-500" />}
+                movies={warMovies}
+                onPlayMovie={handlePlayMovie}
+                isFavorite={(id) => activeProfile.favoriteMovieIds.includes(id)}
+                onToggleFavorite={handleToggleFavorite}
+                isWatched={(id) => (activeProfile.watchedMovieIds || []).includes(id)}
+                onToggleWatched={handleToggleWatched}
+                onSeeAll={() => handleSelectFilter('Guerra')}
+              />
             )}
 
-            {/* Seção: Dramas & Épicos Históricos */}
+            {/* FILEIRA 7: DRAMAS, BIOGRAFIAS & ÉPICOS */}
             {dramaMovies.length > 0 && (
-              <section className="space-y-4">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <h2 className="text-lg sm:text-xl font-extrabold text-slate-950 dark:text-white tracking-tight">
-                      Dramas, Biografias & Épicos Históricos
-                    </h2>
-                    <p className="text-xs text-slate-600 dark:text-slate-400">Histórias inspiradoras como Chico Xavier, Sobibor e Padre Pio</p>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <span className="text-xs text-slate-600 dark:text-slate-400 font-semibold">{dramaMovies.length} títulos</span>
-                    <button
-                      onClick={() => handleSelectFilter('Drama')}
-                      className="text-xs text-cyan-600 dark:text-cyan-400 font-bold hover:underline flex items-center gap-0.5"
-                    >
-                      Ver todos ({dramaMovies.length}) →
-                    </button>
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-                  {dramaMovies.slice(0, 20).map((movie, idx) => (
-                    <MovieCard
-                      key={movie.id}
-                      movie={movie}
-                      onPlay={(m) => handlePlayMovie(m)}
-                      index={idx}
-                      isFavorite={activeProfile.favoriteMovieIds.includes(movie.id)}
-                      onToggleFavorite={handleToggleFavorite}
-                      isWatched={(activeProfile.watchedMovieIds || []).includes(movie.id)}
-                      onToggleWatched={handleToggleWatched}
-                    />
-                  ))}
-                </div>
-              </section>
+              <MovieRow
+                rowId="row-drama"
+                title="Dramas, Biografias & Épicos Históricos"
+                subtitle="Histórias inspiradoras como Chico Xavier, Sobibor e Padre Pio"
+                icon={<Film className="w-5 h-5 text-purple-500" />}
+                movies={dramaMovies}
+                onPlayMovie={handlePlayMovie}
+                isFavorite={(id) => activeProfile.favoriteMovieIds.includes(id)}
+                onToggleFavorite={handleToggleFavorite}
+                isWatched={(id) => (activeProfile.watchedMovieIds || []).includes(id)}
+                onToggleWatched={handleToggleWatched}
+                onSeeAll={() => handleSelectFilter('Drama')}
+              />
             )}
 
-            {/* Seção: Comédias & Família */}
+            {/* FILEIRA 8: COMÉDIAS & FAMÍLIA */}
             {comedyMovies.length > 0 && (
-              <section className="space-y-4">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <h2 className="text-lg sm:text-xl font-extrabold text-slate-950 dark:text-white tracking-tight">
-                      Comédias & Diversão para Toda a Família
-                    </h2>
-                    <p className="text-xs text-slate-600 dark:text-slate-400">Filmes leves, confusões divertidas e histórias infantis</p>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <span className="text-xs text-slate-600 dark:text-slate-400 font-semibold">{comedyMovies.length} títulos</span>
-                    <button
-                      onClick={() => handleSelectFilter('Comédia')}
-                      className="text-xs text-cyan-600 dark:text-cyan-400 font-bold hover:underline flex items-center gap-0.5"
-                    >
-                      Ver todos ({comedyMovies.length}) →
-                    </button>
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-                  {comedyMovies.slice(0, 20).map((movie, idx) => (
-                    <MovieCard
-                      key={movie.id}
-                      movie={movie}
-                      onPlay={(m) => handlePlayMovie(m)}
-                      index={idx}
-                      isFavorite={activeProfile.favoriteMovieIds.includes(movie.id)}
-                      onToggleFavorite={handleToggleFavorite}
-                      isWatched={(activeProfile.watchedMovieIds || []).includes(movie.id)}
-                      onToggleWatched={handleToggleWatched}
-                    />
-                  ))}
-                </div>
-              </section>
+              <MovieRow
+                rowId="row-comedy"
+                title="Comédias & Diversão para Toda a Família"
+                subtitle="Filmes leves, confusões divertidas e histórias infantis"
+                icon={<Sparkles className="w-5 h-5 text-yellow-500" />}
+                movies={comedyMovies}
+                onPlayMovie={handlePlayMovie}
+                isFavorite={(id) => activeProfile.favoriteMovieIds.includes(id)}
+                onToggleFavorite={handleToggleFavorite}
+                isWatched={(id) => (activeProfile.watchedMovieIds || []).includes(id)}
+                onToggleWatched={handleToggleWatched}
+                onSeeAll={() => handleSelectFilter('Comédia')}
+              />
             )}
 
-            {/* Seção: Suspense & Investigação */}
+            {/* FILEIRA 9: SUSPENSE & INVESTIGAÇÃO */}
             {thrillerMovies.length > 0 && (
-              <section className="space-y-4">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <h2 className="text-lg sm:text-xl font-extrabold text-slate-950 dark:text-white tracking-tight">
-                      Suspense, Crime & Cibercultura
-                    </h2>
-                    <p className="text-xs text-slate-600 dark:text-slate-400">Adrenalina pura, reviravoltas e o submundo dos hackers</p>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <span className="text-xs text-slate-600 dark:text-slate-400 font-semibold">{thrillerMovies.length} títulos</span>
-                    <button
-                      onClick={() => handleSelectFilter('Suspense')}
-                      className="text-xs text-cyan-600 dark:text-cyan-400 font-bold hover:underline flex items-center gap-0.5"
-                    >
-                      Ver todos ({thrillerMovies.length}) →
-                    </button>
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-                  {thrillerMovies.slice(0, 20).map((movie, idx) => (
-                    <MovieCard
-                      key={movie.id}
-                      movie={movie}
-                      onPlay={(m) => handlePlayMovie(m)}
-                      index={idx}
-                      isFavorite={activeProfile.favoriteMovieIds.includes(movie.id)}
-                      onToggleFavorite={handleToggleFavorite}
-                      isWatched={(activeProfile.watchedMovieIds || []).includes(movie.id)}
-                      onToggleWatched={handleToggleWatched}
-                    />
-                  ))}
-                </div>
-              </section>
+              <MovieRow
+                rowId="row-thriller"
+                title="Suspense, Crime & Cibercultura"
+                subtitle="Adrenalina pura, reviravoltas e o submundo dos hackers"
+                icon={<Sparkles className="w-5 h-5 text-red-500" />}
+                movies={thrillerMovies}
+                onPlayMovie={handlePlayMovie}
+                isFavorite={(id) => activeProfile.favoriteMovieIds.includes(id)}
+                onToggleFavorite={handleToggleFavorite}
+                isWatched={(id) => (activeProfile.watchedMovieIds || []).includes(id)}
+                onToggleWatched={handleToggleWatched}
+                onSeeAll={() => handleSelectFilter('Suspense')}
+              />
             )}
 
-            {/* Seção: Ficção Científica & Aventuras Fantásticas */}
+            {/* FILEIRA 10: FICÇÃO CIENTÍFICA & MONSTROS */}
             {sciFiMovies.length > 0 && (
-              <section className="space-y-4">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <h2 className="text-lg sm:text-xl font-extrabold text-slate-950 dark:text-white tracking-tight">
-                      Ficção Científica & Monstros
-                    </h2>
-                    <p className="text-xs text-slate-600 dark:text-slate-400">Futuros distópicos, batalhas titânicas e animação com Astro Boy</p>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <span className="text-xs text-slate-600 dark:text-slate-400 font-semibold">{sciFiMovies.length} títulos</span>
-                    <button
-                      onClick={() => handleSelectFilter('Ficção Científica')}
-                      className="text-xs text-cyan-600 dark:text-cyan-400 font-bold hover:underline flex items-center gap-0.5"
-                    >
-                      Ver todos ({sciFiMovies.length}) →
-                    </button>
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-                  {sciFiMovies.slice(0, 20).map((movie, idx) => (
-                    <MovieCard
-                      key={movie.id}
-                      movie={movie}
-                      onPlay={(m) => handlePlayMovie(m)}
-                      index={idx}
-                      isFavorite={activeProfile.favoriteMovieIds.includes(movie.id)}
-                      onToggleFavorite={handleToggleFavorite}
-                      isWatched={(activeProfile.watchedMovieIds || []).includes(movie.id)}
-                      onToggleWatched={handleToggleWatched}
-                    />
-                  ))}
-                </div>
-              </section>
+              <MovieRow
+                rowId="row-scifi"
+                title="Ficção Científica & Monstros"
+                subtitle="Futuros distópicos, batalhas titânicas e inteligência artificial"
+                icon={<Sparkles className="w-5 h-5 text-blue-500" />}
+                movies={sciFiMovies}
+                onPlayMovie={handlePlayMovie}
+                isFavorite={(id) => activeProfile.favoriteMovieIds.includes(id)}
+                onToggleFavorite={handleToggleFavorite}
+                isWatched={(id) => (activeProfile.watchedMovieIds || []).includes(id)}
+                onToggleWatched={handleToggleWatched}
+                onSeeAll={() => handleSelectFilter('Ficção Científica')}
+              />
             )}
 
-            {/* Seção: Terror & Sobrenatural */}
+            {/* FILEIRA 11: TERROR, SLASHER & SOBRENATURAL */}
             {horrorMovies.length > 0 && (
-              <section className="space-y-4">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <h2 className="text-lg sm:text-xl font-extrabold text-slate-950 dark:text-white tracking-tight">
-                      Terror, Slasher & Sobrenatural
-                    </h2>
-                    <p className="text-xs text-slate-600 dark:text-slate-400">Sustos, monstros e noites sombrias para quem tem coragem</p>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <span className="text-xs text-slate-600 dark:text-slate-400 font-semibold">{horrorMovies.length} títulos</span>
-                    <button
-                      onClick={() => handleSelectFilter('Terror')}
-                      className="text-xs text-cyan-600 dark:text-cyan-400 font-bold hover:underline flex items-center gap-0.5"
-                    >
-                      Ver todos ({horrorMovies.length}) →
-                    </button>
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-                  {horrorMovies.slice(0, 20).map((movie, idx) => (
-                    <MovieCard
-                      key={movie.id}
-                      movie={movie}
-                      onPlay={(m) => handlePlayMovie(m)}
-                      index={idx}
-                      isFavorite={activeProfile.favoriteMovieIds.includes(movie.id)}
-                      onToggleFavorite={handleToggleFavorite}
-                      isWatched={(activeProfile.watchedMovieIds || []).includes(movie.id)}
-                      onToggleWatched={handleToggleWatched}
-                    />
-                  ))}
-                </div>
-              </section>
+              <MovieRow
+                rowId="row-horror"
+                title="Terror, Slasher & Sobrenatural"
+                subtitle="Sustos, monstros e noites sombrias para quem tem coragem"
+                icon={<Flame className="w-5 h-5 text-rose-500" />}
+                movies={horrorMovies}
+                onPlayMovie={handlePlayMovie}
+                isFavorite={(id) => activeProfile.favoriteMovieIds.includes(id)}
+                onToggleFavorite={handleToggleFavorite}
+                isWatched={(id) => (activeProfile.watchedMovieIds || []).includes(id)}
+                onToggleWatched={handleToggleWatched}
+                onSeeAll={() => handleSelectFilter('Terror')}
+              />
             )}
 
             {/* Plataforma CAIC Card */}

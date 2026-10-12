@@ -1,5 +1,6 @@
 import type { UserProfile, Movie, UserAccount, UserTasteQuiz, PaymentRecord } from '../types/movie';
 import { mercadoPagoService } from './mercadoPagoService';
+import { apiUrl } from './apiConfig';
 
 const ACCOUNT_STORAGE_KEY = 'CAIC_USER_ACCOUNT_V4';
 const PROFILES_STORAGE_KEY = 'CAIC_USER_PROFILES_V4';
@@ -74,7 +75,7 @@ class UserService {
   private async syncToSharedDb(): Promise<void> {
     try {
       if (typeof window !== 'undefined') {
-        await fetch('/api/admin/db', {
+        await fetch(apiUrl('/api/admin/db'), {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ accounts: this.allAccounts }),
@@ -88,7 +89,7 @@ class UserService {
   private async syncFromSharedDb(): Promise<void> {
     try {
       if (typeof window !== 'undefined') {
-        const res = await fetch('/api/admin/db');
+        const res = await fetch(apiUrl('/api/admin/db'));
         if (res.ok) {
           const data = await res.json();
           if (Array.isArray(data.accounts) && data.accounts.length > 0) {
@@ -274,7 +275,12 @@ class UserService {
 
   public login(email: string, _password?: string): { success: boolean; message: string } {
     const normalized = email.trim().toLowerCase();
-    const found = this.allAccounts.find((a) => a.email.toLowerCase() === normalized);
+    const cleanUser = normalized.includes('@') ? normalized.split('@')[0] : normalized;
+    const found = this.allAccounts.find((a) => {
+      const aEmail = a.email.toLowerCase();
+      const aUser = aEmail.includes('@') ? aEmail.split('@')[0] : aEmail;
+      return aEmail === normalized || aUser === cleanUser || a.name.toLowerCase() === normalized;
+    });
 
     if (found) {
       if (found.password && _password && found.password !== _password) {
@@ -316,18 +322,28 @@ class UserService {
         this.activeProfileId = this.profiles[0].id;
       }
       this.saveState();
+      // Sincroniza imediatamente com o Mercado Pago para obter o status da assinatura em tempo real
+      this.syncSubscriptionFromMercadoPago(normalized);
       return { success: true, message: `Bem-vindo de volta, ${this.currentAccount.name}!` };
     }
 
-    // Se a conta não existe, realiza cadastro automático no Plano Individual com 7 dias grátis
-    const username = email.split('@')[0] || 'Usuário';
+    // Se a conta não existe localmente, realiza cadastro e consulta imediatamente o Mercado Pago
+    const username = normalized.includes('@') ? normalized.split('@')[0] : normalized;
     const capitalized = username.charAt(0).toUpperCase() + username.slice(1);
-    return this.register(capitalized, normalized, _password, 'individual');
+    const regRes = this.register(capitalized, normalized, _password, 'individual');
+    // Consulta imediatamente o Mercado Pago (ex: fmstecnoinfo ou fmstecnoinfo@gmail.com)
+    this.syncSubscriptionFromMercadoPago(normalized);
+    return regRes;
   }
 
   public findAccountByEmail(email: string): UserAccount | undefined {
     const normalized = email.trim().toLowerCase();
-    return this.allAccounts.find((a) => a.email.toLowerCase() === normalized);
+    const cleanUser = normalized.includes('@') ? normalized.split('@')[0] : normalized;
+    return this.allAccounts.find((a) => {
+      const aEmail = a.email.toLowerCase();
+      const aUser = aEmail.includes('@') ? aEmail.split('@')[0] : aEmail;
+      return aEmail === normalized || aUser === cleanUser || a.name.toLowerCase() === normalized;
+    });
   }
 
   public resetPassword(email: string, newPassword: string): { success: boolean; message: string } {
@@ -522,15 +538,24 @@ class UserService {
     return { success: true, message: `Pagamento Pix aprovado com sucesso! Bem-vindo ao ${planName}.` };
   }
 
-  public async syncSubscriptionFromMercadoPago(): Promise<{ updated: boolean; message?: string }> {
+  public async syncSubscriptionFromMercadoPago(targetEmail?: string): Promise<{ updated: boolean; message?: string }> {
     try {
       if (typeof window === 'undefined') return { updated: false };
       const pendingId = localStorage.getItem('CAIC_PENDING_PIX_ID') || undefined;
-      const email = this.currentAccount.email && this.currentAccount.email !== 'visitante@caic.com.br'
+      const emailToCheck = targetEmail || (this.currentAccount.email && this.currentAccount.email !== 'visitante@caic.com.br'
         ? this.currentAccount.email
-        : undefined;
+        : undefined);
 
-      const res = await mercadoPagoService.verifySubscription(email, pendingId);
+      let res = await mercadoPagoService.verifySubscription(emailToCheck, pendingId);
+
+      // Se não encontrou e o usuário passou um apelido sem @ (ex: 'fmstecnoinfo'), tenta também com @gmail.com
+      if ((!res.success || !res.hasActiveSubscription) && emailToCheck && !emailToCheck.includes('@')) {
+        const fallbackRes = await mercadoPagoService.verifySubscription(`${emailToCheck}@gmail.com`, pendingId);
+        if (fallbackRes.success && fallbackRes.hasActiveSubscription) {
+          res = fallbackRes;
+        }
+      }
+
       if (res.success && res.hasActiveSubscription) {
         const isFam = res.subscriptionPlan === 'family';
         const cycle = res.billingCycle || 'monthly';

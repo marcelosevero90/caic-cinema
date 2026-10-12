@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useState, useEffect, useCallback } from 'react';
 import {
   Play,
   Sparkles,
@@ -13,6 +13,8 @@ import {
   Heart,
   CheckCircle2,
   SkipForward,
+  ChevronLeft,
+  ChevronRight,
 } from 'lucide-react';
 import type { CinemaSession } from '../types/cinemaSession';
 import type { Movie } from '../types/movie';
@@ -78,8 +80,102 @@ export const CinemaSessionSection: React.FC<CinemaSessionSectionProps> = ({
   const nextUnwatchedMovie = movies.find((m) => !isWatched(m.id)) || firstMovie;
   const hasWatchedAny = movies.some((m) => isWatched(m.id));
 
+  const carouselRef = useRef<HTMLDivElement>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(true);
+  const [isDragging, setIsDragging] = useState(false);
+  const dragInfoRef = useRef({
+    isDown: false,
+    startX: 0,
+    scrollLeft: 0,
+    hasDragged: false,
+  });
+
+  const checkScrollability = useCallback(() => {
+    if (!carouselRef.current) return;
+    const { scrollLeft, scrollWidth, clientWidth } = carouselRef.current;
+    setCanScrollLeft(scrollLeft > 10);
+    setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 10);
+  }, []);
+
+  useEffect(() => {
+    checkScrollability();
+    const handleResize = () => checkScrollability();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [checkScrollability, movies]);
+
+  const scrollByAmount = (direction: 'left' | 'right') => {
+    if (!carouselRef.current) return;
+    const offset = carouselRef.current.clientWidth * 0.75;
+    carouselRef.current.scrollBy({
+      left: direction === 'left' ? -offset : offset,
+      behavior: 'smooth',
+    });
+    setTimeout(checkScrollability, 350);
+  };
+
+  const handleMouseDown = (e: React.MouseEvent) => {
+    if (e.button !== 0 || !carouselRef.current) return;
+    dragInfoRef.current = {
+      isDown: true,
+      startX: e.pageX - carouselRef.current.offsetLeft,
+      scrollLeft: carouselRef.current.scrollLeft,
+      hasDragged: false,
+    };
+    setIsDragging(true);
+  };
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!dragInfoRef.current.isDown || !carouselRef.current) return;
+    const x = e.pageX - carouselRef.current.offsetLeft;
+    const walk = (x - dragInfoRef.current.startX) * 1.3;
+    if (Math.abs(walk) > 6) {
+      dragInfoRef.current.hasDragged = true;
+    }
+    carouselRef.current.scrollLeft = dragInfoRef.current.scrollLeft - walk;
+    checkScrollability();
+  };
+
+  const handleMouseUpOrLeave = () => {
+    if (dragInfoRef.current.isDown) {
+      dragInfoRef.current.isDown = false;
+      setIsDragging(false);
+      checkScrollability();
+      setTimeout(() => {
+        dragInfoRef.current.hasDragged = false;
+      }, 100);
+    }
+  };
+
+  const handleClickCapture = (e: React.MouseEvent) => {
+    if (dragInfoRef.current.hasDragged) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+  };
+
+  const handleFocusCapture = (e: React.FocusEvent) => {
+    const target = e.target as HTMLElement;
+    if (!carouselRef.current || !target) return;
+    const container = carouselRef.current;
+    const containerRect = container.getBoundingClientRect();
+    const targetRect = target.getBoundingClientRect();
+
+    const targetScrollLeft =
+      container.scrollLeft +
+      (targetRect.left - containerRect.left) -
+      (containerRect.width / 2 - targetRect.width / 2);
+
+    container.scrollTo({
+      left: targetScrollLeft,
+      behavior: 'smooth',
+    });
+    setTimeout(checkScrollability, 300);
+  };
+
   return (
-    <section className="relative rounded-3xl overflow-hidden border border-slate-800 bg-gradient-to-br from-slate-900 via-slate-950 to-slate-900 p-5 sm:p-7 shadow-2xl transition-all animate-fadeIn">
+    <section className="relative rounded-3xl overflow-hidden border border-slate-800 bg-gradient-to-br from-slate-900 via-slate-950 to-slate-900 p-5 sm:p-7 shadow-2xl transition-all animate-fadeIn select-none">
       {/* Imagem de Fundo Ambiental Sutis */}
       {session.bannerBackdropUrl && (
         <div className="absolute inset-0 z-0 pointer-events-none opacity-20 overflow-hidden">
@@ -147,7 +243,7 @@ export const CinemaSessionSection: React.FC<CinemaSessionSectionProps> = ({
                 {hasWatchedAny && nextUnwatchedMovie && nextUnwatchedMovie.id !== firstMovie.id && (
                   <button
                     onClick={() => onPlayMovie(nextUnwatchedMovie)}
-                    className="px-4 py-3 rounded-2xl font-black text-xs sm:text-sm flex items-center gap-2 shadow-lg bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 hover:from-amber-400 hover:to-orange-400 text-slate-950 transition transform hover:scale-105 active:scale-95 cursor-pointer"
+                    className="tv-focusable px-4 py-3 rounded-2xl font-black text-xs sm:text-sm flex items-center gap-2 shadow-lg bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 hover:from-amber-400 hover:to-orange-400 text-slate-950 transition transform hover:scale-105 active:scale-95 cursor-pointer"
                     title={`Continuar maratona no próximo filme: ${nextUnwatchedMovie.title}`}
                   >
                     <SkipForward className="w-4 h-4 fill-current" />
@@ -157,7 +253,7 @@ export const CinemaSessionSection: React.FC<CinemaSessionSectionProps> = ({
 
                 <button
                   onClick={() => onPlayMovie(firstMovie)}
-                  className={`px-5 py-3 rounded-2xl font-black text-xs sm:text-sm flex items-center gap-2 shadow-lg bg-gradient-to-r ${getButtonGradient()} transition transform hover:scale-105 active:scale-95 cursor-pointer`}
+                  className={`tv-focusable px-5 py-3 rounded-2xl font-black text-xs sm:text-sm flex items-center gap-2 shadow-lg bg-gradient-to-r ${getButtonGradient()} transition transform hover:scale-105 active:scale-95 cursor-pointer`}
                 >
                   <Play className="w-4 h-4 fill-current" />
                   <span>{hasWatchedAny ? 'Reiniciar Maratona' : 'Iniciar Maratona'}</span>
@@ -167,117 +263,169 @@ export const CinemaSessionSection: React.FC<CinemaSessionSectionProps> = ({
           </div>
         </div>
 
-        {/* Fileira de Filmes em Sequência */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3.5 sm:gap-4">
-          {movies.map((movie, index) => {
-            const isFav = isFavorite(movie.id);
-            const isWtc = isWatched(movie.id);
+        {/* Fileira de Filmes em Sequência (Carrossel Horizontal com Navegação) */}
+        <div className="relative group/session-row">
+          {/* Botão Esquerda */}
+          {canScrollLeft && (
+            <button
+              type="button"
+              onClick={() => scrollByAmount('left')}
+              className="hidden sm:flex absolute left-0 top-1/2 -translate-y-1/2 z-30 h-28 w-11 items-center justify-center rounded-r-2xl bg-slate-950/80 hover:bg-amber-500/90 hover:text-slate-950 text-white backdrop-blur-md shadow-2xl border border-slate-700/60 border-l-0 transition-all opacity-0 group-hover/session-row:opacity-100 hover:scale-105 active:scale-95 cursor-pointer"
+              title="Rolar sequência para a esquerda"
+            >
+              <ChevronLeft className="w-7 h-7" />
+            </button>
+          )}
 
-            return (
-              <div
-                key={`session-${movie.id}-${index}`}
-                onClick={() => onPlayMovie(movie)}
-                className="group relative flex flex-col rounded-2xl bg-slate-900/90 border border-slate-800 hover:border-amber-500/60 transition-all duration-200 overflow-hidden shadow-md hover:shadow-xl hover:-translate-y-1 cursor-pointer"
-              >
-                {/* Poster com Badge de Sequência */}
-                <div className="relative aspect-[2/3] w-full bg-slate-950 overflow-hidden">
-                  <img
-                    src={movie.posterUrl}
-                    alt={movie.title}
-                    loading="lazy"
-                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                  />
+          <div
+            ref={carouselRef}
+            onScroll={checkScrollability}
+            onMouseDown={handleMouseDown}
+            onMouseMove={handleMouseMove}
+            onMouseUp={handleMouseUpOrLeave}
+            onMouseLeave={handleMouseUpOrLeave}
+            onClickCapture={handleClickCapture}
+            onFocusCapture={handleFocusCapture}
+            className={`flex flex-row gap-3.5 sm:gap-4 overflow-x-auto scroll-smooth py-2 px-1 scrollbar-none ${
+              isDragging ? 'cursor-grabbing select-none' : 'cursor-grab'
+            }`}
+            style={{
+              WebkitOverflowScrolling: 'touch',
+              scrollbarWidth: 'none',
+              msOverflowStyle: 'none',
+            }}
+          >
+            {movies.map((movie, index) => {
+              const isFav = isFavorite(movie.id);
+              const isWtc = isWatched(movie.id);
 
-                  {/* Gradient Overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-black/30 group-hover:via-black/20 transition-all" />
+              return (
+                <div
+                  key={`session-${movie.id}-${index}`}
+                  id={`session-card-${movie.id}`}
+                  tabIndex={0}
+                  role="button"
+                  onClick={() => onPlayMovie(movie)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') {
+                      e.preventDefault();
+                      onPlayMovie(movie);
+                    }
+                  }}
+                  className="tv-focusable group relative flex flex-col rounded-2xl bg-slate-900/90 border border-slate-800 hover:border-amber-500/60 transition-all duration-200 overflow-hidden shadow-md hover:shadow-xl hover:-translate-y-1 cursor-pointer w-36 sm:w-44 md:w-52 lg:w-56 shrink-0 focus:border-amber-400 focus:shadow-2xl"
+                >
+                  {/* Poster com Badge de Sequência */}
+                  <div className="relative aspect-[2/3] w-full bg-slate-950 overflow-hidden">
+                    <img
+                      src={movie.posterUrl}
+                      alt={movie.title}
+                      loading="lazy"
+                      className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                    />
 
-                  {/* Badge de Ordem Sequencial (1º Filme, 2º Filme...) */}
-                  <div className="absolute top-2 left-2 z-10">
-                    <span className="px-2 py-0.5 rounded-lg text-[10px] font-black tracking-wide bg-amber-500 text-slate-950 shadow-md border border-amber-300 flex items-center gap-1">
-                      <Star className="w-2.5 h-2.5 fill-current" />
-                      <span>{index + 1}º Filme</span>
-                    </span>
+                    {/* Gradient Overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-black/30 group-hover:via-black/20 transition-all" />
+
+                    {/* Badge de Ordem Sequencial (1º Filme, 2º Filme...) */}
+                    <div className="absolute top-2 left-2 z-10">
+                      <span className="px-2 py-0.5 rounded-lg text-[10px] font-black tracking-wide bg-amber-500 text-slate-950 shadow-md border border-amber-300 flex items-center gap-1">
+                        <Star className="w-2.5 h-2.5 fill-current" />
+                        <span>{index + 1}º Filme</span>
+                      </span>
+                    </div>
+
+                    {/* Ações Rápidas: Favoritar & Assistido */}
+                    <div className="absolute top-2 right-2 z-10 flex items-center gap-1">
+                      <button
+                        type="button"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          onToggleFavorite(movie.id);
+                        }}
+                        className={`p-1.5 rounded-lg backdrop-blur-md transition ${
+                          isFav
+                            ? 'bg-rose-600 text-white shadow-md'
+                            : 'bg-slate-900/70 text-slate-300 hover:text-rose-400 hover:bg-slate-900/90'
+                        }`}
+                        title={isFav ? 'Remover dos favoritos' : 'Favoritar'}
+                      >
+                        <Heart className={`w-3 h-3 ${isFav ? 'fill-current' : ''}`} />
+                      </button>
+                      <button
+                        type="button"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          onToggleWatched(movie.id);
+                        }}
+                        className={`p-1.5 rounded-lg backdrop-blur-md transition ${
+                          isWtc
+                            ? 'bg-emerald-600 text-white shadow-md'
+                            : 'bg-slate-900/70 text-slate-300 hover:text-emerald-400 hover:bg-slate-900/90'
+                        }`}
+                        title={isWtc ? 'Marcar como não assistido' : 'Marcar como assistido'}
+                      >
+                        <CheckCircle2 className={`w-3 h-3 ${isWtc ? 'fill-current' : ''}`} />
+                      </button>
+                    </div>
+
+                    {/* Duração & Ano */}
+                    <div className="absolute bottom-2 left-2 right-2 flex items-center justify-between text-[10px] font-bold text-slate-200">
+                      <span className="bg-slate-950/80 px-1.5 py-0.5 rounded-md backdrop-blur-sm">
+                        {movie.releaseYear}
+                      </span>
+                      <span className="bg-slate-950/80 px-1.5 py-0.5 rounded-md backdrop-blur-sm">
+                        {movie.durationMinutes}m
+                      </span>
+                    </div>
+
+                    {/* Botão Play Hover */}
+                    <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                      <div className="w-12 h-12 rounded-full bg-cyan-500/90 text-slate-950 flex items-center justify-center shadow-lg shadow-cyan-500/50 transform group-hover:scale-110 transition-transform">
+                        <Play className="w-5 h-5 fill-current ml-0.5" />
+                      </div>
+                    </div>
                   </div>
 
-                  {/* Ações Rápidas: Favoritar & Assistido */}
-                  <div className="absolute top-2 right-2 z-10 flex items-center gap-1">
-                    <button
-                      type="button"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        onToggleFavorite(movie.id);
-                      }}
-                      className={`p-1.5 rounded-lg backdrop-blur-md transition ${
-                        isFav
-                          ? 'bg-rose-600 text-white shadow-md'
-                          : 'bg-slate-900/70 text-slate-300 hover:text-rose-400 hover:bg-slate-900/90'
-                      }`}
-                      title={isFav ? 'Remover dos favoritos' : 'Favoritar'}
-                    >
-                      <Heart className={`w-3 h-3 ${isFav ? 'fill-current' : ''}`} />
-                    </button>
-                    <button
-                      type="button"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        onToggleWatched(movie.id);
-                      }}
-                      className={`p-1.5 rounded-lg backdrop-blur-md transition ${
-                        isWtc
-                          ? 'bg-emerald-600 text-white shadow-md'
-                          : 'bg-slate-900/70 text-slate-300 hover:text-emerald-400 hover:bg-slate-900/90'
-                      }`}
-                      title={isWtc ? 'Marcar como não assistido' : 'Marcar como assistido'}
-                    >
-                      <CheckCircle2 className={`w-3 h-3 ${isWtc ? 'fill-current' : ''}`} />
-                    </button>
-                  </div>
+                  {/* Informações do Filme */}
+                  <div className="p-3 flex-1 flex flex-col justify-between space-y-1">
+                    <div>
+                      <h3
+                        className="font-bold text-xs text-white group-hover:text-amber-400 line-clamp-1 transition-colors"
+                        title={movie.title}
+                      >
+                        {movie.title}
+                      </h3>
+                      <p className="text-[10px] text-slate-400 line-clamp-1">
+                        {(movie.genres || []).slice(0, 2).join(' • ')}
+                      </p>
+                    </div>
 
-                  {/* Duração & Ano */}
-                  <div className="absolute bottom-2 left-2 right-2 flex items-center justify-between text-[10px] font-bold text-slate-200">
-                    <span className="bg-slate-950/80 px-1.5 py-0.5 rounded-md backdrop-blur-sm">
-                      {movie.releaseYear}
-                    </span>
-                    <span className="bg-slate-950/80 px-1.5 py-0.5 rounded-md backdrop-blur-sm">
-                      {movie.durationMinutes}m
-                    </span>
-                  </div>
-
-                  {/* Botão Play Hover */}
-                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                    <div className="w-12 h-12 rounded-full bg-cyan-500/90 text-slate-950 flex items-center justify-center shadow-lg shadow-cyan-500/50 transform group-hover:scale-110 transition-transform">
-                      <Play className="w-5 h-5 fill-current ml-0.5" />
+                    {/* Avaliação e Canal */}
+                    <div className="pt-1 flex items-center justify-between text-[10px] text-slate-400 border-t border-slate-800/60">
+                      <span className="text-amber-400 font-bold flex items-center gap-0.5">
+                        ★ {movie.ratingScore || 8.0}
+                      </span>
+                      <span className="text-[9px] truncate max-w-[80px]" title={movie.channelName}>
+                        {movie.channelName}
+                      </span>
                     </div>
                   </div>
                 </div>
+              );
+            })}
+          </div>
 
-                {/* Informações do Filme */}
-                <div className="p-3 flex-1 flex flex-col justify-between space-y-1">
-                  <div>
-                    <h3
-                      className="font-bold text-xs text-white group-hover:text-amber-400 line-clamp-1 transition-colors"
-                      title={movie.title}
-                    >
-                      {movie.title}
-                    </h3>
-                    <p className="text-[10px] text-slate-400 line-clamp-1">
-                      {(movie.genres || []).slice(0, 2).join(' • ')}
-                    </p>
-                  </div>
-
-                  {/* Avaliação e Canal */}
-                  <div className="pt-1 flex items-center justify-between text-[10px] text-slate-400 border-t border-slate-800/60">
-                    <span className="text-amber-400 font-bold flex items-center gap-0.5">
-                      ★ {movie.ratingScore || 8.0}
-                    </span>
-                    <span className="text-[9px] truncate max-w-[80px]" title={movie.channelName}>
-                      {movie.channelName}
-                    </span>
-                  </div>
-                </div>
-              </div>
-            );
-          })}
+          {/* Botão Direita */}
+          {canScrollRight && (
+            <button
+              type="button"
+              onClick={() => scrollByAmount('right')}
+              className="hidden sm:flex absolute right-0 top-1/2 -translate-y-1/2 z-30 h-28 w-11 items-center justify-center rounded-l-2xl bg-slate-950/80 hover:bg-amber-500/90 hover:text-slate-950 text-white backdrop-blur-md shadow-2xl border border-slate-700/60 border-r-0 transition-all opacity-0 group-hover/session-row:opacity-100 hover:scale-105 active:scale-95 cursor-pointer"
+              title="Rolar sequência para a direita"
+            >
+              <ChevronRight className="w-7 h-7" />
+            </button>
+          )}
         </div>
       </div>
     </section>

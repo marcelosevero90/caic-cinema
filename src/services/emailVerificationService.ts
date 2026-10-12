@@ -1,3 +1,5 @@
+import { apiUrl } from './apiConfig';
+
 /**
  * Serviço de Verificação de E-mail com Token (OTP) via Resend
  * Baseado na arquitetura do AppServiços com suporte a Sandbox e Envio Real
@@ -147,7 +149,7 @@ class EmailVerificationService {
 
     // 1. Tenta enviar pela API local do Vite (/api/auth/send-verification)
     try {
-      const res = await fetch('/api/auth/send-verification', {
+      const res = await fetch(apiUrl('/api/auth/send-verification'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email: cleanEmail, name: cleanName, code })
@@ -272,7 +274,7 @@ class EmailVerificationService {
     }
 
     try {
-      const res = await fetch('/api/auth/reset-password', {
+      const res = await fetch(apiUrl('/api/auth/reset-password'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email: cleanEmail, name: cleanName, code })
