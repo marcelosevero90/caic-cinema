@@ -1,5 +1,6 @@
 import tailwindcss from '@tailwindcss/vite'
 import react from '@vitejs/plugin-react'
+import legacy from '@vitejs/plugin-legacy'
 import { defineConfig, type Plugin } from 'vite'
 import nodemailer from 'nodemailer'
 
@@ -843,6 +844,10 @@ function deepseekDevPlugin(): Plugin {
 export default defineConfig({
   plugins: [
     react(),
+    legacy({
+      targets: ['chrome >= 49', 'android >= 7', 'defaults', 'not IE 11'],
+      additionalLegacyPolyfills: ['regenerator-runtime/runtime'],
+    }),
     tailwindcss(),
     emailAuthPlugin(),
     playbackSessionPlugin(),
