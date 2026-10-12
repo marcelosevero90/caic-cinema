@@ -87,7 +87,7 @@ export default async function handler(req: IncomingMessage & { body?: any; query
       body: JSON.stringify(mpPayload),
     });
 
-    const mpData = await mpResponse.json();
+    const mpData: any = await mpResponse.json();
 
     if (!mpResponse.ok) {
       console.error('[Mercado Pago Pix Error]', mpData);
@@ -98,7 +98,7 @@ export default async function handler(req: IncomingMessage & { body?: any; query
           'Sua conta do Mercado Pago precisa ter pelo menos 1 Chave Pix cadastrada para emitir cobranças. Abra o app do Mercado Pago e cadastre uma Chave Aleatória ou CPF no menu Pix.';
       }
 
-      res.statusCode = mpResponse.statusCode || 400;
+      res.statusCode = mpResponse.status || 400;
       res.setHeader('Content-Type', 'application/json');
       res.end(JSON.stringify({
         success: false,

@@ -46,7 +46,7 @@ export default async function handler(req: IncomingMessage & { body?: any; query
             headers: { 'Authorization': `Bearer ${accessToken}` },
           });
           if (mpRes.ok) {
-            const paymentDetails = await mpRes.json();
+            const paymentDetails: any = await mpRes.json();
             console.log('[Mercado Pago Webhook Payment Verified]', {
               id: paymentDetails.id,
               status: paymentDetails.status,

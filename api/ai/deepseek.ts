@@ -24,6 +24,7 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
   }
 
   try {
+    const payload = body ? JSON.parse(body) : {};
     const authHeader = (req.headers['authorization'] || req.headers['x-deepseek-key']) as string | undefined;
     const headerKey = authHeader?.startsWith('Bearer ') ? authHeader.slice(7) : authHeader;
     const apiKey =

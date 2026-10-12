@@ -38,7 +38,7 @@ export default async function handler(req: IncomingMessage & { query?: any }, re
       },
     });
 
-    const data = await mpRes.json();
+    const data: any = await mpRes.json();
 
     if (!mpRes.ok) {
       res.statusCode = mpRes.status;

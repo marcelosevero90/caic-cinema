@@ -34,3 +34,6 @@ android/.gradle
 android/build
 *.apk
 *.aab
+
+.vercel
+.env*
