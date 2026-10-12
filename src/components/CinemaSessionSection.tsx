@@ -29,7 +29,7 @@ interface CinemaSessionSectionProps {
   onToggleWatched: (movieId: string) => void;
 }
 
-export const CinemaSessionSection: React.FC<CinemaSessionSectionProps> = ({
+export const CinemaSessionSectionComponent: React.FC<CinemaSessionSectionProps> = ({
   session,
   movies,
   onPlayMovie,
@@ -91,18 +91,35 @@ export const CinemaSessionSection: React.FC<CinemaSessionSectionProps> = ({
     hasDragged: false,
   });
 
+  const scrollRafRef = useRef<number | null>(null);
+
   const checkScrollability = useCallback(() => {
     if (!carouselRef.current) return;
     const { scrollLeft, scrollWidth, clientWidth } = carouselRef.current;
-    setCanScrollLeft(scrollLeft > 10);
-    setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 10);
+    const nextLeft = scrollLeft > 10;
+    const nextRight = scrollLeft < scrollWidth - clientWidth - 10;
+    setCanScrollLeft((prev) => (prev !== nextLeft ? nextLeft : prev));
+    setCanScrollRight((prev) => (prev !== nextRight ? nextRight : prev));
   }, []);
+
+  const handleScroll = useCallback(() => {
+    if (scrollRafRef.current !== null) return;
+    scrollRafRef.current = requestAnimationFrame(() => {
+      checkScrollability();
+      scrollRafRef.current = null;
+    });
+  }, [checkScrollability]);
 
   useEffect(() => {
     checkScrollability();
     const handleResize = () => checkScrollability();
     window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      if (scrollRafRef.current !== null) {
+        cancelAnimationFrame(scrollRafRef.current);
+      }
+    };
   }, [checkScrollability, movies]);
 
   const scrollByAmount = (direction: 'left' | 'right') => {
@@ -134,7 +151,6 @@ export const CinemaSessionSection: React.FC<CinemaSessionSectionProps> = ({
       dragInfoRef.current.hasDragged = true;
     }
     carouselRef.current.scrollLeft = dragInfoRef.current.scrollLeft - walk;
-    checkScrollability();
   };
 
   const handleMouseUpOrLeave = () => {
@@ -279,7 +295,7 @@ export const CinemaSessionSection: React.FC<CinemaSessionSectionProps> = ({
 
           <div
             ref={carouselRef}
-            onScroll={checkScrollability}
+            onScroll={handleScroll}
             onMouseDown={handleMouseDown}
             onMouseMove={handleMouseMove}
             onMouseUp={handleMouseUpOrLeave}
@@ -431,3 +447,6 @@ export const CinemaSessionSection: React.FC<CinemaSessionSectionProps> = ({
     </section>
   );
 };
+
+export const CinemaSessionSection = React.memo(CinemaSessionSectionComponent);
+

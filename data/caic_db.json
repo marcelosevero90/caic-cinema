@@ -39,6 +39,33 @@
       "createdAt": "2026-10-09T21:17:53.310Z",
       "avatar": "https://api.dicebear.com/9.x/bottts/svg?seed=PopcornDroid&backgroundColor=ffdfbf,ffd5dc",
       "isAuthenticated": true
+    },
+    {
+      "id": "acc-1791773795330",
+      "name": "Fmstecnoinfo",
+      "email": "fmstecnoinfo",
+      "password": "123456",
+      "plan": "Plano Individual Mensal (R$ 5,90/mês)",
+      "subscriptionPlan": "individual",
+      "billingCycle": "monthly",
+      "subscriptionStatus": "trial",
+      "trialStartDate": "2026-10-12T02:56:35.330Z",
+      "trialEndDate": "2026-10-19T02:56:35.330Z",
+      "paymentMethod": "PIX (Mercado Pago)",
+      "lastPaymentAmount": 0,
+      "paymentHistory": [
+        {
+          "id": "pay-trial-1791773795330",
+          "date": "2026-10-12T02:56:35.330Z",
+          "amount": 0,
+          "plan": "Plano Individual Mensal (R$ 5,90/mês) (7 Dias Grátis de Teste)",
+          "status": "paid",
+          "method": "Período de Teste"
+        }
+      ],
+      "createdAt": "2026-10-12T02:56:35.330Z",
+      "avatar": "https://api.dicebear.com/9.x/adventurer/svg?seed=ShadowHero&backgroundColor=b6e3f4,c0aede,d1d4f9",
+      "isAuthenticated": true
     }
   ],
   "requests": [],

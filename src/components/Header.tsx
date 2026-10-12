@@ -2,11 +2,8 @@ import React, { useState } from 'react';
 import {
   Sparkles,
   Tv,
-  Film,
   Heart,
   Smartphone,
-  Sun,
-  Moon,
   Lightbulb,
   Lock,
   Server,
@@ -23,8 +20,6 @@ interface HeaderProps {
   onOpenMobileAccess: () => void;
   onOpenMovieSuggestion?: () => void;
   onOpenSubscription?: () => void;
-  isDarkMode: boolean;
-  onToggleTheme: () => void;
   activeProfile: UserProfile;
   searchQuery?: string;
   onSearchChange?: (q: string) => void;
@@ -41,8 +36,6 @@ export const Header: React.FC<HeaderProps> = ({
   onOpenMobileAccess,
   onOpenMovieSuggestion,
   onOpenSubscription,
-  isDarkMode,
-  onToggleTheme,
   activeProfile,
   isTvMode,
   activeFilter,
@@ -50,6 +43,7 @@ export const Header: React.FC<HeaderProps> = ({
   currentAccount,
 }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isDesktopMenuOpen, setIsDesktopMenuOpen] = useState(false);
   const isJfEnabled = jellyfinService.getConfig().enabled;
   const genres = ['Todos', '🍿 Sessão Cinema', ...(isJfEnabled ? ['Jellyfin'] : []), 'Minha Lista', 'Ação', 'Guerra', 'Drama', 'Comédia', 'Terror', 'Suspense', 'Ficção Científica'];
   const isSubscriberActive = currentAccount?.subscriptionStatus === 'active';
@@ -67,25 +61,18 @@ export const Header: React.FC<HeaderProps> = ({
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-3">
         
         {/* Top bar on Mobile / Left brand on Desktop */}
-        <div className="flex items-center justify-between w-full md:w-auto">
-          {/* Logo compact on mobile */}
-          <div className="flex items-center gap-2 sm:gap-2.5 cursor-pointer" onClick={() => onSelectFilter('Todos')}>
-            <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-gradient-to-tr from-cyan-500 via-indigo-600 to-fuchsia-600 p-0.5 shadow-md shadow-cyan-500/20 flex items-center justify-center flex-shrink-0">
-              <div className="w-full h-full bg-white dark:bg-slate-900 rounded-[10px] flex items-center justify-center">
-                <Film className="w-4 h-4 sm:w-5 sm:h-5 text-cyan-600 dark:text-cyan-400" />
-              </div>
-            </div>
-            <div>
-              <div className="flex items-center gap-1.5">
-                <span className="text-lg sm:text-xl font-black tracking-tight text-slate-950 dark:text-white leading-none">
-                  CA<span className="bg-gradient-to-r from-cyan-600 via-sky-600 to-indigo-600 bg-clip-text text-transparent">IC</span>
-                </span>
-                <span className="hidden sm:inline-block text-[9px] uppercase font-bold tracking-wider px-1.5 py-0.5 rounded bg-cyan-100 dark:bg-cyan-950/80 text-cyan-800 dark:text-cyan-300 border border-cyan-300 dark:border-cyan-800">
-                  Cinema & IA
-                </span>
-              </div>
-              <p className="hidden md:block text-[11px] text-slate-600 dark:text-slate-400 font-medium">Plataforma Inteligente</p>
-            </div>
+        <div className="flex items-center justify-between w-full md:w-auto shrink-0">
+          {/* Logo brand */}
+          <div
+            className="flex items-center cursor-pointer group shrink-0"
+            onClick={() => onSelectFilter('Todos')}
+            title="Ir para o início"
+          >
+            <img
+              src="/caic-banner-cropped.png"
+              alt="CAIC"
+              className="h-8 sm:h-9 md:h-10 w-auto object-contain rounded-lg shadow-sm border border-red-950/40 group-hover:scale-105 transition-transform"
+            />
           </div>
 
           {/* Mobile Actions: Clean, well-spaced, essential buttons */}
@@ -154,16 +141,6 @@ export const Header: React.FC<HeaderProps> = ({
                       </button>
                     </div>
 
-                    <button
-                      onClick={() => {
-                        onToggleTheme();
-                        setIsMobileMenuOpen(false);
-                      }}
-                      className="w-full text-left px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center gap-2.5 transition"
-                    >
-                      {isDarkMode ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-indigo-500" />}
-                      <span>{isDarkMode ? 'Modo Claro (Cores Leves)' : 'Modo Escuro'}</span>
-                    </button>
 
                     {onOpenMovieSuggestion && (
                       <button
@@ -207,7 +184,7 @@ export const Header: React.FC<HeaderProps> = ({
         </div>
 
         {/* Quick Genre Filters (Desktop & Tablet) */}
-        <div className="hidden lg:flex items-center gap-1.5">
+        <div className="hidden lg:flex items-center gap-1.5 overflow-x-auto scrollbar-none flex-nowrap min-w-0 px-2 shrink">
           {genres.map((g) => {
             const isFavFilter = g === 'Minha Lista';
             const isJellyfinFilter = g === 'Jellyfin';
@@ -225,7 +202,7 @@ export const Header: React.FC<HeaderProps> = ({
                   onSelectFilter(g);
                 }}
                 disabled={isFavFilter && !isAuth}
-                className={`tv-focusable text-xs font-semibold px-3 py-1.5 rounded-full transition-all flex items-center gap-1 ${
+                className={`tv-focusable shrink-0 text-xs font-semibold px-3 py-1.5 rounded-full transition-all flex items-center gap-1 ${
                   isFavFilter && !isAuth
                     ? 'text-slate-400 dark:text-slate-600 opacity-60 cursor-not-allowed'
                     : isActive
@@ -248,7 +225,7 @@ export const Header: React.FC<HeaderProps> = ({
         </div>
 
         {/* Desktop Actions */}
-        <div className="hidden md:flex items-center gap-2 justify-end">
+        <div className="hidden md:flex items-center gap-2 justify-end shrink-0">
           {/* Botão de Assinar em destaque para quem ainda não é assinante */}
           {!isSubscriberActive && (
             <button
@@ -261,48 +238,74 @@ export const Header: React.FC<HeaderProps> = ({
             </button>
           )}
 
-          {/* Botão Sugerir Filme */}
-          {onOpenMovieSuggestion && (
+          {/* Menu Suspenso Mais Opções (Sugerir Filme, No Celular, D-Pad) */}
+          <div className="relative">
             <button
-              onClick={onOpenMovieSuggestion}
-              title="Pedir ou sugerir um filme para o catálogo"
-              className="tv-focusable flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-amber-50 dark:bg-amber-950/50 hover:bg-amber-100 dark:hover:bg-amber-900/50 border border-amber-300 dark:border-amber-700/60 text-amber-800 dark:text-amber-300 text-xs font-semibold transition"
+              onClick={() => setIsDesktopMenuOpen((prev) => !prev)}
+              className={`tv-focusable flex items-center gap-1 px-2.5 py-1.5 rounded-xl border text-xs font-semibold transition cursor-pointer ${
+                isDesktopMenuOpen
+                  ? 'bg-slate-200 dark:bg-slate-700 text-slate-900 dark:text-white border-slate-300 dark:border-slate-600 shadow-sm'
+                  : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700'
+              }`}
+              title="Mais ferramentas e opções"
             >
-              <Lightbulb className="w-3.5 h-3.5 text-amber-500" />
-              <span>Sugerir Filme</span>
+              <MoreVertical className="w-4 h-4 text-slate-400" />
+              <span>Mais</span>
             </button>
-          )}
 
-          {/* Botão Acessar no Celular */}
-          <button
-            onClick={onOpenMobileAccess}
-            title="Acessar no Celular (Mesmo Wi-Fi)"
-            className="tv-focusable flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 text-xs font-medium transition"
-          >
-            <Smartphone className="w-3.5 h-3.5 text-cyan-600 dark:text-cyan-400" />
-            <span>No Celular</span>
-          </button>
+            {isDesktopMenuOpen && (
+              <>
+                <div
+                  className="fixed inset-0 z-40"
+                  onClick={() => setIsDesktopMenuOpen(false)}
+                />
+                <div className="absolute right-0 mt-2 w-56 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-2xl p-2 z-50 space-y-1 animate-fadeIn">
+                  <div className="px-3 py-1.5 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between text-xs font-bold text-slate-500">
+                    <span>Ferramentas & Acesso</span>
+                    <button
+                      onClick={() => setIsDesktopMenuOpen(false)}
+                      className="p-1 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800"
+                    >
+                      <X className="w-3.5 h-3.5" />
+                    </button>
+                  </div>
 
-          {/* Botão Alternador de Tema */}
-          <button
-            onClick={onToggleTheme}
-            title={isDarkMode ? 'Mudar para Cores Leves (Modo Claro)' : 'Mudar para Modo Escuro'}
-            className="tv-focusable p-2 rounded-xl bg-slate-100 dark:bg-slate-800/90 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:text-amber-500 dark:hover:text-amber-400 transition"
-          >
-            {isDarkMode ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-slate-700" />}
-          </button>
+                  {onOpenMovieSuggestion && (
+                    <button
+                      onClick={() => {
+                        onOpenMovieSuggestion();
+                        setIsDesktopMenuOpen(false);
+                      }}
+                      className="w-full text-left px-3 py-2 rounded-xl text-xs font-semibold text-amber-800 dark:text-amber-300 hover:bg-amber-50 dark:hover:bg-amber-950/40 flex items-center gap-2.5 transition cursor-pointer"
+                    >
+                      <Lightbulb className="w-4 h-4 text-amber-500" />
+                      <span>Sugerir Filme</span>
+                    </button>
+                  )}
 
-          {/* TV Box Indicator */}
-          <div
-            title="Navegação otimizada para controle remoto TV Box (D-Pad)"
-            className={`hidden xl:flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl border text-xs font-medium ${
-              isTvMode
-                ? 'bg-emerald-100 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 border-emerald-300 dark:border-emerald-700/50'
-                : 'bg-slate-100 dark:bg-slate-900/60 text-slate-500 dark:text-slate-400 border-slate-200 dark:border-slate-800'
-            }`}
-          >
-            <Tv className="w-3.5 h-3.5" />
-            <span>{isTvMode ? 'D-Pad' : 'TV Box'}</span>
+                  <button
+                    onClick={() => {
+                      onOpenMobileAccess();
+                      setIsDesktopMenuOpen(false);
+                    }}
+                    className="w-full text-left px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center gap-2.5 transition cursor-pointer"
+                  >
+                    <Smartphone className="w-4 h-4 text-cyan-500" />
+                    <span>Acessar no Celular</span>
+                  </button>
+
+                  <div className="px-3 py-2 rounded-xl text-xs font-medium text-slate-600 dark:text-slate-400 flex items-center justify-between border-t border-slate-100 dark:border-slate-800">
+                    <div className="flex items-center gap-2">
+                      <Tv className="w-4 h-4 text-emerald-500" />
+                      <span>Controle TV (D-Pad)</span>
+                    </div>
+                    <span className="text-[10px] px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-500 dark:text-emerald-400 font-bold">
+                      {isTvMode ? 'Ativo' : 'TV Box'}
+                    </span>
+                  </div>
+                </div>
+              </>
+            )}
           </div>
 
           {/* Desktop CAIC Button */}

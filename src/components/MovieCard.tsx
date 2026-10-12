@@ -15,7 +15,7 @@ interface MovieCardProps {
   onRequireAuth?: (action: 'favorite' | 'watched') => void;
 }
 
-export const MovieCard: React.FC<MovieCardProps> = ({
+export const MovieCardComponent: React.FC<MovieCardProps> = ({
   movie,
   onPlay,
   index,
@@ -69,7 +69,11 @@ export const MovieCard: React.FC<MovieCardProps> = ({
         }
       }}
       className="tv-focusable group relative flex flex-col bg-white dark:bg-slate-900/90 rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 cursor-pointer transition-all duration-300 hover:border-cyan-500 hover:shadow-xl hover:-translate-y-1 focus:border-cyan-500 focus:shadow-2xl"
-      style={{ animationDelay: `${index * 35}ms` }}
+      style={{
+        animationDelay: `${index * 35}ms`,
+        contentVisibility: 'auto',
+        containIntrinsicSize: '220px 340px',
+      }}
     >
       {/* Poster Image Container */}
       <div className="relative aspect-[16/10] sm:aspect-[2/3] w-full overflow-hidden bg-slate-900">
@@ -77,6 +81,7 @@ export const MovieCard: React.FC<MovieCardProps> = ({
           src={movie.posterUrl}
           alt={movie.title}
           loading="lazy"
+          decoding="async"
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 group-focus:scale-105"
         />
 
@@ -224,3 +229,5 @@ export const MovieCard: React.FC<MovieCardProps> = ({
     </div>
   );
 };
+
+export const MovieCard = React.memo(MovieCardComponent);

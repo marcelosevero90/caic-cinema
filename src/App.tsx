@@ -81,23 +81,18 @@ export const App: React.FC = () => {
   const [showActorPicker, setShowActorPicker] = useState<boolean>(false);
   const [webSearchNotice, setWebSearchNotice] = useState<string | null>(null);
   const [isFullCatalogView, setIsFullCatalogView] = useState<boolean>(false);
+  const [visibleCount, setVisibleCount] = useState<number>(30);
 
-  // Controle do Tema (Padrão: Cores Leves / Light Mode conforme solicitado)
-  const [isDarkMode, setIsDarkMode] = useState<boolean>(() => {
-    return localStorage.getItem('CINEAI_THEME') === 'dark';
-  });
-
+  // Reseta paginação quando a categoria ou busca mudar
   useEffect(() => {
-    if (isDarkMode) {
-      document.documentElement.classList.add('dark');
-      localStorage.setItem('CINEAI_THEME', 'dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-      localStorage.setItem('CINEAI_THEME', 'light');
-    }
-  }, [isDarkMode]);
+    setVisibleCount(30);
+  }, [activeFilter, searchQuery, selectedSubgenre, selectedActor, selectedMood]);
 
-  const toggleTheme = () => setIsDarkMode((prev) => !prev);
+  // Tema cinematográfico escuro fixo permanente
+  useEffect(() => {
+    document.documentElement.classList.add('dark');
+    localStorage.setItem('CINEAI_THEME', 'dark');
+  }, []);
 
   // Estado reativo do catálogo e do perfil/conta do usuário
   const [catalogVersion, setCatalogVersion] = useState<number>(0);
@@ -355,6 +350,11 @@ export const App: React.FC = () => {
     });
   }, [searchQuery, activeFilter, selectedSubgenre, selectedActor, selectedMood, allMovies, activeProfile, profileVersion]);
 
+  // Paginação progressiva rápida: renderiza inicialmente 30 itens para fluidez máxima
+  const displayedMovies = useMemo(() => {
+    return filteredMovies.slice(0, visibleCount);
+  }, [filteredMovies, visibleCount]);
+
   // Banner de destaque dinâmico: reflete buscas e filtros ativos
   const currentHeroMovie = useMemo(() => {
     if ((searchQuery.trim().length > 0 || activeFilter !== 'Todos' || selectedSubgenre || selectedActor || selectedMood) && filteredMovies.length > 0) {
@@ -528,8 +528,7 @@ export const App: React.FC = () => {
         }}
         onOpenMobileAccess={() => setIsMobileAccessOpen(true)}
         onOpenMovieSuggestion={() => handleOpenSuggestionModal()}
-        isDarkMode={isDarkMode}
-        onToggleTheme={toggleTheme}
+
         activeProfile={activeProfile}
         searchQuery={searchDraft}
         onSearchChange={(q) => setSearchDraft(q)}
@@ -1159,20 +1158,34 @@ export const App: React.FC = () => {
                 )}
               </div>
             ) : (
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-                {filteredMovies.map((movie, idx) => (
-                  <MovieCard
-                    key={movie.id}
-                    movie={movie}
-                    onPlay={(m) => handlePlayMovie(m)}
-                    index={idx}
-                    isFavorite={activeProfile.favoriteMovieIds.includes(movie.id)}
-                    onToggleFavorite={handleToggleFavorite}
-                    isWatched={(activeProfile.watchedMovieIds || []).includes(movie.id)}
-                    onToggleWatched={handleToggleWatched}
-                  />
-                ))}
-              </div>
+              <>
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+                  {displayedMovies.map((movie, idx) => (
+                    <MovieCard
+                      key={movie.id}
+                      movie={movie}
+                      onPlay={(m) => handlePlayMovie(m)}
+                      index={idx}
+                      isFavorite={activeProfile.favoriteMovieIds.includes(movie.id)}
+                      onToggleFavorite={handleToggleFavorite}
+                      isWatched={(activeProfile.watchedMovieIds || []).includes(movie.id)}
+                      onToggleWatched={handleToggleWatched}
+                    />
+                  ))}
+                </div>
+
+                {visibleCount < filteredMovies.length && (
+                  <div className="flex justify-center pt-8 pb-4">
+                    <button
+                      onClick={() => setVisibleCount((prev) => prev + 30)}
+                      className="tv-focusable px-6 py-3 rounded-2xl bg-slate-900 border border-slate-700/80 hover:border-cyan-500 text-cyan-400 font-bold text-xs sm:text-sm shadow-lg flex items-center gap-2 transition hover:scale-105 active:scale-95 cursor-pointer"
+                    >
+                      <span>Carregar Mais Filmes (+30)</span>
+                      <span className="text-xs text-slate-400">({displayedMovies.length} de {filteredMovies.length})</span>
+                    </button>
+                  </div>
+                )}
+              </>
             )}
           </section>
         ) : (
@@ -1249,13 +1262,14 @@ export const App: React.FC = () => {
                 title="Filmes do Servidor Jellyfin"
                 subtitle="Filmes transmitidos diretamente do seu acervo remoto Jellyfin"
                 icon={<Server className="w-5 h-5 text-indigo-500" />}
-                movies={jellyfinMovies}
+                movies={jellyfinMovies.slice(0, 24)}
                 onPlayMovie={handlePlayMovie}
                 isFavorite={(id) => activeProfile.favoriteMovieIds.includes(id)}
                 onToggleFavorite={handleToggleFavorite}
                 isWatched={(id) => (activeProfile.watchedMovieIds || []).includes(id)}
                 onToggleWatched={handleToggleWatched}
                 onSeeAll={() => handleSelectFilter('Jellyfin')}
+                seeAllText={`Ver todos (${jellyfinMovies.length})`}
                 badge="filme.manerostream.com.br"
               />
             )}
@@ -1267,13 +1281,14 @@ export const App: React.FC = () => {
                 title="Ação, Artes Marciais & Tiroteios"
                 subtitle="Grandes produções com Jackie Chan, Jet Li e combate tático"
                 icon={<Swords className="w-5 h-5 text-cyan-500" />}
-                movies={actionMovies}
+                movies={actionMovies.slice(0, 24)}
                 onPlayMovie={handlePlayMovie}
                 isFavorite={(id) => activeProfile.favoriteMovieIds.includes(id)}
                 onToggleFavorite={handleToggleFavorite}
                 isWatched={(id) => (activeProfile.watchedMovieIds || []).includes(id)}
                 onToggleWatched={handleToggleWatched}
                 onSeeAll={() => handleSelectFilter('Ação')}
+                seeAllText={`Ver todos (${actionMovies.length})`}
               />
             )}
 
@@ -1284,13 +1299,14 @@ export const App: React.FC = () => {
                 title="Guerra, Batalhas Históricas & Tanques"
                 subtitle="Segunda Guerra Mundial, Ardenas, Sobibor e confrontos táticos de blindados"
                 icon={<Flame className="w-5 h-5 text-orange-500" />}
-                movies={warMovies}
+                movies={warMovies.slice(0, 24)}
                 onPlayMovie={handlePlayMovie}
                 isFavorite={(id) => activeProfile.favoriteMovieIds.includes(id)}
                 onToggleFavorite={handleToggleFavorite}
                 isWatched={(id) => (activeProfile.watchedMovieIds || []).includes(id)}
                 onToggleWatched={handleToggleWatched}
                 onSeeAll={() => handleSelectFilter('Guerra')}
+                seeAllText={`Ver todos (${warMovies.length})`}
               />
             )}
 
@@ -1301,13 +1317,14 @@ export const App: React.FC = () => {
                 title="Dramas, Biografias & Épicos Históricos"
                 subtitle="Histórias inspiradoras como Chico Xavier, Sobibor e Padre Pio"
                 icon={<Film className="w-5 h-5 text-purple-500" />}
-                movies={dramaMovies}
+                movies={dramaMovies.slice(0, 24)}
                 onPlayMovie={handlePlayMovie}
                 isFavorite={(id) => activeProfile.favoriteMovieIds.includes(id)}
                 onToggleFavorite={handleToggleFavorite}
                 isWatched={(id) => (activeProfile.watchedMovieIds || []).includes(id)}
                 onToggleWatched={handleToggleWatched}
                 onSeeAll={() => handleSelectFilter('Drama')}
+                seeAllText={`Ver todos (${dramaMovies.length})`}
               />
             )}
 
@@ -1318,13 +1335,14 @@ export const App: React.FC = () => {
                 title="Comédias & Diversão para Toda a Família"
                 subtitle="Filmes leves, confusões divertidas e histórias infantis"
                 icon={<Sparkles className="w-5 h-5 text-yellow-500" />}
-                movies={comedyMovies}
+                movies={comedyMovies.slice(0, 24)}
                 onPlayMovie={handlePlayMovie}
                 isFavorite={(id) => activeProfile.favoriteMovieIds.includes(id)}
                 onToggleFavorite={handleToggleFavorite}
                 isWatched={(id) => (activeProfile.watchedMovieIds || []).includes(id)}
                 onToggleWatched={handleToggleWatched}
                 onSeeAll={() => handleSelectFilter('Comédia')}
+                seeAllText={`Ver todos (${comedyMovies.length})`}
               />
             )}
 
@@ -1335,13 +1353,14 @@ export const App: React.FC = () => {
                 title="Suspense, Crime & Cibercultura"
                 subtitle="Adrenalina pura, reviravoltas e o submundo dos hackers"
                 icon={<Sparkles className="w-5 h-5 text-red-500" />}
-                movies={thrillerMovies}
+                movies={thrillerMovies.slice(0, 24)}
                 onPlayMovie={handlePlayMovie}
                 isFavorite={(id) => activeProfile.favoriteMovieIds.includes(id)}
                 onToggleFavorite={handleToggleFavorite}
                 isWatched={(id) => (activeProfile.watchedMovieIds || []).includes(id)}
                 onToggleWatched={handleToggleWatched}
                 onSeeAll={() => handleSelectFilter('Suspense')}
+                seeAllText={`Ver todos (${thrillerMovies.length})`}
               />
             )}
 
@@ -1352,13 +1371,14 @@ export const App: React.FC = () => {
                 title="Ficção Científica & Monstros"
                 subtitle="Futuros distópicos, batalhas titânicas e inteligência artificial"
                 icon={<Sparkles className="w-5 h-5 text-blue-500" />}
-                movies={sciFiMovies}
+                movies={sciFiMovies.slice(0, 24)}
                 onPlayMovie={handlePlayMovie}
                 isFavorite={(id) => activeProfile.favoriteMovieIds.includes(id)}
                 onToggleFavorite={handleToggleFavorite}
                 isWatched={(id) => (activeProfile.watchedMovieIds || []).includes(id)}
                 onToggleWatched={handleToggleWatched}
                 onSeeAll={() => handleSelectFilter('Ficção Científica')}
+                seeAllText={`Ver todos (${sciFiMovies.length})`}
               />
             )}
 
@@ -1369,13 +1389,14 @@ export const App: React.FC = () => {
                 title="Terror, Slasher & Sobrenatural"
                 subtitle="Sustos, monstros e noites sombrias para quem tem coragem"
                 icon={<Flame className="w-5 h-5 text-rose-500" />}
-                movies={horrorMovies}
+                movies={horrorMovies.slice(0, 24)}
                 onPlayMovie={handlePlayMovie}
                 isFavorite={(id) => activeProfile.favoriteMovieIds.includes(id)}
                 onToggleFavorite={handleToggleFavorite}
                 isWatched={(id) => (activeProfile.watchedMovieIds || []).includes(id)}
                 onToggleWatched={handleToggleWatched}
                 onSeeAll={() => handleSelectFilter('Terror')}
+                seeAllText={`Ver todos (${horrorMovies.length})`}
               />
             )}
 

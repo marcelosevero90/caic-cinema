@@ -86,82 +86,94 @@ export function useTvNavigation(onBack?: () => void) {
     if (isUp || isDown || isLeft || isRight) {
       e.preventDefault();
 
-      // Encontra todos os elementos visíveis e focáveis
-      const focusables = Array.from(document.querySelectorAll<HTMLElement>('.tv-focusable:not([disabled])'))
-        .filter(el => {
-          const style = window.getComputedStyle(el);
-          return style.display !== 'none' && style.visibility !== 'hidden' && style.opacity !== '0';
-        });
-
-      if (focusables.length === 0) return;
-
       const current = document.activeElement as HTMLElement | null;
-      let currentIndex = focusables.findIndex((el) => el === current);
+      let bestCandidate: HTMLElement | null = null;
 
-      if (currentIndex === -1 || !current) {
-        focusables[0].focus();
-        focusables[0].classList.add('tv-focused');
-        setCurrentFocusId(focusables[0].id || null);
-        return;
+      // 1. FAST PATH para Carrossel Horizontal: Esquerda e Direita diretos no DOM (0ms)
+      if (current && (isLeft || isRight)) {
+        const carousel = current.closest('.movie-carousel') as HTMLElement | null;
+        if (carousel) {
+          const itemWrapper = (current.closest('.shrink-0') || current) as HTMLElement;
+          const sibling = isRight ? itemWrapper.nextElementSibling : itemWrapper.previousElementSibling;
+          if (sibling) {
+            const inSibling = sibling.querySelector<HTMLElement>('.tv-focusable') || (sibling.classList.contains('tv-focusable') ? (sibling as HTMLElement) : null);
+            if (inSibling) {
+              bestCandidate = inSibling;
+            }
+          }
+        }
       }
 
-      const currentRect = current.getBoundingClientRect();
-      const currentCenterX = currentRect.left + currentRect.width / 2;
-      const currentCenterY = currentRect.top + currentRect.height / 2;
+      // 2. Se não encontrou no fast-path, busca elementos visíveis usando offsetParent (sem forçar reflow)
+      if (!bestCandidate) {
+        const allFocusables = Array.from(document.querySelectorAll<HTMLElement>('.tv-focusable:not([disabled])'));
+        const focusables = allFocusables.filter(el => el.offsetParent !== null || el.getClientRects().length > 0);
 
-      let bestCandidate: HTMLElement | null = null;
-      let minDistance = Infinity;
+        if (focusables.length === 0) return;
 
-      focusables.forEach((candidate, idx) => {
-        if (idx === currentIndex) return;
-        const rect = candidate.getBoundingClientRect();
-        const candCenterX = rect.left + rect.width / 2;
-        const candCenterY = rect.top + rect.height / 2;
+        let currentIndex = current ? focusables.findIndex((el) => el === current) : -1;
 
-        let isCorrectDirection = false;
-        let dist = Infinity;
-
-        if (isRight) {
-          // Movendo para a direita: prefere elementos na mesma linha vertical
-          if (rect.left >= currentRect.left + 5) {
-            isCorrectDirection = true;
-            const isSameRow = Math.abs(currentCenterY - candCenterY) < 60;
-            const xDist = rect.left - currentRect.right;
-            const yDist = Math.abs(currentCenterY - candCenterY);
-            dist = isSameRow ? xDist : xDist * 1.5 + yDist * 3.0;
-          }
-        } else if (isLeft) {
-          // Movendo para a esquerda: prefere elementos na mesma linha vertical
-          if (rect.right <= currentRect.right - 5) {
-            isCorrectDirection = true;
-            const isSameRow = Math.abs(currentCenterY - candCenterY) < 60;
-            const xDist = currentRect.left - rect.right;
-            const yDist = Math.abs(currentCenterY - candCenterY);
-            dist = isSameRow ? xDist : xDist * 1.5 + yDist * 3.0;
-          }
-        } else if (isDown) {
-          // Movendo para baixo: pula para a próxima linha/categoria
-          if (rect.top >= currentRect.top + 30) {
-            isCorrectDirection = true;
-            const yDist = rect.top - currentRect.bottom;
-            const xDist = Math.abs(currentCenterX - candCenterX);
-            dist = yDist * 1.2 + xDist * 0.5;
-          }
-        } else if (isUp) {
-          // Movendo para cima: pula para a linha/categoria anterior
-          if (rect.bottom <= currentRect.bottom - 30) {
-            isCorrectDirection = true;
-            const yDist = currentRect.top - rect.bottom;
-            const xDist = Math.abs(currentCenterX - candCenterX);
-            dist = yDist * 1.2 + xDist * 0.5;
-          }
+        if (currentIndex === -1 || !current) {
+          focusables[0].focus();
+          focusables[0].classList.add('tv-focused');
+          setCurrentFocusId(focusables[0].id || null);
+          return;
         }
 
-        if (isCorrectDirection && dist < minDistance) {
-          minDistance = dist;
-          bestCandidate = candidate;
+        const currentRect = current.getBoundingClientRect();
+        const currentCenterX = currentRect.left + currentRect.width / 2;
+        const currentCenterY = currentRect.top + currentRect.height / 2;
+        let minDistance = Infinity;
+
+        // Se estiver subindo ou descendo, podemos priorizar elementos que estejam na direção certa
+        for (let i = 0; i < focusables.length; i++) {
+          if (i === currentIndex) continue;
+          const candidate = focusables[i];
+          const rect = candidate.getBoundingClientRect();
+          const candCenterX = rect.left + rect.width / 2;
+          const candCenterY = rect.top + rect.height / 2;
+
+          let isCorrectDirection = false;
+          let dist = Infinity;
+
+          if (isRight) {
+            if (rect.left >= currentRect.left + 5) {
+              isCorrectDirection = true;
+              const isSameRow = Math.abs(currentCenterY - candCenterY) < 60;
+              const xDist = rect.left - currentRect.right;
+              const yDist = Math.abs(currentCenterY - candCenterY);
+              dist = isSameRow ? xDist : xDist * 1.5 + yDist * 3.0;
+            }
+          } else if (isLeft) {
+            if (rect.right <= currentRect.right - 5) {
+              isCorrectDirection = true;
+              const isSameRow = Math.abs(currentCenterY - candCenterY) < 60;
+              const xDist = currentRect.left - rect.right;
+              const yDist = Math.abs(currentCenterY - candCenterY);
+              dist = isSameRow ? xDist : xDist * 1.5 + yDist * 3.0;
+            }
+          } else if (isDown) {
+            if (rect.top >= currentRect.top + 25) {
+              isCorrectDirection = true;
+              const yDist = rect.top - currentRect.bottom;
+              const xDist = Math.abs(currentCenterX - candCenterX);
+              dist = yDist * 1.2 + xDist * 0.5;
+            }
+          } else if (isUp) {
+            if (rect.bottom <= currentRect.bottom - 25) {
+              isCorrectDirection = true;
+              const yDist = currentRect.top - rect.bottom;
+              const xDist = Math.abs(currentCenterX - candCenterX);
+              dist = yDist * 1.2 + xDist * 0.5;
+            }
+          }
+
+          if (isCorrectDirection && dist < minDistance) {
+            minDistance = dist;
+            bestCandidate = candidate;
+          }
         }
-      });
+      }
 
       if (bestCandidate) {
         document.querySelectorAll('.tv-focused').forEach(el => el.classList.remove('tv-focused'));
@@ -170,29 +182,24 @@ export function useTvNavigation(onBack?: () => void) {
         targetEl.classList.add('tv-focused');
         setCurrentFocusId(targetEl.id || null);
 
-        // 1. Centraliza horizontalmente dentro do container de scroll se houver
-        let parent: HTMLElement | null = targetEl.parentElement;
-        while (parent && parent !== document.body) {
-          const overflowX = window.getComputedStyle(parent).overflowX;
-          if (overflowX === 'auto' || overflowX === 'scroll' || parent.classList.contains('movie-carousel')) {
-            const pRect = parent.getBoundingClientRect();
-            const elRect = targetEl.getBoundingClientRect();
-            const offset = (elRect.left - pRect.left) - (pRect.width / 2 - elRect.width / 2);
-            if (parent.scrollBy) {
-              try {
-                parent.scrollBy({ left: offset, behavior: 'smooth' });
-              } catch {
-                parent.scrollLeft += offset;
-              }
-            } else {
+        // 1. Centraliza horizontalmente dentro do carrossel sem chamar getComputedStyle
+        const parent = targetEl.closest('.movie-carousel') as HTMLElement | null;
+        if (parent) {
+          const pRect = parent.getBoundingClientRect();
+          const elRect = targetEl.getBoundingClientRect();
+          const offset = (elRect.left - pRect.left) - (pRect.width / 2 - elRect.width / 2);
+          if (parent.scrollBy) {
+            try {
+              parent.scrollBy({ left: offset, behavior: 'smooth' });
+            } catch {
               parent.scrollLeft += offset;
             }
-            break;
+          } else {
+            parent.scrollLeft += offset;
           }
-          parent = parent.parentElement;
         }
 
-        // 2. Centraliza verticalmente a janela no elemento focado
+        // 2. Centraliza verticalmente a tela no elemento focado
         const finalRect = targetEl.getBoundingClientRect();
         const screenCenterOffset = (finalRect.top + finalRect.height / 2) - (window.innerHeight / 2);
         if (Math.abs(screenCenterOffset) > 40) {
