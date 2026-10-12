@@ -43,15 +43,32 @@ jobs:
           mkdir -p android/app/src/main/assets/public
           cp -r dist/* android/app/src/main/assets/public/
           cp capacitor.config.json android/app/src/main/assets/capacitor.config.json
+      - name: 📱 Configurar Android SDK
+        uses: android-actions/setup-android@v4
+
       - name: 📱 Instalar Android SDK Platform 35 e Build-Tools
         run: |
-          yes | sdkmanager --licenses 2>/dev/null || yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses 2>/dev/null || true
-          sdkmanager "platforms;android-35" "build-tools;35.0.0" 2>/dev/null || $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager "platforms;android-35" "build-tools;35.0.0" 2>/dev/null || true
+          yes | sdkmanager --licenses || true
+          yes | sdkmanager "platforms;android-35" "build-tools;35.0.0" || true
 
       - name: 📱 Compilar APK com Gradle
+        shell: bash
         run: |
+          set -o pipefail
           cd android
-          ./gradlew assembleDebug --no-daemon --stacktrace
+          ./gradlew assembleDebug --no-daemon --stacktrace 2>&1 | tee ../gradle-build.log
+
+      - name: 📝 Salvar Log no Branch build-logs se Falhar
+        if: failure()
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git checkout -B build-logs
+          git rm -rf . 2>/dev/null || true
+          cp gradle-build.log build.log 2>/dev/null || echo "Log não disponível" > build.log
+          git add build.log
+          git commit -m "build log run ${{ github.run_id }}"
+          git push -f origin build-logs || true
 
       - name: 🏷️ Renomear APK para Distribuição
         run: |
