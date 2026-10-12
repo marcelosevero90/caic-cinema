@@ -279,11 +279,10 @@ export const Header: React.FC<HeaderProps> = ({
           </div>
         </div>
 
-        {/* Quick Genre Filters (Desktop & Tablet) */}
-        <div className="hidden lg:flex items-center gap-1.5 overflow-x-auto scrollbar-none flex-nowrap min-w-0 px-2 shrink">
-          {genres.map((g) => {
+        {/* Quick Filters no Desktop: Apenas 'Sessão Cinema' e 'Minha Lista' */}
+        <div className="hidden lg:flex items-center gap-2 flex-nowrap min-w-0 px-2 shrink">
+          {['🍿 Sessão Cinema', 'Minha Lista'].map((g) => {
             const isFavFilter = g === 'Minha Lista';
-            const isJellyfinFilter = g === 'Jellyfin';
             const isActive = activeFilter === g;
             const isAuth = currentAccount?.isAuthenticated;
 
@@ -298,21 +297,16 @@ export const Header: React.FC<HeaderProps> = ({
                   onSelectFilter(g);
                 }}
                 disabled={isFavFilter && !isAuth}
-                className={`tv-focusable shrink-0 text-xs font-semibold px-3 py-1.5 rounded-full transition-all flex items-center gap-1 ${
+                className={`tv-focusable shrink-0 text-xs font-semibold px-3 py-1.5 rounded-xl transition-all flex items-center gap-1.5 cursor-pointer ${
                   isFavFilter && !isAuth
                     ? 'text-slate-400 dark:text-slate-600 opacity-60 cursor-not-allowed'
                     : isActive
-                    ? isJellyfinFilter
-                      ? 'bg-indigo-600 text-white dark:bg-indigo-500/30 dark:text-indigo-300 border border-indigo-500 shadow-sm'
-                      : 'bg-cyan-600 text-white dark:bg-cyan-500/20 dark:text-cyan-300 border border-cyan-600 dark:border-cyan-400/50 shadow-sm'
-                    : isJellyfinFilter
-                    ? 'text-indigo-600 dark:text-indigo-400 bg-indigo-50/60 dark:bg-indigo-950/40 hover:bg-indigo-100 dark:hover:bg-indigo-900/60 border border-indigo-200 dark:border-indigo-800/60'
-                    : 'text-slate-700 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white hover:bg-slate-200/80 dark:hover:bg-slate-800/60 border border-transparent'
+                    ? 'bg-cyan-600 text-white font-bold shadow-md shadow-cyan-600/20 border border-cyan-500'
+                    : 'bg-slate-100 dark:bg-slate-800/80 text-slate-700 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white hover:bg-slate-200 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700/60'
                 }`}
-                title={isFavFilter && !isAuth ? 'Faça login para ver seus filmes favoritos' : isJellyfinFilter ? 'Filmes transmitidos do servidor Jellyfin' : undefined}
+                title={isFavFilter && !isAuth ? 'Faça login para ver seus filmes favoritos' : undefined}
               >
-                {isFavFilter && <Heart className={`w-3 h-3 ${isActive ? 'fill-white dark:fill-cyan-300 text-white dark:text-cyan-300' : 'text-rose-500'}`} />}
-                {isJellyfinFilter && <Server className="w-3 h-3 text-indigo-500" />}
+                {isFavFilter && <Heart className={`w-3.5 h-3.5 ${isActive ? 'fill-white text-white' : 'text-rose-500'}`} />}
                 <span>{g}</span>
                 {isFavFilter && !isAuth && <Lock className="w-2.5 h-2.5 text-slate-400" />}
               </button>
