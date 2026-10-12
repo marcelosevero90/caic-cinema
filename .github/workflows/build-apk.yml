@@ -46,10 +46,10 @@ jobs:
       - name: 📱 Configurar Android SDK
         uses: android-actions/setup-android@v4
 
-      - name: 📱 Instalar Android SDK Platform 35 e Build-Tools
+      - name: 📱 Instalar Android SDK Platform 36 e Build-Tools
         run: |
           yes | sdkmanager --licenses || true
-          yes | sdkmanager "platforms;android-35" "build-tools;35.0.0" || true
+          yes | sdkmanager "platforms;android-36" "build-tools;36.0.0" "platforms;android-35" "build-tools;35.0.0" || true
 
       - name: 📱 Compilar APK com Gradle
         shell: bash
