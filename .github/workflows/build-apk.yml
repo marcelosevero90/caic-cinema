@@ -45,22 +45,24 @@ jobs:
           cp capacitor.config.json android/app/src/main/assets/capacitor.config.json
       - name: 📱 Instalar Android SDK Platform 35 e Build-Tools
         run: |
-          yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses || true
-          $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager "platforms;android-35" "build-tools;35.0.0" || true
+          yes | sdkmanager --licenses 2>/dev/null || yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses 2>/dev/null || true
+          sdkmanager "platforms;android-35" "build-tools;35.0.0" 2>/dev/null || $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager "platforms;android-35" "build-tools;35.0.0" 2>/dev/null || true
 
       - name: 📱 Compilar APK com Gradle
         run: |
           cd android
-          ./gradlew assembleDebug --no-daemon --stacktrace 2>&1 | tee ../gradle-build.log
-
-      - name: 📋 Exibir Log se o Gradle Falhar
-        if: failure()
-        run: |
-          tail -n 120 gradle-build.log || true
+          ./gradlew assembleDebug --no-daemon --stacktrace
 
       - name: 🏷️ Renomear APK para Distribuição
         run: |
-          cp android/app/build/outputs/apk/debug/app-debug.apk ./CAIC-Cinema-Universal.apk
+          APK_PATH=$(find android -type f -name "*debug*.apk" -o -name "*.apk" | head -n 1)
+          if [ -z "$APK_PATH" ]; then
+            echo "❌ ERRO: Nenhum APK encontrado gerado pelo Gradle!"
+            find android -maxdepth 5 || true
+            exit 1
+          fi
+          echo "✅ APK localizado em: $APK_PATH"
+          cp "$APK_PATH" ./CAIC-Cinema-Universal.apk
           ls -lh ./CAIC-Cinema-Universal.apk
 
       - name: 📤 Salvar APK como Artefato da Execução (Download no GitHub Actions)
