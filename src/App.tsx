@@ -555,17 +555,19 @@ export const App: React.FC = () => {
             <div className="relative flex-1 flex items-center">
               <Search className="w-5 h-5 text-cyan-600 dark:text-cyan-400 absolute left-4 pointer-events-none" />
               <input
+                id="main-search-input"
                 type="text"
                 value={searchDraft}
                 onChange={(e) => setSearchDraft(e.target.value)}
                 placeholder="Buscar filmes, gêneros, atores ou temas (ex: Guerra, Jackie Chan, Robôs, Medieval)..."
-                className="w-full pl-12 pr-12 py-3.5 bg-transparent text-sm sm:text-base text-slate-950 dark:text-white placeholder-slate-400 font-medium focus:outline-none"
+                className="tv-focusable w-full pl-12 pr-12 py-3.5 bg-transparent text-sm sm:text-base text-slate-950 dark:text-white placeholder-slate-400 font-medium focus:outline-none rounded-2xl"
               />
               {searchDraft && (
                 <button
+                  id="btn-clear-search"
                   type="button"
                   onClick={handleClearSearch}
-                  className="absolute right-3 p-1.5 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-400 hover:text-slate-700 dark:hover:text-white transition"
+                  className="tv-focusable absolute right-3 p-1.5 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-400 hover:text-slate-700 dark:hover:text-white transition"
                   title="Limpar busca"
                 >
                   <X className="w-4 h-4" />
@@ -577,9 +579,10 @@ export const App: React.FC = () => {
             <div className="flex items-center gap-2 px-1">
               {/* Botão de Voz */}
               <button
+                id="btn-voice-search"
                 type="button"
                 onClick={handleVoiceSearch}
-                className={`p-3 rounded-2xl border transition-all flex items-center gap-1.5 text-xs font-bold ${
+                className={`tv-focusable p-3 rounded-2xl border transition-all flex items-center gap-1.5 text-xs font-bold ${
                   isListeningVoice
                     ? 'bg-rose-500 text-white border-rose-400 shadow-lg shadow-rose-500/40 animate-pulse'
                     : 'bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300'
@@ -592,8 +595,9 @@ export const App: React.FC = () => {
 
               {/* Botão Efetivar Busca */}
               <button
+                id="btn-submit-search"
                 type="submit"
-                className="px-6 py-3.5 rounded-2xl bg-gradient-to-r from-cyan-600 via-sky-600 to-indigo-600 hover:from-cyan-500 hover:to-indigo-500 text-white font-extrabold text-sm tracking-wide shadow-lg shadow-cyan-600/25 transition-all flex items-center justify-center gap-2 hover:scale-[1.02] active:scale-95"
+                className="tv-focusable px-6 py-3.5 rounded-2xl bg-gradient-to-r from-cyan-600 via-sky-600 to-indigo-600 hover:from-cyan-500 hover:to-indigo-500 text-white font-extrabold text-sm tracking-wide shadow-lg shadow-cyan-600/25 transition-all flex items-center justify-center gap-2 hover:scale-[1.02] active:scale-95 cursor-pointer"
               >
                 <Search className="w-4 h-4" />
                 <span>Buscar</span>

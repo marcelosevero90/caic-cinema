@@ -209,7 +209,7 @@ export const MovieRowComponent: React.FC<MovieRowProps> = ({
           onMouseLeave={handleMouseUpOrLeave}
           onClickCapture={handleClickCapture}
           onFocusCapture={handleFocusCapture}
-          className={`movie-carousel flex flex-row gap-3.5 sm:gap-4 overflow-x-auto scroll-smooth py-2 px-1 scrollbar-none ${
+          className={`movie-carousel flex flex-row gap-3.5 sm:gap-4 overflow-x-auto py-2 px-1 scrollbar-none ${
             isDragging ? 'cursor-grabbing select-none' : 'cursor-grab'
           }`}
           style={{

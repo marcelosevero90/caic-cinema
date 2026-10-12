@@ -302,7 +302,7 @@ export const CinemaSessionSectionComponent: React.FC<CinemaSessionSectionProps> 
             onMouseLeave={handleMouseUpOrLeave}
             onClickCapture={handleClickCapture}
             onFocusCapture={handleFocusCapture}
-            className={`flex flex-row gap-3.5 sm:gap-4 overflow-x-auto scroll-smooth py-2 px-1 scrollbar-none ${
+            className={`flex flex-row gap-3.5 sm:gap-4 overflow-x-auto py-2 px-1 scrollbar-none ${
               isDragging ? 'cursor-grabbing select-none' : 'cursor-grab'
             }`}
             style={{

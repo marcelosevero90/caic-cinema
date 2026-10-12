@@ -56,15 +56,19 @@ export function useTvNavigation(onBack?: () => void) {
     const isEnter = e.key === 'Enter' || e.key === 'Select' || keyCode === 13 || keyCode === 23 || keyCode === 66;
     const isBack = e.key === 'Escape' || e.key === 'Backspace' || e.key === 'GoBack' || keyCode === 4 || keyCode === 27;
 
-    // Se o usuário está digitando num input/textarea, não interferir
+    // Se o usuário está digitando num input/textarea, permitir sair com Cima/Baixo
     const activeEl = document.activeElement as HTMLElement | null;
     const isTyping = activeEl && (activeEl.tagName === 'INPUT' || activeEl.tagName === 'TEXTAREA');
 
     if (isTyping && !isBack) {
       if (isEnter) {
+        // Se pressionou Enter no input, permite submit natural do form
         return;
       }
-      return;
+      // Se pressionou Cima ou Baixo, permite navegar para fora do input!
+      if (!isUp && !isDown) {
+        return;
+      }
     }
 
     if (isBack) {
@@ -182,35 +186,21 @@ export function useTvNavigation(onBack?: () => void) {
         targetEl.classList.add('tv-focused');
         setCurrentFocusId(targetEl.id || null);
 
-        // 1. Centraliza horizontalmente dentro do carrossel sem chamar getComputedStyle
+        // 1. Centraliza horizontalmente dentro do carrossel instantaneamente (0ms sem gargalo de GPU)
         const parent = targetEl.closest('.movie-carousel') as HTMLElement | null;
         if (parent) {
           const pRect = parent.getBoundingClientRect();
           const elRect = targetEl.getBoundingClientRect();
           const offset = (elRect.left - pRect.left) - (pRect.width / 2 - elRect.width / 2);
-          if (parent.scrollBy) {
-            try {
-              parent.scrollBy({ left: offset, behavior: 'smooth' });
-            } catch {
-              parent.scrollLeft += offset;
-            }
-          } else {
-            parent.scrollLeft += offset;
-          }
+          parent.scrollLeft += offset;
         }
 
-        // 2. Centraliza verticalmente a tela no elemento focado
+        // 2. Centraliza verticalmente a tela no elemento focado de forma instantânea
         const finalRect = targetEl.getBoundingClientRect();
         const screenCenterOffset = (finalRect.top + finalRect.height / 2) - (window.innerHeight / 2);
         if (Math.abs(screenCenterOffset) > 40) {
           const targetY = window.pageYOffset + screenCenterOffset;
-          if (window.scrollTo) {
-            try {
-              window.scrollTo({ top: targetY, behavior: 'smooth' });
-            } catch {
-              window.scrollTo(0, targetY);
-            }
-          }
+          window.scrollTo(0, targetY);
         }
       }
     }

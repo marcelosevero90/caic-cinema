@@ -15,7 +15,9 @@ import {
   Loader2,
   Globe,
   Bot,
-  SkipForward
+  SkipForward,
+  Maximize,
+  Minimize
 } from 'lucide-react';
 import type { Movie } from '../types/movie';
 import { userService } from '../services/userService';
@@ -54,9 +56,13 @@ export const YouTubePlayerModal: React.FC<YouTubePlayerModalProps> = ({
   const [chatMessages, setChatMessages] = useState<MovieInsightMessage[]>([]);
   const [chatInput, setChatInput] = useState('');
   const [isLoadingAi, setIsLoadingAi] = useState(false);
+  const [isFullscreenOnly, setIsFullscreenOnly] = useState(true);
+  const [showOverlay, setShowOverlay] = useState(true);
 
   useEffect(() => {
     if (movie) {
+      setIsFullscreenOnly(true);
+      setShowOverlay(true);
       userService.recordWatch(movie.id);
       setWatched(userService.isWatched(movie.id));
 
@@ -82,6 +88,9 @@ export const YouTubePlayerModal: React.FC<YouTubePlayerModalProps> = ({
       }
       if (!isInput && (e.key === 'n' || e.key === 'N') && onNextMovie && nextMovie) {
         onNextMovie();
+      }
+      if (!isInput && (e.key === 'f' || e.key === 'F')) {
+        setIsFullscreenOnly((prev) => !prev);
       }
     };
     window.addEventListener('keydown', handleKeyDown);
@@ -157,104 +166,196 @@ export const YouTubePlayerModal: React.FC<YouTubePlayerModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-6 md:p-10 bg-slate-950/85 backdrop-blur-xl animate-fadeIn">
-      <div className="relative w-full max-w-5xl max-h-[95vh] overflow-y-auto bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl shadow-2xl flex flex-col">
-        
-        {/* Top Control Bar */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/95 sticky top-0 z-10">
-          <div className="flex items-center gap-3">
-            <span className="w-2.5 h-2.5 rounded-full bg-red-500 animate-pulse" />
-            <h2 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white truncate max-w-md">
-              {movie.title}
-            </h2>
-            <span className="text-xs px-2 py-0.5 rounded bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-mono hidden sm:inline">
-              {movie.releaseYear}
-            </span>
-          </div>
+    <div
+      className="fixed inset-0 z-50 bg-black flex flex-col w-screen h-screen overflow-y-auto animate-fadeIn select-none"
+      onMouseMove={() => setShowOverlay(true)}
+    >
+      {/* MODO TELA CHEIA TOTAL (VÍDEO EM DESTAQUE MÁXIMO NA TV BOX) */}
+      {isFullscreenOnly ? (
+        <div className="relative w-full h-full flex-1 flex flex-col bg-black">
+          {/* Barra Flutuante de Controle Superior */}
+          <div
+            className={`absolute top-0 left-0 right-0 z-30 flex items-center justify-between p-3 sm:p-5 bg-gradient-to-b from-black/90 via-black/50 to-transparent transition-opacity duration-300 ${
+              showOverlay ? 'opacity-100' : 'opacity-0 pointer-events-none'
+            }`}
+          >
+            <div className="flex items-center gap-3">
+              <span className="w-3 h-3 rounded-full bg-red-600 animate-pulse" />
+              <h2 className="text-sm sm:text-base md:text-lg font-bold text-white truncate max-w-sm sm:max-w-md md:max-w-xl drop-shadow-md">
+                {movie.title} ({movie.releaseYear})
+              </h2>
+            </div>
 
-          <div className="flex items-center gap-2">
-            {/* Toggle Já Assistido */}
-            <button
-              onClick={handleToggleWatchedClick}
-              className={`tv-focusable flex items-center gap-1.5 px-3 py-1.5 rounded-xl border text-xs font-semibold transition ${
-                watched
-                  ? 'bg-emerald-100 dark:bg-emerald-950/80 border-emerald-300 dark:border-emerald-800 text-emerald-700 dark:text-emerald-300'
-                  : 'bg-slate-100 dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white'
-              }`}
-            >
-              {watched ? <CheckCircle2 className="w-3.5 h-3.5" /> : <RotateCcw className="w-3.5 h-3.5" />}
-              <span className="hidden sm:inline">{watched ? 'Já Assistido' : 'Marcar como Assistido'}</span>
-            </button>
-
-            {/* Favoritar */}
-            <button
-              onClick={handleFavoriteClick}
-              className={`tv-focusable flex items-center gap-1.5 px-3 py-1.5 rounded-xl border text-xs font-semibold transition ${
-                isFav
-                  ? 'bg-rose-100 dark:bg-rose-950/80 border-rose-300 dark:border-rose-800 text-rose-700 dark:text-rose-300'
-                  : 'bg-slate-100 dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white'
-              }`}
-            >
-              <Heart className={`w-3.5 h-3.5 ${isFav ? 'fill-rose-500 text-rose-500' : ''}`} />
-              <span className="hidden sm:inline">{isFav ? 'Salvo' : 'Salvar'}</span>
-            </button>
-
-            {/* Perguntar à IA */}
-            <button
-              onClick={() => onAskSimilar(movie)}
-              className="tv-focusable flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-cyan-100 dark:bg-cyan-950/60 hover:bg-cyan-200 dark:hover:bg-cyan-900/60 text-cyan-700 dark:text-cyan-300 border border-cyan-300 dark:border-cyan-700/60 text-xs font-semibold transition"
-            >
-              <Sparkles className="w-3.5 h-3.5 text-cyan-600 dark:text-cyan-400" />
-              <span>Ver Semelhantes</span>
-            </button>
-
-            {/* Botão Próximo Filme */}
-            {nextMovie && onNextMovie && (
+            <div className="flex items-center gap-2">
+              {/* Botão Ver Sinopse / Detalhes */}
               <button
-                id="btn-next-movie"
-                onClick={onNextMovie}
-                className="tv-focusable flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-slate-950 font-black text-xs shadow-md transition transform hover:scale-105 active:scale-95 cursor-pointer"
-                title={`Passar para o próximo filme: ${nextMovie.title} (${nextMovie.releaseYear})`}
+                id="btn-show-details"
+                onClick={() => setIsFullscreenOnly(false)}
+                className="tv-focusable flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-900/80 hover:bg-slate-800 text-white border border-slate-700 text-xs font-bold transition shadow-lg cursor-pointer"
+                title="Ver sinopse e detalhes do filme"
               >
-                <SkipForward className="w-3.5 h-3.5 fill-current" />
-                <span>Próximo Filme</span>
+                <Minimize className="w-3.5 h-3.5" />
+                <span className="hidden sm:inline">Ver Sinopse / Detalhes</span>
               </button>
-            )}
 
-            {/* Fechar */}
-            <button
-              id="btn-close-player"
-              onClick={onClose}
-              className="tv-focusable p-2 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white transition"
-              aria-label="Fechar player"
-            >
-              <X className="w-5 h-5" />
-            </button>
+              {/* Botão Próximo Filme se houver */}
+              {nextMovie && onNextMovie && (
+                <button
+                  id="btn-next-movie-fs"
+                  onClick={onNextMovie}
+                  className="tv-focusable flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-slate-950 font-black text-xs shadow-lg transition transform hover:scale-105 active:scale-95 cursor-pointer"
+                  title={`Passar para o próximo filme: ${nextMovie.title}`}
+                >
+                  <SkipForward className="w-3.5 h-3.5 fill-current" />
+                  <span>Próximo</span>
+                </button>
+              )}
+
+              {/* Botão Fechar / Sair */}
+              <button
+                id="btn-close-fullscreen"
+                onClick={onClose}
+                className="tv-focusable p-2 rounded-xl bg-red-600/90 hover:bg-red-700 text-white font-bold text-xs transition shadow-lg cursor-pointer"
+                title="Fechar Player (Voltar ao Catálogo)"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+          </div>
+
+          {/* Iframe ou Vídeo ocupando 100% da tela */}
+          <div className="w-full h-full flex-1 flex items-center justify-center bg-black">
+            {movie.source === 'jellyfin' && movie.streamUrl ? (
+              <video
+                src={movie.streamUrl}
+                controls
+                autoPlay
+                playsInline
+                className="w-full h-full object-contain focus:outline-none"
+              >
+                Seu navegador não suporta reprodução de vídeo HTML5.
+              </video>
+            ) : (
+              <iframe
+                src={`https://www.youtube.com/embed/${movie.youtubeVideoId}?autoplay=1&rel=0&modestbranding=1&enablejsapi=1&fs=1`}
+                title={movie.title}
+                className="w-full h-full border-0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen"
+                allowFullScreen
+              />
+            )}
           </div>
         </div>
+      ) : (
+        /* MODO DETALHES + VÍDEO EXPANDIDO */
+        <div className="relative w-full max-w-6xl mx-auto flex flex-col bg-slate-950 text-white min-h-screen">
+          {/* Top Control Bar */}
+          <div className="flex items-center justify-between px-4 sm:px-6 py-3.5 border-b border-slate-800 bg-slate-900 sticky top-0 z-30">
+            <div className="flex items-center gap-3">
+              <span className="w-2.5 h-2.5 rounded-full bg-red-500 animate-pulse" />
+              <h2 className="text-base sm:text-lg font-bold text-white truncate max-w-md">
+                {movie.title}
+              </h2>
+              <span className="text-xs px-2 py-0.5 rounded bg-slate-800 text-slate-300 font-mono hidden sm:inline">
+                {movie.releaseYear}
+              </span>
+            </div>
 
-        {/* Video Player Frame Container (16:9) */}
-        <div className="relative w-full aspect-video bg-black shadow-inner flex items-center justify-center">
-          {movie.source === 'jellyfin' && movie.streamUrl ? (
-            <video
-              src={movie.streamUrl}
-              controls
-              autoPlay
-              playsInline
-              className="w-full h-full object-contain focus:outline-none"
-            >
-              Seu navegador não suporta reprodução de vídeo HTML5.
-            </video>
-          ) : (
-            <iframe
-              src={`https://www.youtube.com/embed/${movie.youtubeVideoId}?autoplay=1&rel=0&modestbranding=1&enablejsapi=1`}
-              title={movie.title}
-              className="w-full h-full border-0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowFullScreen
-            />
-          )}
-        </div>
+            <div className="flex items-center gap-2">
+              {/* BOTÃO MAXIMIZAR / TELA CHEIA EM DESTAQUE */}
+              <button
+                id="btn-maximize-player"
+                onClick={() => setIsFullscreenOnly(true)}
+                className="tv-focusable flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-bold transition shadow-lg shadow-cyan-600/30 cursor-pointer"
+                title="Maximizar vídeo em tela cheia na TV"
+              >
+                <Maximize className="w-3.5 h-3.5" />
+                <span>Maximizar Vídeo</span>
+              </button>
+
+              {/* Toggle Já Assistido */}
+              <button
+                onClick={handleToggleWatchedClick}
+                className={`tv-focusable flex items-center gap-1.5 px-3 py-1.5 rounded-xl border text-xs font-semibold transition ${
+                  watched
+                    ? 'bg-emerald-950/80 border-emerald-800 text-emerald-300'
+                    : 'bg-slate-800 border-slate-700 text-slate-300 hover:text-white'
+                }`}
+              >
+                {watched ? <CheckCircle2 className="w-3.5 h-3.5" /> : <RotateCcw className="w-3.5 h-3.5" />}
+                <span className="hidden sm:inline">{watched ? 'Já Assistido' : 'Marcar como Assistido'}</span>
+              </button>
+
+              {/* Favoritar */}
+              <button
+                onClick={handleFavoriteClick}
+                className={`tv-focusable flex items-center gap-1.5 px-3 py-1.5 rounded-xl border text-xs font-semibold transition ${
+                  isFav
+                    ? 'bg-rose-950/80 border-rose-800 text-rose-300'
+                    : 'bg-slate-800 border-slate-700 text-slate-300 hover:text-white'
+                }`}
+              >
+                <Heart className={`w-3.5 h-3.5 ${isFav ? 'fill-rose-500 text-rose-500' : ''}`} />
+                <span className="hidden sm:inline">{isFav ? 'Salvo' : 'Salvar'}</span>
+              </button>
+
+              {/* Perguntar à IA / Ver Semelhantes */}
+              <button
+                onClick={() => onAskSimilar(movie)}
+                className="tv-focusable flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-cyan-950/60 hover:bg-cyan-900/60 text-cyan-300 border border-cyan-700/60 text-xs font-semibold transition cursor-pointer"
+                title="Pedir recomendações parecidas ao assistente CAIC"
+              >
+                <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
+                <span className="hidden sm:inline">Semelhantes</span>
+              </button>
+
+              {/* Botão Próximo Filme */}
+              {nextMovie && onNextMovie && (
+                <button
+                  id="btn-next-movie"
+                  onClick={onNextMovie}
+                  className="tv-focusable flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-slate-950 font-black text-xs shadow-md transition transform hover:scale-105 active:scale-95 cursor-pointer"
+                  title={`Passar para o próximo filme: ${nextMovie.title}`}
+                >
+                  <SkipForward className="w-3.5 h-3.5 fill-current" />
+                  <span>Próximo</span>
+                </button>
+              )}
+
+              {/* Fechar */}
+              <button
+                id="btn-close-player"
+                onClick={onClose}
+                className="tv-focusable p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white transition"
+                aria-label="Fechar player"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+          </div>
+
+          {/* Video Player Frame Container (Grande em 16:9) */}
+          <div className="relative w-full aspect-video max-h-[75vh] bg-black shadow-2xl flex items-center justify-center">
+            {movie.source === 'jellyfin' && movie.streamUrl ? (
+              <video
+                src={movie.streamUrl}
+                controls
+                autoPlay
+                playsInline
+                className="w-full h-full object-contain focus:outline-none"
+              >
+                Seu navegador não suporta reprodução de vídeo HTML5.
+              </video>
+            ) : (
+              <iframe
+                src={`https://www.youtube.com/embed/${movie.youtubeVideoId}?autoplay=1&rel=0&modestbranding=1&enablejsapi=1&fs=1`}
+                title={movie.title}
+                className="w-full h-full border-0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen"
+                allowFullScreen
+              />
+            )}
+          </div>
 
         {/* Banner do Próximo Filme na Maratona / Fila */}
         {nextMovie && onNextMovie && (
@@ -494,8 +595,8 @@ export const YouTubePlayerModal: React.FC<YouTubePlayerModalProps> = ({
             <span>Conteúdo licenciado ou em domínio público transmitido pelo player oficial do YouTube em conformidade com as diretrizes de direitos autorais.</span>
           </div>
         </div>
-
       </div>
+      )}
     </div>
   );
 };

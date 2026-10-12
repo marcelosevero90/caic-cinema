@@ -10,6 +10,9 @@ import {
   MoreVertical,
   Crown,
   X,
+  ChevronDown,
+  Film,
+  Check,
 } from 'lucide-react';
 import type { UserProfile, UserAccount } from '../types/movie';
 import { jellyfinService } from '../services/jellyfinService';
@@ -44,6 +47,7 @@ export const Header: React.FC<HeaderProps> = ({
 }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isDesktopMenuOpen, setIsDesktopMenuOpen] = useState(false);
+  const [isCategoryMenuOpen, setIsCategoryMenuOpen] = useState(false);
   const isJfEnabled = jellyfinService.getConfig().enabled;
   const genres = ['Todos', '🍿 Sessão Cinema', ...(isJfEnabled ? ['Jellyfin'] : []), 'Minha Lista', 'Ação', 'Guerra', 'Drama', 'Comédia', 'Terror', 'Suspense', 'Ficção Científica'];
   const isSubscriberActive = currentAccount?.subscriptionStatus === 'active';
@@ -61,7 +65,7 @@ export const Header: React.FC<HeaderProps> = ({
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-3">
         
         {/* Top bar on Mobile / Left brand on Desktop */}
-        <div className="flex items-center justify-between w-full md:w-auto shrink-0">
+        <div className="flex items-center justify-between w-full md:w-auto shrink-0 gap-2">
           {/* Logo brand */}
           <div
             className="flex items-center cursor-pointer group shrink-0"
@@ -73,6 +77,83 @@ export const Header: React.FC<HeaderProps> = ({
               alt="CAIC"
               className="h-8 sm:h-9 md:h-10 w-auto object-contain rounded-lg shadow-sm border border-red-950/40 group-hover:scale-105 transition-transform"
             />
+          </div>
+
+          {/* Menu Suspenso de Categorias (Visível em Celular, TV Box e Desktop) */}
+          <div className="relative">
+            <button
+              id="btn-category-dropdown"
+              onClick={() => setIsCategoryMenuOpen((prev) => !prev)}
+              className="tv-focusable flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 border border-slate-200 dark:border-slate-700 text-xs font-bold transition shadow-sm cursor-pointer"
+              title="Abrir menu de categorias de filmes"
+            >
+              <Film className="w-3.5 h-3.5 text-amber-500 shrink-0" />
+              <span className="truncate max-w-[100px] sm:max-w-[150px]">
+                {activeFilter === 'Todos' ? 'Categorias' : activeFilter}
+              </span>
+              <ChevronDown className={`w-3.5 h-3.5 text-slate-400 transition-transform ${isCategoryMenuOpen ? 'rotate-180' : ''}`} />
+            </button>
+
+            {isCategoryMenuOpen && (
+              <>
+                <div
+                  className="fixed inset-0 z-40 bg-black/60 backdrop-blur-xs"
+                  onClick={() => setIsCategoryMenuOpen(false)}
+                />
+                <div className="absolute left-0 mt-2 w-60 max-h-[75vh] overflow-y-auto rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-2xl p-2 z-50 space-y-1 animate-fadeIn">
+                  <div className="px-3 py-2 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between text-xs font-bold text-slate-500">
+                    <span className="flex items-center gap-1.5">
+                      <Film className="w-3.5 h-3.5 text-amber-500" />
+                      Gêneros & Categorias
+                    </span>
+                    <button
+                      onClick={() => setIsCategoryMenuOpen(false)}
+                      className="p-1 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-400 hover:text-slate-600 dark:hover:text-white"
+                    >
+                      <X className="w-3.5 h-3.5" />
+                    </button>
+                  </div>
+
+                  {genres.map((g) => {
+                    const isFavFilter = g === 'Minha Lista';
+                    const isJellyfinFilter = g === 'Jellyfin';
+                    const isActive = activeFilter === g;
+                    const isAuth = currentAccount?.isAuthenticated;
+
+                    return (
+                      <button
+                        key={`cat-menu-${g}`}
+                        onClick={() => {
+                          if (isFavFilter && !isAuth) {
+                            onOpenProfileModal();
+                          } else {
+                            onSelectFilter(g);
+                          }
+                          setIsCategoryMenuOpen(false);
+                        }}
+                        disabled={isFavFilter && !isAuth}
+                        className={`tv-focusable w-full text-left px-3 py-2 rounded-xl text-xs font-semibold flex items-center justify-between transition cursor-pointer ${
+                          isFavFilter && !isAuth
+                            ? 'text-slate-400 dark:text-slate-600 opacity-60 cursor-not-allowed'
+                            : isActive
+                            ? 'bg-cyan-600 text-white font-bold shadow-md'
+                            : 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-950 dark:hover:text-white'
+                        }`}
+                      >
+                        <div className="flex items-center gap-2 truncate">
+                          {isFavFilter && <Heart className={`w-3.5 h-3.5 ${isActive ? 'fill-current' : 'text-rose-500'}`} />}
+                          {isJellyfinFilter && <Server className="w-3.5 h-3.5 text-indigo-400" />}
+                          {!isFavFilter && !isJellyfinFilter && <Film className="w-3 h-3 text-slate-400" />}
+                          <span className="truncate">{g}</span>
+                        </div>
+                        {isActive && <Check className="w-4 h-4 text-white shrink-0" />}
+                        {isFavFilter && !isAuth && <Lock className="w-3 h-3 text-slate-400 shrink-0" />}
+                      </button>
+                    );
+                  })}
+                </div>
+              </>
+            )}
           </div>
 
           {/* Mobile Actions: Clean, well-spaced, essential buttons */}
@@ -141,6 +222,21 @@ export const Header: React.FC<HeaderProps> = ({
                       </button>
                     </div>
 
+                    <button
+                      onClick={() => {
+                        setIsCategoryMenuOpen(true);
+                        setIsMobileMenuOpen(false);
+                      }}
+                      className="w-full text-left px-3 py-2 rounded-xl text-xs font-semibold text-slate-800 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center justify-between transition cursor-pointer"
+                    >
+                      <div className="flex items-center gap-2.5">
+                        <Film className="w-4 h-4 text-amber-500" />
+                        <span>Categorias de Filmes</span>
+                      </div>
+                      <span className="text-[10px] px-1.5 py-0.5 rounded bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 font-bold">
+                        {activeFilter}
+                      </span>
+                    </button>
 
                     {onOpenMovieSuggestion && (
                       <button
