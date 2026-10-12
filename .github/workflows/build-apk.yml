@@ -43,14 +43,20 @@ jobs:
           mkdir -p android/app/src/main/assets/public
           cp -r dist/* android/app/src/main/assets/public/
           cp capacitor.config.json android/app/src/main/assets/capacitor.config.json
-      - name: 📱 Aceitar Licenças do Android SDK
+      - name: 📱 Instalar Android SDK Platform 35 e Build-Tools
         run: |
           yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses || true
+          $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager "platforms;android-35" "build-tools;35.0.0" || true
 
       - name: 📱 Compilar APK com Gradle
         run: |
           cd android
-          ./gradlew assembleDebug --no-daemon --stacktrace
+          ./gradlew assembleDebug --no-daemon --stacktrace 2>&1 | tee ../gradle-build.log
+
+      - name: 📋 Exibir Log se o Gradle Falhar
+        if: failure()
+        run: |
+          tail -n 120 gradle-build.log || true
 
       - name: 🏷️ Renomear APK para Distribuição
         run: |
