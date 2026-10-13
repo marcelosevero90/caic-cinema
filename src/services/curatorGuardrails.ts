@@ -160,3 +160,41 @@ export function buildOffTopicResponse(): {
     quickReplies: DEFAULT_MOVIE_QUICK_REPLIES.slice(0, 5)
   };
 }
+
+/**
+ * Detecta se a mensagem do usuário é uma pergunta de acompanhamento sobre um filme
+ * que já está em discussão no histórico da conversa (ex: estúdio, diretor, elenco, sinopse, dublagem).
+ */
+export function isFollowUpMovieInquiry(rawText: string): boolean {
+  if (!rawText) return false;
+  const t = rawText.trim().toLowerCase();
+
+  const triggers = [
+    'estudio', 'estúdio', 'produtora', 'distribuidora', 'distribuidor',
+    'diretor', 'diretora', 'dirigiu', 'direcao', 'direção',
+    'ator', 'atores', 'atriz', 'atrizes', 'elenco', 'quem atua', 'quem fez', 'quem participa',
+    'fale mais', 'conta mais', 'conte mais', 'resumo', 'sinopse', 'enredo', 'trama',
+    'história desse', 'historia desse', 'história deste', 'historia deste',
+    'sobre esse filme', 'sobre este filme', 'desse filme', 'deste filme', 'esse filme', 'este filme',
+    'o final', 'final do filme', 'spoiler',
+    'é dublado', 'e dublado', 'dublagem', 'idioma', 'áudio', 'audio', 'legendado',
+    'qual o ano', 'ano de lançamento', 'ano de lancamento', 'quando foi lançado', 'quando foi lancado',
+    'quantos minutos', 'duração', 'duracao', 'tempo de filme',
+    'onde foi gravado', 'onde se passa', 'vale a pena', 'é bom', 'e bom', 'recomenda mesmo',
+    'tem continuação', 'tem continuacao', 'parte 2', 'segunda parte', 'quem morre', 'quem vence'
+  ];
+
+  for (const trigger of triggers) {
+    if (t.includes(trigger)) {
+      return true;
+    }
+  }
+
+  // Perguntas curtas sobre "qual...", "quem...", "onde...", quando em diálogo
+  if (/^(qual|quem|onde|como|por que|porque|quando)\b/i.test(t) && t.length < 50) {
+    return true;
+  }
+
+  return false;
+}
+

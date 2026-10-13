@@ -324,7 +324,13 @@ export const AICuratorDrawer: React.FC<AICuratorDrawerProps> = ({
         .filter((m) => !m.isThinking && m.role !== 'system')
         .map((m) => ({ role: m.role as 'user' | 'assistant', content: m.content }));
 
-      const response = await geminiCurationService.askCurator(prompt, history, activeProfile);
+      // Encontra os filmes mais recentes recomendados ou discutidos na conversa
+      const recentMovies = [...messages]
+        .reverse()
+        .find((m) => m.recommendedMovies && m.recommendedMovies.length > 0)
+        ?.recommendedMovies;
+
+      const response = await geminiCurationService.askCurator(prompt, history, activeProfile, recentMovies);
 
       setMessages((prev) => [
         ...prev.filter((m) => !m.isThinking),

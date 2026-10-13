@@ -54,22 +54,33 @@ export function useTvNavigation(onBack?: () => void) {
     const isLeft = e.key === 'ArrowLeft' || keyCode === 21 || keyCode === 37;
     const isRight = e.key === 'ArrowRight' || keyCode === 22 || keyCode === 39;
     const isEnter = e.key === 'Enter' || e.key === 'Select' || keyCode === 13 || keyCode === 23 || keyCode === 66;
-    const isBack = e.key === 'Escape' || e.key === 'Backspace' || e.key === 'GoBack' || keyCode === 4 || keyCode === 27;
-
-    // Se o usuário está digitando num input/textarea, permitir sair com Cima/Baixo
     const activeEl = document.activeElement as HTMLElement | null;
-    const isTyping = activeEl && (activeEl.tagName === 'INPUT' || activeEl.tagName === 'TEXTAREA');
+    const isTyping = Boolean(
+      activeEl && (
+        activeEl.tagName === 'INPUT' ||
+        activeEl.tagName === 'TEXTAREA' ||
+        activeEl.isContentEditable
+      )
+    );
 
-    if (isTyping && !isBack) {
-      if (isEnter) {
-        // Se pressionou Enter no input, permite submit natural do form
+    // Se o usuário está digitando num input/textarea:
+    if (isTyping) {
+      // 1. Backspace NUNCA deve fechar telas ou voltar quando o usuário está editando texto!
+      // Deve funcionar naturalmente apagando caracteres.
+      if (e.key === 'Backspace' || keyCode === 8) {
         return;
       }
-      // Se pressionou Cima ou Baixo, permite navegar para fora do input!
-      if (!isUp && !isDown) {
+      // 2. Enter no input permite submit natural do form
+      if (isEnter) {
+        return;
+      }
+      // 3. Setas laterais ou outras teclas normais de digitação seguem sem interceptação
+      if (!isUp && !isDown && e.key !== 'Escape') {
         return;
       }
     }
+
+    const isBack = e.key === 'Escape' || (!isTyping && e.key === 'Backspace') || e.key === 'GoBack' || keyCode === 4 || keyCode === 27;
 
     if (isBack) {
       e.preventDefault();

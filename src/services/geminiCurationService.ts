@@ -6,6 +6,7 @@ import { deepseekService } from './deepseekService';
 import {
   isOffTopicQuery,
   buildOffTopicResponse,
+  isFollowUpMovieInquiry,
   DEFAULT_MOVIE_QUICK_REPLIES,
   FOLLOW_UP_MOVIE_REPLIES
 } from './curatorGuardrails';
@@ -193,24 +194,28 @@ Retorne EXCLUSIVAMENTE um objeto JSON válido no formato:
   public async askCurator(
     userMessage: string,
     history: { role: 'user' | 'assistant'; content: string }[] = [],
-    userProfile?: UserProfile
+    userProfile?: UserProfile,
+    recentMovies?: Movie[]
   ): Promise<CurationResponse> {
     // 1. Guardrail Imediato: Perguntas fora do contexto de cinema não devem seguir
     if (isOffTopicQuery(userMessage)) {
       return buildOffTopicResponse();
     }
 
+    const isFollowUp = isFollowUpMovieInquiry(userMessage);
+    const focalMovie = recentMovies && recentMovies.length > 0 ? recentMovies[0] : undefined;
+
     const apiKey = this.getApiKey();
 
     if (!apiKey) {
       if (deepseekService.isAvailable()) {
         try {
-          return await deepseekService.askCurator(userMessage, history, userProfile);
+          return await deepseekService.askCurator(userMessage, history, userProfile, recentMovies);
         } catch (dsErr) {
           console.warn('DeepSeek indisponível, usando motor heurístico:', dsErr);
         }
       }
-      return this.smartSemanticHeuristicCuration(userMessage, userProfile);
+      return this.smartSemanticHeuristicCuration(userMessage, userProfile, recentMovies);
     }
 
     try {
@@ -233,6 +238,30 @@ Cumprimente cordialmente pelo nome quando apropriado e dê preferência às afin
         `.trim();
       }
 
+      // Contexto de filme(s) recentemente apresentados ou em discussão
+      let focalMovieContext = '';
+      if (recentMovies && recentMovies.length > 0) {
+        focalMovieContext = `
+FILME(S) ATUALMENTE EM DISCUSSÃO / RECOMENDADOS NA CONVERSA:
+${recentMovies.slice(0, 3).map((m, idx) => `
+[Filme ${idx + 1}] "${m.title}" (Título Original: "${m.originalTitle || m.title}")
+- Ano: ${m.releaseYear} | Duração: ${m.durationMinutes} min | Áudio: ${m.language} | Classificação: ${m.contentRating}
+- Gêneros: ${m.genres.join(', ')} ${m.subgenres ? `| Subgêneros: ${m.subgenres.join(', ')}` : ''}
+- Canal/Distribuidora/Estúdio oficial no CAIC: "${m.channelName}"
+- Elenco: ${(m.cast || []).join(', ') || 'Elenco oficial'}
+- Sinopse: "${m.synopsis}"
+- STATUS: CONFIRMADO E PRESENTE NO CATÁLOGO DO CAIC! (ID: ${m.id})
+`).join('\n')}
+
+DIRETRIZES ESSENCIAIS DE CONTINUIDADE E SEGUIMENTO (FOLLOW-UP):
+- SE O USUÁRIO FIZER PERGUNTAS SOBRE O FILME ACIMA (ex: estúdio, canal, produtora, diretor, elenco, sinopse, se é bom, história, áudio):
+  1. O FILME FAZ PARTE DO CATÁLOGO DO CAIC! NUNCA DIGA QUE ELE NÃO ESTÁ NO CATÁLOGO E NUNCA PEÇA DESCULPAS DIZENDO QUE NÃO O TEMOS!
+  2. Responda diretamente e com precisão cinéfila à dúvida do usuário. Se a pergunta for sobre estúdio ou produtora, esclareça que no CAIC ele é distribuído/licenciado pelo parceiro oficial "${focalMovie?.channelName || recentMovies[0].channelName}", e contextualize a produção.
+  3. NÃO acione a ferramenta search_catalog para perguntas conceituais sobre o filme em discussão, pois ele já está selecionado e confirmado no catálogo. Apenas responda naturalmente mantendo a conversa!
+  4. Somente invoque search_catalog se o usuário pedir expressamente para procurar OUTROS filmes ou mudar de gênero/tema.
+        `.trim();
+      }
+
       const catalogTotal = catalogService.getAll().length;
 
       const systemInstruction = `
@@ -241,14 +270,16 @@ Seu objetivo é entender com precisão o que o usuário quer assistir e sugerir 
 
 ${profileContext}
 
+${focalMovieContext}
+
 DIRETRIZES FUNDAMENTAIS:
 1. ESCOPO E FILTRO ESTRITO - SOMENTE CINEMA E FILMES (REGRA INEGOCIÁVEL):
    - Você é EXCLUSIVAMENTE o consultor de filmes, séries e cinema da plataforma CAIC.
-   - SE O USUÁRIO FIZER QUALQUER PERGUNTA OU PEDIDO FORA DO CONTEXTO DE CINEMA, FILMES, ATORES, DIRETORES, GÊNEROS OU ENTRETENIMENTO AUDIOVISUAL (por exemplo: receitas de cozinha, previsão do tempo, código de programação, matemática, lição de casa, política, cotações de moedas/ações, conselhos médicos ou assuntos gerais sem relação com cinema):
+   - SE O USUÁRIO FIZER QUALQUER PERGUNTA OU PEDIDO FORA DO CONTEXTO DE CINEMA, FILMES, ATORES, DIRETORES, GÊNEROS OU ENTRETENIMENTO AUDIOVISUAL:
      * VOCÊ DEVE RECUSAR EDUCADAMENTE E COM SIMPATIA responder ao tema alheio!
      * Diga claramente: "Meu foco no CAIC é 100% exclusivo para a sétima arte e o universo do cinema! Não consigo responder sobre outros assuntos fora de filmes, mas sou especialista em encontrar a obra perfeita para a sua sessão."
      * NUNCA chame a ferramenta 'search_catalog' e NUNCA retorne recomendações de filmes para perguntas fora de tópico!
-     * Traga o usuário de volta com uma pergunta chave de cinema (ex: que estilo de filme ele quer assistir hoje).
+     * Traga o usuário de volta com uma pergunta chave de cinema.
 
 2. CONVERSA ITERATIVA E PERGUNTAS CHAVES:
    - Seja um concierge de cinema atencioso, caloroso e proativo.
@@ -259,10 +290,10 @@ DIRETRIZES FUNDAMENTAIS:
    - Quando recomendar filmes, explique com charme o motivo de cada um e termine com uma pergunta leve para continuar refinando se o usuário quiser.
 
 3. TAMANHO DO CATÁLOGO: O catálogo conta com centenas de filmes completos (mais de ${catalogTotal} títulos catalogados). NUNCA diga que o catálogo só tem 200 filmes, que o catálogo é pequeno ou limitado. Apresente o acervo sempre como rico, variado e diversificado.
-4. Sempre use a ferramenta 'search_catalog' para buscar filmes com base em gênero, subgênero, ator, palavras-chave e humor (EXCETO se for fora de tópico).
-5. CASO O TÍTULO PEDIDO NÃO ESTEJA NO CATÁLOGO OU NÃO HAJA NADA CORRESPONDENTE:
-   - Deixe EXPLICITAMENTE CLARO logo no início da resposta que o título ou obra procurada NÃO foi encontrada diretamente no acervo local do CAIC.
-   - Explique que você analisou o gênero/tema/estilo (ex: Comédia Romântica, Terror na Floresta, Ação de Artes Marciais, Faroeste Clássico, Guerra) e selecionou as melhores opções equivalentes disponíveis no catálogo CAIC.
+4. Sempre use a ferramenta 'search_catalog' para buscar filmes com base em gênero, subgênero, ator, palavras-chave e humor (EXCETO se for pergunta conceitual sobre filme em discussão ou fora de tópico).
+5. CASO O USUÁRIO PEÇA UM TÍTULO ESPECÍFICO EXTERNO QUE NÃO EXISTA NO CATÁLOGO:
+   - ATENÇÃO: Esta regra se aplica EXCLUSIVAMENTE quando o usuário pede pela primeira vez um título de fora que não temos. NUNCA aplique esta regra a filmes que você já recomendou ou que estão listados acima em DISCUSSÃO!
+   - Se for um filme novo não encontrado, explique com simpatia que analisou o tema e selecionou as melhores opções equivalentes disponíveis no catálogo CAIC.
    - Sugira que o usuário solicite a busca na Web em segundo plano para os administradores avaliarem a inclusão!
 6. SUBGÊNEROS E ATORES:
    - Se o usuário pedir subgêneros (ex: comédia romântica, comédia adolescente, artes marciais, faroeste, guerra histórica, terror psicológico), use os filtros apropriados e recomende títulos alinhados.
@@ -299,7 +330,13 @@ DIRETRIZES FUNDAMENTAIS:
         const call = functionCalls[0];
         const args = (call.args || {}) as SearchFilters;
 
-        const searchResults = catalogService.search(args);
+        let searchResults = catalogService.search(args);
+
+        // Se a busca não achou nada por palavra-chave conceitual (ex: "qual estudio"), mas é uma pergunta sobre o filme em discussão
+        if (searchResults.length === 0 && isFollowUp && recentMovies && recentMovies.length > 0) {
+          searchResults = recentMovies;
+        }
+
         recommendedMovies = searchResults.slice(0, 10);
         let unmatchedQuery: string | undefined = undefined;
         let suggestWebSearch = false;
@@ -322,6 +359,7 @@ DIRETRIZES FUNDAMENTAIS:
           duration: `${m.durationMinutes}m`,
           genres: m.genres,
           subgenres: m.subgenres,
+          channelName: m.channelName,
           cast: m.cast,
           synopsis: m.synopsis
         }));
@@ -356,7 +394,9 @@ DIRETRIZES FUNDAMENTAIS:
 
         const reasons: ChatRecommendation[] = recommendedMovies.map((m, idx) => ({
           movie: m,
-          reason: `Combina com sua busca por ${args.genre || args.subgenre || args.actor || args.mood || 'cinema de qualidade'} e seu estilo cinéfilo.`,
+          reason: isFollowUp && focalMovie && m.id === focalMovie.id
+            ? `Filme em discussão: ${m.title} (${m.channelName})`
+            : `Combina com sua busca por ${args.genre || args.subgenre || args.actor || args.mood || 'cinema de qualidade'} e seu estilo cinéfilo.`,
           matchScore: Math.round(98 - idx * 2)
         }));
 
@@ -373,19 +413,28 @@ DIRETRIZES FUNDAMENTAIS:
 
       return {
         text: firstResponse.text || 'Como posso te ajudar a escolher o que assistir hoje?',
-        recommendedMovies: [],
-        quickReplies: DEFAULT_MOVIE_QUICK_REPLIES.slice(0, 5)
+        recommendedMovies: (isFollowUp && recentMovies && recentMovies.length > 0) ? recentMovies : [],
+        recommendationsWithReasons: (isFollowUp && recentMovies && recentMovies.length > 0)
+          ? recentMovies.map((m) => ({
+              movie: m,
+              reason: `Filme em discussão no catálogo: ${m.title} (${m.channelName})`,
+              matchScore: 98
+            }))
+          : undefined,
+        quickReplies: (isFollowUp && recentMovies && recentMovies.length > 0)
+          ? FOLLOW_UP_MOVIE_REPLIES
+          : DEFAULT_MOVIE_QUICK_REPLIES.slice(0, 5)
       };
     } catch (err: unknown) {
       console.warn('Gemini API atingiu cota ou indisponível. Acionando fallback transparente DeepSeek...', err);
       try {
         if (deepseekService.isAvailable()) {
-          return await deepseekService.askCurator(userMessage, history, userProfile);
+          return await deepseekService.askCurator(userMessage, history, userProfile, recentMovies);
         }
       } catch (dsErr) {
         console.warn('DeepSeek também indisponível, usando motor heurístico local:', dsErr);
       }
-      return this.smartSemanticHeuristicCuration(userMessage, userProfile);
+      return this.smartSemanticHeuristicCuration(userMessage, userProfile, recentMovies);
     }
   }
 
@@ -393,9 +442,73 @@ DIRETRIZES FUNDAMENTAIS:
    * Motor Semântico Heurístico Avançado de Curadoria Local:
    * Analisa emoções, atores, duração e referências a filmes externos fora do catálogo
    */
-  public smartSemanticHeuristicCuration(userMessage: string, userProfile?: UserProfile): CurationResponse {
+  public smartSemanticHeuristicCuration(
+    userMessage: string,
+    userProfile?: UserProfile,
+    recentMovies?: Movie[]
+  ): CurationResponse {
     if (isOffTopicQuery(userMessage)) {
       return buildOffTopicResponse();
+    }
+
+    const focalMovie = recentMovies && recentMovies.length > 0 ? recentMovies[0] : undefined;
+    const isFollowUp = isFollowUpMovieInquiry(userMessage);
+
+    // Resposta imediata e inteligente para perguntas de continuidade sobre o filme em discussão
+    if (isFollowUp && focalMovie) {
+      const textLower = userMessage.toLowerCase();
+      let replyText = '';
+
+      if (
+        textLower.includes('estudio') ||
+        textLower.includes('estúdio') ||
+        textLower.includes('produtora') ||
+        textLower.includes('distribuidora') ||
+        textLower.includes('distribuidor') ||
+        textLower.includes('canal')
+      ) {
+        replyText = `🎬 **Estúdio e Distribuição de "${focalMovie.title}":**\n\nNo catálogo oficial do CAIC, "${focalMovie.title}" (${focalMovie.releaseYear}) é licenciado e distribuído pelo canal parceiro oficial **${focalMovie.channelName}**.\n\nTrata-se de uma produção independente de ${focalMovie.genres.join(' e ')}, com ${focalMovie.durationMinutes} minutos de duração e áudio ${focalMovie.language}.\n\nPronto para iniciar a sessão? O player já está preparado no card abaixo!`;
+      } else if (
+        textLower.includes('diretor') ||
+        textLower.includes('diretora') ||
+        textLower.includes('dirigiu') ||
+        textLower.includes('direcao') ||
+        textLower.includes('direção')
+      ) {
+        replyText = `🎬 **Direção e Produção:**\n\nA direção de "${focalMovie.title}" (${focalMovie.releaseYear}) foca na construção dramática e nos dilemas de ${focalMovie.genres.join(' / ')}.\n\nDistribuição oficial no CAIC via parceiro **${focalMovie.channelName}**. Deseja dar o play agora?`;
+      } else if (
+        textLower.includes('elenco') ||
+        textLower.includes('ator') ||
+        textLower.includes('atriz') ||
+        textLower.includes('atores') ||
+        textLower.includes('quem atua') ||
+        textLower.includes('quem participa')
+      ) {
+        const castList = focalMovie.cast && focalMovie.cast.length > 0 ? focalMovie.cast.join(', ') : 'Elenco de atores do cinema internacional';
+        replyText = `⭐ **Elenco Principal de "${focalMovie.title}":**\n\nO filme traz no elenco: ${castList}.\n\nEles conduzem a narrativa com intensidade. Quer que eu inicie a reprodução?`;
+      } else if (
+        textLower.includes('dublado') ||
+        textLower.includes('audio') ||
+        textLower.includes('áudio') ||
+        textLower.includes('idioma') ||
+        textLower.includes('legendado')
+      ) {
+        replyText = `🔊 **Áudio e Idioma:**\n\n"${focalMovie.title}" está disponível no CAIC em versão **${focalMovie.language}**, com ótima mixagem de som e resolução em alta definição!`;
+      } else {
+        replyText = `🎬 **Sobre "${focalMovie.title}" (${focalMovie.releaseYear}):**\n\n${focalMovie.synopsis}\n\n• **Duração:** ${focalMovie.durationMinutes} min\n• **Gênero:** ${focalMovie.genres.join(', ')}\n• **Distribuição no CAIC:** ${focalMovie.channelName}\n• **Classificação:** ${focalMovie.contentRating}\n\nO filme está confirmado e disponível no catálogo! Toque no card abaixo para assistir.`;
+      }
+
+      const moviesToKeep = recentMovies && recentMovies.length > 0 ? recentMovies : [focalMovie];
+      return {
+        text: replyText,
+        recommendedMovies: moviesToKeep,
+        recommendationsWithReasons: moviesToKeep.map((m) => ({
+          movie: m,
+          reason: `Filme em discussão no catálogo do CAIC: ${m.title} (${m.channelName})`,
+          matchScore: 99
+        })),
+        quickReplies: FOLLOW_UP_MOVIE_REPLIES
+      };
     }
 
     const text = userMessage.toLowerCase();

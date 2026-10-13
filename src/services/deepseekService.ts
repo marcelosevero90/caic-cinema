@@ -4,6 +4,7 @@ import { catalogService } from './catalogService';
 import {
   isOffTopicQuery,
   buildOffTopicResponse,
+  isFollowUpMovieInquiry,
   DEFAULT_MOVIE_QUICK_REPLIES,
   FOLLOW_UP_MOVIE_REPLIES
 } from './curatorGuardrails';
@@ -107,23 +108,43 @@ class DeepSeekService {
   public async askCurator(
     userMessage: string,
     history: { role: 'user' | 'assistant'; content: string }[] = [],
-    userProfile?: UserProfile
+    userProfile?: UserProfile,
+    recentMovies?: Movie[]
   ): Promise<CurationResponse> {
     // 1. Guardrail Imediato: Perguntas fora do contexto de cinema não devem seguir
     if (isOffTopicQuery(userMessage)) {
       return buildOffTopicResponse();
     }
 
+    const isFollowUp = isFollowUpMovieInquiry(userMessage);
+    const focalMovie = recentMovies && recentMovies.length > 0 ? recentMovies[0] : undefined;
+
     const catalog = catalogService.getAll();
     const catalogTotal = catalog.length;
+
+    // Se houver filmes em discussão, prioriza-os no topo dos candidatos
+    let candidates: Movie[] = [];
+    if (recentMovies && recentMovies.length > 0) {
+      candidates.push(...recentMovies);
+    }
 
     // Busca preliminar de candidatos no catálogo local
     const candidateResults = catalogService.search({
       query: userMessage,
     });
+    for (const m of candidateResults) {
+      if (!candidates.some((c) => c.id === m.id)) {
+        candidates.push(m);
+      }
+    }
 
-    // Se a busca direta retornar poucos, completa com mais opções do catálogo
-    const candidates = candidateResults.length > 0 ? candidateResults.slice(0, 16) : catalog.slice(0, 16);
+    // Completa com filmes do acervo até 16
+    for (const m of catalog) {
+      if (candidates.length >= 16) break;
+      if (!candidates.some((c) => c.id === m.id)) {
+        candidates.push(m);
+      }
+    }
 
     const candidatesSummary = candidates.map((m) => ({
       id: m.id,
@@ -133,6 +154,7 @@ class DeepSeekService {
       duration: `${m.durationMinutes}m`,
       genres: m.genres,
       subgenres: m.subgenres,
+      channelName: m.channelName,
       cast: (m.cast || []).slice(0, 4),
       synopsis: m.synopsis.slice(0, 160) + '...',
     }));
@@ -150,11 +172,32 @@ Trate cordialmente pelo nome quando adequado.
       `.trim();
     }
 
+    let focalMovieContext = '';
+    if (recentMovies && recentMovies.length > 0) {
+      focalMovieContext = `
+FILME(S) ATUALMENTE EM DISCUSSÃO / RECOMENDADOS NA CONVERSA:
+${recentMovies.slice(0, 3).map((m, idx) => `
+[Filme ${idx + 1}] "${m.title}" (${m.releaseYear}) - Estúdio/Canal oficial no CAIC: "${m.channelName}" - Gêneros: ${m.genres.join(', ')} - Duração: ${m.durationMinutes}m - Áudio: ${m.language}
+Sinopse: "${m.synopsis}"
+STATUS: ESTE FILME ESTÁ CONFIRMADO E PRESENTE NO CATÁLOGO DO CAIC! (ID: "${m.id}")
+`).join('\n')}
+
+DIRETRIZES CRÍTICAS PARA PERGUNTAS DE FOLLOW-UP:
+- Se o usuário perguntar sobre o filme em discussão (estúdio, canal, produtora, diretor, elenco, sinopse, se é bom, história, etc.):
+  1. O filme ESTÁ confirmado no catálogo do CAIC! NUNCA diga que não faz parte do catálogo e NUNCA peça desculpas por ausência!
+  2. Responda diretamente em "message". Se perguntar qual o estúdio ou produtora, informe que no CAIC ele é licenciado/distribuído pelo canal parceiro "${focalMovie?.channelName || recentMovies[0].channelName}".
+  3. Mantenha "unmatchedQuery": "" e "suggestWebSearch": false.
+  4. Mantenha os IDs dos filmes em discussão em "recommendedMovieIds" (ex: ["${focalMovie?.id || recentMovies[0].id}"]).
+      `.trim();
+    }
+
     const systemPrompt = `
 Você é o "CAIC", assistente inteligente de cinema e inteligência artificial oficial da plataforma de streaming CAIC.
 Seu objetivo é orientar o usuário e sugerir os melhores filmes disponíveis no catálogo oficial do CAIC (que conta com mais de ${catalogTotal} filmes completos de alta qualidade).
 
 ${profileContext}
+
+${focalMovieContext}
 
 DIRETRIZES:
 1. ESCOPO E FILTRO ESTRITO - SOMENTE CINEMA E FILMES (REGRA INEGOCIÁVEL):
@@ -175,7 +218,7 @@ DIRETRIZES:
   "reasons": [
     { "movieId": "id1", "reason": "Frase explicando por que combina com o pedido" }
   ],
-  "unmatchedQuery": "Se o usuário pediu um título específico que NÃO existe no catálogo, coloque aqui o nome do filme",
+  "unmatchedQuery": "Se o usuário pediu um título específico NOVO que NÃO existe no catálogo, coloque aqui o nome do filme",
   "suggestWebSearch": false,
   "quickReplies": ["Opção 1", "Opção 2"]
 }
@@ -234,11 +277,20 @@ ${JSON.stringify(candidatesSummary, null, 2)}
               const customReason = parsed.reasons?.find((r: any) => r.movieId === id)?.reason;
               reasonsList.push({
                 movie: found,
-                reason: customReason || `Combina com o estilo e gênero procurado.`,
+                reason: customReason || (isFollowUp && focalMovie && found.id === focalMovie.id ? `Filme em discussão no catálogo: ${found.title} (${found.channelName})` : `Combina com o estilo e gênero procurado.`),
                 matchScore: Math.round(98 - i * 2),
               });
             }
           }
+        }
+
+        // Se for follow-up sobre filme em discussão, garante que ele permaneça recomendado
+        if (isFollowUp && recentMovies && recentMovies.length > 0) {
+          if (matchedMovies.length === 0) {
+            matchedMovies.push(...recentMovies);
+          }
+          parsed.unmatchedQuery = undefined;
+          parsed.suggestWebSearch = false;
         }
 
         // Se o JSON não listou IDs válidos, usa os candidatos pré-filtrados
@@ -260,12 +312,18 @@ ${JSON.stringify(candidatesSummary, null, 2)}
     }
 
     // Fallback de extração se não veio JSON estrito
+    const fallbackMovies = (isFollowUp && recentMovies && recentMovies.length > 0)
+      ? recentMovies
+      : candidates.slice(0, 4);
+
     return {
       text: responseText,
-      recommendedMovies: candidates.slice(0, 4),
-      recommendationsWithReasons: candidates.slice(0, 4).map((m, idx) => ({
+      recommendedMovies: fallbackMovies,
+      recommendationsWithReasons: fallbackMovies.map((m, idx) => ({
         movie: m,
-        reason: `Selecionado pelo curador inteligente com base no seu pedido.`,
+        reason: isFollowUp && focalMovie && m.id === focalMovie.id
+          ? `Filme em discussão no catálogo: ${m.title} (${m.channelName})`
+          : `Selecionado pelo curador inteligente com base no seu pedido.`,
         matchScore: Math.round(98 - idx * 2),
       })),
       quickReplies: FOLLOW_UP_MOVIE_REPLIES,
