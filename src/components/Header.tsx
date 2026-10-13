@@ -46,7 +46,7 @@ export const Header: React.FC<HeaderProps> = ({
   const [isDesktopMenuOpen, setIsDesktopMenuOpen] = useState(false);
   const [isCategoryMenuOpen, setIsCategoryMenuOpen] = useState(false);
   const isJfEnabled = jellyfinService.getConfig().enabled;
-  const genres = ['Todos', '🍿 Sessão Cinema', ...(isJfEnabled ? ['Jellyfin'] : []), 'Minha Lista', 'Ação', 'Guerra', 'Drama', 'Comédia', 'Terror', 'Suspense', 'Ficção Científica'];
+  const genres = ['Todos', '🔥 Lançamentos', '🍿 Sessão Cinema', ...(isJfEnabled ? ['Jellyfin'] : []), 'Minha Lista', 'Ação', 'Guerra', 'Drama', 'Comédia', 'Terror', 'Suspense', 'Ficção Científica'];
   const isSubscriberActive = currentAccount?.subscriptionStatus === 'active';
 
   const handleOpenSub = () => {
@@ -212,7 +212,7 @@ export const Header: React.FC<HeaderProps> = ({
         <div className="flex items-center gap-2 overflow-x-auto scrollbar-none w-full md:hidden pt-0.5 pb-0.5">
           {renderCategoryButton('btn-category-dropdown-mobile')}
 
-          {['🍿 Sessão Cinema', 'Minha Lista'].map((g) => {
+          {['🔥 Lançamentos', '🍿 Sessão Cinema', 'Minha Lista'].map((g) => {
             const isFavFilter = g === 'Minha Lista';
             const isActive = activeFilter === g;
             const isAuth = currentAccount?.isAuthenticated;
@@ -245,9 +245,9 @@ export const Header: React.FC<HeaderProps> = ({
           })}
         </div>
 
-        {/* Quick Filters no Desktop: Apenas 'Sessão Cinema' e 'Minha Lista' */}
+        {/* Quick Filters no Desktop: Lançamentos, Sessão Cinema e Minha Lista */}
         <div className="hidden lg:flex items-center gap-2 flex-nowrap min-w-0 px-2 shrink">
-          {['🍿 Sessão Cinema', 'Minha Lista'].map((g) => {
+          {['🔥 Lançamentos', '🍿 Sessão Cinema', 'Minha Lista'].map((g) => {
             const isFavFilter = g === 'Minha Lista';
             const isActive = activeFilter === g;
             const isAuth = currentAccount?.isAuthenticated;
@@ -445,7 +445,7 @@ export const Header: React.FC<HeaderProps> = ({
                     <div className="flex items-center gap-2.5 truncate">
                       {isFavFilter && <Heart className={`w-3.5 h-3.5 ${isActive ? 'fill-current' : 'text-rose-500'}`} />}
                       {isJellyfinFilter && <Server className="w-3.5 h-3.5 text-indigo-400" />}
-                      {!isFavFilter && !isJellyfinFilter && <Film className="w-3 h-3 text-slate-400" />}
+                      {!isFavFilter && !isJellyfinFilter && !g.startsWith('🔥') && !g.startsWith('🍿') && <Film className="w-3 h-3 text-slate-400" />}
                       <span className="truncate">{g}</span>
                     </div>
                     {isActive && <Check className="w-4 h-4 text-white shrink-0" />}

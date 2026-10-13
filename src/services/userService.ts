@@ -859,6 +859,76 @@ class UserService {
     });
   }
 
+  /**
+   * Remove um filme deletado do catálogo de todos os perfis do usuário (favoritos, assistidos e histórico)
+   */
+  public removeMovieFromAllProfiles(movieId: string): void {
+    this.profiles = this.profiles.map((p) => ({
+      ...p,
+      favoriteMovieIds: (p.favoriteMovieIds || []).filter((id) => id !== movieId),
+      watchedMovieIds: (p.watchedMovieIds || []).filter((id) => id !== movieId),
+      watchHistory: (p.watchHistory || []).filter((h) => h.movieId !== movieId),
+    }));
+
+    // Limpa também as cópias armazenadas no localStorage
+    try {
+      if (typeof window !== 'undefined') {
+        for (let i = 0; i < localStorage.length; i++) {
+          const key = localStorage.key(i);
+          if (key && (key.startsWith('CAIC_PROFILES_') || key === PROFILES_STORAGE_KEY)) {
+            const val = localStorage.getItem(key);
+            if (val) {
+              const profs: UserProfile[] = JSON.parse(val);
+              const cleaned = profs.map((p) => ({
+                ...p,
+                favoriteMovieIds: (p.favoriteMovieIds || []).filter((id) => id !== movieId),
+                watchedMovieIds: (p.watchedMovieIds || []).filter((id) => id !== movieId),
+                watchHistory: (p.watchHistory || []).filter((h) => h.movieId !== movieId),
+              }));
+              localStorage.setItem(key, JSON.stringify(cleaned));
+            }
+          }
+        }
+      }
+    } catch (e) {
+      console.warn('Erro ao limpar filme deletado do storage de perfis:', e);
+    }
+
+    this.saveState();
+    this.notify();
+  }
+
+  /**
+   * Sincroniza e purga IDs de filmes que não existem mais no catálogo de todos os perfis
+   */
+  public cleanupNonExistentMovies(validMovieIds: Set<string>): void {
+    let changed = false;
+    this.profiles = this.profiles.map((p) => {
+      const newFavs = (p.favoriteMovieIds || []).filter((id) => validMovieIds.has(id));
+      const newWatched = (p.watchedMovieIds || []).filter((id) => validMovieIds.has(id));
+      const newHistory = (p.watchHistory || []).filter((h) => validMovieIds.has(h.movieId));
+      if (
+        newFavs.length !== (p.favoriteMovieIds || []).length ||
+        newWatched.length !== (p.watchedMovieIds || []).length ||
+        newHistory.length !== (p.watchHistory || []).length
+      ) {
+        changed = true;
+        return {
+          ...p,
+          favoriteMovieIds: newFavs,
+          watchedMovieIds: newWatched,
+          watchHistory: newHistory,
+        };
+      }
+      return p;
+    });
+
+    if (changed) {
+      this.saveState();
+      this.notify();
+    }
+  }
+
   public updateTaste(genres: string[], moods: string[]): void {
     const active = this.getActiveProfile();
     this.updateProfile(active.id, {

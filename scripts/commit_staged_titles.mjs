@@ -1,18 +1,18 @@
 import fs from 'fs';
 import path from 'path';
 
-const stagedPath = path.resolve('scripts/staged_new_titles.json');
+const stagedPath = path.resolve('scripts/full_expansion_candidates.json');
 const catalogPath = path.resolve('src/data/catalog.ts');
 
 if (!fs.existsSync(stagedPath)) {
-  console.error('Arquivo de staging não encontrado:', stagedPath);
+  console.error('Arquivo de expansão não encontrado:', stagedPath);
   process.exit(1);
 }
 
 const stagedMovies = JSON.parse(fs.readFileSync(stagedPath, 'utf-8'));
 let catalogSource = fs.readFileSync(catalogPath, 'utf-8');
 
-// Verifica duplicatas
+// Verifica duplicatas estritas
 const existingIds = new Set();
 const idMatches = catalogSource.matchAll(/"youtubeVideoId":\s*"([^"]+)"/g);
 for (const match of idMatches) {
@@ -20,7 +20,7 @@ for (const match of idMatches) {
 }
 
 const toAdd = stagedMovies.filter(m => !existingIds.has(m.youtubeVideoId));
-console.log(`Títulos no staging: ${stagedMovies.length}. Títulos inéditos a adicionar: ${toAdd.length}.`);
+console.log(`Títulos no pacote de expansão: ${stagedMovies.length}. Inéditos a adicionar: ${toAdd.length}.`);
 
 if (toAdd.length === 0) {
   console.log('Nenhum título inédito a adicionar.');
@@ -44,4 +44,4 @@ const formattedMovies = toAdd
 const newCatalogSource = `${prefix}${needsComma ? ',' : ''}\n${formattedMovies}\n];\n`;
 
 fs.writeFileSync(catalogPath, newCatalogSource, 'utf-8');
-console.log(`\n🎉 Operação concluída com sucesso! ${toAdd.length} novos títulos de filmes e séries adicionados ao catálogo principal.`);
+console.log(`\n🎉 SUCESSO! ${toAdd.length} novos títulos de filmes e séries foram adicionados ao catálogo oficial da CAIC (${catalogPath})!`);

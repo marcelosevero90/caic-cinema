@@ -1,9 +1,11 @@
 import type { Movie, SearchFilters } from '../types/movie';
 import { INITIAL_CATALOG } from '../data/catalog';
 import { deriveMovieSubgenres, deriveMovieCast } from '../data/genreTaxonomy';
+import { userService } from './userService';
 
 const STORAGE_KEY = 'CINEAI_CUSTOM_MOVIES';
 const CATALOG_VERSION_KEY = 'CINEAI_CATALOG_VERSION_V5';
+const DELETED_MOVIES_KEY = 'CINEAI_DELETED_MOVIE_IDS_V5';
 
 
 const STOP_WORDS = new Set([
@@ -56,10 +58,15 @@ const SEMANTIC_CLUSTERS: Record<string, string[]> = {
   terror: ['horror', 'assustador', 'medo', 'ouija', 'exorcismo', 'hellraiser', 'paranormal', 'atividade paranormal', 'candyman', 'duende assassino', 'maldicao', 'pesadelo'],
   fantasia: ['magia', 'merlin', 'dragao', 'espada', 'rei arthur', 'viking', 'cavaleiro', 'reino'],
   viking: ['vikings', 'ragnarok', 'nordico', 'espada', 'batalha', 'medieval'],
-  ficcao: ['sci-fi', 'futuro', 'cubo', 'viagem no tempo', 'timecop', 'espaco', 'dimensao']
+  ficcao: ['sci-fi', 'futuro', 'cubo', 'viagem no tempo', 'timecop', 'espaco', 'dimensao'],
+  lancamentos: ['lancamento', 'lancamentos', 'novidade', 'novidades', 'novos', 'recente', 'recentes', 'novo', 'estreia', 'estreias'],
+  novidades: ['lancamento', 'lancamentos', 'novidade', 'novidades', 'novos', 'recente', 'recentes', 'novo', 'estreia', 'estreias'],
 };
 
 export const GENRE_ALIASES: Record<string, string[]> = {
+  lancamentos: ['lancamento', 'lancamentos', 'novidade', 'novidades', 'novo', 'novos', 'recente', 'recentes', 'estreia', 'estreias'],
+  lancamento: ['lancamento', 'lancamentos', 'novidade', 'novidades', 'novo', 'novos', 'recente', 'recentes', 'estreia', 'estreias'],
+  novidades: ['lancamento', 'lancamentos', 'novidade', 'novidades', 'novo', 'novos', 'recente', 'recentes', 'estreia', 'estreias'],
   acao: ['acao', 'action'],
   suspense: ['suspense', 'thriller', 'misterio', 'mystery'],
   comedia: ['comedia', 'comedy'],
@@ -143,17 +150,26 @@ class CatalogService {
         localStorage.setItem(CATALOG_VERSION_KEY, '5.0');
       }
 
+      const deletedStored = localStorage.getItem(DELETED_MOVIES_KEY);
+      const deletedIds = new Set<string>(deletedStored ? JSON.parse(deletedStored) : []);
+
       const stored = localStorage.getItem(STORAGE_KEY);
       const customMovies: Movie[] = stored ? JSON.parse(stored) : [];
-      // Mescla filmes customizados adicionados pelo usuário com o catálogo oficial e enriquece com subgêneros e elenco
-      const raw = [...customMovies, ...INITIAL_CATALOG];
+      // Mescla filmes customizados com catálogo oficial e exclui permanentemente filmes deletados
+      const raw = [...customMovies, ...INITIAL_CATALOG].filter(
+        (m) => !deletedIds.has(m.id) && !deletedIds.has(m.youtubeVideoId)
+      );
       this.catalog = raw.map((m) => ({
         ...m,
         subgenres: m.subgenres && m.subgenres.length > 0 ? m.subgenres : deriveMovieSubgenres(m),
         cast: m.cast && m.cast.length > 0 ? m.cast : deriveMovieCast(m),
       }));
     } catch {
-      this.catalog = INITIAL_CATALOG.map((m) => ({
+      const deletedStored = typeof window !== 'undefined' ? localStorage.getItem(DELETED_MOVIES_KEY) : null;
+      const deletedIds = new Set<string>(deletedStored ? JSON.parse(deletedStored) : []);
+      this.catalog = INITIAL_CATALOG.filter(
+        (m) => !deletedIds.has(m.id) && !deletedIds.has(m.youtubeVideoId)
+      ).map((m) => ({
         ...m,
         subgenres: m.subgenres && m.subgenres.length > 0 ? m.subgenres : deriveMovieSubgenres(m),
         cast: m.cast && m.cast.length > 0 ? m.cast : deriveMovieCast(m),
@@ -188,8 +204,42 @@ class CatalogService {
     return this.getAll().find((m) => m.id === id);
   }
 
+  /**
+   * Retorna os filmes mais recentes que entraram no catálogo (Lançamentos e Novidades).
+   * Ordena preferencialmente pela data de adição (addedAt) decrescente,
+   * seguida pelo ano de lançamento (releaseYear) e nota/relevância.
+   */
+  public getRecentReleases(limit?: number): Movie[] {
+    const all = this.getAll();
+    const sorted = [...all].sort((a, b) => {
+      // 1. Data de entrada no catálogo (mais recente adicionado primeiro)
+      if (a.addedAt && b.addedAt) {
+        const timeA = new Date(a.addedAt).getTime();
+        const timeB = new Date(b.addedAt).getTime();
+        if (timeA !== timeB) return timeB - timeA;
+      } else if (a.addedAt && !b.addedAt) {
+        return -1;
+      } else if (!a.addedAt && b.addedAt) {
+        return 1;
+      }
+
+      // 2. Ano de lançamento do filme (mais novo primeiro)
+      if (b.releaseYear !== a.releaseYear) {
+        return b.releaseYear - a.releaseYear;
+      }
+
+      // 3. Nota / Avaliação
+      return (b.ratingScore || 0) - (a.ratingScore || 0);
+    });
+
+    return limit ? sorted.slice(0, limit) : sorted;
+  }
+
   public getByGenre(genre: string): Movie[] {
     const gTerm = normalizeStr(genre);
+    if (gTerm === 'lancamentos' || gTerm === 'lancamento' || gTerm === 'novidades') {
+      return this.getRecentReleases();
+    }
     if (gTerm === 'jellyfin' || gTerm === 'local') {
       return [...this.jellyfinMovies];
     }
@@ -209,26 +259,32 @@ class CatalogService {
   }
 
   public addMovie(movie: Movie): Movie {
+    // Garante que o filme receba timestamp de adição ao entrar no catálogo
+    const movieWithDate: Movie = {
+      ...movie,
+      addedAt: movie.addedAt || new Date().toISOString(),
+    };
+
     // Evita duplicatas pelo ID do YouTube
-    const existingIndex = this.catalog.findIndex((m) => m.youtubeVideoId === movie.youtubeVideoId);
+    const existingIndex = this.catalog.findIndex((m) => m.youtubeVideoId === movieWithDate.youtubeVideoId);
     if (existingIndex >= 0) {
-      this.catalog[existingIndex] = movie;
+      this.catalog[existingIndex] = movieWithDate;
     } else {
-      this.catalog.unshift(movie);
+      this.catalog.unshift(movieWithDate);
     }
 
     // Persiste apenas os customizados
     try {
       const stored = localStorage.getItem(STORAGE_KEY);
       const customMovies: Movie[] = stored ? JSON.parse(stored) : [];
-      const updatedCustom = [movie, ...customMovies.filter((m) => m.youtubeVideoId !== movie.youtubeVideoId)];
+      const updatedCustom = [movieWithDate, ...customMovies.filter((m) => m.youtubeVideoId !== movieWithDate.youtubeVideoId)];
       localStorage.setItem(STORAGE_KEY, JSON.stringify(updatedCustom));
     } catch (e) {
       console.warn('Erro ao salvar filme no localStorage:', e);
     }
 
     this.notify();
-    return movie;
+    return movieWithDate;
   }
 
   public updateMovie(id: string, updates: Partial<Movie>): Movie | undefined {
@@ -258,18 +314,50 @@ class CatalogService {
   }
 
   public removeMovie(id: string): void {
+    const target = this.catalog.find((m) => m.id === id);
     this.catalog = this.catalog.filter((m) => m.id !== id);
+
+    // 1. Persiste na lista de filmes deletados permanentemente para nunca reaparecer
+    try {
+      const stored = localStorage.getItem(DELETED_MOVIES_KEY);
+      const list: string[] = stored ? JSON.parse(stored) : [];
+      if (!list.includes(id)) list.push(id);
+      if (target?.youtubeVideoId && !list.includes(target.youtubeVideoId)) {
+        list.push(target.youtubeVideoId);
+      }
+      localStorage.setItem(DELETED_MOVIES_KEY, JSON.stringify(list));
+    } catch (e) {
+      console.warn('Erro ao salvar ID deletado:', e);
+    }
+
+    // 2. Remove de customMovies se aplicável
     try {
       const stored = localStorage.getItem(STORAGE_KEY);
       if (stored) {
         const customMovies: Movie[] = JSON.parse(stored);
-        const filtered = customMovies.filter((m) => m.id !== id);
+        const filtered = customMovies.filter((m) => m.id !== id && m.youtubeVideoId !== target?.youtubeVideoId);
         localStorage.setItem(STORAGE_KEY, JSON.stringify(filtered));
       }
     } catch (e) {
       console.warn('Erro ao remover filme do localStorage:', e);
     }
+
+    // 3. Remove imediatamente da lista de visualização do usuário (assistidos, favoritos e histórico)
+    userService.removeMovieFromAllProfiles(id);
+    if (target?.youtubeVideoId) {
+      userService.removeMovieFromAllProfiles(target.youtubeVideoId);
+    }
+
     this.notify();
+  }
+
+  public getDeletedMovieIds(): Set<string> {
+    try {
+      const stored = localStorage.getItem(DELETED_MOVIES_KEY);
+      return new Set<string>(stored ? JSON.parse(stored) : []);
+    } catch {
+      return new Set<string>();
+    }
   }
 
   public search(filters: SearchFilters): Movie[] {
@@ -277,7 +365,9 @@ class CatalogService {
 
     if (filters.genre) {
       const gTerm = normalizeStr(filters.genre);
-      if (gTerm === 'jellyfin' || gTerm === 'local' || gTerm === 'servidor local') {
+      if (gTerm === 'lancamentos' || gTerm === 'lancamento' || gTerm === 'novidades') {
+        results = this.getRecentReleases();
+      } else if (gTerm === 'jellyfin' || gTerm === 'local' || gTerm === 'servidor local') {
         results = results.filter((m) => m.source === 'jellyfin');
       } else {
         const aliases = GENRE_ALIASES[gTerm] || [gTerm];

@@ -326,11 +326,30 @@ export const App: React.FC = () => {
     return userService.getPersonalizedRecommendations(allMovies).slice(0, 5);
   }, [allMovies, profileVersion, activeProfile]);
 
-  // Filmes já assistidos pelo usuário (para fileira "Assistir Novamente")
+  // Filmes já assistidos pelo usuário (para fileira "Assistir Novamente" - exclui filmes removidos do catálogo)
   const watchedMovies = useMemo(() => {
-    const watchedIds = new Set(activeProfile.watchedMovieIds || []);
-    return allMovies.filter((m) => watchedIds.has(m.id));
+    const catalogMap = new Map(allMovies.map((m) => [m.id, m]));
+    const validWatchedIds = (activeProfile.watchedMovieIds || []).filter((id) => catalogMap.has(id));
+    return validWatchedIds.map((id) => catalogMap.get(id)!).filter(Boolean);
   }, [allMovies, activeProfile, profileVersion]);
+
+  // Purga automática: garante que nenhum filme deletado continue registrado nas listas do usuário
+  useEffect(() => {
+    if (allMovies.length > 0 && activeProfile) {
+      const allIds = new Set(allMovies.map((m) => m.id));
+      const hasStaleWatched = (activeProfile.watchedMovieIds || []).some((id) => !allIds.has(id));
+      const hasStaleFav = (activeProfile.favoriteMovieIds || []).some((id) => !allIds.has(id));
+      const hasStaleHist = (activeProfile.watchHistory || []).some((h) => !allIds.has(h.movieId));
+      if (hasStaleWatched || hasStaleFav || hasStaleHist) {
+        userService.cleanupNonExistentMovies(allIds);
+      }
+    }
+  }, [allMovies, activeProfile]);
+
+  // Filmes mais recentes que entraram no catálogo (Lançamentos e Novidades)
+  const recentReleases = useMemo(() => {
+    return catalogService.getRecentReleases();
+  }, [allMovies, catalogVersion]);
 
   // Filtros combinados de busca, gênero, subgênero, ator e humor
   const filteredMovies = useMemo(() => {
@@ -338,9 +357,32 @@ export const App: React.FC = () => {
       return cinemaSessionMovies;
     }
 
+    if (activeFilter === '🔥 Lançamentos' || activeFilter === 'Lançamentos') {
+      let list = recentReleases;
+      if (searchQuery.trim()) {
+        const q = searchQuery.toLowerCase().trim();
+        list = list.filter((m) =>
+          m.title.toLowerCase().includes(q) ||
+          m.synopsis.toLowerCase().includes(q) ||
+          (m.genres || []).some((g) => g.toLowerCase().includes(q))
+        );
+      }
+      if (selectedSubgenre) {
+        list = list.filter((m) => (m.subgenres || []).includes(selectedSubgenre));
+      }
+      if (selectedActor) {
+        list = list.filter((m) => (m.cast || []).includes(selectedActor));
+      }
+      if (selectedMood) {
+        list = list.filter((m) => (m.moods || []).includes(selectedMood));
+      }
+      return list;
+    }
+
     if (activeFilter === 'Minha Lista') {
-      const favSet = new Set(activeProfile.favoriteMovieIds);
-      let list = allMovies.filter((m) => favSet.has(m.id));
+      const catalogMap = new Map(allMovies.map((m) => [m.id, m]));
+      const validFavIds = (activeProfile.favoriteMovieIds || []).filter((id) => catalogMap.has(id));
+      let list = validFavIds.map((id) => catalogMap.get(id)!).filter(Boolean);
       if (selectedSubgenre) {
         list = list.filter((m) => (m.subgenres || []).includes(selectedSubgenre));
       }
@@ -357,7 +399,7 @@ export const App: React.FC = () => {
       actor: selectedActor || undefined,
       mood: selectedMood || undefined,
     });
-  }, [searchQuery, activeFilter, selectedSubgenre, selectedActor, selectedMood, allMovies, activeProfile, profileVersion]);
+  }, [searchQuery, activeFilter, selectedSubgenre, selectedActor, selectedMood, allMovies, recentReleases, cinemaSessionMovies, activeProfile]);
 
   // Paginação progressiva rápida: renderiza inicialmente 30 itens para fluidez máxima
   const displayedMovies = useMemo(() => {
@@ -380,6 +422,7 @@ export const App: React.FC = () => {
     if (selectedActor) return `🌟 Filmes com ${selectedActor}`;
     if (selectedSubgenre) return `🎭 Subgênero: ${selectedSubgenre}`;
     if (searchQuery.trim().length > 0) return `🔍 Destaque da busca: "${searchQuery}"`;
+    if (activeFilter === '🔥 Lançamentos' || activeFilter === 'Lançamentos') return '🔥 Recém-Adicionado ao Catálogo';
     if (activeFilter === '🍿 Sessão Cinema') return `🍿 ${cinemaSession.title} (${cinemaSession.dateBadge})`;
     if (activeFilter !== 'Todos') return `🌟 Destaque em ${activeFilter}`;
     return 'Destaque Recomendado pelo CAIC';
@@ -957,6 +1000,11 @@ export const App: React.FC = () => {
                       <Film className="w-5 h-5 text-cyan-500" />
                       <span>Catálogo Completo CAIC ({allMovies.length} títulos)</span>
                     </>
+                  ) : activeFilter === '🔥 Lançamentos' || activeFilter === 'Lançamentos' ? (
+                    <>
+                      <Flame className="w-5 h-5 text-rose-500 fill-rose-500" />
+                      <span>Lançamentos & Filmes Recentes no Catálogo</span>
+                    </>
                   ) : activeFilter === 'Minha Lista' ? (
                     <>
                       <Heart className="w-4 h-4 fill-rose-500 text-rose-500" />
@@ -1250,6 +1298,26 @@ export const App: React.FC = () => {
                 badge={`${watchedMovies.length} títulos`}
               />
             )}
+
+            {/* FILEIRA: LANÇAMENTOS & RECÉM-CHEGADOS AO CATÁLOGO */}
+            <MovieRow
+              rowId="row-recent-releases"
+              title="Lançamentos & Recém-Chegados"
+              subtitle="Os filmes e novidades mais recentes adicionados ao catálogo CAIC"
+              icon={<Flame className="w-5 h-5 text-rose-500 fill-rose-500" />}
+              movies={recentReleases.slice(0, 30)}
+              onPlayMovie={handlePlayMovie}
+              isFavorite={(id) => activeProfile.favoriteMovieIds.includes(id)}
+              onToggleFavorite={handleToggleFavorite}
+              isWatched={(id) => (activeProfile.watchedMovieIds || []).includes(id)}
+              onToggleWatched={handleToggleWatched}
+              onSeeAll={() => {
+                setActiveFilter('🔥 Lançamentos');
+                window.scrollTo({ top: 380, behavior: 'smooth' });
+              }}
+              seeAllText="Ver Todos os Lançamentos"
+              badge={`${recentReleases.length} títulos`}
+            />
 
             {/* FILEIRA 2: RECOMENDADOS PARA VOCÊ (IA + HISTÓRICO DE GOSTO) */}
             <MovieRow

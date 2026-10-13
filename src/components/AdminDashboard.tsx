@@ -410,6 +410,7 @@ export const AdminDashboardView: React.FC<AdminDashboardProps> = ({
   const handleDeleteMovie = (id: string, titleName: string) => {
     if (confirm(`Tem certeza que deseja remover o filme "${titleName}" do catálogo?`)) {
       catalogService.removeMovie(id);
+      userService.removeMovieFromAllProfiles(id);
       refreshCatalog();
     }
   };
