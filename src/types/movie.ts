@@ -61,6 +61,8 @@ export interface ChatMessage {
   suggestWebSearch?: boolean;
   fallbackGenre?: string;
   webSearchInitiated?: boolean;
+  quickReplies?: string[];
+  isOffTopic?: boolean;
 }
 
 export type SubscriptionPlan = 'free' | 'individual' | 'family' | 'monthly' | 'annual';

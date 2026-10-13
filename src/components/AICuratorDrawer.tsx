@@ -13,13 +13,19 @@ import {
   Search,
   Check,
   Globe,
-  Mic
+  Mic,
+  Compass,
+  ShieldCheck
 } from 'lucide-react';
 import type { Movie, ChatMessage, UserProfile } from '../types/movie';
 import { geminiCurationService } from '../services/geminiCurationService';
 import { userService } from '../services/userService';
 import { movieRequestService } from '../services/movieRequestService';
 import { catalogService } from '../services/catalogService';
+import {
+  KEY_QUESTIONS,
+  DEFAULT_MOVIE_QUICK_REPLIES
+} from '../services/curatorGuardrails';
 
 interface AICuratorDrawerProps {
   isOpen: boolean;
@@ -128,14 +134,24 @@ export const AICuratorDrawer: React.FC<AICuratorDrawerProps> = ({
     {
       id: 'welcome',
       role: 'assistant',
-      content: `Olá${activeProfile ? `, **${activeProfile.name}**` : ''}! Sou o **CAIC**, o seu assistente inteligente de filmes e streaming.\n\nMe conte: **o que você quer assistir hoje?** Pode me pedir qualquer gênero, subgênero (ex: *comédia romântica*, *comédia adolescente*, *guerra*), ator famoso (ex: *Van Damme*, *Jackie Chan*) ou seu humor do momento!`,
+      content: `Olá${activeProfile ? `, **${activeProfile.name}**` : ''}! Sou o **CAIC**, seu concierge pessoal de filmes e streaming 🎬🍿\n\nEstou aqui exclusivamente para ajudar você a encontrar o filme perfeito no nosso catálogo completo! Para começarmos uma busca precisa, me diga o que deseja ou toque em uma das opções abaixo:`,
       timestamp: 'Agora',
-      recommendedMovies: []
+      recommendedMovies: [],
+      quickReplies: [
+        '🍿 Sozinho(a) com boa história',
+        '💑 Sessão a dois em Casal',
+        '👨‍👩‍👧‍👦 Filme para a Família & Crianças',
+        '😂 Quero rir e relaxar',
+        '⚡ Muita ação e adrenalina',
+        '⏳ Rápido (Até 90min)',
+        '🎯 Perguntas Chaves do Dia'
+      ]
     }
   ]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
   const [showMoodPicker, setShowMoodPicker] = useState(false);
+  const [showKeyQuestions, setShowKeyQuestions] = useState(false);
   const [visibleMovieCounts, setVisibleMovieCounts] = useState<Record<string, number>>({});
   const [isListeningVoice, setIsListeningVoice] = useState(false);
   const [voiceNotice, setVoiceNotice] = useState<string | null>(null);
@@ -274,7 +290,14 @@ export const AICuratorDrawer: React.FC<AICuratorDrawerProps> = ({
     const prompt = (textToSend || input).trim();
     if (!prompt || loading) return;
 
+    if (prompt === '🎯 Perguntas Chaves do Dia') {
+      setShowKeyQuestions(true);
+      setShowMoodPicker(false);
+      return;
+    }
+
     setShowMoodPicker(false);
+    setShowKeyQuestions(false);
 
     const userMsg: ChatMessage = {
       id: `user-${Date.now()}`,
@@ -315,6 +338,8 @@ export const AICuratorDrawer: React.FC<AICuratorDrawerProps> = ({
           unmatchedQuery: response.unmatchedQuery,
           suggestWebSearch: response.suggestWebSearch,
           fallbackGenre: response.fallbackGenre,
+          quickReplies: response.quickReplies,
+          isOffTopic: response.isOffTopic,
         }
       ]);
     } catch {
@@ -323,8 +348,9 @@ export const AICuratorDrawer: React.FC<AICuratorDrawerProps> = ({
         {
           id: `ai-${Date.now()}`,
           role: 'assistant',
-          content: 'Desculpe, tive uma instabilidade momentânea na análise. Mas você pode tentar novamente ou escolher um dos humores rápidos!',
-          timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+          content: 'Desculpe, tive uma instabilidade momentânea na análise. Mas você pode tentar novamente ou escolher uma das opções abaixo!',
+          timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+          quickReplies: DEFAULT_MOVIE_QUICK_REPLIES.slice(0, 4)
         }
       ]);
     } finally {
@@ -340,7 +366,16 @@ export const AICuratorDrawer: React.FC<AICuratorDrawerProps> = ({
         role: 'assistant',
         content: `Chat reiniciado! Qual é a sessão de cinema de hoje, ${activeProfile?.name || 'amigo'}?`,
         timestamp: 'Agora',
-        recommendedMovies: []
+        recommendedMovies: [],
+        quickReplies: [
+          '🍿 Sozinho(a) com boa história',
+          '💑 Sessão a dois em Casal',
+          '👨‍👩‍👧‍👦 Filme para a Família & Crianças',
+          '😂 Quero rir e relaxar',
+          '⚡ Muita ação e adrenalina',
+          '⏳ Rápido (Até 90min)',
+          '🎯 Perguntas Chaves do Dia'
+        ]
       }
     ]);
   };
@@ -393,12 +428,31 @@ export const AICuratorDrawer: React.FC<AICuratorDrawerProps> = ({
 
           <div className="flex items-center gap-1 sm:gap-1.5 shrink-0">
             <button
-              onClick={() => setShowMoodPicker((prev) => !prev)}
+              onClick={() => {
+                setShowKeyQuestions((prev) => !prev);
+                if (!showKeyQuestions) setShowMoodPicker(false);
+              }}
+              title="Perguntas Chaves do Dia"
+              className={`tv-focusable px-2 sm:px-3 py-1.5 rounded-xl border text-xs font-bold flex items-center gap-1 transition shrink-0 ${
+                showKeyQuestions
+                  ? 'bg-cyan-600 text-white border-cyan-600 shadow-md'
+                  : 'bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 border-slate-200 dark:border-slate-700 hover:border-cyan-500'
+              }`}
+            >
+              <Compass className="w-3.5 h-3.5 text-cyan-500 shrink-0" />
+              <span className="hidden sm:inline">Perguntas Chaves</span>
+            </button>
+
+            <button
+              onClick={() => {
+                setShowMoodPicker((prev) => !prev);
+                if (!showMoodPicker) setShowKeyQuestions(false);
+              }}
               title="Como me sinto hoje?"
               className={`tv-focusable px-2 sm:px-3 py-1.5 rounded-xl border text-xs font-bold flex items-center gap-1 transition shrink-0 ${
                 showMoodPicker
-                  ? 'bg-cyan-600 text-white border-cyan-600 shadow-md'
-                  : 'bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 border-slate-200 dark:border-slate-700 hover:border-cyan-500'
+                  ? 'bg-amber-600 text-white border-amber-600 shadow-md'
+                  : 'bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 border-slate-200 dark:border-slate-700 hover:border-amber-500'
               }`}
             >
               <Smile className="w-3.5 h-3.5 text-amber-500 shrink-0" />
@@ -423,6 +477,49 @@ export const AICuratorDrawer: React.FC<AICuratorDrawerProps> = ({
             </button>
           </div>
         </div>
+
+      {/* COMPONENTE INTERATIVO: PERGUNTAS CHAVES DO DIA */}
+      {showKeyQuestions && (
+        <div className="p-4 bg-slate-100/95 dark:bg-slate-950/95 border-b border-slate-200 dark:border-slate-800 animate-fadeIn space-y-3 max-h-72 overflow-y-auto">
+          <div className="flex items-center justify-between pb-1 border-b border-slate-200 dark:border-slate-800">
+            <div className="flex items-center gap-1.5">
+              <Compass className="w-4 h-4 text-cyan-500" />
+              <h4 className="text-xs font-extrabold text-slate-900 dark:text-white uppercase tracking-wider">
+                Perguntas Chaves para a Sessão Perfeita
+              </h4>
+            </div>
+            <button
+              onClick={() => setShowKeyQuestions(false)}
+              className="text-[11px] text-slate-500 hover:text-slate-700 dark:hover:text-white cursor-pointer"
+            >
+              Fechar
+            </button>
+          </div>
+
+          {KEY_QUESTIONS.map((sec, sIdx) => (
+            <div key={`kq-sec-${sIdx}`} className="space-y-1.5">
+              <div className="text-[11px] font-bold text-slate-700 dark:text-slate-300">
+                {sec.title}
+              </div>
+              <div className="flex flex-wrap gap-1.5">
+                {sec.options.map((opt) => (
+                  <button
+                    key={opt.id}
+                    onClick={() => {
+                      handleSend(opt.prompt);
+                      setShowKeyQuestions(false);
+                    }}
+                    className="text-xs font-semibold px-2.5 py-1.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-cyan-500 dark:hover:border-cyan-400 hover:bg-cyan-50 dark:hover:bg-cyan-950/40 text-slate-800 dark:text-slate-200 transition transform hover:scale-[1.02] active:scale-95 cursor-pointer flex items-center gap-1.5 shadow-2xs"
+                  >
+                    <span>{opt.emoji}</span>
+                    <span>{opt.label}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
 
       {/* COMPONENTE INTERATIVO: COMO ME SINTO HOJE? */}
       {showMoodPicker && (
@@ -495,7 +592,45 @@ export const AICuratorDrawer: React.FC<AICuratorDrawerProps> = ({
                   <span className="italic font-medium">{msg.content}</span>
                 </div>
               ) : (
-                <div className="whitespace-pre-wrap">{msg.content}</div>
+                <>
+                  <div className="whitespace-pre-wrap">{msg.content}</div>
+
+                  {/* Alerta de Escopo caso seja pergunta fora de tópico */}
+                  {msg.isOffTopic && (
+                    <div className="mt-2.5 flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-amber-500/10 border border-amber-500/30 text-[11px] font-bold text-amber-600 dark:text-amber-400">
+                      <ShieldCheck className="w-3.5 h-3.5 shrink-0" />
+                      <span>Filtro de Escopo: O CAIC responde exclusivamente sobre filmes e cinema.</span>
+                    </div>
+                  )}
+
+                  {/* Opções Rápidas Interativas sob a Mensagem */}
+                  {msg.quickReplies && msg.quickReplies.length > 0 && (
+                    <div className="mt-3 pt-2.5 border-t border-slate-100 dark:border-slate-800/80 space-y-1.5">
+                      <div className="text-[10px] uppercase font-bold text-slate-400 flex items-center gap-1">
+                        <Sparkles className="w-3 h-3 text-cyan-500" />
+                        <span>Sugestões Interativas:</span>
+                      </div>
+                      <div className="flex flex-wrap gap-1.5">
+                        {msg.quickReplies.map((reply, rIdx) => (
+                          <button
+                            key={`qr-${msg.id}-${rIdx}`}
+                            onClick={() => {
+                              if (reply === '🎯 Perguntas Chaves do Dia') {
+                                setShowKeyQuestions(true);
+                              } else {
+                                handleSend(reply);
+                              }
+                            }}
+                            disabled={loading}
+                            className="text-[11px] font-bold px-2.5 py-1 rounded-xl bg-slate-50 dark:bg-slate-900 border border-cyan-500/40 dark:border-cyan-700/50 text-cyan-700 dark:text-cyan-300 hover:bg-cyan-500 hover:text-white dark:hover:bg-cyan-600 dark:hover:text-white transition transform hover:scale-[1.02] active:scale-95 cursor-pointer shadow-2xs flex items-center gap-1"
+                          >
+                            <span>{reply}</span>
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </>
               )}
             </div>
 
@@ -666,6 +801,14 @@ export const AICuratorDrawer: React.FC<AICuratorDrawerProps> = ({
       {/* Sugestões Rápidas em Chips */}
       <div className="px-4 py-2 border-t border-slate-200 dark:border-slate-800 bg-slate-100/70 dark:bg-slate-950/60">
         <div className="flex items-center gap-1.5 overflow-x-auto pb-1 no-scrollbar text-xs">
+          <button
+            onClick={() => setShowKeyQuestions((prev) => !prev)}
+            className="tv-focusable flex-shrink-0 flex items-center gap-1 px-3 py-1.5 rounded-xl bg-gradient-to-r from-cyan-600 to-indigo-600 text-white font-bold text-[11px] shadow-sm hover:opacity-90 transition cursor-pointer"
+          >
+            <Compass className="w-3.5 h-3.5" />
+            <span>🎯 Perguntas Chaves</span>
+          </button>
+
           <button
             onClick={() => setShowMoodPicker((prev) => !prev)}
             className="tv-focusable flex-shrink-0 flex items-center gap-1 px-3 py-1.5 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 text-white font-bold text-[11px] shadow-sm hover:opacity-90 transition"

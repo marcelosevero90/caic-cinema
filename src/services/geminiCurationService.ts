@@ -3,6 +3,13 @@ import type { Movie, SearchFilters, UserProfile, VideoAnalysisResult, ChatRecomm
 import { catalogService } from './catalogService';
 import { deepseekService } from './deepseekService';
 
+import {
+  isOffTopicQuery,
+  buildOffTopicResponse,
+  DEFAULT_MOVIE_QUICK_REPLIES,
+  FOLLOW_UP_MOVIE_REPLIES
+} from './curatorGuardrails';
+
 export interface CurationResponse {
   text: string;
   recommendedMovies: Movie[];
@@ -10,6 +17,8 @@ export interface CurationResponse {
   unmatchedQuery?: string;
   suggestWebSearch?: boolean;
   fallbackGenre?: string;
+  quickReplies?: string[];
+  isOffTopic?: boolean;
 }
 
 const SEARCH_CATALOG_DECLARATION = {
@@ -186,6 +195,11 @@ Retorne EXCLUSIVAMENTE um objeto JSON válido no formato:
     history: { role: 'user' | 'assistant'; content: string }[] = [],
     userProfile?: UserProfile
   ): Promise<CurationResponse> {
+    // 1. Guardrail Imediato: Perguntas fora do contexto de cinema não devem seguir
+    if (isOffTopicQuery(userMessage)) {
+      return buildOffTopicResponse();
+    }
+
     const apiKey = this.getApiKey();
 
     if (!apiKey) {
@@ -223,26 +237,42 @@ Cumprimente cordialmente pelo nome quando apropriado e dê preferência às afin
 
       const systemInstruction = `
 Você é o "CAIC", o assistente pessoal de cinema e inteligência artificial oficial da plataforma CAIC.
-Seu objetivo é entender o que o usuário quer assistir e sugerir os melhores filmes do catálogo oficial do CAIC (atualmente composto por um amplo acervo de mais de ${catalogTotal} títulos completos de alta qualidade, legalmente disponíveis e em constante expansão com novos lançamentos).
+Seu objetivo é entender com precisão o que o usuário quer assistir e sugerir os melhores filmes do catálogo oficial do CAIC (atualmente composto por um amplo acervo de mais de ${catalogTotal} títulos completos de alta qualidade, legalmente disponíveis e em constante expansão com novos lançamentos).
 
 ${profileContext}
 
 DIRETRIZES FUNDAMENTAIS:
-1. TAMANHO DO CATÁLOGO: O catálogo conta com centenas de filmes completos (mais de ${catalogTotal} títulos catalogados). NUNCA diga que o catálogo só tem 200 filmes, que o catálogo é pequeno ou limitado. Apresente o acervo sempre como rico, variado e diversificado.
-2. Sempre use a ferramenta 'search_catalog' para buscar filmes com base em gênero, subgênero, ator, palavras-chave e humor.
-3. CASO O TÍTULO PEDIDO NÃO ESTEJA NO CATÁLOGO OU NÃO HAJA NADA CORRESPONDENTE:
+1. ESCOPO E FILTRO ESTRITO - SOMENTE CINEMA E FILMES (REGRA INEGOCIÁVEL):
+   - Você é EXCLUSIVAMENTE o consultor de filmes, séries e cinema da plataforma CAIC.
+   - SE O USUÁRIO FIZER QUALQUER PERGUNTA OU PEDIDO FORA DO CONTEXTO DE CINEMA, FILMES, ATORES, DIRETORES, GÊNEROS OU ENTRETENIMENTO AUDIOVISUAL (por exemplo: receitas de cozinha, previsão do tempo, código de programação, matemática, lição de casa, política, cotações de moedas/ações, conselhos médicos ou assuntos gerais sem relação com cinema):
+     * VOCÊ DEVE RECUSAR EDUCADAMENTE E COM SIMPATIA responder ao tema alheio!
+     * Diga claramente: "Meu foco no CAIC é 100% exclusivo para a sétima arte e o universo do cinema! Não consigo responder sobre outros assuntos fora de filmes, mas sou especialista em encontrar a obra perfeita para a sua sessão."
+     * NUNCA chame a ferramenta 'search_catalog' e NUNCA retorne recomendações de filmes para perguntas fora de tópico!
+     * Traga o usuário de volta com uma pergunta chave de cinema (ex: que estilo de filme ele quer assistir hoje).
+
+2. CONVERSA ITERATIVA E PERGUNTAS CHAVES:
+   - Seja um concierge de cinema atencioso, caloroso e proativo.
+   - Quando o usuário fizer pedidos genéricos ou amplos (ex: "o que assistir?", "me indica algo", "não sei o que ver"), faça perguntas chaves para descobrir a preferência do dia:
+     * Com quem está assistindo? (sozinho, casal, família com crianças, amigos)
+     * Qual o clima ou energia procura? (dar risadas, adrenalina, suspense com reviravoltas, susto no escuro, história emocionante de fé)
+     * Quanto tempo tem disponível? (filme rápido de até 90min ou longa-metragem padrão)
+   - Quando recomendar filmes, explique com charme o motivo de cada um e termine com uma pergunta leve para continuar refinando se o usuário quiser.
+
+3. TAMANHO DO CATÁLOGO: O catálogo conta com centenas de filmes completos (mais de ${catalogTotal} títulos catalogados). NUNCA diga que o catálogo só tem 200 filmes, que o catálogo é pequeno ou limitado. Apresente o acervo sempre como rico, variado e diversificado.
+4. Sempre use a ferramenta 'search_catalog' para buscar filmes com base em gênero, subgênero, ator, palavras-chave e humor (EXCETO se for fora de tópico).
+5. CASO O TÍTULO PEDIDO NÃO ESTEJA NO CATÁLOGO OU NÃO HAJA NADA CORRESPONDENTE:
    - Deixe EXPLICITAMENTE CLARO logo no início da resposta que o título ou obra procurada NÃO foi encontrada diretamente no acervo local do CAIC.
    - Explique que você analisou o gênero/tema/estilo (ex: Comédia Romântica, Terror na Floresta, Ação de Artes Marciais, Faroeste Clássico, Guerra) e selecionou as melhores opções equivalentes disponíveis no catálogo CAIC.
    - Sugira que o usuário solicite a busca na Web em segundo plano para os administradores avaliarem a inclusão!
-4. SUBGÊNEROS E ATORES:
+6. SUBGÊNEROS E ATORES:
    - Se o usuário pedir subgêneros (ex: comédia romântica, comédia adolescente, artes marciais, faroeste, guerra histórica, terror psicológico), use os filtros apropriados e recomende títulos alinhados.
    - Se pedir atores (Jean-Claude Van Damme, Jackie Chan, Jet Li, Dolph Lundgren, Clint Eastwood, Charles Bronson, Richard Gere, Julia Roberts, Keanu Reeves, Brad Pitt, etc.), procure filmes correspondentes a esses astros.
-5. FAROESTE E ARTES MARCIAIS:
+7. FAROESTE E ARTES MARCIAIS:
    - O acervo conta com coleções enormes e riquíssimas de Faroeste (Clint Eastwood, Sergio Leone, Charles Bronson) e Artes Marciais (Jackie Chan, Jean-Claude Van Damme, Jet Li). Aproveite essas ricas coleções para indicar filmes ao usuário.
-6. GUERRA E BATALHAS:
+8. GUERRA E BATALHAS:
    - Se o usuário pedir "guerra", pesquise por filmes de guerra, conflitos militares, Segunda Guerra Mundial ou batalhas históricas no catálogo. NÃO trate guerra simplesmente como ação genérica.
-7. Diga com entusiasmo e precisão POR QUE cada filme recomendado combina exatamente com o pedido do usuário (1 ou 2 frases curtas e cativantes por filme).
-8. Responda em Português do Brasil com tom simpático, charmoso e moderno.
+9. Diga com entusiasmo e precisão POR QUE cada filme recomendado combina exatamente com o pedido do usuário (1 ou 2 frases curtas e cativantes por filme).
+10. Responda em Português do Brasil com tom simpático, charmoso e moderno.
       `.trim();
 
       const contents: Array<{ role: 'user' | 'model'; parts: Array<{ text?: string }> }> = history.map((h) => ({
@@ -336,13 +366,15 @@ DIRETRIZES FUNDAMENTAIS:
           recommendationsWithReasons: reasons,
           unmatchedQuery,
           suggestWebSearch,
-          fallbackGenre
+          fallbackGenre,
+          quickReplies: FOLLOW_UP_MOVIE_REPLIES
         };
       }
 
       return {
         text: firstResponse.text || 'Como posso te ajudar a escolher o que assistir hoje?',
-        recommendedMovies: []
+        recommendedMovies: [],
+        quickReplies: DEFAULT_MOVIE_QUICK_REPLIES.slice(0, 5)
       };
     } catch (err: unknown) {
       console.warn('Gemini API atingiu cota ou indisponível. Acionando fallback transparente DeepSeek...', err);
@@ -362,6 +394,10 @@ DIRETRIZES FUNDAMENTAIS:
    * Analisa emoções, atores, duração e referências a filmes externos fora do catálogo
    */
   public smartSemanticHeuristicCuration(userMessage: string, userProfile?: UserProfile): CurationResponse {
+    if (isOffTopicQuery(userMessage)) {
+      return buildOffTopicResponse();
+    }
+
     const text = userMessage.toLowerCase();
     let filters: SearchFilters = {};
 
@@ -734,7 +770,8 @@ DIRETRIZES FUNDAMENTAIS:
       recommendationsWithReasons,
       unmatchedQuery,
       suggestWebSearch,
-      fallbackGenre
+      fallbackGenre,
+      quickReplies: FOLLOW_UP_MOVIE_REPLIES
     };
   }
 

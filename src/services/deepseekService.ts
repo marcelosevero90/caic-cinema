@@ -1,6 +1,12 @@
 import type { Movie, UserProfile, VideoAnalysisResult, ChatRecommendation } from '../types/movie';
 import type { CurationResponse } from './geminiCurationService';
 import { catalogService } from './catalogService';
+import {
+  isOffTopicQuery,
+  buildOffTopicResponse,
+  DEFAULT_MOVIE_QUICK_REPLIES,
+  FOLLOW_UP_MOVIE_REPLIES
+} from './curatorGuardrails';
 import { apiUrl } from './apiConfig';
 
 export interface DeepSeekChatMessage {
@@ -103,6 +109,11 @@ class DeepSeekService {
     history: { role: 'user' | 'assistant'; content: string }[] = [],
     userProfile?: UserProfile
   ): Promise<CurationResponse> {
+    // 1. Guardrail Imediato: Perguntas fora do contexto de cinema não devem seguir
+    if (isOffTopicQuery(userMessage)) {
+      return buildOffTopicResponse();
+    }
+
     const catalog = catalogService.getAll();
     const catalogTotal = catalog.length;
 
@@ -146,18 +157,27 @@ Seu objetivo é orientar o usuário e sugerir os melhores filmes disponíveis no
 ${profileContext}
 
 DIRETRIZES:
-1. Responda em Português do Brasil de forma carismática, agradável e altamente especializada em cinema.
-2. Diga com clareza e entusiasmo por que cada filme recomendado combina com o que o usuário pediu (1 a 2 frases por filme).
-3. Selecione os melhores títulos dentre a lista de filmes disponíveis abaixo.
-4. Responda EXCLUSIVAMENTE em formato JSON com o seguinte schema:
+1. ESCOPO E FILTRO ESTRITO - SOMENTE CINEMA E FILMES (REGRA INEGOCIÁVEL):
+   - Você é EXCLUSIVAMENTE um curador e assistente de cinema e filmes do CAIC.
+   - SE O USUÁRIO FIZER QUALQUER PERGUNTA OU PEDIDO FORA DE CINEMA/FILMES (receitas, programação de computadores, matemática, política, cotações financeiras, tarefas escolares, etc.):
+     * "isOffTopic": true
+     * "message": "Meu foco no CAIC é 100% exclusivo para a sétima arte e o universo do cinema! Não consigo responder sobre outros assuntos fora de filmes, mas sou especialista em encontrar a obra perfeita para a sua sessão. Que tipo de filme você gostaria de assistir hoje?"
+     * "recommendedMovieIds": [] (lista VAZIA)
+     * "quickReplies": ["Comédia Leve", "Ação & Adrenalina", "Sessão em Família", "Suspense Inteligente"]
+2. CONVERSA ITERATIVA: Se o usuário estiver indeciso, faça 1 ou 2 perguntas chaves (companhia, energia/clima, tempo disponível).
+3. Diga com clareza e entusiasmo por que cada filme recomendado combina com o que o usuário pediu (1 a 2 frases por filme).
+4. Selecione os melhores títulos dentre a lista de filmes disponíveis abaixo.
+5. Responda EXCLUSIVAMENTE em formato JSON com o seguinte schema:
 {
+  "isOffTopic": false,
   "message": "Texto caloroso da resposta em Português com introdução e comentários dos filmes...",
   "recommendedMovieIds": ["id1", "id2", "id3"],
   "reasons": [
     { "movieId": "id1", "reason": "Frase explicando por que combina com o pedido" }
   ],
   "unmatchedQuery": "Se o usuário pediu um título específico que NÃO existe no catálogo, coloque aqui o nome do filme",
-  "suggestWebSearch": false
+  "suggestWebSearch": false,
+  "quickReplies": ["Opção 1", "Opção 2"]
 }
 
 LISTA DE FILMES DISPONÍVEIS NO ACERVO:
@@ -192,6 +212,16 @@ ${JSON.stringify(candidatesSummary, null, 2)}
       const jsonMatch = responseText.match(/\{[\s\S]*\}/);
       if (jsonMatch) {
         const parsed = JSON.parse(jsonMatch[0]);
+
+        if (parsed.isOffTopic) {
+          return {
+            text: parsed.message || 'Meu foco é 100% dedicado aos filmes do catálogo do CAIC! O que você gostaria de assistir hoje?',
+            recommendedMovies: [],
+            isOffTopic: true,
+            quickReplies: DEFAULT_MOVIE_QUICK_REPLIES.slice(0, 5),
+          };
+        }
+
         const matchedMovies: Movie[] = [];
         const reasonsList: ChatRecommendation[] = [];
 
@@ -220,6 +250,9 @@ ${JSON.stringify(candidatesSummary, null, 2)}
           recommendationsWithReasons: reasonsList.length > 0 ? reasonsList : undefined,
           unmatchedQuery: parsed.unmatchedQuery,
           suggestWebSearch: Boolean(parsed.suggestWebSearch || parsed.unmatchedQuery),
+          quickReplies: Array.isArray(parsed.quickReplies) && parsed.quickReplies.length > 0
+            ? parsed.quickReplies
+            : FOLLOW_UP_MOVIE_REPLIES,
         };
       }
     } catch {
@@ -235,6 +268,7 @@ ${JSON.stringify(candidatesSummary, null, 2)}
         reason: `Selecionado pelo curador inteligente com base no seu pedido.`,
         matchScore: Math.round(98 - idx * 2),
       })),
+      quickReplies: FOLLOW_UP_MOVIE_REPLIES,
     };
   }
 
