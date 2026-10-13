@@ -28,6 +28,8 @@ export interface Movie {
   streamUrl?: string;
   addedBy?: string; // ID do perfil que adicionou o filme
   addedAt?: string;
+  status?: 'active' | 'inactive'; // Situação do filme na plataforma
+  isActive?: boolean; // Booleano facilitador: true = ativo (visível), false = inativo (oculto)
 }
 
 export interface SearchFilters {

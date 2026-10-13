@@ -1,16 +1,21 @@
 import fs from 'fs';
 import path from 'path';
 
-const stagedPath = path.resolve('scripts/full_expansion_candidates.json');
+// Permite passar o caminho do arquivo via argumento ou usa o mega pacote por padrão
+const defaultFile = 'scripts/mega_expansion_catalog.json';
+const argFile = process.argv[2];
+const targetBatchPath = path.resolve(argFile || defaultFile);
 const catalogPath = path.resolve('src/data/catalog.ts');
 
-if (!fs.existsSync(stagedPath)) {
-  console.error('Arquivo de expansão não encontrado:', stagedPath);
+if (!fs.existsSync(targetBatchPath)) {
+  console.error('Arquivo de lote não encontrado:', targetBatchPath);
   process.exit(1);
 }
 
-const stagedMovies = JSON.parse(fs.readFileSync(stagedPath, 'utf-8'));
+const stagedMovies = JSON.parse(fs.readFileSync(targetBatchPath, 'utf-8'));
 let catalogSource = fs.readFileSync(catalogPath, 'utf-8');
+
+console.log(`Carregando lote de: ${targetBatchPath} (${stagedMovies.length} títulos)...`);
 
 // Verifica duplicatas estritas
 const existingIds = new Set();
@@ -20,7 +25,7 @@ for (const match of idMatches) {
 }
 
 const toAdd = stagedMovies.filter(m => !existingIds.has(m.youtubeVideoId));
-console.log(`Títulos no pacote de expansão: ${stagedMovies.length}. Inéditos a adicionar: ${toAdd.length}.`);
+console.log(`Títulos no catálogo atual: ${existingIds.size}. Inéditos a adicionar: ${toAdd.length}.`);
 
 if (toAdd.length === 0) {
   console.log('Nenhum título inédito a adicionar.');
@@ -45,3 +50,4 @@ const newCatalogSource = `${prefix}${needsComma ? ',' : ''}\n${formattedMovies}\
 
 fs.writeFileSync(catalogPath, newCatalogSource, 'utf-8');
 console.log(`\n🎉 SUCESSO! ${toAdd.length} novos títulos de filmes e séries foram adicionados ao catálogo oficial da CAIC (${catalogPath})!`);
+console.log(`Novo total de títulos no catálogo: ${existingIds.size + toAdd.length}.`);

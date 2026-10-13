@@ -23171,54 +23171,6 @@ export const INITIAL_CATALOG: Movie[] = [
     "ratingScore": 8.3,
     "badge": "Artes Marciais",
     "source": "youtube",
-    "addedAt": "2026-10-09T00:00:00.000Z"
-  },
-  {
-    "id": "movie-uqskiEQPmYo",
-    "youtubeVideoId": "uqskiEQPmYo",
-    "title": "O Justiceiro das Sombras",
-    "originalTitle": "Shadow Punisher",
-    "synopsis": "Nas ruelas escuras de uma metrópole futurista, um vigilante mascarado usa espadas e artes marciais para exterminar chefões do crime que controlam os tribunais e a polícia.",
-    "genres": [
-      "Ação",
-      "Artes Marciais"
-    ],
-    "subgenres": [
-      "Artes Marciais",
-      "Super-Heróis & Vigilantes"
-    ],
-    "tags": [
-      "filme completo",
-      "dublado",
-      "cinema",
-      "shadow punisher",
-      "ação",
-      "artes marciais",
-      "super-heróis & vigilantes",
-      "collin chou",
-      "danny chan kwok-kwan",
-      "adrenalina"
-    ],
-    "moods": [
-      "adrenalina",
-      "tenso"
-    ],
-    "cast": [
-      "Collin Chou",
-      "Danny Chan Kwok-kwan"
-    ],
-    "releaseYear": 2017,
-    "durationMinutes": 95,
-    "posterUrl": "https://img.youtube.com/vi/uqskiEQPmYo/hqdefault.jpg",
-    "backdropUrl": "https://img.youtube.com/vi/uqskiEQPmYo/hqdefault.jpg",
-    "channelName": "Cinema Completo",
-    "channelUrl": "https://www.youtube.com/watch?v=uqskiEQPmYo",
-    "contentRating": "14",
-    "language": "Dublado",
-    "ratingScore": 7.8,
-    "badge": "Artes Marciais",
-    "source": "youtube",
-    "addedAt": "2026-10-09T00:00:00.000Z"
   },
   {
     "id": "movie-AoGut4VcYC4",

@@ -6,6 +6,9 @@ import { userService } from './userService';
 const STORAGE_KEY = 'CINEAI_CUSTOM_MOVIES';
 const CATALOG_VERSION_KEY = 'CINEAI_CATALOG_VERSION_V5';
 const DELETED_MOVIES_KEY = 'CINEAI_DELETED_MOVIE_IDS_V5';
+const INACTIVE_MOVIES_KEY = 'CINEAI_INACTIVE_MOVIE_IDS_V5';
+
+const HARDCODED_DELETED_IDS = ['movie-uqskiEQPmYo', 'uqskiEQPmYo']; // O Justiceiro das Sombras removido permanentemente
 
 
 const STOP_WORDS = new Set([
@@ -151,7 +154,18 @@ class CatalogService {
       }
 
       const deletedStored = localStorage.getItem(DELETED_MOVIES_KEY);
-      const deletedIds = new Set<string>(deletedStored ? JSON.parse(deletedStored) : []);
+      const deletedIds = new Set<string>([
+        ...(deletedStored ? JSON.parse(deletedStored) : []),
+        ...HARDCODED_DELETED_IDS,
+      ]);
+
+      const inactiveStored = localStorage.getItem(INACTIVE_MOVIES_KEY);
+      const inactiveIds = new Set<string>(inactiveStored ? JSON.parse(inactiveStored) : []);
+
+      // Remove imediatamente O Justiceiro das Sombras e outros filmes deletados das listas de histórico de todos os usuários
+      HARDCODED_DELETED_IDS.forEach((did) => {
+        userService.removeMovieFromAllProfiles(did);
+      });
 
       const stored = localStorage.getItem(STORAGE_KEY);
       const customMovies: Movie[] = stored ? JSON.parse(stored) : [];
@@ -159,21 +173,49 @@ class CatalogService {
       const raw = [...customMovies, ...INITIAL_CATALOG].filter(
         (m) => !deletedIds.has(m.id) && !deletedIds.has(m.youtubeVideoId)
       );
-      this.catalog = raw.map((m) => ({
-        ...m,
-        subgenres: m.subgenres && m.subgenres.length > 0 ? m.subgenres : deriveMovieSubgenres(m),
-        cast: m.cast && m.cast.length > 0 ? m.cast : deriveMovieCast(m),
-      }));
+      this.catalog = raw.map((m) => {
+        const isInactive =
+          inactiveIds.has(m.id) ||
+          inactiveIds.has(m.youtubeVideoId) ||
+          m.status === 'inactive' ||
+          m.isActive === false;
+        return {
+          ...m,
+          status: isInactive ? 'inactive' : 'active',
+          isActive: !isInactive,
+          subgenres: m.subgenres && m.subgenres.length > 0 ? m.subgenres : deriveMovieSubgenres(m),
+          cast: m.cast && m.cast.length > 0 ? m.cast : deriveMovieCast(m),
+        };
+      });
     } catch {
       const deletedStored = typeof window !== 'undefined' ? localStorage.getItem(DELETED_MOVIES_KEY) : null;
-      const deletedIds = new Set<string>(deletedStored ? JSON.parse(deletedStored) : []);
+      const deletedIds = new Set<string>([
+        ...(deletedStored ? JSON.parse(deletedStored) : []),
+        ...HARDCODED_DELETED_IDS,
+      ]);
+      const inactiveStored = typeof window !== 'undefined' ? localStorage.getItem(INACTIVE_MOVIES_KEY) : null;
+      const inactiveIds = new Set<string>(inactiveStored ? JSON.parse(inactiveStored) : []);
+
+      HARDCODED_DELETED_IDS.forEach((did) => {
+        userService.removeMovieFromAllProfiles(did);
+      });
+
       this.catalog = INITIAL_CATALOG.filter(
         (m) => !deletedIds.has(m.id) && !deletedIds.has(m.youtubeVideoId)
-      ).map((m) => ({
-        ...m,
-        subgenres: m.subgenres && m.subgenres.length > 0 ? m.subgenres : deriveMovieSubgenres(m),
-        cast: m.cast && m.cast.length > 0 ? m.cast : deriveMovieCast(m),
-      }));
+      ).map((m) => {
+        const isInactive =
+          inactiveIds.has(m.id) ||
+          inactiveIds.has(m.youtubeVideoId) ||
+          m.status === 'inactive' ||
+          m.isActive === false;
+        return {
+          ...m,
+          status: isInactive ? 'inactive' : 'active',
+          isActive: !isInactive,
+          subgenres: m.subgenres && m.subgenres.length > 0 ? m.subgenres : deriveMovieSubgenres(m),
+          cast: m.cast && m.cast.length > 0 ? m.cast : deriveMovieCast(m),
+        };
+      });
     }
   }
 
@@ -188,8 +230,22 @@ class CatalogService {
     this.listeners.forEach((l) => l());
   }
 
-  public getAll(): Movie[] {
-    return [...this.jellyfinMovies, ...this.catalog];
+  /**
+   * Retorna os filmes do catálogo.
+   * Por padrão (includeInactive = false), retorna APENAS os filmes ATIVOS.
+   * Filmes com status 'inactive' ou isActive: false são ocultados de toda a plataforma (Home, busca, carrosséis, IA).
+   */
+  public getAll(includeInactive = false): Movie[] {
+    const all = [...this.jellyfinMovies, ...this.catalog];
+    if (includeInactive) return all;
+    return all.filter((m) => m.status !== 'inactive' && m.isActive !== false);
+  }
+
+  /**
+   * Retorna o catálogo completo incluindo filmes inativos (para uso no painel Admin).
+   */
+  public getAllForAdmin(): Movie[] {
+    return this.getAll(true);
   }
 
   public getJellyfinMovies(): Movie[] {
@@ -200,8 +256,81 @@ class CatalogService {
     return this.getAll().filter((m) => m.featured);
   }
 
-  public getById(id: string): Movie | undefined {
-    return this.getAll().find((m) => m.id === id);
+  public getById(id: string, includeInactive = false): Movie | undefined {
+    return this.getAll(includeInactive).find((m) => m.id === id);
+  }
+
+  /**
+   * Altera a situação do filme entre 'active' (visível) e 'inactive' (oculto).
+   * Persiste a alteração no localStorage para manter a escolha do administrador.
+   */
+  public setMovieStatus(id: string, status: 'active' | 'inactive'): Movie | undefined {
+    const index = this.catalog.findIndex((m) => m.id === id);
+    if (index === -1) return undefined;
+
+    const isInactive = status === 'inactive';
+    const updated: Movie = {
+      ...this.catalog[index],
+      status,
+      isActive: !isInactive,
+    };
+    this.catalog[index] = updated;
+
+    try {
+      const stored = localStorage.getItem(INACTIVE_MOVIES_KEY);
+      let list: string[] = stored ? JSON.parse(stored) : [];
+      if (isInactive) {
+        if (!list.includes(id)) list.push(id);
+        if (updated.youtubeVideoId && !list.includes(updated.youtubeVideoId)) {
+          list.push(updated.youtubeVideoId);
+        }
+      } else {
+        list = list.filter((x) => x !== id && x !== updated.youtubeVideoId);
+      }
+      localStorage.setItem(INACTIVE_MOVIES_KEY, JSON.stringify(list));
+    } catch (e) {
+      console.warn('Erro ao salvar status de filme inativo:', e);
+    }
+
+    // Se for filme customizado, persiste no STORAGE_KEY
+    try {
+      const storedCustom = localStorage.getItem(STORAGE_KEY);
+      if (storedCustom) {
+        const customMovies: Movie[] = JSON.parse(storedCustom);
+        const cIdx = customMovies.findIndex((m) => m.id === id);
+        if (cIdx >= 0) {
+          customMovies[cIdx] = updated;
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(customMovies));
+        }
+      }
+    } catch {}
+
+    // Se tornado inativo, remove também das listas de visualização de perfil
+    if (isInactive) {
+      userService.removeMovieFromAllProfiles(id);
+      if (updated.youtubeVideoId) {
+        userService.removeMovieFromAllProfiles(updated.youtubeVideoId);
+      }
+    }
+
+    this.notify();
+    return updated;
+  }
+
+  /**
+   * Alterna a situação do filme: se ativo -> inativa; se inativo -> ativa.
+   */
+  public toggleMovieStatus(id: string): Movie | undefined {
+    const movie = this.catalog.find((m) => m.id === id);
+    if (!movie) return undefined;
+    const nextStatus = movie.status === 'inactive' || movie.isActive === false ? 'active' : 'inactive';
+    return this.setMovieStatus(id, nextStatus);
+  }
+
+  public isMovieActive(id: string): boolean {
+    const movie = this.catalog.find((m) => m.id === id);
+    if (!movie) return false;
+    return movie.status !== 'inactive' && movie.isActive !== false;
   }
 
   /**
@@ -259,9 +388,12 @@ class CatalogService {
   }
 
   public addMovie(movie: Movie): Movie {
+    const isInactive = movie.status === 'inactive' || movie.isActive === false;
     // Garante que o filme receba timestamp de adição ao entrar no catálogo
     const movieWithDate: Movie = {
       ...movie,
+      status: isInactive ? 'inactive' : 'active',
+      isActive: !isInactive,
       addedAt: movie.addedAt || new Date().toISOString(),
     };
 
@@ -271,6 +403,18 @@ class CatalogService {
       this.catalog[existingIndex] = movieWithDate;
     } else {
       this.catalog.unshift(movieWithDate);
+    }
+
+    if (isInactive) {
+      try {
+        const stored = localStorage.getItem(INACTIVE_MOVIES_KEY);
+        let list: string[] = stored ? JSON.parse(stored) : [];
+        if (!list.includes(movieWithDate.id)) list.push(movieWithDate.id);
+        if (movieWithDate.youtubeVideoId && !list.includes(movieWithDate.youtubeVideoId)) {
+          list.push(movieWithDate.youtubeVideoId);
+        }
+        localStorage.setItem(INACTIVE_MOVIES_KEY, JSON.stringify(list));
+      } catch {}
     }
 
     // Persiste apenas os customizados
@@ -292,6 +436,26 @@ class CatalogService {
     if (index === -1) return undefined;
 
     const updated = { ...this.catalog[index], ...updates };
+
+    if (updates.status !== undefined || updates.isActive !== undefined) {
+      const isInactive = updates.status === 'inactive' || updates.isActive === false;
+      updated.status = isInactive ? 'inactive' : 'active';
+      updated.isActive = !isInactive;
+      try {
+        const stored = localStorage.getItem(INACTIVE_MOVIES_KEY);
+        let list: string[] = stored ? JSON.parse(stored) : [];
+        if (isInactive) {
+          if (!list.includes(id)) list.push(id);
+          if (updated.youtubeVideoId && !list.includes(updated.youtubeVideoId)) {
+            list.push(updated.youtubeVideoId);
+          }
+        } else {
+          list = list.filter((x) => x !== id && x !== updated.youtubeVideoId);
+        }
+        localStorage.setItem(INACTIVE_MOVIES_KEY, JSON.stringify(list));
+      } catch {}
+    }
+
     this.catalog[index] = updated;
 
     try {

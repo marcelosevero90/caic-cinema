@@ -5,6 +5,7 @@ import {
   isOffTopicQuery,
   buildOffTopicResponse,
   isFollowUpMovieInquiry,
+  shouldAttachMovieCards,
   DEFAULT_MOVIE_QUICK_REPLIES,
   FOLLOW_UP_MOVIE_REPLIES
 } from './curatorGuardrails';
@@ -185,9 +186,9 @@ STATUS: ESTE FILME ESTÁ CONFIRMADO E PRESENTE NO CATÁLOGO DO CAIC! (ID: "${m.i
 DIRETRIZES CRÍTICAS PARA PERGUNTAS DE FOLLOW-UP:
 - Se o usuário perguntar sobre o filme em discussão (estúdio, canal, produtora, diretor, elenco, sinopse, se é bom, história, etc.):
   1. O filme ESTÁ confirmado no catálogo do CAIC! NUNCA diga que não faz parte do catálogo e NUNCA peça desculpas por ausência!
-  2. Responda diretamente em "message". Se perguntar qual o estúdio ou produtora, informe que no CAIC ele é licenciado/distribuído pelo canal parceiro "${focalMovie?.channelName || recentMovies[0].channelName}".
+  2. Responda diretamente em "message" à dúvida do usuário em texto amigável. Se perguntar qual o estúdio ou produtora, informe que no CAIC ele é licenciado/distribuído pelo canal parceiro "${focalMovie?.channelName || recentMovies[0].channelName}".
   3. Mantenha "unmatchedQuery": "" e "suggestWebSearch": false.
-  4. Mantenha os IDs dos filmes em discussão em "recommendedMovieIds" (ex: ["${focalMovie?.id || recentMovies[0].id}"]).
+  4. Para perguntas conceituais ou dúvidas pontuais sobre o filme, defina "recommendedMovieIds": [] e "reasons": [] (não é necessário reexibir cards repetidos).
       `.trim();
     }
 
@@ -207,10 +208,16 @@ DIRETRIZES:
      * "message": "Meu foco no CAIC é 100% exclusivo para a sétima arte e o universo do cinema! Não consigo responder sobre outros assuntos fora de filmes, mas sou especialista em encontrar a obra perfeita para a sua sessão. Que tipo de filme você gostaria de assistir hoje?"
      * "recommendedMovieIds": [] (lista VAZIA)
      * "quickReplies": ["Comédia Leve", "Ação & Adrenalina", "Sessão em Família", "Suspense Inteligente"]
-2. CONVERSA ITERATIVA: Se o usuário estiver indeciso, faça 1 ou 2 perguntas chaves (companhia, energia/clima, tempo disponível).
-3. Diga com clareza e entusiasmo por que cada filme recomendado combina com o que o usuário pediu (1 a 2 frases por filme).
-4. Selecione os melhores títulos dentre a lista de filmes disponíveis abaixo.
-5. Responda EXCLUSIVAMENTE em formato JSON com o seguinte schema:
+2. REGRA ABSOLUTA DE CATÁLOGO (CATÁLOGO FECHADO):
+   - Você SÓ PODE RECOMENDAR títulos que constem na LISTA DE FILMES DISPONÍVEIS NO ACERVO abaixo ou no contexto de discussão.
+   - NUNCA invente títulos ou recomende filmes de fora que não existam nessa lista.
+3. PERGUNTAS PONTUAIS OU DÚVIDAS SOBRE UM FILME EM DISCUSSÃO:
+   - Se o usuário perguntar sobre o filme em discussão (estúdio, diretor, elenco, duração, sinopse) ou fizer uma pergunta informativa:
+     * RESPONDA DIRETAMENTE À DÚVIDA EM TEXTO em "message".
+     * Defina "recommendedMovieIds": [] e "reasons": [], para responder pontualmente sem sobrecarregar a tela com novos cards.
+4. CONVERSA ITERATIVA: Se o usuário estiver indeciso, faça 1 ou 2 perguntas chaves (companhia, energia/clima, tempo disponível).
+5. Quando sugerir filmes, diga com clareza e entusiasmo por que cada filme recomendado combina com o que o usuário pediu (1 a 2 frases por filme).
+6. Responda EXCLUSIVAMENTE em formato JSON com o seguinte schema:
 {
   "isOffTopic": false,
   "message": "Texto caloroso da resposta em Português com introdução e comentários dos filmes...",
@@ -250,6 +257,8 @@ ${JSON.stringify(candidatesSummary, null, 2)}
       max_tokens: 1800,
     });
 
+    const attachCards = shouldAttachMovieCards(userMessage);
+
     try {
       // Tenta extrair JSON da resposta
       const jsonMatch = responseText.match(/\{[\s\S]*\}/);
@@ -268,7 +277,7 @@ ${JSON.stringify(candidatesSummary, null, 2)}
         const matchedMovies: Movie[] = [];
         const reasonsList: ChatRecommendation[] = [];
 
-        if (Array.isArray(parsed.recommendedMovieIds)) {
+        if (attachCards && Array.isArray(parsed.recommendedMovieIds)) {
           for (let i = 0; i < parsed.recommendedMovieIds.length; i++) {
             const id = parsed.recommendedMovieIds[i];
             const found = catalog.find((m) => m.id === id);
@@ -284,27 +293,17 @@ ${JSON.stringify(candidatesSummary, null, 2)}
           }
         }
 
-        // Se for follow-up sobre filme em discussão, garante que ele permaneça recomendado
-        if (isFollowUp && recentMovies && recentMovies.length > 0) {
-          if (matchedMovies.length === 0) {
-            matchedMovies.push(...recentMovies);
-          }
-          parsed.unmatchedQuery = undefined;
-          parsed.suggestWebSearch = false;
-        }
-
-        // Se o JSON não listou IDs válidos, usa os candidatos pré-filtrados
-        const finalMovies = matchedMovies.length > 0 ? matchedMovies : candidates.slice(0, 4);
+        const finalMovies = attachCards ? (matchedMovies.length > 0 ? matchedMovies : candidates.slice(0, 4)) : [];
 
         return {
           text: parsed.message || responseText,
           recommendedMovies: finalMovies,
-          recommendationsWithReasons: reasonsList.length > 0 ? reasonsList : undefined,
-          unmatchedQuery: parsed.unmatchedQuery,
-          suggestWebSearch: Boolean(parsed.suggestWebSearch || parsed.unmatchedQuery),
+          recommendationsWithReasons: attachCards && reasonsList.length > 0 ? reasonsList : undefined,
+          unmatchedQuery: attachCards ? parsed.unmatchedQuery : undefined,
+          suggestWebSearch: attachCards ? Boolean(parsed.suggestWebSearch || parsed.unmatchedQuery) : false,
           quickReplies: Array.isArray(parsed.quickReplies) && parsed.quickReplies.length > 0
             ? parsed.quickReplies
-            : FOLLOW_UP_MOVIE_REPLIES,
+            : (isFollowUp ? FOLLOW_UP_MOVIE_REPLIES : DEFAULT_MOVIE_QUICK_REPLIES.slice(0, 5)),
         };
       }
     } catch {
@@ -312,21 +311,21 @@ ${JSON.stringify(candidatesSummary, null, 2)}
     }
 
     // Fallback de extração se não veio JSON estrito
-    const fallbackMovies = (isFollowUp && recentMovies && recentMovies.length > 0)
-      ? recentMovies
-      : candidates.slice(0, 4);
+    const fallbackMovies = attachCards
+      ? (isFollowUp && recentMovies && recentMovies.length > 0 ? recentMovies : candidates.slice(0, 4))
+      : [];
 
     return {
       text: responseText,
       recommendedMovies: fallbackMovies,
-      recommendationsWithReasons: fallbackMovies.map((m, idx) => ({
+      recommendationsWithReasons: attachCards ? fallbackMovies.map((m, idx) => ({
         movie: m,
         reason: isFollowUp && focalMovie && m.id === focalMovie.id
           ? `Filme em discussão no catálogo: ${m.title} (${m.channelName})`
           : `Selecionado pelo curador inteligente com base no seu pedido.`,
         matchScore: Math.round(98 - idx * 2),
-      })),
-      quickReplies: FOLLOW_UP_MOVIE_REPLIES,
+      })) : undefined,
+      quickReplies: isFollowUp ? FOLLOW_UP_MOVIE_REPLIES : DEFAULT_MOVIE_QUICK_REPLIES.slice(0, 5),
     };
   }
 

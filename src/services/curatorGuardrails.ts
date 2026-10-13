@@ -162,23 +162,58 @@ export function buildOffTopicResponse(): {
 }
 
 /**
- * Detecta se a mensagem do usuário é uma pergunta de acompanhamento sobre um filme
- * que já está em discussão no histórico da conversa (ex: estúdio, diretor, elenco, sinopse, dublagem).
+ * Detecta se a mensagem do usuário é uma solicitação explícita de recomendação/sugestão de filmes para assistir.
+ */
+export function isExplicitRecommendationRequest(rawText: string): boolean {
+  if (!rawText) return false;
+  const t = rawText.trim().toLowerCase();
+
+  const triggers = [
+    'recomende', 'recomenda', 'recomendacao', 'recomendação', 'recomendações', 'recomendacoes',
+    'indique', 'indica', 'indicacao', 'indicação', 'indicações', 'indicacoes',
+    'sugira', 'sugere', 'sugestao', 'sugestão', 'sugestoes', 'sugestões',
+    'o que assistir', 'oque assistir', 'o que tem para assistir',
+    'quero assistir', 'quero ver', 'me mostre filmes', 'me mostre opções', 'me mostre opcoes',
+    'tem algum filme', 'tem outros', 'ver outros', 'outras opções', 'outras opcoes', 'mais opções', 'mais opcoes',
+    'procura um filme', 'procure um filme', 'busque filmes', 'pesquise filmes',
+    'filmes de ', 'filme de ', 'filmes sobre ', 'filme sobre ', 'filmes com ', 'filme com ',
+    'comédia leve', 'comedia leve', 'ação & adrenalina', 'acao & adrenalina',
+    'sessão em família', 'sessao em familia', 'suspense inteligente',
+    'filme rápido', 'filme rapido', 'artes marciais', 'faroeste clássico', 'história de fé',
+    'ver outras opções', 'algo mais curto', 'algo mais leve', 'quero mais ação', 'apenas dublados',
+    'quais filmes tem', 'quais opções', 'quais opcoes', 'me dê uma dica', 'me de uma dica'
+  ];
+
+  for (const trigger of triggers) {
+    if (t.includes(trigger)) return true;
+  }
+
+  if (/^(quero|me da|me dê|tem|quais|qual filme você|qual filme voce)\b/i.test(t)) {
+    return true;
+  }
+
+  return false;
+}
+
+/**
+ * Detecta se a mensagem do usuário é uma pergunta de acompanhamento sobre um filme específico
+ * (ex: estúdio, canal, diretor, elenco, sinopse, dublagem, ano, duração).
  */
 export function isFollowUpMovieInquiry(rawText: string): boolean {
   if (!rawText) return false;
   const t = rawText.trim().toLowerCase();
 
   const triggers = [
-    'estudio', 'estúdio', 'produtora', 'distribuidora', 'distribuidor',
+    'estudio', 'estúdio', 'produtora', 'produtor', 'distribuidora', 'distribuidor', 'canal', 'quem produziu', 'quem fez',
     'diretor', 'diretora', 'dirigiu', 'direcao', 'direção',
-    'ator', 'atores', 'atriz', 'atrizes', 'elenco', 'quem atua', 'quem fez', 'quem participa',
-    'fale mais', 'conta mais', 'conte mais', 'resumo', 'sinopse', 'enredo', 'trama',
-    'história desse', 'historia desse', 'história deste', 'historia deste',
+    'ator', 'atores', 'atriz', 'atrizes', 'elenco', 'quem atua', 'quem participa', 'protagonista', 'personagem', 'personagens',
+    'fale mais', 'fale sobre', 'me fale mais', 'me fale sobre', 'me conta mais', 'me conte mais', 'conta mais', 'conte mais', 'conte sobre', 'me conte', 'me conta',
+    'resumo', 'sinopse', 'enredo', 'trama', 'do que se trata', 'sobre o que é', 'sobre o que e',
+    'história desse', 'historia desse', 'história deste', 'historia deste', 'história do filme', 'historia do filme', 'história', 'historia',
     'sobre esse filme', 'sobre este filme', 'desse filme', 'deste filme', 'esse filme', 'este filme',
-    'o final', 'final do filme', 'spoiler',
+    'o final', 'final do filme', 'como termina', 'spoiler',
     'é dublado', 'e dublado', 'dublagem', 'idioma', 'áudio', 'audio', 'legendado',
-    'qual o ano', 'ano de lançamento', 'ano de lancamento', 'quando foi lançado', 'quando foi lancado',
+    'qual o ano', 'ano de lançamento', 'ano de lancamento', 'quando foi lançado', 'quando foi lancado', 'de que ano é', 'de que ano e',
     'quantos minutos', 'duração', 'duracao', 'tempo de filme',
     'onde foi gravado', 'onde se passa', 'vale a pena', 'é bom', 'e bom', 'recomenda mesmo',
     'tem continuação', 'tem continuacao', 'parte 2', 'segunda parte', 'quem morre', 'quem vence'
@@ -191,10 +226,43 @@ export function isFollowUpMovieInquiry(rawText: string): boolean {
   }
 
   // Perguntas curtas sobre "qual...", "quem...", "onde...", quando em diálogo
-  if (/^(qual|quem|onde|como|por que|porque|quando)\b/i.test(t) && t.length < 50) {
+  if (/^(qual|quem|onde|como|por que|porque|quando)\b/i.test(t) && t.length < 60) {
     return true;
   }
 
   return false;
 }
+
+/**
+ * Determina se a resposta do CAIC deve anexar cards visuais de filmes para reprodução.
+ * Se o usuário fez uma pergunta pontual sobre um filme específico (ex: estúdio, história, diretor),
+ * o assistente responde APENAS EM TEXTO sem poluir a tela com cartões repetidos.
+ * Cards são exibidos quando o usuário solicita recomendações ou quando o contexto explicitamente pede sugestões.
+ */
+export function shouldAttachMovieCards(userMessage: string, hasExplicitRequest = false): boolean {
+  if (!userMessage) return false;
+
+  const isSpecificQuestion = isFollowUpMovieInquiry(userMessage);
+  const isExplicitRequestFound = hasExplicitRequest || isExplicitRecommendationRequest(userMessage);
+
+  // Se o usuário fez pergunta informativa pontual sobre filme e não pediu novas recomendações, NÃO exibe cards
+  if (isSpecificQuestion && !isExplicitRequestFound) {
+    return false;
+  }
+
+  // Se foi pedido explícito de recomendação ou humor/gênero, exibe cards
+  if (isExplicitRequestFound) {
+    return true;
+  }
+
+  // Se for conversa de cordialidade/saudação simples, não anexa cards
+  const t = userMessage.trim().toLowerCase();
+  const simpleChat = ['oi', 'olá', 'ola', 'bom dia', 'boa tarde', 'boa noite', 'obrigado', 'valeu', 'legal', 'show', 'blz', 'ok', 'entendi', 'obrigada'];
+  if (simpleChat.includes(t) || t.length <= 15) {
+    return false;
+  }
+
+  return false;
+}
+
 

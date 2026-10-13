@@ -42,10 +42,11 @@ export const AdminApp: React.FC = () => {
   const [movieSubTab, setMovieSubTab] = useState<'catalog' | 'add' | 'requests' | 'jellyfin'>('catalog');
 
   // Estados de Filmes
-  const [catalogList, setCatalogList] = useState<Movie[]>(() => catalogService.getAll());
+  const [catalogList, setCatalogList] = useState<Movie[]>(() => catalogService.getAllForAdmin());
   const [movieSearch, setMovieSearch] = useState('');
   const [movieGenreFilter, setMovieGenreFilter] = useState('Todos');
   const [movieSourceFilter, setMovieSourceFilter] = useState<'all' | 'youtube' | 'jellyfin'>('all');
+  const [movieStatusFilter, setMovieStatusFilter] = useState<'all' | 'active' | 'inactive'>('all');
   const [previewMovie, setPreviewMovie] = useState<Movie | null>(null);
 
   // Estados de Cadastro / Edição de Filme
@@ -66,6 +67,7 @@ export const AdminApp: React.FC = () => {
   const [ratingScore, setRatingScore] = useState<number>(8.0);
   const [posterUrl, setPosterUrl] = useState('');
   const [isFeatured, setIsFeatured] = useState(false);
+  const [movieStatus, setMovieStatus] = useState<'active' | 'inactive'>('active');
   const [analyzingAi, setAnalyzingAi] = useState(false);
   const [savedSuccess, setSavedSuccess] = useState(false);
   const [originatingRequestId, setOriginatingRequestId] = useState<string | null>(null);
@@ -99,7 +101,7 @@ export const AdminApp: React.FC = () => {
   // Sincronização periódica com o banco local e mudanças
   useEffect(() => {
     const unsubCatalog = catalogService.subscribe(() => {
-      setCatalogList(catalogService.getAll());
+      setCatalogList(catalogService.getAllForAdmin());
     });
     const unsubRequests = movieRequestService.subscribe(() => {
       setRequestsList(movieRequestService.getAll());
@@ -121,7 +123,7 @@ export const AdminApp: React.FC = () => {
   };
 
   const refreshAll = () => {
-    setCatalogList(catalogService.getAll());
+    setCatalogList(catalogService.getAllForAdmin());
     setRequestsList(movieRequestService.getAll());
     setAccountsList(userService.getAllAccounts());
     showNotice('Dados atualizados com sucesso!');
@@ -203,6 +205,7 @@ export const AdminApp: React.FC = () => {
     setRatingScore(8.0);
     setPosterUrl('');
     setIsFeatured(false);
+    setMovieStatus('active');
     setOriginatingRequestId(null);
   };
 
@@ -224,6 +227,7 @@ export const AdminApp: React.FC = () => {
     setRatingScore(movie.ratingScore);
     setPosterUrl(movie.posterUrl);
     setIsFeatured(Boolean(movie.featured));
+    setMovieStatus(movie.status === 'inactive' || movie.isActive === false ? 'inactive' : 'active');
     setMovieSubTab('add');
     setActiveHub('movies');
   };
@@ -254,6 +258,8 @@ export const AdminApp: React.FC = () => {
       posterUrl: derivedPoster || 'https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=600',
       backdropUrl: derivedPoster || 'https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=1280',
       featured: isFeatured,
+      status: movieStatus,
+      isActive: movieStatus === 'active',
       source: 'youtube',
     };
 
@@ -281,15 +287,26 @@ export const AdminApp: React.FC = () => {
   const handleDeleteMovie = (id: string, movieTitle: string) => {
     if (confirm(`Tem certeza que deseja remover "${movieTitle}" do catálogo?`)) {
       catalogService.removeMovie(id);
-      setCatalogList(catalogService.getAll());
+      setCatalogList(catalogService.getAllForAdmin());
       showNotice(`Filme "${movieTitle}" removido.`);
     }
   };
 
   const handleToggleFeatured = (movie: Movie) => {
     catalogService.updateMovie(movie.id, { featured: !movie.featured });
-    setCatalogList(catalogService.getAll());
+    setCatalogList(catalogService.getAllForAdmin());
     showNotice(movie.featured ? 'Removido dos destaques' : 'Marcado como Destaque na Home');
+  };
+
+  const handleToggleStatus = (movie: Movie) => {
+    const updated = catalogService.toggleMovieStatus(movie.id);
+    setCatalogList(catalogService.getAllForAdmin());
+    const isNowActive = updated ? (updated.status !== 'inactive' && updated.isActive !== false) : true;
+    showNotice(
+      isNowActive
+        ? `"${movie.title}" agora está ATIVO e visível na plataforma!`
+        : `"${movie.title}" agora está INATIVO e oculto da plataforma.`
+    );
   };
 
   // Testar e sincronizar Jellyfin
@@ -315,7 +332,7 @@ export const AdminApp: React.FC = () => {
     setJfSyncing(true);
     try {
       await catalogService.syncJellyfinMovies();
-      setCatalogList(catalogService.getAll());
+      setCatalogList(catalogService.getAllForAdmin());
       const count = catalogService.getJellyfinMovies().length;
       showNotice(`Sincronização concluída! ${count} filme(s) do Jellyfin integrados.`);
     } finally {
@@ -400,6 +417,10 @@ export const AdminApp: React.FC = () => {
   // Filtros de Filmes
   const filteredCatalog = useMemo(() => {
     return catalogList.filter((m) => {
+      const isInactive = m.status === 'inactive' || m.isActive === false;
+      if (movieStatusFilter === 'active' && isInactive) return false;
+      if (movieStatusFilter === 'inactive' && !isInactive) return false;
+
       const matchSearch =
         m.title.toLowerCase().includes(movieSearch.toLowerCase()) ||
         (m.originalTitle || '').toLowerCase().includes(movieSearch.toLowerCase()) ||
@@ -411,7 +432,7 @@ export const AdminApp: React.FC = () => {
         (movieSourceFilter === 'jellyfin' ? m.source === 'jellyfin' : m.source !== 'jellyfin');
       return matchSearch && matchGenre && matchSource;
     });
-  }, [catalogList, movieSearch, movieGenreFilter, movieSourceFilter]);
+  }, [catalogList, movieSearch, movieGenreFilter, movieSourceFilter, movieStatusFilter]);
 
   // Filtros de Clientes
   const filteredClients = useMemo(() => {
@@ -659,6 +680,16 @@ export const AdminApp: React.FC = () => {
                       <option value="youtube">Somente YouTube</option>
                       <option value="jellyfin">Somente Jellyfin</option>
                     </select>
+
+                    <select
+                      value={movieStatusFilter}
+                      onChange={(e) => setMovieStatusFilter(e.target.value as any)}
+                      className="px-3 py-2 bg-slate-950 border border-slate-800 rounded-xl text-xs text-slate-300 focus:outline-none focus:border-cyan-500"
+                    >
+                      <option value="all">Todas Situações</option>
+                      <option value="active">Somente Ativos</option>
+                      <option value="inactive">Somente Inativos</option>
+                    </select>
                   </div>
                 </div>
 
@@ -672,6 +703,7 @@ export const AdminApp: React.FC = () => {
                           <th className="p-3.5">Ano / Duração</th>
                           <th className="p-3.5">Gêneros</th>
                           <th className="p-3.5">Distribuidor / Fonte</th>
+                          <th className="p-3.5 text-center">Situação</th>
                           <th className="p-3.5 text-center">Destaque</th>
                           <th className="p-3.5 text-right">Ações</th>
                         </tr>
@@ -688,7 +720,7 @@ export const AdminApp: React.FC = () => {
                               <div className="min-w-0">
                                 <h5 className="font-extrabold text-white truncate max-w-xs">{movie.title}</h5>
                                 <p className="text-[11px] text-slate-400 truncate">
-                                  {movie.source === 'jellyfin' ? 'Biblioteca Jellyfin' : `ID: ${movie.youtubeVideoId}`}
+                                   {movie.source === 'jellyfin' ? 'Biblioteca Jellyfin' : `ID: ${movie.youtubeVideoId}`}
                                 </p>
                               </div>
                             </td>
@@ -718,6 +750,21 @@ export const AdminApp: React.FC = () => {
                                   {movie.channelName || 'YouTube'}
                                 </span>
                               )}
+                            </td>
+
+                            <td className="p-3.5 text-center whitespace-nowrap">
+                              <button
+                                onClick={() => handleToggleStatus(movie)}
+                                title={movie.status === 'inactive' || movie.isActive === false ? 'Clique para Ativar este filme na plataforma' : 'Clique para Inativar este filme (ocultar da plataforma)'}
+                                className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-bold transition cursor-pointer ${
+                                  movie.status === 'inactive' || movie.isActive === false
+                                    ? 'bg-rose-950/60 text-rose-400 border border-rose-800 hover:bg-rose-900/60'
+                                    : 'bg-emerald-950/60 text-emerald-400 border border-emerald-800 hover:bg-emerald-900/60'
+                                }`}
+                              >
+                                <span className={`w-1.5 h-1.5 rounded-full ${movie.status === 'inactive' || movie.isActive === false ? 'bg-rose-500' : 'bg-emerald-500'}`} />
+                                <span>{movie.status === 'inactive' || movie.isActive === false ? 'Inativo' : 'Ativo'}</span>
+                              </button>
                             </td>
 
                             <td className="p-3.5 text-center whitespace-nowrap">
@@ -957,18 +1004,48 @@ export const AdminApp: React.FC = () => {
                     />
                   </div>
 
-                  <div className="flex items-center gap-2 pt-6">
-                    <input
-                      type="checkbox"
-                      id="isFeatured"
-                      checked={isFeatured}
-                      onChange={(e) => setIsFeatured(e.target.checked)}
-                      className="w-4 h-4 rounded text-cyan-600 focus:ring-cyan-500"
-                    />
-                    <label htmlFor="isFeatured" className="text-xs font-bold text-amber-400 flex items-center gap-1 cursor-pointer">
-                      <Star className="w-4 h-4 fill-amber-400" />
-                      <span>Destacar este filme no topo da página inicial</span>
-                    </label>
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-4 border-t border-slate-800">
+                    <div className="flex items-center gap-2">
+                      <input
+                        type="checkbox"
+                        id="isFeatured"
+                        checked={isFeatured}
+                        onChange={(e) => setIsFeatured(e.target.checked)}
+                        className="w-4 h-4 rounded text-cyan-600 focus:ring-cyan-500"
+                      />
+                      <label htmlFor="isFeatured" className="text-xs font-bold text-amber-400 flex items-center gap-1 cursor-pointer">
+                        <Star className="w-4 h-4 fill-amber-400" />
+                        <span>Destacar este filme no topo da página inicial</span>
+                      </label>
+                    </div>
+
+                    <div className="flex items-center gap-2">
+                      <span className="text-xs font-bold text-slate-300">Situação:</span>
+                      <div className="flex items-center gap-1.5 p-1 bg-slate-950 rounded-xl border border-slate-800">
+                        <button
+                          type="button"
+                          onClick={() => setMovieStatus('active')}
+                          className={`px-3 py-1 rounded-lg text-xs font-bold transition cursor-pointer ${
+                            movieStatus === 'active'
+                              ? 'bg-emerald-600 text-white shadow-sm'
+                              : 'text-slate-400 hover:text-white'
+                          }`}
+                        >
+                          Ativo (Visível)
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => setMovieStatus('inactive')}
+                          className={`px-3 py-1 rounded-lg text-xs font-bold transition cursor-pointer ${
+                            movieStatus === 'inactive'
+                              ? 'bg-rose-600 text-white shadow-sm'
+                              : 'text-slate-400 hover:text-white'
+                          }`}
+                        >
+                          Inativo (Oculto)
+                        </button>
+                      </div>
+                    </div>
                   </div>
                 </div>
 

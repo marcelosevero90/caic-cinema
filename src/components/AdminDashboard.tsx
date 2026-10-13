@@ -106,7 +106,8 @@ export const AdminDashboardView: React.FC<AdminDashboardProps> = ({
 
   const [activeTab, setActiveTab] = useState<'manage' | 'session' | 'add' | 'requests' | 'jellyfin' | 'subscriptions' | 'support'>('manage');
   const [searchTerm, setSearchTerm] = useState('');
-  const [catalogList, setCatalogList] = useState<Movie[]>(catalogService.getAll());
+  const [statusFilter, setStatusFilter] = useState<'all' | 'active' | 'inactive'>('all');
+  const [catalogList, setCatalogList] = useState<Movie[]>(() => catalogService.getAllForAdmin());
   const [requestsList, setRequestsList] = useState<MovieRequest[]>(movieRequestService.getAll());
   const [requestFilter, setRequestFilter] = useState<'all' | 'pending' | 'added'>('all');
   const [originatingRequestId, setOriginatingRequestId] = useState<string | null>(null);
@@ -241,6 +242,7 @@ export const AdminDashboardView: React.FC<AdminDashboardProps> = ({
   const [ratingScore, setRatingScore] = useState<number>(7.8);
   const [posterUrl, setPosterUrl] = useState('');
   const [isFeatured, setIsFeatured] = useState(false);
+  const [movieStatus, setMovieStatus] = useState<'active' | 'inactive'>('active');
 
   const [analyzing, setAnalyzing] = useState(false);
   const [savedSuccess, setSavedSuccess] = useState(false);
@@ -248,8 +250,20 @@ export const AdminDashboardView: React.FC<AdminDashboardProps> = ({
   if (!isOpen) return null;
 
   const refreshCatalog = () => {
-    setCatalogList(catalogService.getAll());
+    setCatalogList(catalogService.getAllForAdmin());
     if (onMovieUpdated) onMovieUpdated();
+  };
+
+  const handleToggleStatus = (movie: Movie) => {
+    const updated = catalogService.toggleMovieStatus(movie.id);
+    refreshCatalog();
+    const isNowActive = updated ? (updated.status !== 'inactive' && updated.isActive !== false) : true;
+    setAdminActionMessage(
+      isNowActive
+        ? `"${movie.title}" agora está ATIVO e visível na plataforma!`
+        : `"${movie.title}" agora está INATIVO e oculto da plataforma.`
+    );
+    setTimeout(() => setAdminActionMessage(null), 3000);
   };
 
   const extractVideoId = (url: string): string => {
@@ -332,6 +346,7 @@ export const AdminDashboardView: React.FC<AdminDashboardProps> = ({
     setRatingScore(movie.ratingScore);
     setPosterUrl(movie.posterUrl);
     setIsFeatured(Boolean(movie.featured));
+    setMovieStatus(movie.status === 'inactive' || movie.isActive === false ? 'inactive' : 'active');
     setActiveTab('add');
   };
 
@@ -354,6 +369,7 @@ export const AdminDashboardView: React.FC<AdminDashboardProps> = ({
     setRatingScore(7.8);
     setPosterUrl('');
     setIsFeatured(false);
+    setMovieStatus('active');
   };
 
   const handleConvertRequestToMovie = (req: MovieRequest) => {
@@ -396,6 +412,8 @@ export const AdminDashboardView: React.FC<AdminDashboardProps> = ({
       badge: badge.trim() || undefined,
       ratingScore: Number(ratingScore) || 7.5,
       featured: isFeatured,
+      status: movieStatus,
+      isActive: movieStatus === 'active',
       addedAt: new Date().toISOString(),
     };
 
@@ -531,6 +549,10 @@ export const AdminDashboardView: React.FC<AdminDashboardProps> = ({
 
   const filteredCatalog = (catalogList || []).filter((m) => {
     if (!m) return false;
+    const isInactive = m.status === 'inactive' || m.isActive === false;
+    if (statusFilter === 'active' && isInactive) return false;
+    if (statusFilter === 'inactive' && !isInactive) return false;
+
     const q = (searchTerm || '').toLowerCase();
     return (
       (m.title || '').toLowerCase().includes(q) ||
@@ -849,15 +871,27 @@ export const AdminDashboardView: React.FC<AdminDashboardProps> = ({
           {activeTab === 'manage' && (
             <div className="space-y-4">
               <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
-                <div className="relative w-full sm:w-72">
-                  <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
-                  <input
-                    type="text"
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                    placeholder="Buscar por título, gênero ou canal..."
-                    className="w-full pl-10 pr-3.5 py-2 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl text-xs text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:border-cyan-500"
-                  />
+                <div className="flex flex-col sm:flex-row items-center gap-2.5 w-full sm:w-auto flex-1">
+                  <div className="relative w-full sm:w-72">
+                    <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+                    <input
+                      type="text"
+                      value={searchTerm}
+                      onChange={(e) => setSearchTerm(e.target.value)}
+                      placeholder="Buscar por título, gênero ou canal..."
+                      className="w-full pl-10 pr-3.5 py-2 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl text-xs text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:border-cyan-500"
+                    />
+                  </div>
+
+                  <select
+                    value={statusFilter}
+                    onChange={(e) => setStatusFilter(e.target.value as any)}
+                    className="w-full sm:w-auto px-3 py-2 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-300 focus:outline-none focus:border-cyan-500 cursor-pointer"
+                  >
+                    <option value="all">Todas as Situações ({catalogList.length})</option>
+                    <option value="active">Apenas Ativos ({catalogList.filter(m => m.status !== 'inactive' && m.isActive !== false).length})</option>
+                    <option value="inactive">Apenas Inativos ({catalogList.filter(m => m.status === 'inactive' || m.isActive === false).length})</option>
+                  </select>
                 </div>
 
                 <button
@@ -865,7 +899,7 @@ export const AdminDashboardView: React.FC<AdminDashboardProps> = ({
                     resetForm();
                     setActiveTab('add');
                   }}
-                  className="w-full sm:w-auto px-4 py-2 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white font-bold text-xs flex items-center justify-center gap-1.5 shadow-md shadow-cyan-600/20 transition"
+                  className="w-full sm:w-auto px-4 py-2 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white font-bold text-xs flex items-center justify-center gap-1.5 shadow-md shadow-cyan-600/20 transition cursor-pointer"
                 >
                   <Plus className="w-4 h-4" />
                   <span>Cadastrar Novo Filme</span>
@@ -882,6 +916,7 @@ export const AdminDashboardView: React.FC<AdminDashboardProps> = ({
                         <th className="p-3.5">Ano / Duração</th>
                         <th className="p-3.5">Gêneros</th>
                         <th className="p-3.5">Canal Distribuidor</th>
+                        <th className="p-3.5 text-center">Situação</th>
                         <th className="p-3.5 text-center">Destaque</th>
                         <th className="p-3.5 text-right">Ações</th>
                       </tr>
@@ -918,6 +953,21 @@ export const AdminDashboardView: React.FC<AdminDashboardProps> = ({
 
                           <td className="p-3.5 whitespace-nowrap text-slate-500 dark:text-slate-400">
                             {movie.channelName || 'YouTube'}
+                          </td>
+
+                          <td className="p-3.5 text-center whitespace-nowrap">
+                            <button
+                              onClick={() => handleToggleStatus(movie)}
+                              title={movie.status === 'inactive' || movie.isActive === false ? 'Clique para Ativar este filme na plataforma' : 'Clique para Inativar este filme (ocultar da plataforma)'}
+                              className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-bold transition cursor-pointer ${
+                                movie.status === 'inactive' || movie.isActive === false
+                                  ? 'bg-rose-100 dark:bg-rose-950/60 text-rose-700 dark:text-rose-400 border border-rose-300 dark:border-rose-800 hover:bg-rose-200'
+                                  : 'bg-emerald-100 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-400 border border-emerald-300 dark:border-emerald-800 hover:bg-emerald-200'
+                              }`}
+                            >
+                              <span className={`w-1.5 h-1.5 rounded-full ${movie.status === 'inactive' || movie.isActive === false ? 'bg-rose-500' : 'bg-emerald-500'}`} />
+                              <span>{movie.status === 'inactive' || movie.isActive === false ? 'Inativo' : 'Ativo'}</span>
+                            </button>
                           </td>
 
                           <td className="p-3.5 text-center whitespace-nowrap">
@@ -1513,11 +1563,50 @@ export const AdminDashboardView: React.FC<AdminDashboardProps> = ({
                   id="featured-checkbox"
                   checked={isFeatured}
                   onChange={(e) => setIsFeatured(e.target.checked)}
-                  className="w-4 h-4 text-cyan-600 rounded border-slate-300 focus:ring-cyan-500"
+                  className="w-4 h-4 text-cyan-600 rounded border-slate-300 focus:ring-cyan-500 cursor-pointer"
                 />
                 <label htmlFor="featured-checkbox" className="text-xs font-medium text-slate-700 dark:text-slate-300 cursor-pointer">
                   Exibir como filme em <strong>Destaque Principal na Home (Hero Banner)</strong>
                 </label>
+              </div>
+
+              {/* Situação do Filme (Ativo / Inativo) */}
+              <div className="p-3.5 bg-slate-50 dark:bg-slate-950 rounded-xl border border-slate-200 dark:border-slate-800 space-y-2">
+                <label className="block text-xs font-bold text-slate-800 dark:text-slate-200 uppercase tracking-wider">
+                  Situação na Plataforma
+                </label>
+                <div className="grid grid-cols-2 gap-2">
+                  <button
+                    type="button"
+                    onClick={() => setMovieStatus('active')}
+                    className={`py-2 px-3 rounded-xl border text-xs font-bold flex items-center justify-center gap-2 transition cursor-pointer ${
+                      movieStatus === 'active'
+                        ? 'bg-emerald-600 text-white border-emerald-600 shadow-md'
+                        : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 border-slate-200 dark:border-slate-800 hover:border-emerald-500'
+                    }`}
+                  >
+                    <span className="w-2 h-2 rounded-full bg-emerald-300" />
+                    <span>Ativo (Visível no App)</span>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => setMovieStatus('inactive')}
+                    className={`py-2 px-3 rounded-xl border text-xs font-bold flex items-center justify-center gap-2 transition cursor-pointer ${
+                      movieStatus === 'inactive'
+                        ? 'bg-rose-600 text-white border-rose-600 shadow-md'
+                        : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 border-slate-200 dark:border-slate-800 hover:border-rose-500'
+                    }`}
+                  >
+                    <span className="w-2 h-2 rounded-full bg-rose-300" />
+                    <span>Inativo (Oculto do App)</span>
+                  </button>
+                </div>
+                <p className="text-[11px] text-slate-500 dark:text-slate-400">
+                  {movieStatus === 'active'
+                    ? '✅ O filme aparecerá normalmente na Home, categorias, busca e IA do CAIC.'
+                    : '🚫 O filme sumirá de toda a plataforma para os usuários, ficando visível apenas para o administrador.'}
+                </p>
               </div>
 
               <div className="flex gap-3 pt-3 border-t border-slate-200 dark:border-slate-800">
