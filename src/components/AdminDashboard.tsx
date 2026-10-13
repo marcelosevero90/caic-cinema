@@ -567,7 +567,7 @@ export const AdminDashboardView: React.FC<AdminDashboardProps> = ({
                   autoFocus
                   value={adminUserDraft}
                   onChange={(e) => setAdminUserDraft(e.target.value)}
-                  placeholder="admin"
+                  placeholder="Digite o usuário administrador"
                   className="w-full pl-10 pr-3.5 py-2.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl text-xs text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition"
                 />
               </div>
@@ -595,18 +595,6 @@ export const AdminDashboardView: React.FC<AdminDashboardProps> = ({
                 >
                   {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                 </button>
-              </div>
-            </div>
-
-            {/* Dica de Acesso Padrão */}
-            <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-800 text-[11px] text-slate-600 dark:text-slate-300 space-y-1">
-              <div className="flex items-center justify-between">
-                <span>Usuário padrão:</span>
-                <span className="font-mono font-bold text-cyan-600 dark:text-cyan-400">admin</span>
-              </div>
-              <div className="flex items-center justify-between">
-                <span>Senha padrão:</span>
-                <span className="font-mono font-bold text-cyan-600 dark:text-cyan-400">caic@2026</span>
               </div>
             </div>
 

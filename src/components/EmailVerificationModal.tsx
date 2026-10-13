@@ -7,8 +7,6 @@ import {
   X,
   ShieldCheck,
   ArrowRight,
-  Sparkles,
-  KeyRound,
 } from 'lucide-react';
 import { emailVerificationService } from '../services/emailVerificationService';
 
@@ -26,7 +24,6 @@ export const EmailVerificationModal: React.FC<EmailVerificationModalProps> = ({
   onClose,
   email,
   userName,
-  initialSandboxCode,
   onVerificationSuccess,
 }) => {
   const [digits, setDigits] = useState<string[]>(['', '', '', '', '', '']);
@@ -35,15 +32,8 @@ export const EmailVerificationModal: React.FC<EmailVerificationModalProps> = ({
   const [errorMsg, setErrorMsg] = useState('');
   const [successMsg, setSuccessMsg] = useState('');
   const [resendCountdown, setResendCountdown] = useState(60);
-  const [sandboxCode, setSandboxCode] = useState<string | undefined>(initialSandboxCode);
 
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
-
-  useEffect(() => {
-    if (initialSandboxCode) {
-      setSandboxCode(initialSandboxCode);
-    }
-  }, [initialSandboxCode]);
 
   useEffect(() => {
     if (isOpen) {
@@ -128,13 +118,6 @@ export const EmailVerificationModal: React.FC<EmailVerificationModalProps> = ({
     }
   };
 
-  const fillSandboxCode = () => {
-    if (!sandboxCode) return;
-    const chars = sandboxCode.split('').slice(0, 6);
-    setDigits(chars);
-    executeVerification(sandboxCode);
-  };
-
   const executeVerification = (codeToVerify?: string) => {
     const code = codeToVerify || digits.join('');
     if (code.length !== 6) {
@@ -174,9 +157,6 @@ export const EmailVerificationModal: React.FC<EmailVerificationModalProps> = ({
       const res = await emailVerificationService.sendVerificationCode(email, userName);
       if (res.success) {
         setResendCountdown(60);
-        if (res.sandboxCode) {
-          setSandboxCode(res.sandboxCode);
-        }
         setSuccessMsg(res.message);
         setTimeout(() => setSuccessMsg(''), 4000);
       } else {
@@ -224,29 +204,6 @@ export const EmailVerificationModal: React.FC<EmailVerificationModalProps> = ({
             </p>
           </div>
         </div>
-
-        {/* Banner Modo Sandbox (para facilitar testes locais sem bloqueios) */}
-        {sandboxCode && (
-          <div className="mt-4 p-3 rounded-2xl bg-amber-50 dark:bg-amber-950/60 border border-amber-300 dark:border-amber-700/80 text-amber-900 dark:text-amber-200 text-xs space-y-2">
-            <div className="flex items-center justify-between">
-              <span className="font-bold flex items-center gap-1.5">
-                <Sparkles className="w-3.5 h-3.5 text-amber-500" />
-                Ambiente de Testes / Sandbox:
-              </span>
-              <span className="font-mono font-black text-sm tracking-wider px-2 py-0.5 bg-amber-200 dark:bg-amber-900 rounded-lg">
-                {sandboxCode}
-              </span>
-            </div>
-            <button
-              type="button"
-              onClick={fillSandboxCode}
-              className="w-full py-1.5 px-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-[11px] shadow-sm transition flex items-center justify-center gap-1.5"
-            >
-              <KeyRound className="w-3.5 h-3.5" />
-              <span>Preencher Código de Teste Automaticamente</span>
-            </button>
-          </div>
-        )}
 
         {/* Inputs de 6 Dígitos */}
         <div className="mt-6">

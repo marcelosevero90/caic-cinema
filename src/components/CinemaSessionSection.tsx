@@ -15,6 +15,7 @@ import {
   SkipForward,
   ChevronLeft,
   ChevronRight,
+  Layers,
 } from 'lucide-react';
 import type { CinemaSession } from '../types/cinemaSession';
 import type { Movie } from '../types/movie';
@@ -27,6 +28,7 @@ interface CinemaSessionSectionProps {
   onToggleFavorite: (movieId: string) => void;
   isWatched: (movieId: string) => boolean;
   onToggleWatched: (movieId: string) => void;
+  onSeeAllSessions?: () => void;
 }
 
 export const CinemaSessionSectionComponent: React.FC<CinemaSessionSectionProps> = ({
@@ -37,6 +39,7 @@ export const CinemaSessionSectionComponent: React.FC<CinemaSessionSectionProps> 
   onToggleFavorite,
   isWatched,
   onToggleWatched,
+  onSeeAllSessions,
 }) => {
   if (!session || !session.active || !movies || movies.length === 0) {
     return null;
@@ -274,6 +277,17 @@ export const CinemaSessionSectionComponent: React.FC<CinemaSessionSectionProps> 
                   <Play className="w-4 h-4 fill-current" />
                   <span>{hasWatchedAny ? 'Reiniciar Maratona' : 'Iniciar Maratona'}</span>
                 </button>
+
+                {onSeeAllSessions && (
+                  <button
+                    onClick={onSeeAllSessions}
+                    className="tv-focusable px-4 py-3 rounded-2xl bg-slate-900/90 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-700/80 font-bold text-xs flex items-center gap-2 transition shadow-md cursor-pointer"
+                    title="Ver todas as sessões e edições anteriores"
+                  >
+                    <Layers className="w-4 h-4 text-cyan-400" />
+                    <span>Todas as Sessões</span>
+                  </button>
+                )}
               </div>
             )}
           </div>

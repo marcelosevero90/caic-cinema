@@ -141,6 +141,17 @@ class CinemaSessionService {
     return { ...this.currentSession };
   }
 
+  public getAllSessions(): CinemaSession[] {
+    const active = this.getActiveSession();
+    const result: CinemaSession[] = [{ ...active, active: true }];
+    for (const preset of SESSION_PRESETS) {
+      if (preset.id !== active.id) {
+        result.push({ ...preset, active: false });
+      }
+    }
+    return result;
+  }
+
   public getPresets(): CinemaSession[] {
     return [...SESSION_PRESETS];
   }

@@ -17,6 +17,7 @@ import { MobileAccessModal } from './components/MobileAccessModal';
 import { MovieSuggestionModal } from './components/MovieSuggestionModal';
 import { VisitorTrialModal } from './components/VisitorTrialModal';
 import { CinemaSessionSection } from './components/CinemaSessionSection';
+import { CinemaSessionsDirectory } from './components/CinemaSessionsDirectory';
 import { cinemaSessionService } from './services/cinemaSessionService';
 import { supportConfigService, type SupportConfig } from './services/supportConfigService';
 import type { CinemaSession } from './types/cinemaSession';
@@ -46,6 +47,9 @@ import {
   Mail,
   Flame,
   Swords,
+  Monitor,
+  Smartphone,
+  Tv,
 } from 'lucide-react';
 
 export const App: React.FC = () => {
@@ -267,7 +271,13 @@ export const App: React.FC = () => {
     }
   };
 
-  const handlePlayMovie = async (movie: Movie) => {
+  const [marathonQueue, setMarathonQueue] = useState<Movie[]>([]);
+
+  const handlePlayMovie = async (movie: Movie, queue?: Movie[]) => {
+    if (queue && queue.length > 0) {
+      setMarathonQueue(queue);
+    }
+
     if (!currentAccount.isAuthenticated) {
       setVisitorBlockMovie(movie);
       setIsVisitorModalOpen(true);
@@ -379,6 +389,14 @@ export const App: React.FC = () => {
   const nextMovie = useMemo(() => {
     if (!selectedMovie) return null;
 
+    // 0. Se há fila de maratona ativa da Sessão Cinema selecionada
+    if (marathonQueue.length > 0) {
+      const qIdx = marathonQueue.findIndex((m) => m.id === selectedMovie.id);
+      if (qIdx !== -1 && qIdx < marathonQueue.length - 1) {
+        return marathonQueue[qIdx + 1];
+      }
+    }
+
     // 1. Se o filme está na Sessão Cinema Especial
     if (cinemaSession?.active && cinemaSessionMovies.length > 0) {
       const idx = cinemaSessionMovies.findIndex((m) => m.id === selectedMovie.id);
@@ -402,7 +420,7 @@ export const App: React.FC = () => {
     }
 
     return null;
-  }, [selectedMovie, cinemaSession, cinemaSessionMovies, filteredMovies, allMovies]);
+  }, [selectedMovie, marathonQueue, cinemaSession, cinemaSessionMovies, filteredMovies, allMovies]);
 
   const handlePlayNextMovie = () => {
     if (nextMovie) {
@@ -944,6 +962,11 @@ export const App: React.FC = () => {
                       <Heart className="w-4 h-4 fill-rose-500 text-rose-500" />
                       <span>Minha Lista de Favoritos ({activeProfile.name})</span>
                     </>
+                  ) : activeFilter === '🍿 Sessão Cinema' ? (
+                    <>
+                      <Sparkles className="w-4 h-4 text-amber-500" />
+                      <span>Sessão Cinema CAIC — Maratonas Temáticas</span>
+                    </>
                   ) : activeFilter === 'Jellyfin' ? (
                     <>
                       <Server className="w-4 h-4 text-indigo-500" />
@@ -1042,7 +1065,7 @@ export const App: React.FC = () => {
 
               <div className="flex items-center gap-2.5">
                 <span className="text-xs text-slate-600 dark:text-slate-400 font-bold bg-slate-100 dark:bg-slate-800 px-2.5 py-1 rounded-lg">
-                  {filteredMovies.length} títulos
+                  {activeFilter === '🍿 Sessão Cinema' ? `${cinemaSessionService.getAllSessions().length} edições temáticas` : `${filteredMovies.length} títulos`}
                 </span>
                 <button
                   onClick={handleClearAllFilters}
@@ -1055,7 +1078,18 @@ export const App: React.FC = () => {
               </div>
             </div>
 
-            {filteredMovies.length === 0 ? (
+            {activeFilter === '🍿 Sessão Cinema' ? (
+              <CinemaSessionsDirectory
+                sessions={cinemaSessionService.getAllSessions()}
+                activeSession={cinemaSession}
+                catalog={allMovies}
+                onPlayMovie={(movie, queue) => handlePlayMovie(movie, queue)}
+                isFavorite={(id) => activeProfile.favoriteMovieIds.includes(id)}
+                onToggleFavorite={handleToggleFavorite}
+                isWatched={(id) => (activeProfile.watchedMovieIds || []).includes(id)}
+                onToggleWatched={handleToggleWatched}
+              />
+            ) : filteredMovies.length === 0 ? (
               <div className="space-y-8">
                 <div className="text-center py-12 px-6 glass-card rounded-3xl border border-slate-200 dark:border-slate-800 shadow-md max-w-2xl mx-auto space-y-4">
                   {activeFilter === 'Minha Lista' ? (
@@ -1189,11 +1223,15 @@ export const App: React.FC = () => {
             <CinemaSessionSection
               session={cinemaSession}
               movies={cinemaSessionMovies}
-              onPlayMovie={(m) => handlePlayMovie(m)}
+              onPlayMovie={(m) => handlePlayMovie(m, cinemaSessionMovies)}
               isFavorite={(id) => activeProfile.favoriteMovieIds.includes(id)}
               onToggleFavorite={handleToggleFavorite}
               isWatched={(id) => (activeProfile.watchedMovieIds || []).includes(id)}
               onToggleWatched={handleToggleWatched}
+              onSeeAllSessions={() => {
+                setActiveFilter('🍿 Sessão Cinema');
+                window.scrollTo({ top: 380, behavior: 'smooth' });
+              }}
             />
 
             {/* FILEIRA 1: ASSISTIR NOVAMENTE (FILMES JÁ VISTOS PELO USUÁRIO) */}
@@ -1487,6 +1525,59 @@ export const App: React.FC = () => {
               </div>
             </div>
           )}
+
+          {/* Requisitos Recomendados do Sistema (Celular e TV Box) */}
+          <div className="pt-6 pb-2 border-t border-slate-200/70 dark:border-slate-800/80">
+            <div className="text-center md:text-left mb-4">
+              <h4 className="text-xs font-black uppercase tracking-wider text-slate-400 dark:text-slate-400 flex items-center justify-center md:justify-start gap-2">
+                <Monitor className="w-4 h-4 text-cyan-500" />
+                <span>Requisitos Recomendados do Sistema</span>
+              </h4>
+              <p className="text-[11px] text-slate-500 dark:text-slate-400">
+                Para a melhor experiência e reprodução fluida sem travamentos
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
+              {/* Celulares & Tablets */}
+              <div className="p-3.5 rounded-2xl bg-slate-100/80 dark:bg-slate-900/80 border border-slate-200/80 dark:border-slate-800/80 flex items-start gap-3">
+                <div className="p-2 rounded-xl bg-cyan-500/10 text-cyan-500 shrink-0 mt-0.5">
+                  <Smartphone className="w-5 h-5" />
+                </div>
+                <div className="space-y-1.5 min-w-0">
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <span className="font-bold text-slate-900 dark:text-slate-100 text-sm">Smartphones & Tablets</span>
+                    <span className="text-[10px] px-2 py-0.5 rounded-md bg-emerald-500/10 text-emerald-500 font-semibold">Android / iOS</span>
+                  </div>
+                  <ul className="text-[11px] text-slate-600 dark:text-slate-400 space-y-1 list-disc list-inside">
+                    <li><strong className="text-slate-800 dark:text-slate-200">Sistema Operacional:</strong> Android 8.0+ ou iOS 14.0+</li>
+                    <li><strong className="text-slate-800 dark:text-slate-200">Memória RAM:</strong> Mínimo 2 GB (Recomendado 3 GB+)</li>
+                    <li><strong className="text-slate-800 dark:text-slate-200">Navegador/App:</strong> Chrome, Edge, Safari ou App CAIC APK</li>
+                    <li><strong className="text-slate-800 dark:text-slate-200">Conexão:</strong> Wi-Fi ou dados móveis 4G/5G (mínimo 10 Mbps)</li>
+                  </ul>
+                </div>
+              </div>
+
+              {/* TV Box & Smart TV */}
+              <div className="p-3.5 rounded-2xl bg-slate-100/80 dark:bg-slate-900/80 border border-slate-200/80 dark:border-slate-800/80 flex items-start gap-3">
+                <div className="p-2 rounded-xl bg-amber-500/10 text-amber-500 shrink-0 mt-0.5">
+                  <Tv className="w-5 h-5" />
+                </div>
+                <div className="space-y-1.5 min-w-0">
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <span className="font-bold text-slate-900 dark:text-slate-100 text-sm">TV Box & Android TV</span>
+                    <span className="text-[10px] px-2 py-0.5 rounded-md bg-amber-500/10 text-amber-500 font-semibold">Atenção ao Hardware</span>
+                  </div>
+                  <ul className="text-[11px] text-slate-600 dark:text-slate-400 space-y-1 list-disc list-inside">
+                    <li><strong className="text-slate-800 dark:text-slate-200">Memória RAM:</strong> 2 GB a 4 GB recomendados <span className="text-amber-500 dark:text-amber-400 font-semibold">(TV Boxes com apenas 1 GB de RAM podem apresentar lentidão ou fechamentos)</span></li>
+                    <li><strong className="text-slate-800 dark:text-slate-200">Processador (CPU):</strong> Quad-Core 1.5 GHz ou superior (Amlogic S905+, Allwinner H6/H616, Rockchip)</li>
+                    <li><strong className="text-slate-800 dark:text-slate-200">Sistema:</strong> Android TV 9.0 ou superior (com WebView do sistema atualizado)</li>
+                    <li><strong className="text-slate-800 dark:text-slate-200">Conexão:</strong> Cabo de rede RJ45 Ethernet ou Wi-Fi 5 GHz estável (15 Mbps+)</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
 
           {/* Copyright e Tecnologias */}
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-4 border-t border-slate-200/70 dark:border-slate-800/80">
