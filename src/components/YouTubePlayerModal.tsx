@@ -58,11 +58,16 @@ export const YouTubePlayerModal: React.FC<YouTubePlayerModalProps> = ({
   const [isLoadingAi, setIsLoadingAi] = useState(false);
   const [isFullscreenOnly, setIsFullscreenOnly] = useState(true);
   const [showOverlay, setShowOverlay] = useState(true);
+  const [skipIntro, setSkipIntro] = useState(true);
+
+  const isNetMovies = Boolean(movie?.channelName?.toLowerCase().includes('netmovies'));
+  const startParam = isNetMovies && skipIntro ? '&start=20' : '';
 
   useEffect(() => {
     if (movie) {
       setIsFullscreenOnly(true);
       setShowOverlay(true);
+      setSkipIntro(true);
       userService.recordWatch(movie.id);
       setWatched(userService.isWatched(movie.id));
 
@@ -187,6 +192,23 @@ export const YouTubePlayerModal: React.FC<YouTubePlayerModalProps> = ({
             </div>
 
             <div className="flex items-center gap-2">
+              {/* Botão Pular Vinheta NetMovies */}
+              {isNetMovies && (
+                <button
+                  id="btn-toggle-netmovies-intro-fs"
+                  onClick={() => setSkipIntro((prev) => !prev)}
+                  className={`tv-focusable flex items-center gap-1.5 px-3 py-1.5 rounded-xl border text-xs font-bold transition shadow-lg cursor-pointer ${
+                    skipIntro
+                      ? 'bg-emerald-950/90 border-emerald-500/70 text-emerald-300 hover:bg-emerald-900'
+                      : 'bg-slate-900/80 border-slate-700 text-slate-300 hover:text-white'
+                  }`}
+                  title={skipIntro ? 'Vinheta NetMovies pulada (+20s). Clique para ver do início (0:00)' : 'Clique para pular a vinheta (+20s)'}
+                >
+                  <SkipForward className="w-3.5 h-3.5" />
+                  <span>{skipIntro ? 'Vinheta Pulada (+20s)' : 'Do Início (0:00)'}</span>
+                </button>
+              )}
+
               {/* Botão Ver Sinopse / Detalhes */}
               <button
                 id="btn-show-details"
@@ -237,7 +259,7 @@ export const YouTubePlayerModal: React.FC<YouTubePlayerModalProps> = ({
               </video>
             ) : (
               <iframe
-                src={`https://www.youtube.com/embed/${movie.youtubeVideoId}?autoplay=1&rel=0&modestbranding=1&enablejsapi=1&fs=1`}
+                src={`https://www.youtube.com/embed/${movie.youtubeVideoId}?autoplay=1${startParam}&rel=0&modestbranding=1&enablejsapi=1&fs=1`}
                 title={movie.title}
                 className="w-full h-full border-0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen"
@@ -261,6 +283,11 @@ export const YouTubePlayerModal: React.FC<YouTubePlayerModalProps> = ({
                 <span className="text-xs px-2 py-0.5 rounded bg-slate-800 text-slate-300 font-mono shrink-0">
                   {movie.releaseYear}
                 </span>
+                {isNetMovies && (
+                  <span className="hidden sm:inline-flex items-center gap-1 text-[11px] font-semibold px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 shrink-0">
+                    ⏩ Vinheta de 20s pulada
+                  </span>
+                )}
               </div>
 
               {/* Botão Fechar no Mobile (Canto superior direito) */}
@@ -277,6 +304,23 @@ export const YouTubePlayerModal: React.FC<YouTubePlayerModalProps> = ({
 
             {/* Linha 2 no Mobile / Lado Direito no Desktop: Botões de Ação */}
             <div className="flex items-center gap-1.5 sm:gap-2 overflow-x-auto scrollbar-none w-full sm:w-auto shrink-0 pb-0.5 sm:pb-0">
+              {/* Botão Pular Vinheta NetMovies */}
+              {isNetMovies && (
+                <button
+                  id="btn-toggle-netmovies-intro"
+                  onClick={() => setSkipIntro((prev) => !prev)}
+                  className={`tv-focusable shrink-0 flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-xl border text-xs font-semibold transition cursor-pointer ${
+                    skipIntro
+                      ? 'bg-emerald-950/80 border-emerald-700 text-emerald-300 hover:bg-emerald-900'
+                      : 'bg-slate-800 border-slate-700 text-slate-400 hover:text-white'
+                  }`}
+                  title={skipIntro ? 'Vinheta de 20s pulada. Clique para assistir desde o 0:00' : 'Clique para pular a vinheta (+20s)'}
+                >
+                  <SkipForward className="w-3.5 h-3.5 shrink-0" />
+                  <span className="text-[11px] sm:text-xs">{skipIntro ? 'Vinheta Pulada (+20s)' : 'Do Início'}</span>
+                </button>
+              )}
+
               {/* BOTÃO MAXIMIZAR / TELA CHEIA EM DESTAQUE */}
               <button
                 id="btn-maximize-player"
@@ -366,7 +410,7 @@ export const YouTubePlayerModal: React.FC<YouTubePlayerModalProps> = ({
               </video>
             ) : (
               <iframe
-                src={`https://www.youtube.com/embed/${movie.youtubeVideoId}?autoplay=1&rel=0&modestbranding=1&enablejsapi=1&fs=1`}
+                src={`https://www.youtube.com/embed/${movie.youtubeVideoId}?autoplay=1${startParam}&rel=0&modestbranding=1&enablejsapi=1&fs=1`}
                 title={movie.title}
                 className="w-full h-full border-0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen"
