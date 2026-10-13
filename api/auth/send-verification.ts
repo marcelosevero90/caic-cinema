@@ -136,6 +136,45 @@ export default async function handler(req: IncomingMessage & { body?: any }, res
 
     const html = getVerificationHtml(cleanName, code);
 
+    // Registra imediatamente o usuário com 7 dias grátis no banco compartilhado
+    try {
+      const { saveSharedDb } = await import('../admin/db.js');
+      const now = new Date();
+      const trialEnd = new Date(now.getTime() + 7 * 86400000);
+      saveSharedDb({
+        accounts: [
+          {
+            id: `acc-${Date.now()}`,
+            name: cleanName,
+            email: cleanEmail,
+            plan: 'Plano Individual Mensal (R$ 5,90/mês)',
+            subscriptionPlan: 'individual',
+            billingCycle: 'monthly',
+            subscriptionStatus: 'trial',
+            trialStartDate: now.toISOString(),
+            trialEndDate: trialEnd.toISOString(),
+            paymentMethod: 'PIX (Mercado Pago)',
+            lastPaymentAmount: 0,
+            paymentHistory: [
+              {
+                id: `pay-trial-${Date.now()}`,
+                date: now.toISOString(),
+                amount: 0,
+                plan: 'Plano Individual Mensal (R$ 5,90/mês) (7 Dias Grátis de Teste)',
+                status: 'paid',
+                method: 'Período de Teste'
+              }
+            ],
+            createdAt: now.toISOString(),
+            avatar: 'https://api.dicebear.com/9.x/adventurer/svg?seed=ShadowHero&backgroundColor=b6e3f4,c0aede,d1d4f9',
+            isAuthenticated: true,
+          }
+        ]
+      });
+    } catch (dbErr) {
+      console.warn('[Auth Verification] Aviso ao sincronizar usuário no DB compartilhado:', dbErr);
+    }
+
     const info = await transporter.sendMail({
       from: `"CAIC - Cinema & IA" <${GMAIL_USER}>`,
       to: cleanEmail,

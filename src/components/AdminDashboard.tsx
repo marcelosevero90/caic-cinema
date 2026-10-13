@@ -205,10 +205,22 @@ export const AdminDashboardView: React.FC<AdminDashboardProps> = ({
   };
 
   useEffect(() => {
-    const unsub = movieRequestService.subscribe(() => {
+    const unsubRequests = movieRequestService.subscribe(() => {
       setRequestsList(movieRequestService.getAll());
     });
-    return unsub;
+    const unsubUsers = userService.subscribe(() => {
+      setAccountsList(userService.getAllAccounts());
+    });
+    // Sincroniza do banco compartilhado em segundo plano ao abrir o painel
+    userService.syncFromSharedDb().then((accs) => {
+      if (accs && accs.length > 0) {
+        setAccountsList(accs);
+      }
+    });
+    return () => {
+      unsubRequests();
+      unsubUsers();
+    };
   }, []);
 
   // Estado para Adicionar / Editar
@@ -456,8 +468,20 @@ export const AdminDashboardView: React.FC<AdminDashboardProps> = ({
     }
   };
 
-  const refreshAccounts = () => {
-    setAccountsList(userService.getAllAccounts());
+  const [isRefreshingAccounts, setIsRefreshingAccounts] = useState(false);
+
+  const refreshAccounts = async () => {
+    setIsRefreshingAccounts(true);
+    try {
+      const accs = await userService.syncFromSharedDb();
+      setAccountsList(accs);
+      setAdminActionMessage(`Lista atualizada! (${accs.length} usuários carregados)`);
+      setTimeout(() => setAdminActionMessage(null), 3500);
+    } catch {
+      setAccountsList(userService.getAllAccounts());
+    } finally {
+      setIsRefreshingAccounts(false);
+    }
   };
 
   const handleAdminActivateIndividual = (account: UserAccount) => {
@@ -2056,10 +2080,11 @@ export const AdminDashboardView: React.FC<AdminDashboardProps> = ({
                   </div>
                   <button
                     onClick={refreshAccounts}
-                    className="px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-xs font-semibold text-slate-700 dark:text-slate-300 transition flex items-center gap-1"
+                    disabled={isRefreshingAccounts}
+                    className="px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-xs font-semibold text-slate-700 dark:text-slate-300 transition flex items-center gap-1.5 disabled:opacity-60 cursor-pointer"
                   >
-                    <RefreshCw className="w-3.5 h-3.5" />
-                    <span>Atualizar Lista</span>
+                    <RefreshCw className={`w-3.5 h-3.5 ${isRefreshingAccounts ? 'animate-spin' : ''}`} />
+                    <span>{isRefreshingAccounts ? 'Sincronizando...' : 'Atualizar Lista'}</span>
                   </button>
                 </div>
 

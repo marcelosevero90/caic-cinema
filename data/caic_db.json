@@ -66,6 +66,32 @@
       "createdAt": "2026-10-12T02:56:35.330Z",
       "avatar": "https://api.dicebear.com/9.x/adventurer/svg?seed=ShadowHero&backgroundColor=b6e3f4,c0aede,d1d4f9",
       "isAuthenticated": true
+    },
+    {
+      "id": "acc-daniel-bragion",
+      "name": "Daniel Bragion",
+      "email": "bragiondaniel@hotmail.com",
+      "plan": "Plano Individual Mensal (R$ 5,90/mês)",
+      "subscriptionPlan": "individual",
+      "billingCycle": "monthly",
+      "subscriptionStatus": "trial",
+      "trialStartDate": "2026-10-13T12:00:00.000Z",
+      "trialEndDate": "2026-10-20T12:00:00.000Z",
+      "paymentMethod": "PIX (Mercado Pago)",
+      "lastPaymentAmount": 0,
+      "paymentHistory": [
+        {
+          "id": "pay-trial-daniel-bragion",
+          "date": "2026-10-13T12:00:00.000Z",
+          "amount": 0,
+          "plan": "Plano Individual Mensal (R$ 5,90/mês) (7 Dias Grátis de Teste)",
+          "status": "paid",
+          "method": "Período de Teste"
+        }
+      ],
+      "createdAt": "2026-10-13T12:00:00.000Z",
+      "avatar": "https://api.dicebear.com/9.x/adventurer/svg?seed=ShadowHero&backgroundColor=b6e3f4,c0aede,d1d4f9",
+      "isAuthenticated": true
     }
   ],
   "requests": [],

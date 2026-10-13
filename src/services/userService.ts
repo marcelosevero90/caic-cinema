@@ -34,6 +34,88 @@ export function normalizeAvatar(url?: string): string {
 // Registros de demonstração removidos conforme solicitação do usuário para testes 100% limpos
 export const DEMO_ACCOUNTS: Array<{ account: UserAccount; profiles: UserProfile[] }> = [];
 
+export const DEFAULT_SYSTEM_ACCOUNTS: UserAccount[] = [
+  {
+    id: 'acc-daniel-bragion',
+    name: 'Daniel Bragion',
+    email: 'bragiondaniel@hotmail.com',
+    plan: 'Plano Individual Mensal (R$ 5,90/mês)',
+    subscriptionPlan: 'individual',
+    billingCycle: 'monthly',
+    subscriptionStatus: 'trial',
+    trialStartDate: '2026-10-13T12:00:00.000Z',
+    trialEndDate: '2026-10-20T12:00:00.000Z',
+    paymentMethod: 'PIX (Mercado Pago)',
+    lastPaymentAmount: 0,
+    paymentHistory: [
+      {
+        id: 'pay-trial-daniel-bragion',
+        date: '2026-10-13T12:00:00.000Z',
+        amount: 0,
+        plan: 'Plano Individual Mensal (R$ 5,90/mês) (7 Dias Grátis de Teste)',
+        status: 'paid',
+        method: 'Período de Teste',
+      },
+    ],
+    createdAt: '2026-10-13T12:00:00.000Z',
+    avatar: 'https://api.dicebear.com/9.x/adventurer/svg?seed=ShadowHero&backgroundColor=b6e3f4,c0aede,d1d4f9',
+    isAuthenticated: true,
+  },
+  {
+    id: 'acc-1791773795330',
+    name: 'Fmstecnoinfo',
+    email: 'fmstecnoinfo',
+    password: '123456',
+    plan: 'Plano Individual Mensal (R$ 5,90/mês)',
+    subscriptionPlan: 'individual',
+    billingCycle: 'monthly',
+    subscriptionStatus: 'trial',
+    trialStartDate: '2026-10-12T02:56:35.330Z',
+    trialEndDate: '2026-10-19T02:56:35.330Z',
+    paymentMethod: 'PIX (Mercado Pago)',
+    lastPaymentAmount: 0,
+    paymentHistory: [
+      {
+        id: 'pay-trial-1791773795330',
+        date: '2026-10-12T02:56:35.330Z',
+        amount: 0,
+        plan: 'Plano Individual Mensal (R$ 5,90/mês) (7 Dias Grátis de Teste)',
+        status: 'paid',
+        method: 'Período de Teste',
+      },
+    ],
+    createdAt: '2026-10-12T02:56:35.330Z',
+    avatar: 'https://api.dicebear.com/9.x/adventurer/svg?seed=ShadowHero&backgroundColor=b6e3f4,c0aede,d1d4f9',
+    isAuthenticated: true,
+  },
+  {
+    id: 'acc-1791580673310',
+    name: 'Marcelo.antonio.severo',
+    email: 'marcelo.antonio.severo@gmail.com',
+    plan: 'Plano Individual Mensal (R$ 5,90/mês)',
+    subscriptionPlan: 'individual',
+    billingCycle: 'monthly',
+    subscriptionStatus: 'trial',
+    trialStartDate: '2026-10-09T21:17:53.310Z',
+    trialEndDate: '2026-10-16T21:17:53.310Z',
+    paymentMethod: 'Cartão de Crédito (7 Dias Grátis)',
+    lastPaymentAmount: 0,
+    paymentHistory: [
+      {
+        id: 'pay-trial-1791580673310',
+        date: '2026-10-09T21:17:53.310Z',
+        amount: 0,
+        plan: 'Plano Individual Mensal (R$ 5,90/mês) (7 Dias Grátis de Teste)',
+        status: 'paid',
+        method: 'Período de Teste',
+      },
+    ],
+    createdAt: '2026-10-09T21:17:53.310Z',
+    avatar: 'https://api.dicebear.com/9.x/bottts/svg?seed=PopcornDroid&backgroundColor=ffdfbf,ffd5dc',
+    isAuthenticated: true,
+  },
+];
+
 const GUEST_ACCOUNT: UserAccount = {
   id: 'guest',
   name: 'Visitante',
@@ -75,18 +157,41 @@ class UserService {
   private async syncToSharedDb(): Promise<void> {
     try {
       if (typeof window !== 'undefined') {
-        await fetch(apiUrl('/api/admin/db'), {
+        const res = await fetch(apiUrl('/api/admin/db'), {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ accounts: this.allAccounts }),
         });
+        if (res.ok) {
+          const data = await res.json();
+          if (Array.isArray(data.accounts) && data.accounts.length > 0) {
+            let changed = false;
+            for (const remoteAcc of data.accounts) {
+              const idx = this.allAccounts.findIndex(
+                (a) => a.id === remoteAcc.id || a.email.toLowerCase() === remoteAcc.email.toLowerCase()
+              );
+              if (idx >= 0) {
+                this.allAccounts[idx] = { ...this.allAccounts[idx], ...remoteAcc };
+              } else {
+                this.allAccounts.push(remoteAcc);
+                changed = true;
+              }
+            }
+            if (changed) {
+              try {
+                localStorage.setItem(ALL_ACCOUNTS_STORAGE_KEY, JSON.stringify(this.allAccounts));
+              } catch {}
+              this.notify();
+            }
+          }
+        }
       }
     } catch {
       // Falha silenciosa em dev ou offline
     }
   }
 
-  private async syncFromSharedDb(): Promise<void> {
+  public async syncFromSharedDb(): Promise<UserAccount[]> {
     try {
       if (typeof window !== 'undefined') {
         const res = await fetch(apiUrl('/api/admin/db'));
@@ -114,7 +219,10 @@ class UserService {
           }
         }
       }
-    } catch {}
+    } catch (e) {
+      console.warn('[UserService] Erro ao sincronizar contas compartilhadas:', e);
+    }
+    return [...this.allAccounts];
   }
 
   private loadState(): void {
@@ -135,6 +243,16 @@ class UserService {
         );
       } else {
         this.allAccounts = [];
+      }
+
+      // Garante que contas oficiais do sistema (ex: Daniel Bragion) estejam presentes
+      for (const sysAcc of DEFAULT_SYSTEM_ACCOUNTS) {
+        const exists = this.allAccounts.some(
+          (a) => a.email.toLowerCase() === sysAcc.email.toLowerCase() || a.id === sysAcc.id
+        );
+        if (!exists) {
+          this.allAccounts.push(sysAcc);
+        }
       }
 
       // 2. Carrega a conta atualmente autenticada (sessão persistente)
