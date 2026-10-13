@@ -47,7 +47,6 @@ export const Header: React.FC<HeaderProps> = ({
   const [isCategoryMenuOpen, setIsCategoryMenuOpen] = useState(false);
   const isJfEnabled = jellyfinService.getConfig().enabled;
   const genres = ['Todos', '🔥 Lançamentos', '🍿 Sessão Cinema', ...(isJfEnabled ? ['Jellyfin'] : []), 'Minha Lista', 'Ação', 'Guerra', 'Drama', 'Comédia', 'Terror', 'Suspense', 'Ficção Científica'];
-  const isSubscriberActive = currentAccount?.subscriptionStatus === 'active';
 
   const handleOpenSub = () => {
     if (onOpenSubscription) {
@@ -98,17 +97,15 @@ export const Header: React.FC<HeaderProps> = ({
 
           {/* Mobile Actions: Clean, well-spaced, essential buttons */}
           <div className="flex items-center gap-2 md:hidden shrink-0">
-            {/* Botão de Assinar em destaque para não-assinantes */}
-            {!isSubscriberActive && (
-              <button
-                onClick={handleOpenSub}
-                className="shrink-0 flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 text-slate-950 font-black text-xs shadow-sm shadow-amber-500/25 active:scale-95 transition"
-                title="Assinar Planos Pix"
-              >
-                <Crown className="w-3.5 h-3.5 fill-slate-950" />
-                <span>Assinar</span>
-              </button>
-            )}
+            {/* Botão de Planos permanente na barra superior */}
+            <button
+              onClick={handleOpenSub}
+              className="shrink-0 flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 text-slate-950 font-black text-xs shadow-sm shadow-amber-500/25 active:scale-95 transition cursor-pointer"
+              title="Ver Planos e Assinatura CAIC (Individual e Família)"
+            >
+              <Crown className="w-3.5 h-3.5 fill-slate-950 shrink-0" />
+              <span>Planos</span>
+            </button>
 
             {/* Botão do CAIC Assistente IA */}
             <button
@@ -282,17 +279,15 @@ export const Header: React.FC<HeaderProps> = ({
 
         {/* Desktop Actions */}
         <div className="hidden md:flex items-center gap-2 justify-end shrink-0">
-          {/* Botão de Assinar em destaque para quem ainda não é assinante */}
-          {!isSubscriberActive && (
-            <button
-              onClick={handleOpenSub}
-              className="tv-focusable flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-slate-950 font-black text-xs shadow-md shadow-amber-500/20 active:scale-95 transition"
-              title="Assinar com Pix"
-            >
-              <Crown className="w-3.5 h-3.5 fill-slate-950" />
-              <span>Assinar Plano Pix</span>
-            </button>
-          )}
+          {/* Botão de Planos permanente na barra superior */}
+          <button
+            onClick={handleOpenSub}
+            className="tv-focusable flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-slate-950 font-black text-xs shadow-md shadow-amber-500/20 active:scale-95 transition cursor-pointer"
+            title="Ver Planos e Assinatura CAIC (Individual e Família)"
+          >
+            <Crown className="w-3.5 h-3.5 fill-slate-950 shrink-0" />
+            <span>Planos</span>
+          </button>
 
           {/* Menu Suspenso Mais Opções (Sugerir Filme, No Celular, D-Pad) */}
           <div className="relative">
@@ -338,6 +333,17 @@ export const Header: React.FC<HeaderProps> = ({
                       <span>Sugerir Filme</span>
                     </button>
                   )}
+
+                  <button
+                    onClick={() => {
+                      handleOpenSub();
+                      setIsDesktopMenuOpen(false);
+                    }}
+                    className="w-full text-left px-3 py-2 rounded-xl text-xs font-bold text-amber-700 dark:text-amber-300 hover:bg-amber-50 dark:hover:bg-amber-950/40 flex items-center gap-2.5 transition cursor-pointer"
+                  >
+                    <Crown className="w-4 h-4 text-amber-500" />
+                    <span>Planos &amp; Assinatura</span>
+                  </button>
 
                   <div className="px-3 py-2 rounded-xl text-xs font-medium text-slate-600 dark:text-slate-400 flex items-center justify-between border-t border-slate-100 dark:border-slate-800">
                     <div className="flex items-center gap-2">

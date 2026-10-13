@@ -4,7 +4,7 @@ import type { Movie } from '../types/movie';
  * Catálogo Oficial do CineAI / CAIC
  * Centenas de filmes completos legalmente disponíveis e curados com inteligência artificial
  */
-export const INITIAL_CATALOG: Movie[] = [
+const CATALOG_PART_1: Movie[] = [
   {
     "id": "movie-BXbOYxZLNbk",
     "youtubeVideoId": "BXbOYxZLNbk",
@@ -16987,7 +16987,10 @@ export const INITIAL_CATALOG: Movie[] = [
     "badge": "Comédia Romântica",
     "source": "youtube",
     "addedAt": "2026-10-09T00:00:00.000Z"
-  },
+  }
+];
+
+const CATALOG_PART_2: Movie[] = [
   {
     "id": "movie-vXOB84nfj4Q",
     "youtubeVideoId": "vXOB84nfj4Q",
@@ -34020,7 +34023,10 @@ export const INITIAL_CATALOG: Movie[] = [
     "badge": "Film Plus Oficial",
     "featured": false,
     "addedAt": "2026-10-13T21:00:10.067Z"
-  },
+  }
+];
+
+const CATALOG_PART_3: Movie[] = [
   {
     "id": "movie-6NfOoCqcf3A",
     "youtubeVideoId": "6NfOoCqcf3A",
@@ -40058,5 +40064,11460 @@ export const INITIAL_CATALOG: Movie[] = [
     "badge": "NetMovies Oficial",
     "featured": false,
     "addedAt": "2026-10-13T21:08:53.392Z"
+  },
+  {
+    "id": "movie-nz1WkykE8Pk",
+    "youtubeVideoId": "nz1WkykE8Pk",
+    "title": "VideoFlix",
+    "synopsis": "VideoFlix é uma produção cinematográfica completa disponibilizada oficialmente pelo canal NetMovies no YouTube, com dublagem em português.",
+    "genres": [
+      "Ação",
+      "Aventura"
+    ],
+    "subgenres": [
+      "Adrenalina",
+      "Combate"
+    ],
+    "tags": [
+      "netmovies",
+      "ação",
+      "aventura",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "eletrizante",
+      "empolgante",
+      "frenético"
+    ],
+    "releaseYear": 2022,
+    "durationMinutes": 92,
+    "posterUrl": "https://img.youtube.com/vi/nz1WkykE8Pk/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/nz1WkykE8Pk/hqdefault.jpg",
+    "channelName": "NetMovies",
+    "channelUrl": "https://www.youtube.com/watch?v=nz1WkykE8Pk",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 8,
+    "badge": "NetMovies Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.592Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-LtbHBwPsv1I",
+    "youtubeVideoId": "LtbHBwPsv1I",
+    "title": "Sala do Medo",
+    "synopsis": "Sala do Medo é uma produção cinematográfica completa disponibilizada oficialmente pelo canal NetMovies no YouTube, com dublagem em português.",
+    "genres": [
+      "Terror",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Sobrenatural",
+      "Mistério"
+    ],
+    "tags": [
+      "netmovies",
+      "terror",
+      "suspense",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "arrepiante",
+      "sombrio",
+      "tenso"
+    ],
+    "releaseYear": 2023,
+    "durationMinutes": 108,
+    "posterUrl": "https://img.youtube.com/vi/LtbHBwPsv1I/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/LtbHBwPsv1I/hqdefault.jpg",
+    "channelName": "NetMovies",
+    "channelUrl": "https://www.youtube.com/watch?v=LtbHBwPsv1I",
+    "contentRating": "16",
+    "language": "Dublado",
+    "ratingScore": 8.2,
+    "badge": "NetMovies Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.595Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-U02SGd8OcP0",
+    "youtubeVideoId": "U02SGd8OcP0",
+    "title": "Desespero",
+    "synopsis": "Desespero é uma produção cinematográfica completa disponibilizada oficialmente pelo canal NetMovies no YouTube, com dublagem em português.",
+    "genres": [
+      "Terror",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Sobrenatural",
+      "Mistério"
+    ],
+    "tags": [
+      "netmovies",
+      "terror",
+      "suspense",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "arrepiante",
+      "sombrio",
+      "tenso"
+    ],
+    "releaseYear": 2018,
+    "durationMinutes": 94,
+    "posterUrl": "https://img.youtube.com/vi/U02SGd8OcP0/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/U02SGd8OcP0/hqdefault.jpg",
+    "channelName": "NetMovies",
+    "channelUrl": "https://www.youtube.com/watch?v=U02SGd8OcP0",
+    "contentRating": "16",
+    "language": "Dublado",
+    "ratingScore": 7.4,
+    "badge": "NetMovies Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.596Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-Mzr8Lj1cTBI",
+    "youtubeVideoId": "Mzr8Lj1cTBI",
+    "title": "Noite dos Desaparecidos",
+    "synopsis": "Noite dos Desaparecidos é uma produção cinematográfica completa disponibilizada oficialmente pelo canal NetMovies no YouTube, com dublagem em português.",
+    "genres": [
+      "Terror",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Sobrenatural",
+      "Mistério"
+    ],
+    "tags": [
+      "netmovies",
+      "terror",
+      "suspense",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "arrepiante",
+      "sombrio",
+      "tenso"
+    ],
+    "releaseYear": 2018,
+    "durationMinutes": 106,
+    "posterUrl": "https://img.youtube.com/vi/Mzr8Lj1cTBI/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/Mzr8Lj1cTBI/hqdefault.jpg",
+    "channelName": "NetMovies",
+    "channelUrl": "https://www.youtube.com/watch?v=Mzr8Lj1cTBI",
+    "contentRating": "16",
+    "language": "Dublado",
+    "ratingScore": 7.7,
+    "badge": "NetMovies Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.596Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-6ONiJXxWRl8",
+    "youtubeVideoId": "6ONiJXxWRl8",
+    "title": "Alice no País das Trevas",
+    "synopsis": "Alice no País das Trevas é uma produção cinematográfica completa disponibilizada oficialmente pelo canal NetMovies no YouTube, com dublagem em português.",
+    "genres": [
+      "Terror",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Sobrenatural",
+      "Mistério"
+    ],
+    "tags": [
+      "netmovies",
+      "terror",
+      "suspense",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "arrepiante",
+      "sombrio",
+      "tenso"
+    ],
+    "releaseYear": 2018,
+    "durationMinutes": 94,
+    "posterUrl": "https://img.youtube.com/vi/6ONiJXxWRl8/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/6ONiJXxWRl8/hqdefault.jpg",
+    "channelName": "NetMovies",
+    "channelUrl": "https://www.youtube.com/watch?v=6ONiJXxWRl8",
+    "contentRating": "16",
+    "language": "Dublado",
+    "ratingScore": 7.3,
+    "badge": "NetMovies Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.596Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-HHLjQt8fw0s",
+    "youtubeVideoId": "HHLjQt8fw0s",
+    "title": "O Caçador de Zumbis",
+    "synopsis": "O Caçador de Zumbis é uma produção cinematográfica completa disponibilizada oficialmente pelo canal NetMovies no YouTube, com dublagem em português.",
+    "genres": [
+      "Terror",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Sobrenatural",
+      "Mistério"
+    ],
+    "tags": [
+      "netmovies",
+      "terror",
+      "suspense",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "arrepiante",
+      "sombrio",
+      "tenso"
+    ],
+    "releaseYear": 2023,
+    "durationMinutes": 103,
+    "posterUrl": "https://img.youtube.com/vi/HHLjQt8fw0s/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/HHLjQt8fw0s/hqdefault.jpg",
+    "channelName": "NetMovies",
+    "channelUrl": "https://www.youtube.com/watch?v=HHLjQt8fw0s",
+    "contentRating": "16",
+    "language": "Dublado",
+    "ratingScore": 7.9,
+    "badge": "NetMovies Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.596Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-Q-wXp444Beg",
+    "youtubeVideoId": "Q-wXp444Beg",
+    "title": "Booh!",
+    "synopsis": "Booh! é uma produção cinematográfica completa disponibilizada oficialmente pelo canal NetMovies no YouTube, com dublagem em português.",
+    "genres": [
+      "Terror",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Sobrenatural",
+      "Mistério"
+    ],
+    "tags": [
+      "netmovies",
+      "terror",
+      "suspense",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "arrepiante",
+      "sombrio",
+      "tenso"
+    ],
+    "releaseYear": 2018,
+    "durationMinutes": 94,
+    "posterUrl": "https://img.youtube.com/vi/Q-wXp444Beg/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/Q-wXp444Beg/hqdefault.jpg",
+    "channelName": "NetMovies",
+    "channelUrl": "https://www.youtube.com/watch?v=Q-wXp444Beg",
+    "contentRating": "16",
+    "language": "Dublado",
+    "ratingScore": 7.9,
+    "badge": "NetMovies Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.596Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-aA6fQqz3Nys",
+    "youtubeVideoId": "aA6fQqz3Nys",
+    "title": "Alta Tensão",
+    "synopsis": "Alta Tensão é uma produção cinematográfica completa disponibilizada oficialmente pelo canal NetMovies no YouTube, com dublagem em português.",
+    "genres": [
+      "Terror",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Sobrenatural",
+      "Mistério"
+    ],
+    "tags": [
+      "netmovies",
+      "terror",
+      "suspense",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "arrepiante",
+      "sombrio",
+      "tenso"
+    ],
+    "releaseYear": 2017,
+    "durationMinutes": 103,
+    "posterUrl": "https://img.youtube.com/vi/aA6fQqz3Nys/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/aA6fQqz3Nys/hqdefault.jpg",
+    "channelName": "NetMovies",
+    "channelUrl": "https://www.youtube.com/watch?v=aA6fQqz3Nys",
+    "contentRating": "16",
+    "language": "Dublado",
+    "ratingScore": 7.7,
+    "badge": "NetMovies Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.596Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-BSUy1cVRHCI",
+    "youtubeVideoId": "BSUy1cVRHCI",
+    "title": "Tela Nacional",
+    "synopsis": "Tela Nacional é uma produção cinematográfica completa disponibilizada oficialmente pelo canal NetMovies no YouTube, com dublagem em português.",
+    "genres": [
+      "Comédia"
+    ],
+    "subgenres": [
+      "Humor",
+      "Divertido"
+    ],
+    "tags": [
+      "netmovies",
+      "comédia",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "divertido",
+      "leve",
+      "descontraído"
+    ],
+    "releaseYear": 2020,
+    "durationMinutes": 108,
+    "posterUrl": "https://img.youtube.com/vi/BSUy1cVRHCI/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/BSUy1cVRHCI/hqdefault.jpg",
+    "channelName": "NetMovies",
+    "channelUrl": "https://www.youtube.com/watch?v=BSUy1cVRHCI",
+    "contentRating": "12",
+    "language": "Dublado",
+    "ratingScore": 7.4,
+    "badge": "NetMovies Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.596Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-mYkvNEpw7-E",
+    "youtubeVideoId": "mYkvNEpw7-E",
+    "title": "Confusão em Dose Dupla",
+    "synopsis": "Confusão em Dose Dupla é uma produção cinematográfica completa disponibilizada oficialmente pelo canal NetMovies no YouTube, com dublagem em português.",
+    "genres": [
+      "Comédia"
+    ],
+    "subgenres": [
+      "Humor",
+      "Divertido"
+    ],
+    "tags": [
+      "netmovies",
+      "comédia",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "divertido",
+      "leve",
+      "descontraído"
+    ],
+    "releaseYear": 2022,
+    "durationMinutes": 95,
+    "posterUrl": "https://img.youtube.com/vi/mYkvNEpw7-E/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/mYkvNEpw7-E/hqdefault.jpg",
+    "channelName": "NetMovies",
+    "channelUrl": "https://www.youtube.com/watch?v=mYkvNEpw7-E",
+    "contentRating": "12",
+    "language": "Dublado",
+    "ratingScore": 8.5,
+    "badge": "NetMovies Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.596Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-BZ46y7FNuDg",
+    "youtubeVideoId": "BZ46y7FNuDg",
+    "title": "Mazzaropi: O Jeca e a Freira",
+    "synopsis": "Mazzaropi: O Jeca e a Freira é uma produção cinematográfica completa disponibilizada oficialmente pelo canal NetMovies no YouTube, com dublagem em português.",
+    "genres": [
+      "Comédia"
+    ],
+    "subgenres": [
+      "Humor",
+      "Divertido"
+    ],
+    "tags": [
+      "netmovies",
+      "comédia",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "divertido",
+      "leve",
+      "descontraído"
+    ],
+    "releaseYear": 2019,
+    "durationMinutes": 104,
+    "posterUrl": "https://img.youtube.com/vi/BZ46y7FNuDg/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/BZ46y7FNuDg/hqdefault.jpg",
+    "channelName": "NetMovies",
+    "channelUrl": "https://www.youtube.com/watch?v=BZ46y7FNuDg",
+    "contentRating": "12",
+    "language": "Dublado",
+    "ratingScore": 7.5,
+    "badge": "NetMovies Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.596Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-lFV2OmC4EDw",
+    "youtubeVideoId": "lFV2OmC4EDw",
+    "title": "Se Fosse Amor",
+    "synopsis": "Se Fosse Amor é uma produção cinematográfica completa disponibilizada oficialmente pelo canal NetMovies no YouTube, com dublagem em português.",
+    "genres": [
+      "Comédia"
+    ],
+    "subgenres": [
+      "Humor",
+      "Divertido"
+    ],
+    "tags": [
+      "netmovies",
+      "comédia",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "divertido",
+      "leve",
+      "descontraído"
+    ],
+    "releaseYear": 2018,
+    "durationMinutes": 106,
+    "posterUrl": "https://img.youtube.com/vi/lFV2OmC4EDw/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/lFV2OmC4EDw/hqdefault.jpg",
+    "channelName": "NetMovies",
+    "channelUrl": "https://www.youtube.com/watch?v=lFV2OmC4EDw",
+    "contentRating": "12",
+    "language": "Dublado",
+    "ratingScore": 8.1,
+    "badge": "NetMovies Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.596Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-80SzX5c75hc",
+    "youtubeVideoId": "80SzX5c75hc",
+    "title": "EM NOME DO REI",
+    "synopsis": "EM NOME DO REI é uma produção cinematográfica completa disponibilizada oficialmente pelo canal NetMovies no YouTube, com dublagem em português.",
+    "genres": [
+      "Ação",
+      "Aventura"
+    ],
+    "subgenres": [
+      "Adrenalina",
+      "Combate"
+    ],
+    "tags": [
+      "netmovies",
+      "ação",
+      "aventura",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "eletrizante",
+      "empolgante",
+      "frenético"
+    ],
+    "releaseYear": 2019,
+    "durationMinutes": 93,
+    "posterUrl": "https://img.youtube.com/vi/80SzX5c75hc/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/80SzX5c75hc/hqdefault.jpg",
+    "channelName": "NetMovies",
+    "channelUrl": "https://www.youtube.com/watch?v=80SzX5c75hc",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 8,
+    "badge": "NetMovies Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.596Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-aPxPrV39WOM",
+    "youtubeVideoId": "aPxPrV39WOM",
+    "title": "Valan: Vale dos Anjos",
+    "synopsis": "Valan: Vale dos Anjos é uma produção cinematográfica completa disponibilizada oficialmente pelo canal NetMovies no YouTube, com dublagem em português.",
+    "genres": [
+      "Suspense",
+      "Policial"
+    ],
+    "subgenres": [
+      "Mistério",
+      "Investigação"
+    ],
+    "tags": [
+      "netmovies",
+      "suspense",
+      "policial",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "intrigante",
+      "tenso",
+      "misterioso"
+    ],
+    "releaseYear": 2018,
+    "durationMinutes": 105,
+    "posterUrl": "https://img.youtube.com/vi/aPxPrV39WOM/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/aPxPrV39WOM/hqdefault.jpg",
+    "channelName": "NetMovies",
+    "channelUrl": "https://www.youtube.com/watch?v=aPxPrV39WOM",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 8.6,
+    "badge": "NetMovies Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.597Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-DlW_dGARLr4",
+    "youtubeVideoId": "DlW_dGARLr4",
+    "title": "CAOS",
+    "synopsis": "CAOS é uma produção cinematográfica completa disponibilizada oficialmente pelo canal NetMovies no YouTube, com dublagem em português.",
+    "genres": [
+      "Ação",
+      "Aventura"
+    ],
+    "subgenres": [
+      "Adrenalina",
+      "Combate"
+    ],
+    "tags": [
+      "netmovies",
+      "ação",
+      "aventura",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "eletrizante",
+      "empolgante",
+      "frenético"
+    ],
+    "releaseYear": 2017,
+    "durationMinutes": 101,
+    "posterUrl": "https://img.youtube.com/vi/DlW_dGARLr4/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/DlW_dGARLr4/hqdefault.jpg",
+    "channelName": "NetMovies",
+    "channelUrl": "https://www.youtube.com/watch?v=DlW_dGARLr4",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 7.9,
+    "badge": "NetMovies Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.597Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-jg_MYMz4_J0",
+    "youtubeVideoId": "jg_MYMz4_J0",
+    "title": "A JORNADA DOS MAGOS",
+    "synopsis": "A JORNADA DOS MAGOS é uma produção cinematográfica completa disponibilizada oficialmente pelo canal NetMovies no YouTube, com dublagem em português.",
+    "genres": [
+      "Ação",
+      "Aventura"
+    ],
+    "subgenres": [
+      "Adrenalina",
+      "Combate"
+    ],
+    "tags": [
+      "netmovies",
+      "ação",
+      "aventura",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "eletrizante",
+      "empolgante",
+      "frenético"
+    ],
+    "releaseYear": 2021,
+    "durationMinutes": 90,
+    "posterUrl": "https://img.youtube.com/vi/jg_MYMz4_J0/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/jg_MYMz4_J0/hqdefault.jpg",
+    "channelName": "NetMovies",
+    "channelUrl": "https://www.youtube.com/watch?v=jg_MYMz4_J0",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 8.6,
+    "badge": "NetMovies Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.597Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-SXtH2Ycwrps",
+    "youtubeVideoId": "SXtH2Ycwrps",
+    "title": "O Mercenário que Desafiou o Diab0 pra Salvar a garota inocenteSolomon Kane: O Caçador de Demônios",
+    "synopsis": "O Mercenário que Desafiou o Diab0 pra Salvar a garota inocenteSolomon Kane: O Caçador de Demônios é uma produção cinematográfica completa disponibilizada oficialmente pelo canal NetMovies no YouTube, com dublagem em português.",
+    "genres": [
+      "Ação",
+      "Aventura"
+    ],
+    "subgenres": [
+      "Adrenalina",
+      "Combate"
+    ],
+    "tags": [
+      "netmovies",
+      "ação",
+      "aventura",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "eletrizante",
+      "empolgante",
+      "frenético"
+    ],
+    "releaseYear": 2017,
+    "durationMinutes": 100,
+    "posterUrl": "https://img.youtube.com/vi/SXtH2Ycwrps/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/SXtH2Ycwrps/hqdefault.jpg",
+    "channelName": "NetMovies",
+    "channelUrl": "https://www.youtube.com/watch?v=SXtH2Ycwrps",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 8.2,
+    "badge": "NetMovies Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.597Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-s5A6iaJhzow",
+    "youtubeVideoId": "s5A6iaJhzow",
+    "title": "Solomon Kane: O Caçador de Demônios",
+    "synopsis": "Solomon Kane: O Caçador de Demônios é uma produção cinematográfica completa disponibilizada oficialmente pelo canal NetMovies no YouTube, com dublagem em português.",
+    "genres": [
+      "Ação",
+      "Aventura"
+    ],
+    "subgenres": [
+      "Adrenalina",
+      "Combate"
+    ],
+    "tags": [
+      "netmovies",
+      "ação",
+      "aventura",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "eletrizante",
+      "empolgante",
+      "frenético"
+    ],
+    "releaseYear": 2023,
+    "durationMinutes": 98,
+    "posterUrl": "https://img.youtube.com/vi/s5A6iaJhzow/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/s5A6iaJhzow/hqdefault.jpg",
+    "channelName": "NetMovies",
+    "channelUrl": "https://www.youtube.com/watch?v=s5A6iaJhzow",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 8.6,
+    "badge": "NetMovies Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.597Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-UTjsObdUXsA",
+    "youtubeVideoId": "UTjsObdUXsA",
+    "title": "Pulse",
+    "synopsis": "Pulse é uma produção cinematográfica completa disponibilizada oficialmente pelo canal NetMovies no YouTube, com dublagem em português.",
+    "genres": [
+      "Ficção Científica",
+      "Ação"
+    ],
+    "subgenres": [
+      "Sci-Fi",
+      "Catástrofe"
+    ],
+    "tags": [
+      "netmovies",
+      "ficção científica",
+      "ação",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "visionário",
+      "fascinante",
+      "intenso"
+    ],
+    "releaseYear": 2017,
+    "durationMinutes": 93,
+    "posterUrl": "https://img.youtube.com/vi/UTjsObdUXsA/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/UTjsObdUXsA/hqdefault.jpg",
+    "channelName": "NetMovies",
+    "channelUrl": "https://www.youtube.com/watch?v=UTjsObdUXsA",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 7.8,
+    "badge": "NetMovies Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.597Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-QoYYy4HCk4M",
+    "youtubeVideoId": "QoYYy4HCk4M",
+    "title": "A Batalha das Ardenas: A Última Ofensiva de Hitler",
+    "synopsis": "A Batalha das Ardenas: A Última Ofensiva de Hitler é uma produção cinematográfica completa disponibilizada oficialmente pelo canal NetMovies no YouTube, com dublagem em português.",
+    "genres": [
+      "Guerra",
+      "Ação"
+    ],
+    "subgenres": [
+      "Combate Militar",
+      "Histórico"
+    ],
+    "tags": [
+      "netmovies",
+      "guerra",
+      "ação",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "épico",
+      "tenso",
+      "impactante"
+    ],
+    "releaseYear": 2017,
+    "durationMinutes": 109,
+    "posterUrl": "https://img.youtube.com/vi/QoYYy4HCk4M/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/QoYYy4HCk4M/hqdefault.jpg",
+    "channelName": "NetMovies",
+    "channelUrl": "https://www.youtube.com/watch?v=QoYYy4HCk4M",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 7.4,
+    "badge": "NetMovies Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.597Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-1jUu6VOgovk",
+    "youtubeVideoId": "1jUu6VOgovk",
+    "title": "MIDWAY BATALHA EM ALTO MAR",
+    "synopsis": "MIDWAY BATALHA EM ALTO MAR é uma produção cinematográfica completa disponibilizada oficialmente pelo canal NetMovies no YouTube, com dublagem em português.",
+    "genres": [
+      "Guerra",
+      "Ação"
+    ],
+    "subgenres": [
+      "Combate Militar",
+      "Histórico"
+    ],
+    "tags": [
+      "netmovies",
+      "guerra",
+      "ação",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "épico",
+      "tenso",
+      "impactante"
+    ],
+    "releaseYear": 2020,
+    "durationMinutes": 111,
+    "posterUrl": "https://img.youtube.com/vi/1jUu6VOgovk/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/1jUu6VOgovk/hqdefault.jpg",
+    "channelName": "NetMovies",
+    "channelUrl": "https://www.youtube.com/watch?v=1jUu6VOgovk",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 8.4,
+    "badge": "NetMovies Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.597Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-78jewvIomNU",
+    "youtubeVideoId": "78jewvIomNU",
+    "title": "A Guerra dos Deuses",
+    "synopsis": "A Guerra dos Deuses é uma produção cinematográfica completa disponibilizada oficialmente pelo canal NetMovies no YouTube, com dublagem em português.",
+    "genres": [
+      "Guerra",
+      "Ação"
+    ],
+    "subgenres": [
+      "Combate Militar",
+      "Histórico"
+    ],
+    "tags": [
+      "netmovies",
+      "guerra",
+      "ação",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "épico",
+      "tenso",
+      "impactante"
+    ],
+    "releaseYear": 2023,
+    "durationMinutes": 94,
+    "posterUrl": "https://img.youtube.com/vi/78jewvIomNU/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/78jewvIomNU/hqdefault.jpg",
+    "channelName": "NetMovies",
+    "channelUrl": "https://www.youtube.com/watch?v=78jewvIomNU",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 7.5,
+    "badge": "NetMovies Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.597Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-hV8RNDnt5mQ",
+    "youtubeVideoId": "hV8RNDnt5mQ",
+    "title": "Guerra Pela Sobrevivência 🌍",
+    "synopsis": "Guerra Pela Sobrevivência 🌍 é uma produção cinematográfica completa disponibilizada oficialmente pelo canal NetMovies no YouTube, com dublagem em português.",
+    "genres": [
+      "Ficção Científica",
+      "Ação"
+    ],
+    "subgenres": [
+      "Sci-Fi",
+      "Catástrofe"
+    ],
+    "tags": [
+      "netmovies",
+      "ficção científica",
+      "ação",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "visionário",
+      "fascinante",
+      "intenso"
+    ],
+    "releaseYear": 2019,
+    "durationMinutes": 96,
+    "posterUrl": "https://img.youtube.com/vi/hV8RNDnt5mQ/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/hV8RNDnt5mQ/hqdefault.jpg",
+    "channelName": "NetMovies",
+    "channelUrl": "https://www.youtube.com/watch?v=hV8RNDnt5mQ",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 8,
+    "badge": "NetMovies Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.597Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-TRVk4TQj3iI",
+    "youtubeVideoId": "TRVk4TQj3iI",
+    "title": "Ataque à Colina 400",
+    "synopsis": "Ataque à Colina 400 é uma produção cinematográfica completa disponibilizada oficialmente pelo canal NetMovies no YouTube, com dublagem em português.",
+    "genres": [
+      "Guerra",
+      "Ação"
+    ],
+    "subgenres": [
+      "Combate Militar",
+      "Histórico"
+    ],
+    "tags": [
+      "netmovies",
+      "guerra",
+      "ação",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "épico",
+      "tenso",
+      "impactante"
+    ],
+    "releaseYear": 2023,
+    "durationMinutes": 108,
+    "posterUrl": "https://img.youtube.com/vi/TRVk4TQj3iI/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/TRVk4TQj3iI/hqdefault.jpg",
+    "channelName": "NetMovies",
+    "channelUrl": "https://www.youtube.com/watch?v=TRVk4TQj3iI",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 8.4,
+    "badge": "NetMovies Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.597Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-Lvg7z9jw7_s",
+    "youtubeVideoId": "Lvg7z9jw7_s",
+    "title": "Padre Pio 2",
+    "synopsis": "Padre Pio 2 é uma produção cinematográfica completa disponibilizada oficialmente pelo canal NetMovies no YouTube, com dublagem em português.",
+    "genres": [
+      "Ação",
+      "Aventura"
+    ],
+    "subgenres": [
+      "Adrenalina",
+      "Combate"
+    ],
+    "tags": [
+      "netmovies",
+      "ação",
+      "aventura",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "eletrizante",
+      "empolgante",
+      "frenético"
+    ],
+    "releaseYear": 2018,
+    "durationMinutes": 108,
+    "posterUrl": "https://img.youtube.com/vi/Lvg7z9jw7_s/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/Lvg7z9jw7_s/hqdefault.jpg",
+    "channelName": "NetMovies",
+    "channelUrl": "https://www.youtube.com/watch?v=Lvg7z9jw7_s",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 8.4,
+    "badge": "NetMovies Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.597Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-m8r6CpTXTvY",
+    "youtubeVideoId": "m8r6CpTXTvY",
+    "title": "Santos ou Soldados",
+    "synopsis": "Santos ou Soldados é uma produção cinematográfica completa disponibilizada oficialmente pelo canal NetMovies no YouTube, com dublagem em português.",
+    "genres": [
+      "Guerra",
+      "Ação"
+    ],
+    "subgenres": [
+      "Combate Militar",
+      "Histórico"
+    ],
+    "tags": [
+      "netmovies",
+      "guerra",
+      "ação",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "épico",
+      "tenso",
+      "impactante"
+    ],
+    "releaseYear": 2019,
+    "durationMinutes": 101,
+    "posterUrl": "https://img.youtube.com/vi/m8r6CpTXTvY/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/m8r6CpTXTvY/hqdefault.jpg",
+    "channelName": "NetMovies",
+    "channelUrl": "https://www.youtube.com/watch?v=m8r6CpTXTvY",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 7.5,
+    "badge": "NetMovies Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.597Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-t7o3zPvfg9o",
+    "youtubeVideoId": "t7o3zPvfg9o",
+    "title": "A Grande Guerra",
+    "synopsis": "A Grande Guerra é uma produção cinematográfica completa disponibilizada oficialmente pelo canal NetMovies no YouTube, com dublagem em português.",
+    "genres": [
+      "Guerra",
+      "Ação"
+    ],
+    "subgenres": [
+      "Combate Militar",
+      "Histórico"
+    ],
+    "tags": [
+      "netmovies",
+      "guerra",
+      "ação",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "épico",
+      "tenso",
+      "impactante"
+    ],
+    "releaseYear": 2023,
+    "durationMinutes": 102,
+    "posterUrl": "https://img.youtube.com/vi/t7o3zPvfg9o/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/t7o3zPvfg9o/hqdefault.jpg",
+    "channelName": "NetMovies",
+    "channelUrl": "https://www.youtube.com/watch?v=t7o3zPvfg9o",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 7.5,
+    "badge": "NetMovies Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.597Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-v-L_Ra_x7GE",
+    "youtubeVideoId": "v-L_Ra_x7GE",
+    "title": "Quando a Guerra Acabar",
+    "synopsis": "Quando a Guerra Acabar é uma produção cinematográfica completa disponibilizada oficialmente pelo canal NetMovies no YouTube, com dublagem em português.",
+    "genres": [
+      "Guerra",
+      "Ação"
+    ],
+    "subgenres": [
+      "Combate Militar",
+      "Histórico"
+    ],
+    "tags": [
+      "netmovies",
+      "guerra",
+      "ação",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "épico",
+      "tenso",
+      "impactante"
+    ],
+    "releaseYear": 2022,
+    "durationMinutes": 109,
+    "posterUrl": "https://img.youtube.com/vi/v-L_Ra_x7GE/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/v-L_Ra_x7GE/hqdefault.jpg",
+    "channelName": "NetMovies",
+    "channelUrl": "https://www.youtube.com/watch?v=v-L_Ra_x7GE",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 7.5,
+    "badge": "NetMovies Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.597Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-KSwsrmU-bE8",
+    "youtubeVideoId": "KSwsrmU-bE8",
+    "title": "O AMOR CERTO PODE ESTAR ONDE VOCÊ MENOS ESPERA! 🌹",
+    "synopsis": "O AMOR CERTO PODE ESTAR ONDE VOCÊ MENOS ESPERA! 🌹 é uma produção cinematográfica completa disponibilizada oficialmente pelo canal NetMovies no YouTube, com dublagem em português.",
+    "genres": [
+      "Romance",
+      "Comédia"
+    ],
+    "subgenres": [
+      "Romântico",
+      "Sentimental"
+    ],
+    "tags": [
+      "netmovies",
+      "romance",
+      "comédia",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "encantador",
+      "romântico",
+      "emocionante"
+    ],
+    "releaseYear": 2020,
+    "durationMinutes": 101,
+    "posterUrl": "https://img.youtube.com/vi/KSwsrmU-bE8/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/KSwsrmU-bE8/hqdefault.jpg",
+    "channelName": "NetMovies",
+    "channelUrl": "https://www.youtube.com/watch?v=KSwsrmU-bE8",
+    "contentRating": "12",
+    "language": "Dublado",
+    "ratingScore": 7.9,
+    "badge": "NetMovies Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.597Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-BG0I-9toHeM",
+    "youtubeVideoId": "BG0I-9toHeM",
+    "title": "O Amor e suas Surpresas",
+    "synopsis": "O Amor e suas Surpresas é uma produção cinematográfica completa disponibilizada oficialmente pelo canal NetMovies no YouTube, com dublagem em português.",
+    "genres": [
+      "Comédia"
+    ],
+    "subgenres": [
+      "Humor",
+      "Divertido"
+    ],
+    "tags": [
+      "netmovies",
+      "comédia",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "divertido",
+      "leve",
+      "descontraído"
+    ],
+    "releaseYear": 2017,
+    "durationMinutes": 112,
+    "posterUrl": "https://img.youtube.com/vi/BG0I-9toHeM/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/BG0I-9toHeM/hqdefault.jpg",
+    "channelName": "NetMovies",
+    "channelUrl": "https://www.youtube.com/watch?v=BG0I-9toHeM",
+    "contentRating": "12",
+    "language": "Dublado",
+    "ratingScore": 7.9,
+    "badge": "NetMovies Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.597Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-880JtdYrDsg",
+    "youtubeVideoId": "880JtdYrDsg",
+    "title": "A V!da Acontece",
+    "synopsis": "A V!da Acontece é uma produção cinematográfica completa disponibilizada oficialmente pelo canal NetMovies no YouTube, com dublagem em português.",
+    "genres": [
+      "Ação",
+      "Aventura"
+    ],
+    "subgenres": [
+      "Adrenalina",
+      "Combate"
+    ],
+    "tags": [
+      "netmovies",
+      "ação",
+      "aventura",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "eletrizante",
+      "empolgante",
+      "frenético"
+    ],
+    "releaseYear": 2022,
+    "durationMinutes": 109,
+    "posterUrl": "https://img.youtube.com/vi/880JtdYrDsg/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/880JtdYrDsg/hqdefault.jpg",
+    "channelName": "NetMovies",
+    "channelUrl": "https://www.youtube.com/watch?v=880JtdYrDsg",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 8.3,
+    "badge": "NetMovies Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.597Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-PzxthlSwIb8",
+    "youtubeVideoId": "PzxthlSwIb8",
+    "title": "Quando o Amor Acontece",
+    "synopsis": "Quando o Amor Acontece é uma produção cinematográfica completa disponibilizada oficialmente pelo canal NetMovies no YouTube, com dublagem em português.",
+    "genres": [
+      "Romance",
+      "Comédia"
+    ],
+    "subgenres": [
+      "Romântico",
+      "Sentimental"
+    ],
+    "tags": [
+      "netmovies",
+      "romance",
+      "comédia",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "encantador",
+      "romântico",
+      "emocionante"
+    ],
+    "releaseYear": 2017,
+    "durationMinutes": 90,
+    "posterUrl": "https://img.youtube.com/vi/PzxthlSwIb8/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/PzxthlSwIb8/hqdefault.jpg",
+    "channelName": "NetMovies",
+    "channelUrl": "https://www.youtube.com/watch?v=PzxthlSwIb8",
+    "contentRating": "12",
+    "language": "Dublado",
+    "ratingScore": 7.8,
+    "badge": "NetMovies Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.597Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-wfMrPCkaZQk",
+    "youtubeVideoId": "wfMrPCkaZQk",
+    "title": "Um Amor Inesperado 🔹 Filme de Drama Completo 🔹",
+    "synopsis": "Um Amor Inesperado 🔹 Filme de Drama Completo 🔹 é uma produção cinematográfica completa disponibilizada oficialmente pelo canal NetMovies no YouTube, com dublagem em português.",
+    "genres": [
+      "Romance",
+      "Comédia"
+    ],
+    "subgenres": [
+      "Romântico",
+      "Sentimental"
+    ],
+    "tags": [
+      "netmovies",
+      "romance",
+      "comédia",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "encantador",
+      "romântico",
+      "emocionante"
+    ],
+    "releaseYear": 2021,
+    "durationMinutes": 88,
+    "posterUrl": "https://img.youtube.com/vi/wfMrPCkaZQk/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/wfMrPCkaZQk/hqdefault.jpg",
+    "channelName": "NetMovies",
+    "channelUrl": "https://www.youtube.com/watch?v=wfMrPCkaZQk",
+    "contentRating": "12",
+    "language": "Dublado",
+    "ratingScore": 8,
+    "badge": "NetMovies Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.597Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-DKeMoNAbtqE",
+    "youtubeVideoId": "DKeMoNAbtqE",
+    "title": "Apenas Uma Vez",
+    "synopsis": "Apenas Uma Vez é uma produção cinematográfica completa disponibilizada oficialmente pelo canal NetMovies no YouTube, com dublagem em português.",
+    "genres": [
+      "Comédia"
+    ],
+    "subgenres": [
+      "Humor",
+      "Divertido"
+    ],
+    "tags": [
+      "netmovies",
+      "comédia",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "divertido",
+      "leve",
+      "descontraído"
+    ],
+    "releaseYear": 2017,
+    "durationMinutes": 89,
+    "posterUrl": "https://img.youtube.com/vi/DKeMoNAbtqE/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/DKeMoNAbtqE/hqdefault.jpg",
+    "channelName": "NetMovies",
+    "channelUrl": "https://www.youtube.com/watch?v=DKeMoNAbtqE",
+    "contentRating": "12",
+    "language": "Dublado",
+    "ratingScore": 8.1,
+    "badge": "NetMovies Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.597Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-Em1EnQ4Lx_I",
+    "youtubeVideoId": "Em1EnQ4Lx_I",
+    "title": "Duelo no Texas Ω",
+    "synopsis": "Duelo no Texas Ω é uma produção cinematográfica completa disponibilizada oficialmente pelo canal NetMovies no YouTube, com dublagem em português.",
+    "genres": [
+      "Ação",
+      "Aventura"
+    ],
+    "subgenres": [
+      "Adrenalina",
+      "Combate"
+    ],
+    "tags": [
+      "netmovies",
+      "ação",
+      "aventura",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "eletrizante",
+      "empolgante",
+      "frenético"
+    ],
+    "releaseYear": 2021,
+    "durationMinutes": 89,
+    "posterUrl": "https://img.youtube.com/vi/Em1EnQ4Lx_I/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/Em1EnQ4Lx_I/hqdefault.jpg",
+    "channelName": "NetMovies",
+    "channelUrl": "https://www.youtube.com/watch?v=Em1EnQ4Lx_I",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 7.9,
+    "badge": "NetMovies Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.598Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-E7UZbDPotvA",
+    "youtubeVideoId": "E7UZbDPotvA",
+    "title": "Tensão em Montana Ω",
+    "synopsis": "Tensão em Montana Ω é uma produção cinematográfica completa disponibilizada oficialmente pelo canal NetMovies no YouTube, com dublagem em português.",
+    "genres": [
+      "Ação",
+      "Aventura"
+    ],
+    "subgenres": [
+      "Adrenalina",
+      "Combate"
+    ],
+    "tags": [
+      "netmovies",
+      "ação",
+      "aventura",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "eletrizante",
+      "empolgante",
+      "frenético"
+    ],
+    "releaseYear": 2019,
+    "durationMinutes": 94,
+    "posterUrl": "https://img.youtube.com/vi/E7UZbDPotvA/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/E7UZbDPotvA/hqdefault.jpg",
+    "channelName": "NetMovies",
+    "channelUrl": "https://www.youtube.com/watch?v=E7UZbDPotvA",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 7.3,
+    "badge": "NetMovies Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.598Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-TOCeFK7Ez9U",
+    "youtubeVideoId": "TOCeFK7Ez9U",
+    "title": "Bang Bang",
+    "synopsis": "Bang Bang é uma produção cinematográfica completa disponibilizada oficialmente pelo canal NetMovies no YouTube, com dublagem em português.",
+    "genres": [
+      "Faroeste",
+      "Ação"
+    ],
+    "subgenres": [
+      "Western Clássico",
+      "Duelo"
+    ],
+    "tags": [
+      "netmovies",
+      "faroeste",
+      "ação",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "tenso",
+      "épico",
+      "honrado"
+    ],
+    "releaseYear": 2022,
+    "durationMinutes": 107,
+    "posterUrl": "https://img.youtube.com/vi/TOCeFK7Ez9U/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/TOCeFK7Ez9U/hqdefault.jpg",
+    "channelName": "NetMovies",
+    "channelUrl": "https://www.youtube.com/watch?v=TOCeFK7Ez9U",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 8.2,
+    "badge": "NetMovies Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.598Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-xghY4SkL7nA",
+    "youtubeVideoId": "xghY4SkL7nA",
+    "title": "Os Cadáveres Não Fazem Sombra Ω",
+    "synopsis": "Os Cadáveres Não Fazem Sombra Ω é uma produção cinematográfica completa disponibilizada oficialmente pelo canal NetMovies no YouTube, com dublagem em português.",
+    "genres": [
+      "Ação",
+      "Aventura"
+    ],
+    "subgenres": [
+      "Adrenalina",
+      "Combate"
+    ],
+    "tags": [
+      "netmovies",
+      "ação",
+      "aventura",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "eletrizante",
+      "empolgante",
+      "frenético"
+    ],
+    "releaseYear": 2020,
+    "durationMinutes": 102,
+    "posterUrl": "https://img.youtube.com/vi/xghY4SkL7nA/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/xghY4SkL7nA/hqdefault.jpg",
+    "channelName": "NetMovies",
+    "channelUrl": "https://www.youtube.com/watch?v=xghY4SkL7nA",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 7.8,
+    "badge": "NetMovies Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.598Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-oD-Q2HdxC-I",
+    "youtubeVideoId": "oD-Q2HdxC-I",
+    "title": "TRAIÇÃO EM MARSELHA: A luta proibida que condenou um campeão ao deserto: O Legionário",
+    "synopsis": "TRAIÇÃO EM MARSELHA: A luta proibida que condenou um campeão ao deserto: O Legionário é uma produção cinematográfica completa disponibilizada oficialmente pelo canal NetMovies no YouTube, com dublagem em português.",
+    "genres": [
+      "Ação",
+      "Aventura"
+    ],
+    "subgenres": [
+      "Adrenalina",
+      "Combate"
+    ],
+    "tags": [
+      "netmovies",
+      "ação",
+      "aventura",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "eletrizante",
+      "empolgante",
+      "frenético"
+    ],
+    "releaseYear": 2020,
+    "durationMinutes": 88,
+    "posterUrl": "https://img.youtube.com/vi/oD-Q2HdxC-I/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/oD-Q2HdxC-I/hqdefault.jpg",
+    "channelName": "NetMovies",
+    "channelUrl": "https://www.youtube.com/watch?v=oD-Q2HdxC-I",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 8.6,
+    "badge": "NetMovies Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.598Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-KHU3-5Ex2LU",
+    "youtubeVideoId": "KHU3-5Ex2LU",
+    "title": "Kickboxer 2: A Vingança do Dragão",
+    "synopsis": "Kickboxer 2: A Vingança do Dragão é uma produção cinematográfica completa disponibilizada oficialmente pelo canal NetMovies no YouTube, com dublagem em português.",
+    "genres": [
+      "Ação",
+      "Aventura"
+    ],
+    "subgenres": [
+      "Adrenalina",
+      "Combate"
+    ],
+    "tags": [
+      "netmovies",
+      "ação",
+      "aventura",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "eletrizante",
+      "empolgante",
+      "frenético"
+    ],
+    "releaseYear": 2018,
+    "durationMinutes": 111,
+    "posterUrl": "https://img.youtube.com/vi/KHU3-5Ex2LU/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/KHU3-5Ex2LU/hqdefault.jpg",
+    "channelName": "NetMovies",
+    "channelUrl": "https://www.youtube.com/watch?v=KHU3-5Ex2LU",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 7.7,
+    "badge": "NetMovies Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.598Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-_u1gqgjdd1k",
+    "youtubeVideoId": "_u1gqgjdd1k",
+    "title": "O Legionário",
+    "synopsis": "O Legionário é uma produção cinematográfica completa disponibilizada oficialmente pelo canal NetMovies no YouTube, com dublagem em português.",
+    "genres": [
+      "Ação",
+      "Aventura"
+    ],
+    "subgenres": [
+      "Adrenalina",
+      "Combate"
+    ],
+    "tags": [
+      "netmovies",
+      "ação",
+      "aventura",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "eletrizante",
+      "empolgante",
+      "frenético"
+    ],
+    "releaseYear": 2019,
+    "durationMinutes": 92,
+    "posterUrl": "https://img.youtube.com/vi/_u1gqgjdd1k/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/_u1gqgjdd1k/hqdefault.jpg",
+    "channelName": "NetMovies",
+    "channelUrl": "https://www.youtube.com/watch?v=_u1gqgjdd1k",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 8.2,
+    "badge": "NetMovies Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.598Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-8T5Jn4H7tDE",
+    "youtubeVideoId": "8T5Jn4H7tDE",
+    "title": "Timecop: O Guardião do Tempo",
+    "synopsis": "Timecop: O Guardião do Tempo é uma produção cinematográfica completa disponibilizada oficialmente pelo canal NetMovies no YouTube, com dublagem em português.",
+    "genres": [
+      "Ação",
+      "Aventura"
+    ],
+    "subgenres": [
+      "Adrenalina",
+      "Combate"
+    ],
+    "tags": [
+      "netmovies",
+      "ação",
+      "aventura",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "eletrizante",
+      "empolgante",
+      "frenético"
+    ],
+    "releaseYear": 2021,
+    "durationMinutes": 88,
+    "posterUrl": "https://img.youtube.com/vi/8T5Jn4H7tDE/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/8T5Jn4H7tDE/hqdefault.jpg",
+    "channelName": "NetMovies",
+    "channelUrl": "https://www.youtube.com/watch?v=8T5Jn4H7tDE",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 8.5,
+    "badge": "NetMovies Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.598Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-8QCONjO8Pvs",
+    "youtubeVideoId": "8QCONjO8Pvs",
+    "title": "Retroceder Nunca, Render-se Jamais",
+    "synopsis": "Retroceder Nunca, Render-se Jamais é uma produção cinematográfica completa disponibilizada oficialmente pelo canal NetMovies no YouTube, com dublagem em português.",
+    "genres": [
+      "Ação",
+      "Aventura"
+    ],
+    "subgenres": [
+      "Adrenalina",
+      "Combate"
+    ],
+    "tags": [
+      "netmovies",
+      "ação",
+      "aventura",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "eletrizante",
+      "empolgante",
+      "frenético"
+    ],
+    "releaseYear": 2022,
+    "durationMinutes": 97,
+    "posterUrl": "https://img.youtube.com/vi/8QCONjO8Pvs/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/8QCONjO8Pvs/hqdefault.jpg",
+    "channelName": "NetMovies",
+    "channelUrl": "https://www.youtube.com/watch?v=8QCONjO8Pvs",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 7.8,
+    "badge": "NetMovies Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.598Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-YZedoIJBkWs",
+    "youtubeVideoId": "YZedoIJBkWs",
+    "title": "Jogo Sujo · Português",
+    "synopsis": "Jogo Sujo · Português é uma produção cinematográfica completa disponibilizada oficialmente pelo canal NetMovies no YouTube, com dublagem em português.",
+    "genres": [
+      "Ação",
+      "Aventura"
+    ],
+    "subgenres": [
+      "Adrenalina",
+      "Combate"
+    ],
+    "tags": [
+      "netmovies",
+      "ação",
+      "aventura",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "eletrizante",
+      "empolgante",
+      "frenético"
+    ],
+    "releaseYear": 2018,
+    "durationMinutes": 103,
+    "posterUrl": "https://img.youtube.com/vi/YZedoIJBkWs/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/YZedoIJBkWs/hqdefault.jpg",
+    "channelName": "NetMovies",
+    "channelUrl": "https://www.youtube.com/watch?v=YZedoIJBkWs",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 7.7,
+    "badge": "NetMovies Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.598Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-YR64EhIK5WQ",
+    "youtubeVideoId": "YR64EhIK5WQ",
+    "title": "A Irmandade",
+    "synopsis": "A Irmandade é uma produção cinematográfica completa disponibilizada oficialmente pelo canal NetMovies no YouTube, com dublagem em português.",
+    "genres": [
+      "Suspense",
+      "Policial"
+    ],
+    "subgenres": [
+      "Mistério",
+      "Investigação"
+    ],
+    "tags": [
+      "netmovies",
+      "suspense",
+      "policial",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "intrigante",
+      "tenso",
+      "misterioso"
+    ],
+    "releaseYear": 2021,
+    "durationMinutes": 112,
+    "posterUrl": "https://img.youtube.com/vi/YR64EhIK5WQ/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/YR64EhIK5WQ/hqdefault.jpg",
+    "channelName": "NetMovies",
+    "channelUrl": "https://www.youtube.com/watch?v=YR64EhIK5WQ",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 8.2,
+    "badge": "NetMovies Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.598Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-KDNHPdGEswk",
+    "youtubeVideoId": "KDNHPdGEswk",
+    "title": "Kickboxer: O Desafio do Dragão",
+    "synopsis": "Kickboxer: O Desafio do Dragão é uma produção cinematográfica completa disponibilizada oficialmente pelo canal NetMovies no YouTube, com dublagem em português.",
+    "genres": [
+      "Ação",
+      "Aventura"
+    ],
+    "subgenres": [
+      "Adrenalina",
+      "Combate"
+    ],
+    "tags": [
+      "netmovies",
+      "ação",
+      "aventura",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "eletrizante",
+      "empolgante",
+      "frenético"
+    ],
+    "releaseYear": 2023,
+    "durationMinutes": 102,
+    "posterUrl": "https://img.youtube.com/vi/KDNHPdGEswk/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/KDNHPdGEswk/hqdefault.jpg",
+    "channelName": "NetMovies",
+    "channelUrl": "https://www.youtube.com/watch?v=KDNHPdGEswk",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 7.4,
+    "badge": "NetMovies Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.598Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-wB1oDy9gy2o",
+    "youtubeVideoId": "wB1oDy9gy2o",
+    "title": "Hitman: O Rei dos Assassinos com JET LI",
+    "synopsis": "Hitman: O Rei dos Assassinos com JET LI é uma produção cinematográfica completa disponibilizada oficialmente pelo canal NetMovies no YouTube, com dublagem em português.",
+    "genres": [
+      "Suspense",
+      "Policial"
+    ],
+    "subgenres": [
+      "Mistério",
+      "Investigação"
+    ],
+    "tags": [
+      "netmovies",
+      "suspense",
+      "policial",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "intrigante",
+      "tenso",
+      "misterioso"
+    ],
+    "releaseYear": 2017,
+    "durationMinutes": 90,
+    "posterUrl": "https://img.youtube.com/vi/wB1oDy9gy2o/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/wB1oDy9gy2o/hqdefault.jpg",
+    "channelName": "NetMovies",
+    "channelUrl": "https://www.youtube.com/watch?v=wB1oDy9gy2o",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 7.9,
+    "badge": "NetMovies Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.598Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-DZa_qdcyXis",
+    "youtubeVideoId": "DZa_qdcyXis",
+    "title": "Ruas em Guerra",
+    "synopsis": "Ruas em Guerra é uma produção cinematográfica completa disponibilizada oficialmente pelo canal NetMovies no YouTube, com dublagem em português.",
+    "genres": [
+      "Guerra",
+      "Ação"
+    ],
+    "subgenres": [
+      "Combate Militar",
+      "Histórico"
+    ],
+    "tags": [
+      "netmovies",
+      "guerra",
+      "ação",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "épico",
+      "tenso",
+      "impactante"
+    ],
+    "releaseYear": 2019,
+    "durationMinutes": 108,
+    "posterUrl": "https://img.youtube.com/vi/DZa_qdcyXis/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/DZa_qdcyXis/hqdefault.jpg",
+    "channelName": "NetMovies",
+    "channelUrl": "https://www.youtube.com/watch?v=DZa_qdcyXis",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 8.5,
+    "badge": "NetMovies Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.598Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-kz8KqZpLSxM",
+    "youtubeVideoId": "kz8KqZpLSxM",
+    "title": "Perigo em Bangkok",
+    "synopsis": "Perigo em Bangkok é uma produção cinematográfica completa disponibilizada oficialmente pelo canal NetMovies no YouTube, com dublagem em português.",
+    "genres": [
+      "Ação",
+      "Aventura"
+    ],
+    "subgenres": [
+      "Adrenalina",
+      "Combate"
+    ],
+    "tags": [
+      "netmovies",
+      "ação",
+      "aventura",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "eletrizante",
+      "empolgante",
+      "frenético"
+    ],
+    "releaseYear": 2022,
+    "durationMinutes": 91,
+    "posterUrl": "https://img.youtube.com/vi/kz8KqZpLSxM/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/kz8KqZpLSxM/hqdefault.jpg",
+    "channelName": "NetMovies",
+    "channelUrl": "https://www.youtube.com/watch?v=kz8KqZpLSxM",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 7.6000000000000005,
+    "badge": "NetMovies Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.598Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-JAn2D_ovS3M",
+    "youtubeVideoId": "JAn2D_ovS3M",
+    "title": "Caça às Bruxas Completo e -HD",
+    "synopsis": "Caça às Bruxas Completo e -HD é uma produção cinematográfica completa disponibilizada oficialmente pelo canal NetMovies no YouTube, com dublagem em português.",
+    "genres": [
+      "Terror",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Sobrenatural",
+      "Mistério"
+    ],
+    "tags": [
+      "netmovies",
+      "terror",
+      "suspense",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "arrepiante",
+      "sombrio",
+      "tenso"
+    ],
+    "releaseYear": 2019,
+    "durationMinutes": 101,
+    "posterUrl": "https://img.youtube.com/vi/JAn2D_ovS3M/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/JAn2D_ovS3M/hqdefault.jpg",
+    "channelName": "NetMovies",
+    "channelUrl": "https://www.youtube.com/watch?v=JAn2D_ovS3M",
+    "contentRating": "16",
+    "language": "Dublado",
+    "ratingScore": 7.6000000000000005,
+    "badge": "NetMovies Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.598Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-emnSuWHe5uo",
+    "youtubeVideoId": "emnSuWHe5uo",
+    "title": "Entre Mundos com Nicolas Cage",
+    "synopsis": "Entre Mundos com Nicolas Cage é uma produção cinematográfica completa disponibilizada oficialmente pelo canal NetMovies no YouTube, com dublagem em português.",
+    "genres": [
+      "Ação",
+      "Aventura"
+    ],
+    "subgenres": [
+      "Adrenalina",
+      "Combate"
+    ],
+    "tags": [
+      "netmovies",
+      "ação",
+      "aventura",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "eletrizante",
+      "empolgante",
+      "frenético"
+    ],
+    "releaseYear": 2021,
+    "durationMinutes": 99,
+    "posterUrl": "https://img.youtube.com/vi/emnSuWHe5uo/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/emnSuWHe5uo/hqdefault.jpg",
+    "channelName": "NetMovies",
+    "channelUrl": "https://www.youtube.com/watch?v=emnSuWHe5uo",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 7.6000000000000005,
+    "badge": "NetMovies Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.598Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-LaTNkaqMZvM",
+    "youtubeVideoId": "LaTNkaqMZvM",
+    "title": "Presságio -",
+    "synopsis": "Presságio - é uma produção cinematográfica completa disponibilizada oficialmente pelo canal NetMovies no YouTube, com dublagem em português.",
+    "genres": [
+      "Suspense",
+      "Policial"
+    ],
+    "subgenres": [
+      "Mistério",
+      "Investigação"
+    ],
+    "tags": [
+      "netmovies",
+      "suspense",
+      "policial",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "intrigante",
+      "tenso",
+      "misterioso"
+    ],
+    "releaseYear": 2019,
+    "durationMinutes": 94,
+    "posterUrl": "https://img.youtube.com/vi/LaTNkaqMZvM/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/LaTNkaqMZvM/hqdefault.jpg",
+    "channelName": "NetMovies",
+    "channelUrl": "https://www.youtube.com/watch?v=LaTNkaqMZvM",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 8.2,
+    "badge": "NetMovies Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.598Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-rs0s3lUuxfY",
+    "youtubeVideoId": "rs0s3lUuxfY",
+    "title": "Vingança ao Anoitecer · Português",
+    "synopsis": "Vingança ao Anoitecer · Português é uma produção cinematográfica completa disponibilizada oficialmente pelo canal NetMovies no YouTube, com dublagem em português.",
+    "genres": [
+      "Ação",
+      "Aventura"
+    ],
+    "subgenres": [
+      "Adrenalina",
+      "Combate"
+    ],
+    "tags": [
+      "netmovies",
+      "ação",
+      "aventura",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "eletrizante",
+      "empolgante",
+      "frenético"
+    ],
+    "releaseYear": 2019,
+    "durationMinutes": 90,
+    "posterUrl": "https://img.youtube.com/vi/rs0s3lUuxfY/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/rs0s3lUuxfY/hqdefault.jpg",
+    "channelName": "NetMovies",
+    "channelUrl": "https://www.youtube.com/watch?v=rs0s3lUuxfY",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 8.1,
+    "badge": "NetMovies Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.598Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-EtL1P__3Q4c",
+    "youtubeVideoId": "EtL1P__3Q4c",
+    "title": "Entre Mundos",
+    "synopsis": "Entre Mundos é uma produção cinematográfica completa disponibilizada oficialmente pelo canal NetMovies no YouTube, com dublagem em português.",
+    "genres": [
+      "Ação",
+      "Aventura"
+    ],
+    "subgenres": [
+      "Adrenalina",
+      "Combate"
+    ],
+    "tags": [
+      "netmovies",
+      "ação",
+      "aventura",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "eletrizante",
+      "empolgante",
+      "frenético"
+    ],
+    "releaseYear": 2019,
+    "durationMinutes": 96,
+    "posterUrl": "https://img.youtube.com/vi/EtL1P__3Q4c/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/EtL1P__3Q4c/hqdefault.jpg",
+    "channelName": "NetMovies",
+    "channelUrl": "https://www.youtube.com/watch?v=EtL1P__3Q4c",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 7.2,
+    "badge": "NetMovies Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.598Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-o6apR4sfXUQ",
+    "youtubeVideoId": "o6apR4sfXUQ",
+    "title": "Muitos Filmes",
+    "synopsis": "Muitos Filmes é uma produção cinematográfica completa disponibilizada oficialmente pelo canal NetMovies no YouTube, com dublagem em português.",
+    "genres": [
+      "Ação",
+      "Aventura"
+    ],
+    "subgenres": [
+      "Adrenalina",
+      "Combate"
+    ],
+    "tags": [
+      "netmovies",
+      "ação",
+      "aventura",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "eletrizante",
+      "empolgante",
+      "frenético"
+    ],
+    "releaseYear": 2019,
+    "durationMinutes": 97,
+    "posterUrl": "https://img.youtube.com/vi/o6apR4sfXUQ/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/o6apR4sfXUQ/hqdefault.jpg",
+    "channelName": "NetMovies",
+    "channelUrl": "https://www.youtube.com/watch?v=o6apR4sfXUQ",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 7.5,
+    "badge": "NetMovies Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.599Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-it3LSaCmJ2c",
+    "youtubeVideoId": "it3LSaCmJ2c",
+    "title": "Impacto profundo 1998",
+    "synopsis": "Impacto profundo 1998 é uma produção cinematográfica completa disponibilizada oficialmente pelo canal NetMovies no YouTube, com dublagem em português.",
+    "genres": [
+      "Ação",
+      "Aventura"
+    ],
+    "subgenres": [
+      "Adrenalina",
+      "Combate"
+    ],
+    "tags": [
+      "netmovies",
+      "ação",
+      "aventura",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "eletrizante",
+      "empolgante",
+      "frenético"
+    ],
+    "releaseYear": 2020,
+    "durationMinutes": 110,
+    "posterUrl": "https://img.youtube.com/vi/it3LSaCmJ2c/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/it3LSaCmJ2c/hqdefault.jpg",
+    "channelName": "NetMovies",
+    "channelUrl": "https://www.youtube.com/watch?v=it3LSaCmJ2c",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 8.7,
+    "badge": "NetMovies Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.599Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-HnWLs1EKjLU",
+    "youtubeVideoId": "HnWLs1EKjLU",
+    "title": "Presságio com Nicolas Cage",
+    "synopsis": "Presságio com Nicolas Cage é uma produção cinematográfica completa disponibilizada oficialmente pelo canal NetMovies no YouTube, com dublagem em português.",
+    "genres": [
+      "Terror",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Sobrenatural",
+      "Mistério"
+    ],
+    "tags": [
+      "netmovies",
+      "terror",
+      "suspense",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "arrepiante",
+      "sombrio",
+      "tenso"
+    ],
+    "releaseYear": 2019,
+    "durationMinutes": 88,
+    "posterUrl": "https://img.youtube.com/vi/HnWLs1EKjLU/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/HnWLs1EKjLU/hqdefault.jpg",
+    "channelName": "NetMovies",
+    "channelUrl": "https://www.youtube.com/watch?v=HnWLs1EKjLU",
+    "contentRating": "16",
+    "language": "Dublado",
+    "ratingScore": 7.8,
+    "badge": "NetMovies Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.599Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-8rcr1j7jYr0",
+    "youtubeVideoId": "8rcr1j7jYr0",
+    "title": "O LUTADOR DE RUA",
+    "synopsis": "O LUTADOR DE RUA é uma produção cinematográfica completa disponibilizada oficialmente pelo canal NetMovies no YouTube, com dublagem em português.",
+    "genres": [
+      "Ação",
+      "Aventura"
+    ],
+    "subgenres": [
+      "Adrenalina",
+      "Combate"
+    ],
+    "tags": [
+      "netmovies",
+      "ação",
+      "aventura",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "eletrizante",
+      "empolgante",
+      "frenético"
+    ],
+    "releaseYear": 2019,
+    "durationMinutes": 99,
+    "posterUrl": "https://img.youtube.com/vi/8rcr1j7jYr0/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/8rcr1j7jYr0/hqdefault.jpg",
+    "channelName": "NetMovies",
+    "channelUrl": "https://www.youtube.com/watch?v=8rcr1j7jYr0",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 8,
+    "badge": "NetMovies Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.599Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-rLbnmKE13m8",
+    "youtubeVideoId": "rLbnmKE13m8",
+    "title": "Filme O mistério da libélula",
+    "synopsis": "Filme O mistério da libélula é uma produção cinematográfica completa disponibilizada oficialmente pelo canal NetMovies no YouTube, com dublagem em português.",
+    "genres": [
+      "Suspense",
+      "Policial"
+    ],
+    "subgenres": [
+      "Mistério",
+      "Investigação"
+    ],
+    "tags": [
+      "netmovies",
+      "suspense",
+      "policial",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "intrigante",
+      "tenso",
+      "misterioso"
+    ],
+    "releaseYear": 2019,
+    "durationMinutes": 100,
+    "posterUrl": "https://img.youtube.com/vi/rLbnmKE13m8/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/rLbnmKE13m8/hqdefault.jpg",
+    "channelName": "NetMovies",
+    "channelUrl": "https://www.youtube.com/watch?v=rLbnmKE13m8",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 7.4,
+    "badge": "NetMovies Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.599Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-Xs3ss61iyQs",
+    "youtubeVideoId": "Xs3ss61iyQs",
+    "title": "João e Maria Caçadores de Bruxas",
+    "synopsis": "João e Maria Caçadores de Bruxas é uma produção cinematográfica completa disponibilizada oficialmente pelo canal NetMovies no YouTube, com dublagem em português.",
+    "genres": [
+      "Terror",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Sobrenatural",
+      "Mistério"
+    ],
+    "tags": [
+      "netmovies",
+      "terror",
+      "suspense",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "arrepiante",
+      "sombrio",
+      "tenso"
+    ],
+    "releaseYear": 2018,
+    "durationMinutes": 102,
+    "posterUrl": "https://img.youtube.com/vi/Xs3ss61iyQs/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/Xs3ss61iyQs/hqdefault.jpg",
+    "channelName": "NetMovies",
+    "channelUrl": "https://www.youtube.com/watch?v=Xs3ss61iyQs",
+    "contentRating": "16",
+    "language": "Dublado",
+    "ratingScore": 7.4,
+    "badge": "NetMovies Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.599Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-PZg8L_HCTTo",
+    "youtubeVideoId": "PZg8L_HCTTo",
+    "title": "Ilha Dos Dinossauros",
+    "synopsis": "Ilha Dos Dinossauros é uma produção cinematográfica completa disponibilizada oficialmente pelo canal NetMovies no YouTube, com dublagem em português.",
+    "genres": [
+      "Ação",
+      "Aventura"
+    ],
+    "subgenres": [
+      "Adrenalina",
+      "Combate"
+    ],
+    "tags": [
+      "netmovies",
+      "ação",
+      "aventura",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "eletrizante",
+      "empolgante",
+      "frenético"
+    ],
+    "releaseYear": 2017,
+    "durationMinutes": 104,
+    "posterUrl": "https://img.youtube.com/vi/PZg8L_HCTTo/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/PZg8L_HCTTo/hqdefault.jpg",
+    "channelName": "NetMovies",
+    "channelUrl": "https://www.youtube.com/watch?v=PZg8L_HCTTo",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 8,
+    "badge": "NetMovies Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.599Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-YugElscTKJQ",
+    "youtubeVideoId": "YugElscTKJQ",
+    "title": "Fuga Implacável",
+    "synopsis": "Fuga Implacável é uma produção cinematográfica completa disponibilizada oficialmente pelo canal NetMovies no YouTube, com dublagem em português.",
+    "genres": [
+      "Ação",
+      "Aventura"
+    ],
+    "subgenres": [
+      "Adrenalina",
+      "Combate"
+    ],
+    "tags": [
+      "netmovies",
+      "ação",
+      "aventura",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "eletrizante",
+      "empolgante",
+      "frenético"
+    ],
+    "releaseYear": 2022,
+    "durationMinutes": 109,
+    "posterUrl": "https://img.youtube.com/vi/YugElscTKJQ/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/YugElscTKJQ/hqdefault.jpg",
+    "channelName": "NetMovies",
+    "channelUrl": "https://www.youtube.com/watch?v=YugElscTKJQ",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 8.1,
+    "badge": "NetMovies Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.599Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-HHiuKwjMqZ0",
+    "youtubeVideoId": "HHiuKwjMqZ0",
+    "title": "Filmes completos s Prometheus: Filme 2012",
+    "synopsis": "Filmes completos s Prometheus: Filme 2012 é uma produção cinematográfica completa disponibilizada oficialmente pelo canal NetMovies no YouTube, com dublagem em português.",
+    "genres": [
+      "Ação",
+      "Aventura"
+    ],
+    "subgenres": [
+      "Adrenalina",
+      "Combate"
+    ],
+    "tags": [
+      "netmovies",
+      "ação",
+      "aventura",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "eletrizante",
+      "empolgante",
+      "frenético"
+    ],
+    "releaseYear": 2022,
+    "durationMinutes": 94,
+    "posterUrl": "https://img.youtube.com/vi/HHiuKwjMqZ0/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/HHiuKwjMqZ0/hqdefault.jpg",
+    "channelName": "NetMovies",
+    "channelUrl": "https://www.youtube.com/watch?v=HHiuKwjMqZ0",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 8.1,
+    "badge": "NetMovies Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.599Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-YuxETnVTlVw",
+    "youtubeVideoId": "YuxETnVTlVw",
+    "title": "Refém",
+    "synopsis": "Refém é uma produção cinematográfica completa disponibilizada oficialmente pelo canal NetMovies no YouTube, com dublagem em português.",
+    "genres": [
+      "Ação",
+      "Aventura"
+    ],
+    "subgenres": [
+      "Adrenalina",
+      "Combate"
+    ],
+    "tags": [
+      "netmovies",
+      "ação",
+      "aventura",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "eletrizante",
+      "empolgante",
+      "frenético"
+    ],
+    "releaseYear": 2018,
+    "durationMinutes": 103,
+    "posterUrl": "https://img.youtube.com/vi/YuxETnVTlVw/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/YuxETnVTlVw/hqdefault.jpg",
+    "channelName": "NetMovies",
+    "channelUrl": "https://www.youtube.com/watch?v=YuxETnVTlVw",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 8.5,
+    "badge": "NetMovies Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.599Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-yqWj1OGBb4Y",
+    "youtubeVideoId": "yqWj1OGBb4Y",
+    "title": "Fuga Implacável com Bruce Willis",
+    "synopsis": "Fuga Implacável com Bruce Willis é uma produção cinematográfica completa disponibilizada oficialmente pelo canal NetMovies no YouTube, com dublagem em português.",
+    "genres": [
+      "Ação",
+      "Aventura"
+    ],
+    "subgenres": [
+      "Adrenalina",
+      "Combate"
+    ],
+    "tags": [
+      "netmovies",
+      "ação",
+      "aventura",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "eletrizante",
+      "empolgante",
+      "frenético"
+    ],
+    "releaseYear": 2018,
+    "durationMinutes": 90,
+    "posterUrl": "https://img.youtube.com/vi/yqWj1OGBb4Y/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/yqWj1OGBb4Y/hqdefault.jpg",
+    "channelName": "NetMovies",
+    "channelUrl": "https://www.youtube.com/watch?v=yqWj1OGBb4Y",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 7.9,
+    "badge": "NetMovies Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.599Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-D0OD-TCtHiY",
+    "youtubeVideoId": "D0OD-TCtHiY",
+    "title": "Vida: Filme Liberal Conservador",
+    "synopsis": "Vida: Filme Liberal Conservador é uma produção cinematográfica completa disponibilizada oficialmente pelo canal NetMovies no YouTube, com dublagem em português.",
+    "genres": [
+      "Ação",
+      "Aventura"
+    ],
+    "subgenres": [
+      "Adrenalina",
+      "Combate"
+    ],
+    "tags": [
+      "netmovies",
+      "ação",
+      "aventura",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "eletrizante",
+      "empolgante",
+      "frenético"
+    ],
+    "releaseYear": 2017,
+    "durationMinutes": 108,
+    "posterUrl": "https://img.youtube.com/vi/D0OD-TCtHiY/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/D0OD-TCtHiY/hqdefault.jpg",
+    "channelName": "NetMovies",
+    "channelUrl": "https://www.youtube.com/watch?v=D0OD-TCtHiY",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 7.6000000000000005,
+    "badge": "NetMovies Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.599Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-OikaSQKFR6U",
+    "youtubeVideoId": "OikaSQKFR6U",
+    "title": "Amor e Balas: Charles Bronson -",
+    "synopsis": "Amor e Balas: Charles Bronson - é uma produção cinematográfica completa disponibilizada oficialmente pelo canal NetMovies no YouTube, com dublagem em português.",
+    "genres": [
+      "Romance",
+      "Comédia"
+    ],
+    "subgenres": [
+      "Romântico",
+      "Sentimental"
+    ],
+    "tags": [
+      "netmovies",
+      "romance",
+      "comédia",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "encantador",
+      "romântico",
+      "emocionante"
+    ],
+    "releaseYear": 2022,
+    "durationMinutes": 111,
+    "posterUrl": "https://img.youtube.com/vi/OikaSQKFR6U/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/OikaSQKFR6U/hqdefault.jpg",
+    "channelName": "NetMovies",
+    "channelUrl": "https://www.youtube.com/watch?v=OikaSQKFR6U",
+    "contentRating": "12",
+    "language": "Dublado",
+    "ratingScore": 8.1,
+    "badge": "NetMovies Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.599Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-rUDk8RfWKV8",
+    "youtubeVideoId": "rUDk8RfWKV8",
+    "title": "O Patriota Completo",
+    "synopsis": "O Patriota Completo é uma produção cinematográfica completa disponibilizada oficialmente pelo canal NetMovies no YouTube, com dublagem em português.",
+    "genres": [
+      "Ação",
+      "Aventura"
+    ],
+    "subgenres": [
+      "Adrenalina",
+      "Combate"
+    ],
+    "tags": [
+      "netmovies",
+      "ação",
+      "aventura",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "eletrizante",
+      "empolgante",
+      "frenético"
+    ],
+    "releaseYear": 2018,
+    "durationMinutes": 93,
+    "posterUrl": "https://img.youtube.com/vi/rUDk8RfWKV8/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/rUDk8RfWKV8/hqdefault.jpg",
+    "channelName": "NetMovies",
+    "channelUrl": "https://www.youtube.com/watch?v=rUDk8RfWKV8",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 7.9,
+    "badge": "NetMovies Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.599Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-DwOzp7DlqsI",
+    "youtubeVideoId": "DwOzp7DlqsI",
+    "title": "O quinto elemento",
+    "synopsis": "O quinto elemento é uma produção cinematográfica completa disponibilizada oficialmente pelo canal NetMovies no YouTube, com dublagem em português.",
+    "genres": [
+      "Ação",
+      "Aventura"
+    ],
+    "subgenres": [
+      "Adrenalina",
+      "Combate"
+    ],
+    "tags": [
+      "netmovies",
+      "ação",
+      "aventura",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "eletrizante",
+      "empolgante",
+      "frenético"
+    ],
+    "releaseYear": 2018,
+    "durationMinutes": 93,
+    "posterUrl": "https://img.youtube.com/vi/DwOzp7DlqsI/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/DwOzp7DlqsI/hqdefault.jpg",
+    "channelName": "NetMovies",
+    "channelUrl": "https://www.youtube.com/watch?v=DwOzp7DlqsI",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 7.3,
+    "badge": "NetMovies Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.599Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-Nl0CLhuqfUo",
+    "youtubeVideoId": "Nl0CLhuqfUo",
+    "title": "Voltando à Ativa",
+    "synopsis": "Voltando à Ativa é uma produção cinematográfica completa disponibilizada oficialmente pelo canal NetMovies no YouTube, com dublagem em português.",
+    "genres": [
+      "Ação",
+      "Aventura"
+    ],
+    "subgenres": [
+      "Adrenalina",
+      "Combate"
+    ],
+    "tags": [
+      "netmovies",
+      "ação",
+      "aventura",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "eletrizante",
+      "empolgante",
+      "frenético"
+    ],
+    "releaseYear": 2023,
+    "durationMinutes": 108,
+    "posterUrl": "https://img.youtube.com/vi/Nl0CLhuqfUo/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/Nl0CLhuqfUo/hqdefault.jpg",
+    "channelName": "NetMovies",
+    "channelUrl": "https://www.youtube.com/watch?v=Nl0CLhuqfUo",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 7.5,
+    "badge": "NetMovies Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.599Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-x01GUGKui2Q",
+    "youtubeVideoId": "x01GUGKui2Q",
+    "title": "O Guardião",
+    "synopsis": "O Guardião é uma produção cinematográfica completa disponibilizada oficialmente pelo canal NetMovies no YouTube, com dublagem em português.",
+    "genres": [
+      "Ação",
+      "Aventura"
+    ],
+    "subgenres": [
+      "Adrenalina",
+      "Combate"
+    ],
+    "tags": [
+      "netmovies",
+      "ação",
+      "aventura",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "eletrizante",
+      "empolgante",
+      "frenético"
+    ],
+    "releaseYear": 2021,
+    "durationMinutes": 107,
+    "posterUrl": "https://img.youtube.com/vi/x01GUGKui2Q/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/x01GUGKui2Q/hqdefault.jpg",
+    "channelName": "NetMovies",
+    "channelUrl": "https://www.youtube.com/watch?v=x01GUGKui2Q",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 8.2,
+    "badge": "NetMovies Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.599Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-5tqsheu2cvQ",
+    "youtubeVideoId": "5tqsheu2cvQ",
+    "title": "Rogue: O Assassino",
+    "synopsis": "Rogue: O Assassino é uma produção cinematográfica completa disponibilizada oficialmente pelo canal NetMovies no YouTube, com dublagem em português.",
+    "genres": [
+      "Suspense",
+      "Policial"
+    ],
+    "subgenres": [
+      "Mistério",
+      "Investigação"
+    ],
+    "tags": [
+      "netmovies",
+      "suspense",
+      "policial",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "intrigante",
+      "tenso",
+      "misterioso"
+    ],
+    "releaseYear": 2017,
+    "durationMinutes": 111,
+    "posterUrl": "https://img.youtube.com/vi/5tqsheu2cvQ/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/5tqsheu2cvQ/hqdefault.jpg",
+    "channelName": "NetMovies",
+    "channelUrl": "https://www.youtube.com/watch?v=5tqsheu2cvQ",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 7.3,
+    "badge": "NetMovies Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.599Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-vKMY4u37sgA",
+    "youtubeVideoId": "vKMY4u37sgA",
+    "title": "Steven Seagal em Código de Honra: Completo",
+    "synopsis": "Steven Seagal em Código de Honra: Completo é uma produção cinematográfica completa disponibilizada oficialmente pelo canal NetMovies no YouTube, com dublagem em português.",
+    "genres": [
+      "Ação",
+      "Aventura"
+    ],
+    "subgenres": [
+      "Adrenalina",
+      "Combate"
+    ],
+    "tags": [
+      "netmovies",
+      "ação",
+      "aventura",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "eletrizante",
+      "empolgante",
+      "frenético"
+    ],
+    "releaseYear": 2018,
+    "durationMinutes": 106,
+    "posterUrl": "https://img.youtube.com/vi/vKMY4u37sgA/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/vKMY4u37sgA/hqdefault.jpg",
+    "channelName": "NetMovies",
+    "channelUrl": "https://www.youtube.com/watch?v=vKMY4u37sgA",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 7.8,
+    "badge": "NetMovies Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.599Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-sOfYm9dUQGQ",
+    "youtubeVideoId": "sOfYm9dUQGQ",
+    "title": "Fim da Linha · Português",
+    "synopsis": "Fim da Linha · Português é uma produção cinematográfica completa disponibilizada oficialmente pelo canal NetMovies no YouTube, com dublagem em português.",
+    "genres": [
+      "Ação",
+      "Aventura"
+    ],
+    "subgenres": [
+      "Adrenalina",
+      "Combate"
+    ],
+    "tags": [
+      "netmovies",
+      "ação",
+      "aventura",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "eletrizante",
+      "empolgante",
+      "frenético"
+    ],
+    "releaseYear": 2023,
+    "durationMinutes": 112,
+    "posterUrl": "https://img.youtube.com/vi/sOfYm9dUQGQ/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/sOfYm9dUQGQ/hqdefault.jpg",
+    "channelName": "NetMovies",
+    "channelUrl": "https://www.youtube.com/watch?v=sOfYm9dUQGQ",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 7.8,
+    "badge": "NetMovies Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.599Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-OFM5JJD_aRY",
+    "youtubeVideoId": "OFM5JJD_aRY",
+    "title": "FILME EM PORTUGUES ( ESCURIDAO MORTAL INFECTADOS COM STEVEN SEAGAL ) DEIXEM O LIKE",
+    "synopsis": "FILME EM PORTUGUES ( ESCURIDAO MORTAL INFECTADOS COM STEVEN SEAGAL ) DEIXEM O LIKE é uma produção cinematográfica completa disponibilizada oficialmente pelo canal NetMovies no YouTube, com dublagem em português.",
+    "genres": [
+      "Ação",
+      "Aventura"
+    ],
+    "subgenres": [
+      "Adrenalina",
+      "Combate"
+    ],
+    "tags": [
+      "netmovies",
+      "ação",
+      "aventura",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "eletrizante",
+      "empolgante",
+      "frenético"
+    ],
+    "releaseYear": 2020,
+    "durationMinutes": 89,
+    "posterUrl": "https://img.youtube.com/vi/OFM5JJD_aRY/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/OFM5JJD_aRY/hqdefault.jpg",
+    "channelName": "NetMovies",
+    "channelUrl": "https://www.youtube.com/watch?v=OFM5JJD_aRY",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 8,
+    "badge": "NetMovies Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.599Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-sneCssfJVDc",
+    "youtubeVideoId": "sneCssfJVDc",
+    "title": "Filme estilo RESIDENT EVIL com DOLPH LUNDGREN -",
+    "synopsis": "Filme estilo RESIDENT EVIL com DOLPH LUNDGREN - é uma produção cinematográfica completa disponibilizada oficialmente pelo canal NetMovies no YouTube, com dublagem em português.",
+    "genres": [
+      "Terror",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Sobrenatural",
+      "Mistério"
+    ],
+    "tags": [
+      "netmovies",
+      "terror",
+      "suspense",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "arrepiante",
+      "sombrio",
+      "tenso"
+    ],
+    "releaseYear": 2022,
+    "durationMinutes": 98,
+    "posterUrl": "https://img.youtube.com/vi/sneCssfJVDc/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/sneCssfJVDc/hqdefault.jpg",
+    "channelName": "NetMovies",
+    "channelUrl": "https://www.youtube.com/watch?v=sneCssfJVDc",
+    "contentRating": "16",
+    "language": "Dublado",
+    "ratingScore": 7.5,
+    "badge": "NetMovies Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.599Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-qfIxbcSPpiE",
+    "youtubeVideoId": "qfIxbcSPpiE",
+    "title": "\"Caçada Explosiva\" com Steven Seagal",
+    "synopsis": "\"Caçada Explosiva\" com Steven Seagal é uma produção cinematográfica completa disponibilizada oficialmente pelo canal NetMovies no YouTube, com dublagem em português.",
+    "genres": [
+      "Ação",
+      "Aventura"
+    ],
+    "subgenres": [
+      "Adrenalina",
+      "Combate"
+    ],
+    "tags": [
+      "netmovies",
+      "ação",
+      "aventura",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "eletrizante",
+      "empolgante",
+      "frenético"
+    ],
+    "releaseYear": 2018,
+    "durationMinutes": 89,
+    "posterUrl": "https://img.youtube.com/vi/qfIxbcSPpiE/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/qfIxbcSPpiE/hqdefault.jpg",
+    "channelName": "NetMovies",
+    "channelUrl": "https://www.youtube.com/watch?v=qfIxbcSPpiE",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 8.4,
+    "badge": "NetMovies Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.599Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-xiBXo1ISzW8",
+    "youtubeVideoId": "xiBXo1ISzW8",
+    "title": "Confronto Final",
+    "synopsis": "Confronto Final é uma produção cinematográfica completa disponibilizada oficialmente pelo canal NetMovies no YouTube, com dublagem em português.",
+    "genres": [
+      "Ação",
+      "Aventura"
+    ],
+    "subgenres": [
+      "Adrenalina",
+      "Combate"
+    ],
+    "tags": [
+      "netmovies",
+      "ação",
+      "aventura",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "eletrizante",
+      "empolgante",
+      "frenético"
+    ],
+    "releaseYear": 2020,
+    "durationMinutes": 88,
+    "posterUrl": "https://img.youtube.com/vi/xiBXo1ISzW8/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/xiBXo1ISzW8/hqdefault.jpg",
+    "channelName": "NetMovies",
+    "channelUrl": "https://www.youtube.com/watch?v=xiBXo1ISzW8",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 8.5,
+    "badge": "NetMovies Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.599Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-S7rlHAl65S0",
+    "youtubeVideoId": "S7rlHAl65S0",
+    "title": "2019: O Ano da Extinção 🔹",
+    "synopsis": "2019: O Ano da Extinção 🔹 é uma produção cinematográfica completa disponibilizada oficialmente pelo canal NetMovies no YouTube, com dublagem em português.",
+    "genres": [
+      "Ação",
+      "Aventura"
+    ],
+    "subgenres": [
+      "Adrenalina",
+      "Combate"
+    ],
+    "tags": [
+      "netmovies",
+      "ação",
+      "aventura",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "eletrizante",
+      "empolgante",
+      "frenético"
+    ],
+    "releaseYear": 2018,
+    "durationMinutes": 96,
+    "posterUrl": "https://img.youtube.com/vi/S7rlHAl65S0/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/S7rlHAl65S0/hqdefault.jpg",
+    "channelName": "NetMovies",
+    "channelUrl": "https://www.youtube.com/watch?v=S7rlHAl65S0",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 7.3,
+    "badge": "NetMovies Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.600Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-GtQFAQfeG-E",
+    "youtubeVideoId": "GtQFAQfeG-E",
+    "title": "Pânico em Alto Mar",
+    "synopsis": "Pânico em Alto Mar é uma produção cinematográfica completa disponibilizada oficialmente pelo canal NetMovies no YouTube, com dublagem em português.",
+    "genres": [
+      "Ação",
+      "Aventura"
+    ],
+    "subgenres": [
+      "Adrenalina",
+      "Combate"
+    ],
+    "tags": [
+      "netmovies",
+      "ação",
+      "aventura",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "eletrizante",
+      "empolgante",
+      "frenético"
+    ],
+    "releaseYear": 2019,
+    "durationMinutes": 110,
+    "posterUrl": "https://img.youtube.com/vi/GtQFAQfeG-E/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/GtQFAQfeG-E/hqdefault.jpg",
+    "channelName": "NetMovies",
+    "channelUrl": "https://www.youtube.com/watch?v=GtQFAQfeG-E",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 7.4,
+    "badge": "NetMovies Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.600Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-zSycjp_rMds",
+    "youtubeVideoId": "zSycjp_rMds",
+    "title": "Sobreviventes",
+    "synopsis": "Sobreviventes é uma produção cinematográfica completa disponibilizada oficialmente pelo canal NetMovies no YouTube, com dublagem em português.",
+    "genres": [
+      "Ação",
+      "Aventura"
+    ],
+    "subgenres": [
+      "Adrenalina",
+      "Combate"
+    ],
+    "tags": [
+      "netmovies",
+      "ação",
+      "aventura",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "eletrizante",
+      "empolgante",
+      "frenético"
+    ],
+    "releaseYear": 2018,
+    "durationMinutes": 104,
+    "posterUrl": "https://img.youtube.com/vi/zSycjp_rMds/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/zSycjp_rMds/hqdefault.jpg",
+    "channelName": "NetMovies",
+    "channelUrl": "https://www.youtube.com/watch?v=zSycjp_rMds",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 8.6,
+    "badge": "NetMovies Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.600Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-yNVNz4DjZgI",
+    "youtubeVideoId": "yNVNz4DjZgI",
+    "title": "🦁 FILME DE SOBREVIVÊNCIA NA SAVANA 🦁",
+    "synopsis": "🦁 FILME DE SOBREVIVÊNCIA NA SAVANA 🦁 é uma produção cinematográfica completa disponibilizada oficialmente pelo canal NetMovies no YouTube, com dublagem em português.",
+    "genres": [
+      "Ação",
+      "Aventura"
+    ],
+    "subgenres": [
+      "Adrenalina",
+      "Combate"
+    ],
+    "tags": [
+      "netmovies",
+      "ação",
+      "aventura",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "eletrizante",
+      "empolgante",
+      "frenético"
+    ],
+    "releaseYear": 2019,
+    "durationMinutes": 107,
+    "posterUrl": "https://img.youtube.com/vi/yNVNz4DjZgI/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/yNVNz4DjZgI/hqdefault.jpg",
+    "channelName": "NetMovies",
+    "channelUrl": "https://www.youtube.com/watch?v=yNVNz4DjZgI",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 7.5,
+    "badge": "NetMovies Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.600Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-jMSfVvHUILs",
+    "youtubeVideoId": "jMSfVvHUILs",
+    "title": "Apocalipse Zumbi",
+    "synopsis": "Apocalipse Zumbi é uma produção cinematográfica completa disponibilizada oficialmente pelo canal NetMovies no YouTube, com dublagem em português.",
+    "genres": [
+      "Terror",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Sobrenatural",
+      "Mistério"
+    ],
+    "tags": [
+      "netmovies",
+      "terror",
+      "suspense",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "arrepiante",
+      "sombrio",
+      "tenso"
+    ],
+    "releaseYear": 2023,
+    "durationMinutes": 95,
+    "posterUrl": "https://img.youtube.com/vi/jMSfVvHUILs/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/jMSfVvHUILs/hqdefault.jpg",
+    "channelName": "NetMovies",
+    "channelUrl": "https://www.youtube.com/watch?v=jMSfVvHUILs",
+    "contentRating": "16",
+    "language": "Dublado",
+    "ratingScore": 8.2,
+    "badge": "NetMovies Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.600Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-CHff-fIDsqY",
+    "youtubeVideoId": "CHff-fIDsqY",
+    "title": "O Ataque dos Tubarões com Jim Fitzpatrick",
+    "synopsis": "O Ataque dos Tubarões com Jim Fitzpatrick é uma produção cinematográfica completa disponibilizada oficialmente pelo canal NetMovies no YouTube, com dublagem em português.",
+    "genres": [
+      "Terror",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Sobrenatural",
+      "Mistério"
+    ],
+    "tags": [
+      "netmovies",
+      "terror",
+      "suspense",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "arrepiante",
+      "sombrio",
+      "tenso"
+    ],
+    "releaseYear": 2023,
+    "durationMinutes": 105,
+    "posterUrl": "https://img.youtube.com/vi/CHff-fIDsqY/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/CHff-fIDsqY/hqdefault.jpg",
+    "channelName": "NetMovies",
+    "channelUrl": "https://www.youtube.com/watch?v=CHff-fIDsqY",
+    "contentRating": "16",
+    "language": "Dublado",
+    "ratingScore": 7.4,
+    "badge": "NetMovies Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.600Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-gt0s0MbCN-U",
+    "youtubeVideoId": "gt0s0MbCN-U",
+    "title": "Filme Tubarão do pântano em português",
+    "synopsis": "Filme Tubarão do pântano em português é uma produção cinematográfica completa disponibilizada oficialmente pelo canal NetMovies no YouTube, com dublagem em português.",
+    "genres": [
+      "Ação",
+      "Aventura"
+    ],
+    "subgenres": [
+      "Adrenalina",
+      "Combate"
+    ],
+    "tags": [
+      "netmovies",
+      "ação",
+      "aventura",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "eletrizante",
+      "empolgante",
+      "frenético"
+    ],
+    "releaseYear": 2023,
+    "durationMinutes": 106,
+    "posterUrl": "https://img.youtube.com/vi/gt0s0MbCN-U/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/gt0s0MbCN-U/hqdefault.jpg",
+    "channelName": "NetMovies",
+    "channelUrl": "https://www.youtube.com/watch?v=gt0s0MbCN-U",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 8,
+    "badge": "NetMovies Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.600Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-ckeUQuxmUJQ",
+    "youtubeVideoId": "ckeUQuxmUJQ",
+    "title": "Tubarão de Malibu",
+    "synopsis": "Tubarão de Malibu é uma produção cinematográfica completa disponibilizada oficialmente pelo canal NetMovies no YouTube, com dublagem em português.",
+    "genres": [
+      "Suspense",
+      "Policial"
+    ],
+    "subgenres": [
+      "Mistério",
+      "Investigação"
+    ],
+    "tags": [
+      "netmovies",
+      "suspense",
+      "policial",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "intrigante",
+      "tenso",
+      "misterioso"
+    ],
+    "releaseYear": 2021,
+    "durationMinutes": 109,
+    "posterUrl": "https://img.youtube.com/vi/ckeUQuxmUJQ/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/ckeUQuxmUJQ/hqdefault.jpg",
+    "channelName": "NetMovies",
+    "channelUrl": "https://www.youtube.com/watch?v=ckeUQuxmUJQ",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 7.3,
+    "badge": "NetMovies Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.600Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-xW8oEBpk0rY",
+    "youtubeVideoId": "xW8oEBpk0rY",
+    "title": "Megalodon",
+    "synopsis": "Megalodon é uma produção cinematográfica completa disponibilizada oficialmente pelo canal NetMovies no YouTube, com dublagem em português.",
+    "genres": [
+      "Ação",
+      "Aventura"
+    ],
+    "subgenres": [
+      "Adrenalina",
+      "Combate"
+    ],
+    "tags": [
+      "netmovies",
+      "ação",
+      "aventura",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "eletrizante",
+      "empolgante",
+      "frenético"
+    ],
+    "releaseYear": 2021,
+    "durationMinutes": 100,
+    "posterUrl": "https://img.youtube.com/vi/xW8oEBpk0rY/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/xW8oEBpk0rY/hqdefault.jpg",
+    "channelName": "NetMovies",
+    "channelUrl": "https://www.youtube.com/watch?v=xW8oEBpk0rY",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 8.4,
+    "badge": "NetMovies Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.600Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie--Mblbh1Au8A",
+    "youtubeVideoId": "-Mblbh1Au8A",
+    "title": "Mega Shark vs Crocosaurus",
+    "synopsis": "Mega Shark vs Crocosaurus é uma produção cinematográfica completa disponibilizada oficialmente pelo canal NetMovies no YouTube, com dublagem em português.",
+    "genres": [
+      "Terror",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Sobrenatural",
+      "Mistério"
+    ],
+    "tags": [
+      "netmovies",
+      "terror",
+      "suspense",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "arrepiante",
+      "sombrio",
+      "tenso"
+    ],
+    "releaseYear": 2023,
+    "durationMinutes": 106,
+    "posterUrl": "https://img.youtube.com/vi/-Mblbh1Au8A/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/-Mblbh1Au8A/hqdefault.jpg",
+    "channelName": "NetMovies",
+    "channelUrl": "https://www.youtube.com/watch?v=-Mblbh1Au8A",
+    "contentRating": "16",
+    "language": "Dublado",
+    "ratingScore": 7.6000000000000005,
+    "badge": "NetMovies Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.600Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-3JGH0Ibqwjg",
+    "youtubeVideoId": "3JGH0Ibqwjg",
+    "title": "TUBARÃO TOURO",
+    "synopsis": "TUBARÃO TOURO é uma produção cinematográfica completa disponibilizada oficialmente pelo canal NetMovies no YouTube, com dublagem em português.",
+    "genres": [
+      "Ação",
+      "Aventura"
+    ],
+    "subgenres": [
+      "Adrenalina",
+      "Combate"
+    ],
+    "tags": [
+      "netmovies",
+      "ação",
+      "aventura",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "eletrizante",
+      "empolgante",
+      "frenético"
+    ],
+    "releaseYear": 2023,
+    "durationMinutes": 105,
+    "posterUrl": "https://img.youtube.com/vi/3JGH0Ibqwjg/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/3JGH0Ibqwjg/hqdefault.jpg",
+    "channelName": "NetMovies",
+    "channelUrl": "https://www.youtube.com/watch?v=3JGH0Ibqwjg",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 7.8,
+    "badge": "NetMovies Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.600Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-TnvSIq_Fb7E",
+    "youtubeVideoId": "TnvSIq_Fb7E",
+    "title": "Perigo no Recife com Teressa Liane",
+    "synopsis": "Perigo no Recife com Teressa Liane é uma produção cinematográfica completa disponibilizada oficialmente pelo canal NetMovies no YouTube, com dublagem em português.",
+    "genres": [
+      "Terror",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Sobrenatural",
+      "Mistério"
+    ],
+    "tags": [
+      "netmovies",
+      "terror",
+      "suspense",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "arrepiante",
+      "sombrio",
+      "tenso"
+    ],
+    "releaseYear": 2020,
+    "durationMinutes": 88,
+    "posterUrl": "https://img.youtube.com/vi/TnvSIq_Fb7E/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/TnvSIq_Fb7E/hqdefault.jpg",
+    "channelName": "NetMovies",
+    "channelUrl": "https://www.youtube.com/watch?v=TnvSIq_Fb7E",
+    "contentRating": "16",
+    "language": "Dublado",
+    "ratingScore": 8.3,
+    "badge": "NetMovies Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.600Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-Z6rLYzjLytg",
+    "youtubeVideoId": "Z6rLYzjLytg",
+    "title": "O Mundo Foi Tomado por Vampiros… E o Sangue Está Acabando 2019: O Ano da Extinção",
+    "synopsis": "O Mundo Foi Tomado por Vampiros… E o Sangue Está Acabando 2019: O Ano da Extinção é uma produção cinematográfica completa disponibilizada oficialmente pelo canal NetMovies no YouTube, com dublagem em português.",
+    "genres": [
+      "Terror",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Sobrenatural",
+      "Mistério"
+    ],
+    "tags": [
+      "netmovies",
+      "terror",
+      "suspense",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "arrepiante",
+      "sombrio",
+      "tenso"
+    ],
+    "releaseYear": 2017,
+    "durationMinutes": 91,
+    "posterUrl": "https://img.youtube.com/vi/Z6rLYzjLytg/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/Z6rLYzjLytg/hqdefault.jpg",
+    "channelName": "NetMovies",
+    "channelUrl": "https://www.youtube.com/watch?v=Z6rLYzjLytg",
+    "contentRating": "16",
+    "language": "Dublado",
+    "ratingScore": 8.2,
+    "badge": "NetMovies Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.600Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-MWwioCs-soU",
+    "youtubeVideoId": "MWwioCs-soU",
+    "title": "Cidade dos M0rtos",
+    "synopsis": "Cidade dos M0rtos é uma produção cinematográfica completa disponibilizada oficialmente pelo canal NetMovies no YouTube, com dublagem em português.",
+    "genres": [
+      "Terror",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Sobrenatural",
+      "Mistério"
+    ],
+    "tags": [
+      "netmovies",
+      "terror",
+      "suspense",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "arrepiante",
+      "sombrio",
+      "tenso"
+    ],
+    "releaseYear": 2019,
+    "durationMinutes": 110,
+    "posterUrl": "https://img.youtube.com/vi/MWwioCs-soU/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/MWwioCs-soU/hqdefault.jpg",
+    "channelName": "NetMovies",
+    "channelUrl": "https://www.youtube.com/watch?v=MWwioCs-soU",
+    "contentRating": "16",
+    "language": "Dublado",
+    "ratingScore": 8.2,
+    "badge": "NetMovies Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.600Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-pY-2ggYC0NM",
+    "youtubeVideoId": "pY-2ggYC0NM",
+    "title": "Toxina M0rtal",
+    "synopsis": "Toxina M0rtal é uma produção cinematográfica completa disponibilizada oficialmente pelo canal NetMovies no YouTube, com dublagem em português.",
+    "genres": [
+      "Terror",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Sobrenatural",
+      "Mistério"
+    ],
+    "tags": [
+      "netmovies",
+      "terror",
+      "suspense",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "arrepiante",
+      "sombrio",
+      "tenso"
+    ],
+    "releaseYear": 2021,
+    "durationMinutes": 110,
+    "posterUrl": "https://img.youtube.com/vi/pY-2ggYC0NM/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/pY-2ggYC0NM/hqdefault.jpg",
+    "channelName": "NetMovies",
+    "channelUrl": "https://www.youtube.com/watch?v=pY-2ggYC0NM",
+    "contentRating": "16",
+    "language": "Dublado",
+    "ratingScore": 8.3,
+    "badge": "NetMovies Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.600Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-kQQpjkGP5XM",
+    "youtubeVideoId": "kQQpjkGP5XM",
+    "title": "Ascensão dos Zumbis",
+    "synopsis": "Ascensão dos Zumbis é uma produção cinematográfica completa disponibilizada oficialmente pelo canal NetMovies no YouTube, com dublagem em português.",
+    "genres": [
+      "Terror",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Sobrenatural",
+      "Mistério"
+    ],
+    "tags": [
+      "netmovies",
+      "terror",
+      "suspense",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "arrepiante",
+      "sombrio",
+      "tenso"
+    ],
+    "releaseYear": 2021,
+    "durationMinutes": 102,
+    "posterUrl": "https://img.youtube.com/vi/kQQpjkGP5XM/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/kQQpjkGP5XM/hqdefault.jpg",
+    "channelName": "NetMovies",
+    "channelUrl": "https://www.youtube.com/watch?v=kQQpjkGP5XM",
+    "contentRating": "16",
+    "language": "Dublado",
+    "ratingScore": 8.5,
+    "badge": "NetMovies Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.600Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-anLzLoGNX-s",
+    "youtubeVideoId": "anLzLoGNX-s",
+    "title": "Mortos Vivos",
+    "synopsis": "Mortos Vivos é uma produção cinematográfica completa disponibilizada oficialmente pelo canal NetMovies no YouTube, com dublagem em português.",
+    "genres": [
+      "Terror",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Sobrenatural",
+      "Mistério"
+    ],
+    "tags": [
+      "netmovies",
+      "terror",
+      "suspense",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "arrepiante",
+      "sombrio",
+      "tenso"
+    ],
+    "releaseYear": 2021,
+    "durationMinutes": 96,
+    "posterUrl": "https://img.youtube.com/vi/anLzLoGNX-s/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/anLzLoGNX-s/hqdefault.jpg",
+    "channelName": "NetMovies",
+    "channelUrl": "https://www.youtube.com/watch?v=anLzLoGNX-s",
+    "contentRating": "16",
+    "language": "Dublado",
+    "ratingScore": 8.3,
+    "badge": "NetMovies Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.600Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-mFv4YYuN7S8",
+    "youtubeVideoId": "mFv4YYuN7S8",
+    "title": "Sequestro: Inocência Roubada 🔹 Filme de Drama Completo 🔹",
+    "synopsis": "Sequestro: Inocência Roubada 🔹 Filme de Drama Completo 🔹 é uma produção cinematográfica completa disponibilizada oficialmente pelo canal NetMovies no YouTube, com dublagem em português.",
+    "genres": [
+      "Suspense",
+      "Policial"
+    ],
+    "subgenres": [
+      "Mistério",
+      "Investigação"
+    ],
+    "tags": [
+      "netmovies",
+      "suspense",
+      "policial",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "intrigante",
+      "tenso",
+      "misterioso"
+    ],
+    "releaseYear": 2022,
+    "durationMinutes": 111,
+    "posterUrl": "https://img.youtube.com/vi/mFv4YYuN7S8/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/mFv4YYuN7S8/hqdefault.jpg",
+    "channelName": "NetMovies",
+    "channelUrl": "https://www.youtube.com/watch?v=mFv4YYuN7S8",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 8.2,
+    "badge": "NetMovies Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.600Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-NsJ0fFbrB4k",
+    "youtubeVideoId": "NsJ0fFbrB4k",
+    "title": "O Sequestro do Ônibus 657 com Robert De Niro",
+    "synopsis": "O Sequestro do Ônibus 657 com Robert De Niro é uma produção cinematográfica completa disponibilizada oficialmente pelo canal NetMovies no YouTube, com dublagem em português.",
+    "genres": [
+      "Suspense",
+      "Policial"
+    ],
+    "subgenres": [
+      "Mistério",
+      "Investigação"
+    ],
+    "tags": [
+      "netmovies",
+      "suspense",
+      "policial",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "intrigante",
+      "tenso",
+      "misterioso"
+    ],
+    "releaseYear": 2022,
+    "durationMinutes": 89,
+    "posterUrl": "https://img.youtube.com/vi/NsJ0fFbrB4k/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/NsJ0fFbrB4k/hqdefault.jpg",
+    "channelName": "NetMovies",
+    "channelUrl": "https://www.youtube.com/watch?v=NsJ0fFbrB4k",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 8.6,
+    "badge": "NetMovies Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.600Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-c98JWM6aToQ",
+    "youtubeVideoId": "c98JWM6aToQ",
+    "title": "Sequestro: Inocência Roubada",
+    "synopsis": "Sequestro: Inocência Roubada é uma produção cinematográfica completa disponibilizada oficialmente pelo canal NetMovies no YouTube, com dublagem em português.",
+    "genres": [
+      "Suspense",
+      "Policial"
+    ],
+    "subgenres": [
+      "Mistério",
+      "Investigação"
+    ],
+    "tags": [
+      "netmovies",
+      "suspense",
+      "policial",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "intrigante",
+      "tenso",
+      "misterioso"
+    ],
+    "releaseYear": 2019,
+    "durationMinutes": 99,
+    "posterUrl": "https://img.youtube.com/vi/c98JWM6aToQ/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/c98JWM6aToQ/hqdefault.jpg",
+    "channelName": "NetMovies",
+    "channelUrl": "https://www.youtube.com/watch?v=c98JWM6aToQ",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 7.8,
+    "badge": "NetMovies Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.601Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-5pSdLN3bvD8",
+    "youtubeVideoId": "5pSdLN3bvD8",
+    "title": "Não Converse com Estranhos",
+    "synopsis": "Não Converse com Estranhos é uma produção cinematográfica completa disponibilizada oficialmente pelo canal NetMovies no YouTube, com dublagem em português.",
+    "genres": [
+      "Terror",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Sobrenatural",
+      "Mistério"
+    ],
+    "tags": [
+      "netmovies",
+      "terror",
+      "suspense",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "arrepiante",
+      "sombrio",
+      "tenso"
+    ],
+    "releaseYear": 2021,
+    "durationMinutes": 112,
+    "posterUrl": "https://img.youtube.com/vi/5pSdLN3bvD8/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/5pSdLN3bvD8/hqdefault.jpg",
+    "channelName": "NetMovies",
+    "channelUrl": "https://www.youtube.com/watch?v=5pSdLN3bvD8",
+    "contentRating": "16",
+    "language": "Dublado",
+    "ratingScore": 8.5,
+    "badge": "NetMovies Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.601Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-7FNs6KyD90M",
+    "youtubeVideoId": "7FNs6KyD90M",
+    "title": "Assédio Mortal-Filme Baseado Em Fatos Reais.",
+    "synopsis": "Assédio Mortal-Filme Baseado Em Fatos Reais. é uma produção cinematográfica completa disponibilizada oficialmente pelo canal NetMovies no YouTube, com dublagem em português.",
+    "genres": [
+      "Ação",
+      "Aventura"
+    ],
+    "subgenres": [
+      "Adrenalina",
+      "Combate"
+    ],
+    "tags": [
+      "netmovies",
+      "ação",
+      "aventura",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "eletrizante",
+      "empolgante",
+      "frenético"
+    ],
+    "releaseYear": 2020,
+    "durationMinutes": 97,
+    "posterUrl": "https://img.youtube.com/vi/7FNs6KyD90M/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/7FNs6KyD90M/hqdefault.jpg",
+    "channelName": "NetMovies",
+    "channelUrl": "https://www.youtube.com/watch?v=7FNs6KyD90M",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 8.5,
+    "badge": "NetMovies Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.601Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-2xY7hxxnSMA",
+    "youtubeVideoId": "2xY7hxxnSMA",
+    "title": "Resgate Sangrento com Tom Sizemore",
+    "synopsis": "Resgate Sangrento com Tom Sizemore é uma produção cinematográfica completa disponibilizada oficialmente pelo canal NetMovies no YouTube, com dublagem em português.",
+    "genres": [
+      "Suspense",
+      "Policial"
+    ],
+    "subgenres": [
+      "Mistério",
+      "Investigação"
+    ],
+    "tags": [
+      "netmovies",
+      "suspense",
+      "policial",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "intrigante",
+      "tenso",
+      "misterioso"
+    ],
+    "releaseYear": 2022,
+    "durationMinutes": 91,
+    "posterUrl": "https://img.youtube.com/vi/2xY7hxxnSMA/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/2xY7hxxnSMA/hqdefault.jpg",
+    "channelName": "NetMovies",
+    "channelUrl": "https://www.youtube.com/watch?v=2xY7hxxnSMA",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 7.6000000000000005,
+    "badge": "NetMovies Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.601Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-JZldXHBQkUo",
+    "youtubeVideoId": "JZldXHBQkUo",
+    "title": "Sequestro Relâmpago _",
+    "synopsis": "Sequestro Relâmpago _ é uma produção cinematográfica completa disponibilizada oficialmente pelo canal NetMovies no YouTube, com dublagem em português.",
+    "genres": [
+      "Suspense",
+      "Policial"
+    ],
+    "subgenres": [
+      "Mistério",
+      "Investigação"
+    ],
+    "tags": [
+      "netmovies",
+      "suspense",
+      "policial",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "intrigante",
+      "tenso",
+      "misterioso"
+    ],
+    "releaseYear": 2018,
+    "durationMinutes": 88,
+    "posterUrl": "https://img.youtube.com/vi/JZldXHBQkUo/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/JZldXHBQkUo/hqdefault.jpg",
+    "channelName": "NetMovies",
+    "channelUrl": "https://www.youtube.com/watch?v=JZldXHBQkUo",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 7.9,
+    "badge": "NetMovies Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.601Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-JUUPporeP3s",
+    "youtubeVideoId": "JUUPporeP3s",
+    "title": "O Sequestro",
+    "synopsis": "O Sequestro é uma produção cinematográfica completa disponibilizada oficialmente pelo canal NetMovies no YouTube, com dublagem em português.",
+    "genres": [
+      "Suspense",
+      "Policial"
+    ],
+    "subgenres": [
+      "Mistério",
+      "Investigação"
+    ],
+    "tags": [
+      "netmovies",
+      "suspense",
+      "policial",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "intrigante",
+      "tenso",
+      "misterioso"
+    ],
+    "releaseYear": 2021,
+    "durationMinutes": 100,
+    "posterUrl": "https://img.youtube.com/vi/JUUPporeP3s/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/JUUPporeP3s/hqdefault.jpg",
+    "channelName": "NetMovies",
+    "channelUrl": "https://www.youtube.com/watch?v=JUUPporeP3s",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 8.6,
+    "badge": "NetMovies Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.601Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-yZip9mJRE1s",
+    "youtubeVideoId": "yZip9mJRE1s",
+    "title": "Quebrando as Regras",
+    "synopsis": "Quebrando as Regras é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Film Plus no YouTube, com dublagem em português.",
+    "genres": [
+      "Ação",
+      "Aventura"
+    ],
+    "subgenres": [
+      "Adrenalina",
+      "Combate"
+    ],
+    "tags": [
+      "filmplus",
+      "ação",
+      "aventura",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "eletrizante",
+      "empolgante",
+      "frenético"
+    ],
+    "releaseYear": 2023,
+    "durationMinutes": 99,
+    "posterUrl": "https://img.youtube.com/vi/yZip9mJRE1s/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/yZip9mJRE1s/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=yZip9mJRE1s",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 8.3,
+    "badge": "Film Plus Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.601Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-uj09NDGIbEU",
+    "youtubeVideoId": "uj09NDGIbEU",
+    "title": "Multiverso: Realidade Paralela",
+    "synopsis": "Multiverso: Realidade Paralela é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Film Plus no YouTube, com dublagem em português.",
+    "genres": [
+      "Ficção Científica",
+      "Ação"
+    ],
+    "subgenres": [
+      "Sci-Fi",
+      "Catástrofe"
+    ],
+    "tags": [
+      "filmplus",
+      "ficção científica",
+      "ação",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "visionário",
+      "fascinante",
+      "intenso"
+    ],
+    "releaseYear": 2017,
+    "durationMinutes": 108,
+    "posterUrl": "https://img.youtube.com/vi/uj09NDGIbEU/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/uj09NDGIbEU/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=uj09NDGIbEU",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 7.7,
+    "badge": "Film Plus Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.601Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-iRLMx2Kyf88",
+    "youtubeVideoId": "iRLMx2Kyf88",
+    "title": "A Era da Morte",
+    "synopsis": "A Era da Morte é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Film Plus no YouTube, com dublagem em português.",
+    "genres": [
+      "Ação",
+      "Aventura"
+    ],
+    "subgenres": [
+      "Adrenalina",
+      "Combate"
+    ],
+    "tags": [
+      "filmplus",
+      "ação",
+      "aventura",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "eletrizante",
+      "empolgante",
+      "frenético"
+    ],
+    "releaseYear": 2018,
+    "durationMinutes": 105,
+    "posterUrl": "https://img.youtube.com/vi/iRLMx2Kyf88/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/iRLMx2Kyf88/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=iRLMx2Kyf88",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 7.5,
+    "badge": "Film Plus Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.601Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-Lof__eDa4Ts",
+    "youtubeVideoId": "Lof__eDa4Ts",
+    "title": "Pânico na Floresta",
+    "synopsis": "Pânico na Floresta é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Film Plus no YouTube, com dublagem em português.",
+    "genres": [
+      "Terror",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Sobrenatural",
+      "Mistério"
+    ],
+    "tags": [
+      "filmplus",
+      "terror",
+      "suspense",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "arrepiante",
+      "sombrio",
+      "tenso"
+    ],
+    "releaseYear": 2017,
+    "durationMinutes": 100,
+    "posterUrl": "https://img.youtube.com/vi/Lof__eDa4Ts/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/Lof__eDa4Ts/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=Lof__eDa4Ts",
+    "contentRating": "16",
+    "language": "Dublado",
+    "ratingScore": 7.7,
+    "badge": "Film Plus Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.601Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-aaNwkZkA2rQ",
+    "youtubeVideoId": "aaNwkZkA2rQ",
+    "title": "Ação Sem Limites",
+    "synopsis": "Ação Sem Limites é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Film Plus no YouTube, com dublagem em português.",
+    "genres": [
+      "Ação",
+      "Aventura"
+    ],
+    "subgenres": [
+      "Adrenalina",
+      "Combate"
+    ],
+    "tags": [
+      "filmplus",
+      "ação",
+      "aventura",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "eletrizante",
+      "empolgante",
+      "frenético"
+    ],
+    "releaseYear": 2023,
+    "durationMinutes": 92,
+    "posterUrl": "https://img.youtube.com/vi/aaNwkZkA2rQ/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/aaNwkZkA2rQ/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=aaNwkZkA2rQ",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 7.3,
+    "badge": "Film Plus Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.601Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-SwnBj_9ScnM",
+    "youtubeVideoId": "SwnBj_9ScnM",
+    "title": "Dominação",
+    "synopsis": "Dominação é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Film Plus no YouTube, com dublagem em português.",
+    "genres": [
+      "Terror",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Sobrenatural",
+      "Mistério"
+    ],
+    "tags": [
+      "filmplus",
+      "terror",
+      "suspense",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "arrepiante",
+      "sombrio",
+      "tenso"
+    ],
+    "releaseYear": 2018,
+    "durationMinutes": 108,
+    "posterUrl": "https://img.youtube.com/vi/SwnBj_9ScnM/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/SwnBj_9ScnM/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=SwnBj_9ScnM",
+    "contentRating": "16",
+    "language": "Dublado",
+    "ratingScore": 8.5,
+    "badge": "Film Plus Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.601Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-oW_Aokkil48",
+    "youtubeVideoId": "oW_Aokkil48",
+    "title": "PRESOS NO GELO 2",
+    "synopsis": "PRESOS NO GELO 2 é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Film Plus no YouTube, com dublagem em português.",
+    "genres": [
+      "Terror",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Sobrenatural",
+      "Mistério"
+    ],
+    "tags": [
+      "filmplus",
+      "terror",
+      "suspense",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "arrepiante",
+      "sombrio",
+      "tenso"
+    ],
+    "releaseYear": 2022,
+    "durationMinutes": 112,
+    "posterUrl": "https://img.youtube.com/vi/oW_Aokkil48/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/oW_Aokkil48/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=oW_Aokkil48",
+    "contentRating": "16",
+    "language": "Dublado",
+    "ratingScore": 8.4,
+    "badge": "Film Plus Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.601Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-sURNwUFS66k",
+    "youtubeVideoId": "sURNwUFS66k",
+    "title": "OS ESCOLHIDOS com J.K. SIMMONS e KERI RUSSEL",
+    "synopsis": "OS ESCOLHIDOS com J.K. SIMMONS e KERI RUSSEL é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Film Plus no YouTube, com dublagem em português.",
+    "genres": [
+      "Terror",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Sobrenatural",
+      "Mistério"
+    ],
+    "tags": [
+      "filmplus",
+      "terror",
+      "suspense",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "arrepiante",
+      "sombrio",
+      "tenso"
+    ],
+    "releaseYear": 2020,
+    "durationMinutes": 98,
+    "posterUrl": "https://img.youtube.com/vi/sURNwUFS66k/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/sURNwUFS66k/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=sURNwUFS66k",
+    "contentRating": "16",
+    "language": "Dublado",
+    "ratingScore": 7.9,
+    "badge": "Film Plus Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.601Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-AW7RfKk27fs",
+    "youtubeVideoId": "AW7RfKk27fs",
+    "title": "O Chamado do Anticristo",
+    "synopsis": "O Chamado do Anticristo é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Film Plus no YouTube, com dublagem em português.",
+    "genres": [
+      "Terror",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Sobrenatural",
+      "Mistério"
+    ],
+    "tags": [
+      "filmplus",
+      "terror",
+      "suspense",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "arrepiante",
+      "sombrio",
+      "tenso"
+    ],
+    "releaseYear": 2022,
+    "durationMinutes": 91,
+    "posterUrl": "https://img.youtube.com/vi/AW7RfKk27fs/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/AW7RfKk27fs/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=AW7RfKk27fs",
+    "contentRating": "16",
+    "language": "Dublado",
+    "ratingScore": 7.9,
+    "badge": "Film Plus Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.601Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-ytp_XUHgqeI",
+    "youtubeVideoId": "ytp_XUHgqeI",
+    "title": "Deep Web: Show da Morte",
+    "synopsis": "Deep Web: Show da Morte é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Film Plus no YouTube, com dublagem em português.",
+    "genres": [
+      "Suspense",
+      "Policial"
+    ],
+    "subgenres": [
+      "Mistério",
+      "Investigação"
+    ],
+    "tags": [
+      "filmplus",
+      "suspense",
+      "policial",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "intrigante",
+      "tenso",
+      "misterioso"
+    ],
+    "releaseYear": 2017,
+    "durationMinutes": 98,
+    "posterUrl": "https://img.youtube.com/vi/ytp_XUHgqeI/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/ytp_XUHgqeI/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=ytp_XUHgqeI",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 7.2,
+    "badge": "Film Plus Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.601Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-afELGEycK88",
+    "youtubeVideoId": "afELGEycK88",
+    "title": "À Espreita do Mal",
+    "synopsis": "À Espreita do Mal é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Film Plus no YouTube, com dublagem em português.",
+    "genres": [
+      "Terror",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Sobrenatural",
+      "Mistério"
+    ],
+    "tags": [
+      "filmplus",
+      "terror",
+      "suspense",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "arrepiante",
+      "sombrio",
+      "tenso"
+    ],
+    "releaseYear": 2019,
+    "durationMinutes": 107,
+    "posterUrl": "https://img.youtube.com/vi/afELGEycK88/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/afELGEycK88/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=afELGEycK88",
+    "contentRating": "16",
+    "language": "Dublado",
+    "ratingScore": 8.5,
+    "badge": "Film Plus Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.601Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-7A8uDg0M6vU",
+    "youtubeVideoId": "7A8uDg0M6vU",
+    "title": "O Pesadelo 2",
+    "synopsis": "O Pesadelo 2 é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Film Plus no YouTube, com dublagem em português.",
+    "genres": [
+      "Terror",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Sobrenatural",
+      "Mistério"
+    ],
+    "tags": [
+      "filmplus",
+      "terror",
+      "suspense",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "arrepiante",
+      "sombrio",
+      "tenso"
+    ],
+    "releaseYear": 2018,
+    "durationMinutes": 97,
+    "posterUrl": "https://img.youtube.com/vi/7A8uDg0M6vU/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/7A8uDg0M6vU/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=7A8uDg0M6vU",
+    "contentRating": "16",
+    "language": "Dublado",
+    "ratingScore": 8.1,
+    "badge": "Film Plus Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.601Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-Ofa3Cg5vMHY",
+    "youtubeVideoId": "Ofa3Cg5vMHY",
+    "title": "As 7 Bruxas",
+    "synopsis": "As 7 Bruxas é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Film Plus no YouTube, com dublagem em português.",
+    "genres": [
+      "Terror",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Sobrenatural",
+      "Mistério"
+    ],
+    "tags": [
+      "filmplus",
+      "terror",
+      "suspense",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "arrepiante",
+      "sombrio",
+      "tenso"
+    ],
+    "releaseYear": 2017,
+    "durationMinutes": 96,
+    "posterUrl": "https://img.youtube.com/vi/Ofa3Cg5vMHY/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/Ofa3Cg5vMHY/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=Ofa3Cg5vMHY",
+    "contentRating": "16",
+    "language": "Dublado",
+    "ratingScore": 7.4,
+    "badge": "Film Plus Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.601Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-Fsv6X_P6O9M",
+    "youtubeVideoId": "Fsv6X_P6O9M",
+    "title": "Atividade Sobrenatural: A Vingança De Mary",
+    "synopsis": "Atividade Sobrenatural: A Vingança De Mary é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Film Plus no YouTube, com dublagem em português.",
+    "genres": [
+      "Terror",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Sobrenatural",
+      "Mistério"
+    ],
+    "tags": [
+      "filmplus",
+      "terror",
+      "suspense",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "arrepiante",
+      "sombrio",
+      "tenso"
+    ],
+    "releaseYear": 2017,
+    "durationMinutes": 96,
+    "posterUrl": "https://img.youtube.com/vi/Fsv6X_P6O9M/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/Fsv6X_P6O9M/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=Fsv6X_P6O9M",
+    "contentRating": "16",
+    "language": "Dublado",
+    "ratingScore": 8.2,
+    "badge": "Film Plus Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.601Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-_4C03pEUdRE",
+    "youtubeVideoId": "_4C03pEUdRE",
+    "title": "Os Mensageiros 2",
+    "synopsis": "Os Mensageiros 2 é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Film Plus no YouTube, com dublagem em português.",
+    "genres": [
+      "Terror",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Sobrenatural",
+      "Mistério"
+    ],
+    "tags": [
+      "filmplus",
+      "terror",
+      "suspense",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "arrepiante",
+      "sombrio",
+      "tenso"
+    ],
+    "releaseYear": 2022,
+    "durationMinutes": 112,
+    "posterUrl": "https://img.youtube.com/vi/_4C03pEUdRE/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/_4C03pEUdRE/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=_4C03pEUdRE",
+    "contentRating": "16",
+    "language": "Dublado",
+    "ratingScore": 7.4,
+    "badge": "Film Plus Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.601Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-vnx9ZPlJRyg",
+    "youtubeVideoId": "vnx9ZPlJRyg",
+    "title": "Pacto com o Demônio",
+    "synopsis": "Pacto com o Demônio é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Film Plus no YouTube, com dublagem em português.",
+    "genres": [
+      "Terror",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Sobrenatural",
+      "Mistério"
+    ],
+    "tags": [
+      "filmplus",
+      "terror",
+      "suspense",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "arrepiante",
+      "sombrio",
+      "tenso"
+    ],
+    "releaseYear": 2019,
+    "durationMinutes": 89,
+    "posterUrl": "https://img.youtube.com/vi/vnx9ZPlJRyg/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/vnx9ZPlJRyg/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=vnx9ZPlJRyg",
+    "contentRating": "16",
+    "language": "Dublado",
+    "ratingScore": 8.2,
+    "badge": "Film Plus Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.601Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-idDNEODmhas",
+    "youtubeVideoId": "idDNEODmhas",
+    "title": "Por um Corredor Escuro",
+    "synopsis": "Por um Corredor Escuro é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Film Plus no YouTube, com dublagem em português.",
+    "genres": [
+      "Terror",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Sobrenatural",
+      "Mistério"
+    ],
+    "tags": [
+      "filmplus",
+      "terror",
+      "suspense",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "arrepiante",
+      "sombrio",
+      "tenso"
+    ],
+    "releaseYear": 2022,
+    "durationMinutes": 105,
+    "posterUrl": "https://img.youtube.com/vi/idDNEODmhas/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/idDNEODmhas/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=idDNEODmhas",
+    "contentRating": "16",
+    "language": "Dublado",
+    "ratingScore": 7.7,
+    "badge": "Film Plus Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.601Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-I-KCdwWl2dA",
+    "youtubeVideoId": "I-KCdwWl2dA",
+    "title": "Anticristo, O Exorcismo de Lara",
+    "synopsis": "Anticristo, O Exorcismo de Lara é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Film Plus no YouTube, com dublagem em português.",
+    "genres": [
+      "Suspense",
+      "Policial"
+    ],
+    "subgenres": [
+      "Mistério",
+      "Investigação"
+    ],
+    "tags": [
+      "filmplus",
+      "suspense",
+      "policial",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "intrigante",
+      "tenso",
+      "misterioso"
+    ],
+    "releaseYear": 2023,
+    "durationMinutes": 109,
+    "posterUrl": "https://img.youtube.com/vi/I-KCdwWl2dA/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/I-KCdwWl2dA/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=I-KCdwWl2dA",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 8.3,
+    "badge": "Film Plus Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.601Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-RIE9tlzZsck",
+    "youtubeVideoId": "RIE9tlzZsck",
+    "title": "O Colecionador de Corpos 2",
+    "synopsis": "O Colecionador de Corpos 2 é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Film Plus no YouTube, com dublagem em português.",
+    "genres": [
+      "Terror",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Sobrenatural",
+      "Mistério"
+    ],
+    "tags": [
+      "filmplus",
+      "terror",
+      "suspense",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "arrepiante",
+      "sombrio",
+      "tenso"
+    ],
+    "releaseYear": 2022,
+    "durationMinutes": 96,
+    "posterUrl": "https://img.youtube.com/vi/RIE9tlzZsck/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/RIE9tlzZsck/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=RIE9tlzZsck",
+    "contentRating": "16",
+    "language": "Dublado",
+    "ratingScore": 7.3,
+    "badge": "Film Plus Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.601Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-TTxfTdu9sPE",
+    "youtubeVideoId": "TTxfTdu9sPE",
+    "title": "Pandorum",
+    "synopsis": "Pandorum é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Film Plus no YouTube, com dublagem em português.",
+    "genres": [
+      "Terror",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Sobrenatural",
+      "Mistério"
+    ],
+    "tags": [
+      "filmplus",
+      "terror",
+      "suspense",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "arrepiante",
+      "sombrio",
+      "tenso"
+    ],
+    "releaseYear": 2018,
+    "durationMinutes": 103,
+    "posterUrl": "https://img.youtube.com/vi/TTxfTdu9sPE/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/TTxfTdu9sPE/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=TTxfTdu9sPE",
+    "contentRating": "16",
+    "language": "Dublado",
+    "ratingScore": 8.4,
+    "badge": "Film Plus Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.601Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-3sUnfP37xb8",
+    "youtubeVideoId": "3sUnfP37xb8",
+    "title": "Apanhador de Pesadelos",
+    "synopsis": "Apanhador de Pesadelos é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Film Plus no YouTube, com dublagem em português.",
+    "genres": [
+      "Terror",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Sobrenatural",
+      "Mistério"
+    ],
+    "tags": [
+      "filmplus",
+      "terror",
+      "suspense",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "arrepiante",
+      "sombrio",
+      "tenso"
+    ],
+    "releaseYear": 2019,
+    "durationMinutes": 103,
+    "posterUrl": "https://img.youtube.com/vi/3sUnfP37xb8/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/3sUnfP37xb8/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=3sUnfP37xb8",
+    "contentRating": "16",
+    "language": "Dublado",
+    "ratingScore": 8.1,
+    "badge": "Film Plus Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.601Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-NHGPOkgaZrI",
+    "youtubeVideoId": "NHGPOkgaZrI",
+    "title": "Hellraiser IV: Herança Maldita",
+    "synopsis": "Hellraiser IV: Herança Maldita é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Film Plus no YouTube, com dublagem em português.",
+    "genres": [
+      "Terror",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Sobrenatural",
+      "Mistério"
+    ],
+    "tags": [
+      "filmplus",
+      "terror",
+      "suspense",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "arrepiante",
+      "sombrio",
+      "tenso"
+    ],
+    "releaseYear": 2020,
+    "durationMinutes": 96,
+    "posterUrl": "https://img.youtube.com/vi/NHGPOkgaZrI/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/NHGPOkgaZrI/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=NHGPOkgaZrI",
+    "contentRating": "16",
+    "language": "Dublado",
+    "ratingScore": 8.5,
+    "badge": "Film Plus Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.601Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-W65xJAKz7pU",
+    "youtubeVideoId": "W65xJAKz7pU",
+    "title": "P2 – Sem Saída",
+    "synopsis": "P2 – Sem Saída é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Film Plus no YouTube, com dublagem em português.",
+    "genres": [
+      "Terror",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Sobrenatural",
+      "Mistério"
+    ],
+    "tags": [
+      "filmplus",
+      "terror",
+      "suspense",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "arrepiante",
+      "sombrio",
+      "tenso"
+    ],
+    "releaseYear": 2018,
+    "durationMinutes": 112,
+    "posterUrl": "https://img.youtube.com/vi/W65xJAKz7pU/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/W65xJAKz7pU/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=W65xJAKz7pU",
+    "contentRating": "16",
+    "language": "Dublado",
+    "ratingScore": 8.5,
+    "badge": "Film Plus Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.601Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-x1YsXe3l7Dc",
+    "youtubeVideoId": "x1YsXe3l7Dc",
+    "title": "A Última Premonição",
+    "synopsis": "A Última Premonição é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Film Plus no YouTube, com dublagem em português.",
+    "genres": [
+      "Terror",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Sobrenatural",
+      "Mistério"
+    ],
+    "tags": [
+      "filmplus",
+      "terror",
+      "suspense",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "arrepiante",
+      "sombrio",
+      "tenso"
+    ],
+    "releaseYear": 2018,
+    "durationMinutes": 88,
+    "posterUrl": "https://img.youtube.com/vi/x1YsXe3l7Dc/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/x1YsXe3l7Dc/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=x1YsXe3l7Dc",
+    "contentRating": "16",
+    "language": "Dublado",
+    "ratingScore": 8.6,
+    "badge": "Film Plus Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.601Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-L23-KZi5_lg",
+    "youtubeVideoId": "L23-KZi5_lg",
+    "title": "Fantasma no Cemitério",
+    "synopsis": "Fantasma no Cemitério é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Film Plus no YouTube, com dublagem em português.",
+    "genres": [
+      "Terror",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Sobrenatural",
+      "Mistério"
+    ],
+    "tags": [
+      "filmplus",
+      "terror",
+      "suspense",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "arrepiante",
+      "sombrio",
+      "tenso"
+    ],
+    "releaseYear": 2019,
+    "durationMinutes": 108,
+    "posterUrl": "https://img.youtube.com/vi/L23-KZi5_lg/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/L23-KZi5_lg/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=L23-KZi5_lg",
+    "contentRating": "16",
+    "language": "Dublado",
+    "ratingScore": 8.4,
+    "badge": "Film Plus Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.601Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-g9sPCWujq-4",
+    "youtubeVideoId": "g9sPCWujq-4",
+    "title": "Presos no Gelo 3: O Início",
+    "synopsis": "Presos no Gelo 3: O Início é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Film Plus no YouTube, com dublagem em português.",
+    "genres": [
+      "Terror",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Sobrenatural",
+      "Mistério"
+    ],
+    "tags": [
+      "filmplus",
+      "terror",
+      "suspense",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "arrepiante",
+      "sombrio",
+      "tenso"
+    ],
+    "releaseYear": 2020,
+    "durationMinutes": 92,
+    "posterUrl": "https://img.youtube.com/vi/g9sPCWujq-4/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/g9sPCWujq-4/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=g9sPCWujq-4",
+    "contentRating": "16",
+    "language": "Dublado",
+    "ratingScore": 8.4,
+    "badge": "Film Plus Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.601Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-LOw3P8gDfdw",
+    "youtubeVideoId": "LOw3P8gDfdw",
+    "title": "O Massacr3 do Moinho de Vento",
+    "synopsis": "O Massacr3 do Moinho de Vento é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Film Plus no YouTube, com dublagem em português.",
+    "genres": [
+      "Terror",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Sobrenatural",
+      "Mistério"
+    ],
+    "tags": [
+      "filmplus",
+      "terror",
+      "suspense",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "arrepiante",
+      "sombrio",
+      "tenso"
+    ],
+    "releaseYear": 2017,
+    "durationMinutes": 105,
+    "posterUrl": "https://img.youtube.com/vi/LOw3P8gDfdw/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/LOw3P8gDfdw/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=LOw3P8gDfdw",
+    "contentRating": "16",
+    "language": "Dublado",
+    "ratingScore": 7.5,
+    "badge": "Film Plus Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.601Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-Qz7omOo7MJ8",
+    "youtubeVideoId": "Qz7omOo7MJ8",
+    "title": "Não Olhe",
+    "synopsis": "Não Olhe é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Film Plus no YouTube, com dublagem em português.",
+    "genres": [
+      "Terror",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Sobrenatural",
+      "Mistério"
+    ],
+    "tags": [
+      "filmplus",
+      "terror",
+      "suspense",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "arrepiante",
+      "sombrio",
+      "tenso"
+    ],
+    "releaseYear": 2019,
+    "durationMinutes": 104,
+    "posterUrl": "https://img.youtube.com/vi/Qz7omOo7MJ8/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/Qz7omOo7MJ8/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=Qz7omOo7MJ8",
+    "contentRating": "16",
+    "language": "Dublado",
+    "ratingScore": 7.9,
+    "badge": "Film Plus Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.602Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-ZxsA7i-v7eg",
+    "youtubeVideoId": "ZxsA7i-v7eg",
+    "title": "Alucinação",
+    "synopsis": "Alucinação é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Film Plus no YouTube, com dublagem em português.",
+    "genres": [
+      "Terror",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Sobrenatural",
+      "Mistério"
+    ],
+    "tags": [
+      "filmplus",
+      "terror",
+      "suspense",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "arrepiante",
+      "sombrio",
+      "tenso"
+    ],
+    "releaseYear": 2018,
+    "durationMinutes": 110,
+    "posterUrl": "https://img.youtube.com/vi/ZxsA7i-v7eg/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/ZxsA7i-v7eg/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=ZxsA7i-v7eg",
+    "contentRating": "16",
+    "language": "Dublado",
+    "ratingScore": 7.4,
+    "badge": "Film Plus Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.603Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-cJEucoMwCsY",
+    "youtubeVideoId": "cJEucoMwCsY",
+    "title": "Fenômenos Paranormais",
+    "synopsis": "Fenômenos Paranormais é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Film Plus no YouTube, com dublagem em português.",
+    "genres": [
+      "Terror",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Sobrenatural",
+      "Mistério"
+    ],
+    "tags": [
+      "filmplus",
+      "terror",
+      "suspense",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "arrepiante",
+      "sombrio",
+      "tenso"
+    ],
+    "releaseYear": 2022,
+    "durationMinutes": 88,
+    "posterUrl": "https://img.youtube.com/vi/cJEucoMwCsY/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/cJEucoMwCsY/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=cJEucoMwCsY",
+    "contentRating": "16",
+    "language": "Dublado",
+    "ratingScore": 8.4,
+    "badge": "Film Plus Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.603Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-jR8LNEiI-5w",
+    "youtubeVideoId": "jR8LNEiI-5w",
+    "title": "Fenômenos Paranormais 2",
+    "synopsis": "Fenômenos Paranormais 2 é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Film Plus no YouTube, com dublagem em português.",
+    "genres": [
+      "Terror",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Sobrenatural",
+      "Mistério"
+    ],
+    "tags": [
+      "filmplus",
+      "terror",
+      "suspense",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "arrepiante",
+      "sombrio",
+      "tenso"
+    ],
+    "releaseYear": 2021,
+    "durationMinutes": 99,
+    "posterUrl": "https://img.youtube.com/vi/jR8LNEiI-5w/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/jR8LNEiI-5w/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=jR8LNEiI-5w",
+    "contentRating": "16",
+    "language": "Dublado",
+    "ratingScore": 7.7,
+    "badge": "Film Plus Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.603Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-hjXfFQyid3s",
+    "youtubeVideoId": "hjXfFQyid3s",
+    "title": "Halloween: O Início",
+    "synopsis": "Halloween: O Início é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Film Plus no YouTube, com dublagem em português.",
+    "genres": [
+      "Terror",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Sobrenatural",
+      "Mistério"
+    ],
+    "tags": [
+      "filmplus",
+      "terror",
+      "suspense",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "arrepiante",
+      "sombrio",
+      "tenso"
+    ],
+    "releaseYear": 2019,
+    "durationMinutes": 94,
+    "posterUrl": "https://img.youtube.com/vi/hjXfFQyid3s/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/hjXfFQyid3s/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=hjXfFQyid3s",
+    "contentRating": "16",
+    "language": "Dublado",
+    "ratingScore": 7.7,
+    "badge": "Film Plus Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.603Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-oW4pZmcZMik",
+    "youtubeVideoId": "oW4pZmcZMik",
+    "title": "O Último Portal com JOHNNY DEPP",
+    "synopsis": "O Último Portal com JOHNNY DEPP é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Film Plus no YouTube, com dublagem em português.",
+    "genres": [
+      "Terror",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Sobrenatural",
+      "Mistério"
+    ],
+    "tags": [
+      "filmplus",
+      "terror",
+      "suspense",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "arrepiante",
+      "sombrio",
+      "tenso"
+    ],
+    "releaseYear": 2019,
+    "durationMinutes": 90,
+    "posterUrl": "https://img.youtube.com/vi/oW4pZmcZMik/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/oW4pZmcZMik/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=oW4pZmcZMik",
+    "contentRating": "16",
+    "language": "Dublado",
+    "ratingScore": 8.1,
+    "badge": "Film Plus Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.603Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-Xn4yJB-FuBw",
+    "youtubeVideoId": "Xn4yJB-FuBw",
+    "title": "Noite do Terror 2",
+    "synopsis": "Noite do Terror 2 é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Film Plus no YouTube, com dublagem em português.",
+    "genres": [
+      "Terror",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Sobrenatural",
+      "Mistério"
+    ],
+    "tags": [
+      "filmplus",
+      "terror",
+      "suspense",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "arrepiante",
+      "sombrio",
+      "tenso"
+    ],
+    "releaseYear": 2021,
+    "durationMinutes": 108,
+    "posterUrl": "https://img.youtube.com/vi/Xn4yJB-FuBw/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/Xn4yJB-FuBw/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=Xn4yJB-FuBw",
+    "contentRating": "16",
+    "language": "Dublado",
+    "ratingScore": 8.4,
+    "badge": "Film Plus Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.603Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-K809XMUsMts",
+    "youtubeVideoId": "K809XMUsMts",
+    "title": "Cidade das Sombras COM BILL MURRAY",
+    "synopsis": "Cidade das Sombras COM BILL MURRAY é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Film Plus no YouTube, com dublagem em português.",
+    "genres": [
+      "Ação",
+      "Aventura"
+    ],
+    "subgenres": [
+      "Adrenalina",
+      "Combate"
+    ],
+    "tags": [
+      "filmplus",
+      "ação",
+      "aventura",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "eletrizante",
+      "empolgante",
+      "frenético"
+    ],
+    "releaseYear": 2019,
+    "durationMinutes": 98,
+    "posterUrl": "https://img.youtube.com/vi/K809XMUsMts/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/K809XMUsMts/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=K809XMUsMts",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 7.9,
+    "badge": "Film Plus Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.603Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-LniTsQUUaIY",
+    "youtubeVideoId": "LniTsQUUaIY",
+    "title": "A Aparição",
+    "synopsis": "A Aparição é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Film Plus no YouTube, com dublagem em português.",
+    "genres": [
+      "Ficção Científica",
+      "Ação"
+    ],
+    "subgenres": [
+      "Sci-Fi",
+      "Catástrofe"
+    ],
+    "tags": [
+      "filmplus",
+      "ficção científica",
+      "ação",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "visionário",
+      "fascinante",
+      "intenso"
+    ],
+    "releaseYear": 2021,
+    "durationMinutes": 100,
+    "posterUrl": "https://img.youtube.com/vi/LniTsQUUaIY/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/LniTsQUUaIY/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=LniTsQUUaIY",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 8.1,
+    "badge": "Film Plus Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.603Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-6X8BfBXHiIY",
+    "youtubeVideoId": "6X8BfBXHiIY",
+    "title": "Vampiras: As Noivas de Drácula",
+    "synopsis": "Vampiras: As Noivas de Drácula é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Film Plus no YouTube, com dublagem em português.",
+    "genres": [
+      "Terror",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Sobrenatural",
+      "Mistério"
+    ],
+    "tags": [
+      "filmplus",
+      "terror",
+      "suspense",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "arrepiante",
+      "sombrio",
+      "tenso"
+    ],
+    "releaseYear": 2020,
+    "durationMinutes": 97,
+    "posterUrl": "https://img.youtube.com/vi/6X8BfBXHiIY/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/6X8BfBXHiIY/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=6X8BfBXHiIY",
+    "contentRating": "16",
+    "language": "Dublado",
+    "ratingScore": 7.4,
+    "badge": "Film Plus Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.603Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-0YqXhYlafME",
+    "youtubeVideoId": "0YqXhYlafME",
+    "title": "O Enviado Do Mal",
+    "synopsis": "O Enviado Do Mal é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Film Plus no YouTube, com dublagem em português.",
+    "genres": [
+      "Terror",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Sobrenatural",
+      "Mistério"
+    ],
+    "tags": [
+      "filmplus",
+      "terror",
+      "suspense",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "arrepiante",
+      "sombrio",
+      "tenso"
+    ],
+    "releaseYear": 2017,
+    "durationMinutes": 112,
+    "posterUrl": "https://img.youtube.com/vi/0YqXhYlafME/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/0YqXhYlafME/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=0YqXhYlafME",
+    "contentRating": "16",
+    "language": "Dublado",
+    "ratingScore": 8.4,
+    "badge": "Film Plus Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.603Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-IzUp5vI2y7k",
+    "youtubeVideoId": "IzUp5vI2y7k",
+    "title": "O Grito 3",
+    "synopsis": "O Grito 3 é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Film Plus no YouTube, com dublagem em português.",
+    "genres": [
+      "Ação",
+      "Aventura"
+    ],
+    "subgenres": [
+      "Adrenalina",
+      "Combate"
+    ],
+    "tags": [
+      "filmplus",
+      "ação",
+      "aventura",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "eletrizante",
+      "empolgante",
+      "frenético"
+    ],
+    "releaseYear": 2018,
+    "durationMinutes": 93,
+    "posterUrl": "https://img.youtube.com/vi/IzUp5vI2y7k/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/IzUp5vI2y7k/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=IzUp5vI2y7k",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 7.9,
+    "badge": "Film Plus Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.603Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-CijQBJP-tEI",
+    "youtubeVideoId": "CijQBJP-tEI",
+    "title": "Jack: A Caixa Maldita 3: A Ascensão",
+    "synopsis": "Jack: A Caixa Maldita 3: A Ascensão é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Film Plus no YouTube, com dublagem em português.",
+    "genres": [
+      "Terror",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Sobrenatural",
+      "Mistério"
+    ],
+    "tags": [
+      "filmplus",
+      "terror",
+      "suspense",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "arrepiante",
+      "sombrio",
+      "tenso"
+    ],
+    "releaseYear": 2022,
+    "durationMinutes": 100,
+    "posterUrl": "https://img.youtube.com/vi/CijQBJP-tEI/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/CijQBJP-tEI/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=CijQBJP-tEI",
+    "contentRating": "16",
+    "language": "Dublado",
+    "ratingScore": 8.5,
+    "badge": "Film Plus Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.604Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-eGv75f_mjMM",
+    "youtubeVideoId": "eGv75f_mjMM",
+    "title": "Wildling: Criaturas Noturnas",
+    "synopsis": "Wildling: Criaturas Noturnas é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Film Plus no YouTube, com dublagem em português.",
+    "genres": [
+      "Terror",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Sobrenatural",
+      "Mistério"
+    ],
+    "tags": [
+      "filmplus",
+      "terror",
+      "suspense",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "arrepiante",
+      "sombrio",
+      "tenso"
+    ],
+    "releaseYear": 2018,
+    "durationMinutes": 102,
+    "posterUrl": "https://img.youtube.com/vi/eGv75f_mjMM/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/eGv75f_mjMM/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=eGv75f_mjMM",
+    "contentRating": "16",
+    "language": "Dublado",
+    "ratingScore": 7.5,
+    "badge": "Film Plus Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.604Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-oIO-tm412QI",
+    "youtubeVideoId": "oIO-tm412QI",
+    "title": "Amityville 2: A Possessão",
+    "synopsis": "Amityville 2: A Possessão é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Film Plus no YouTube, com dublagem em português.",
+    "genres": [
+      "Terror",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Sobrenatural",
+      "Mistério"
+    ],
+    "tags": [
+      "filmplus",
+      "terror",
+      "suspense",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "arrepiante",
+      "sombrio",
+      "tenso"
+    ],
+    "releaseYear": 2018,
+    "durationMinutes": 109,
+    "posterUrl": "https://img.youtube.com/vi/oIO-tm412QI/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/oIO-tm412QI/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=oIO-tm412QI",
+    "contentRating": "16",
+    "language": "Dublado",
+    "ratingScore": 8.4,
+    "badge": "Film Plus Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.604Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-winltOw-xpk",
+    "youtubeVideoId": "winltOw-xpk",
+    "title": "JACK: A Caixa Maldita",
+    "synopsis": "JACK: A Caixa Maldita é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Film Plus no YouTube, com dublagem em português.",
+    "genres": [
+      "Terror",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Sobrenatural",
+      "Mistério"
+    ],
+    "tags": [
+      "filmplus",
+      "terror",
+      "suspense",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "arrepiante",
+      "sombrio",
+      "tenso"
+    ],
+    "releaseYear": 2018,
+    "durationMinutes": 106,
+    "posterUrl": "https://img.youtube.com/vi/winltOw-xpk/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/winltOw-xpk/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=winltOw-xpk",
+    "contentRating": "16",
+    "language": "Dublado",
+    "ratingScore": 8.2,
+    "badge": "Film Plus Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.604Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-TQlj1XFefoo",
+    "youtubeVideoId": "TQlj1XFefoo",
+    "title": "A Bruxa de Blair",
+    "synopsis": "A Bruxa de Blair é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Film Plus no YouTube, com dublagem em português.",
+    "genres": [
+      "Terror",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Sobrenatural",
+      "Mistério"
+    ],
+    "tags": [
+      "filmplus",
+      "terror",
+      "suspense",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "arrepiante",
+      "sombrio",
+      "tenso"
+    ],
+    "releaseYear": 2017,
+    "durationMinutes": 88,
+    "posterUrl": "https://img.youtube.com/vi/TQlj1XFefoo/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/TQlj1XFefoo/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=TQlj1XFefoo",
+    "contentRating": "16",
+    "language": "Dublado",
+    "ratingScore": 7.8,
+    "badge": "Film Plus Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.604Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-r0FjROwLTiU",
+    "youtubeVideoId": "r0FjROwLTiU",
+    "title": "Impuratus: A Confissão do Diabo",
+    "synopsis": "Impuratus: A Confissão do Diabo é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Film Plus no YouTube, com dublagem em português.",
+    "genres": [
+      "Terror",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Sobrenatural",
+      "Mistério"
+    ],
+    "tags": [
+      "filmplus",
+      "terror",
+      "suspense",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "arrepiante",
+      "sombrio",
+      "tenso"
+    ],
+    "releaseYear": 2020,
+    "durationMinutes": 101,
+    "posterUrl": "https://img.youtube.com/vi/r0FjROwLTiU/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/r0FjROwLTiU/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=r0FjROwLTiU",
+    "contentRating": "16",
+    "language": "Dublado",
+    "ratingScore": 7.5,
+    "badge": "Film Plus Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.604Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-BW49I-brO9k",
+    "youtubeVideoId": "BW49I-brO9k",
+    "title": "Dia dos Namorados Macabro",
+    "synopsis": "Dia dos Namorados Macabro é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Film Plus no YouTube, com dublagem em português.",
+    "genres": [
+      "Terror",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Sobrenatural",
+      "Mistério"
+    ],
+    "tags": [
+      "filmplus",
+      "terror",
+      "suspense",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "arrepiante",
+      "sombrio",
+      "tenso"
+    ],
+    "releaseYear": 2021,
+    "durationMinutes": 97,
+    "posterUrl": "https://img.youtube.com/vi/BW49I-brO9k/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/BW49I-brO9k/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=BW49I-brO9k",
+    "contentRating": "16",
+    "language": "Dublado",
+    "ratingScore": 8.5,
+    "badge": "Film Plus Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.604Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-TNCxUDta9Go",
+    "youtubeVideoId": "TNCxUDta9Go",
+    "title": "Olhos Famintos 2-",
+    "synopsis": "Olhos Famintos 2- é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Film Plus no YouTube, com dublagem em português.",
+    "genres": [
+      "Terror",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Sobrenatural",
+      "Mistério"
+    ],
+    "tags": [
+      "filmplus",
+      "terror",
+      "suspense",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "arrepiante",
+      "sombrio",
+      "tenso"
+    ],
+    "releaseYear": 2022,
+    "durationMinutes": 88,
+    "posterUrl": "https://img.youtube.com/vi/TNCxUDta9Go/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/TNCxUDta9Go/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=TNCxUDta9Go",
+    "contentRating": "16",
+    "language": "Dublado",
+    "ratingScore": 7.8,
+    "badge": "Film Plus Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.604Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-uaoDdsCKDoc",
+    "youtubeVideoId": "uaoDdsCKDoc",
+    "title": "Invocando o Gênio II",
+    "synopsis": "Invocando o Gênio II é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Film Plus no YouTube, com dublagem em português.",
+    "genres": [
+      "Terror",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Sobrenatural",
+      "Mistério"
+    ],
+    "tags": [
+      "filmplus",
+      "terror",
+      "suspense",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "arrepiante",
+      "sombrio",
+      "tenso"
+    ],
+    "releaseYear": 2020,
+    "durationMinutes": 89,
+    "posterUrl": "https://img.youtube.com/vi/uaoDdsCKDoc/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/uaoDdsCKDoc/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=uaoDdsCKDoc",
+    "contentRating": "16",
+    "language": "Dublado",
+    "ratingScore": 7.8,
+    "badge": "Film Plus Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.604Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-mi7hCevHBrc",
+    "youtubeVideoId": "mi7hCevHBrc",
+    "title": "A Bruxa do Gelo",
+    "synopsis": "A Bruxa do Gelo é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Film Plus no YouTube, com dublagem em português.",
+    "genres": [
+      "Terror",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Sobrenatural",
+      "Mistério"
+    ],
+    "tags": [
+      "filmplus",
+      "terror",
+      "suspense",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "arrepiante",
+      "sombrio",
+      "tenso"
+    ],
+    "releaseYear": 2021,
+    "durationMinutes": 90,
+    "posterUrl": "https://img.youtube.com/vi/mi7hCevHBrc/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/mi7hCevHBrc/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=mi7hCevHBrc",
+    "contentRating": "16",
+    "language": "Dublado",
+    "ratingScore": 8.3,
+    "badge": "Film Plus Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.604Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-iuznlYt0yoA",
+    "youtubeVideoId": "iuznlYt0yoA",
+    "title": "Ecos do Além com KEVIN BACON",
+    "synopsis": "Ecos do Além com KEVIN BACON é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Film Plus no YouTube, com dublagem em português.",
+    "genres": [
+      "Terror",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Sobrenatural",
+      "Mistério"
+    ],
+    "tags": [
+      "filmplus",
+      "terror",
+      "suspense",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "arrepiante",
+      "sombrio",
+      "tenso"
+    ],
+    "releaseYear": 2021,
+    "durationMinutes": 94,
+    "posterUrl": "https://img.youtube.com/vi/iuznlYt0yoA/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/iuznlYt0yoA/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=iuznlYt0yoA",
+    "contentRating": "16",
+    "language": "Dublado",
+    "ratingScore": 7.8,
+    "badge": "Film Plus Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.604Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie---1y8QWbG4c",
+    "youtubeVideoId": "--1y8QWbG4c",
+    "title": "H2: Halloween 2",
+    "synopsis": "H2: Halloween 2 é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Film Plus no YouTube, com dublagem em português.",
+    "genres": [
+      "Terror",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Sobrenatural",
+      "Mistério"
+    ],
+    "tags": [
+      "filmplus",
+      "terror",
+      "suspense",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "arrepiante",
+      "sombrio",
+      "tenso"
+    ],
+    "releaseYear": 2023,
+    "durationMinutes": 100,
+    "posterUrl": "https://img.youtube.com/vi/--1y8QWbG4c/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/--1y8QWbG4c/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=--1y8QWbG4c",
+    "contentRating": "16",
+    "language": "Dublado",
+    "ratingScore": 8.3,
+    "badge": "Film Plus Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.604Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-NLMUw-ce634",
+    "youtubeVideoId": "NLMUw-ce634",
+    "title": "O Grito",
+    "synopsis": "O Grito é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Film Plus no YouTube, com dublagem em português.",
+    "genres": [
+      "Terror",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Sobrenatural",
+      "Mistério"
+    ],
+    "tags": [
+      "filmplus",
+      "terror",
+      "suspense",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "arrepiante",
+      "sombrio",
+      "tenso"
+    ],
+    "releaseYear": 2018,
+    "durationMinutes": 92,
+    "posterUrl": "https://img.youtube.com/vi/NLMUw-ce634/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/NLMUw-ce634/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=NLMUw-ce634",
+    "contentRating": "16",
+    "language": "Dublado",
+    "ratingScore": 8.4,
+    "badge": "Film Plus Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.604Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-QQZwJaO1Oyw",
+    "youtubeVideoId": "QQZwJaO1Oyw",
+    "title": "Voo 7500 ✈️",
+    "synopsis": "Voo 7500 ✈️ é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Film Plus no YouTube, com dublagem em português.",
+    "genres": [
+      "Terror",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Sobrenatural",
+      "Mistério"
+    ],
+    "tags": [
+      "filmplus",
+      "terror",
+      "suspense",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "arrepiante",
+      "sombrio",
+      "tenso"
+    ],
+    "releaseYear": 2017,
+    "durationMinutes": 102,
+    "posterUrl": "https://img.youtube.com/vi/QQZwJaO1Oyw/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/QQZwJaO1Oyw/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=QQZwJaO1Oyw",
+    "contentRating": "16",
+    "language": "Dublado",
+    "ratingScore": 7.3,
+    "badge": "Film Plus Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.604Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-MPduI859LV8",
+    "youtubeVideoId": "MPduI859LV8",
+    "title": "Os Pinguins do Papai -",
+    "synopsis": "Os Pinguins do Papai - é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Film Plus no YouTube, com dublagem em português.",
+    "genres": [
+      "Comédia"
+    ],
+    "subgenres": [
+      "Humor",
+      "Divertido"
+    ],
+    "tags": [
+      "filmplus",
+      "comédia",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "divertido",
+      "leve",
+      "descontraído"
+    ],
+    "releaseYear": 2023,
+    "durationMinutes": 98,
+    "posterUrl": "https://img.youtube.com/vi/MPduI859LV8/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/MPduI859LV8/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=MPduI859LV8",
+    "contentRating": "12",
+    "language": "Dublado",
+    "ratingScore": 8.2,
+    "badge": "Film Plus Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.604Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-Yba78DPfFZ4",
+    "youtubeVideoId": "Yba78DPfFZ4",
+    "title": "Sem Saída COM TAYLOR LAUTNER!",
+    "synopsis": "Sem Saída COM TAYLOR LAUTNER! é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Film Plus no YouTube, com dublagem em português.",
+    "genres": [
+      "Ação",
+      "Aventura"
+    ],
+    "subgenres": [
+      "Adrenalina",
+      "Combate"
+    ],
+    "tags": [
+      "filmplus",
+      "ação",
+      "aventura",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "eletrizante",
+      "empolgante",
+      "frenético"
+    ],
+    "releaseYear": 2018,
+    "durationMinutes": 103,
+    "posterUrl": "https://img.youtube.com/vi/Yba78DPfFZ4/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/Yba78DPfFZ4/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=Yba78DPfFZ4",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 7.5,
+    "badge": "Film Plus Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.604Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-mRX1KU-oNcQ",
+    "youtubeVideoId": "mRX1KU-oNcQ",
+    "title": "Ouija: A Maldição",
+    "synopsis": "Ouija: A Maldição é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Film Plus no YouTube, com dublagem em português.",
+    "genres": [
+      "Terror",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Sobrenatural",
+      "Mistério"
+    ],
+    "tags": [
+      "filmplus",
+      "terror",
+      "suspense",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "arrepiante",
+      "sombrio",
+      "tenso"
+    ],
+    "releaseYear": 2023,
+    "durationMinutes": 107,
+    "posterUrl": "https://img.youtube.com/vi/mRX1KU-oNcQ/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/mRX1KU-oNcQ/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=mRX1KU-oNcQ",
+    "contentRating": "16",
+    "language": "Dublado",
+    "ratingScore": 7.8,
+    "badge": "Film Plus Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.604Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-MY65LRTmZzc",
+    "youtubeVideoId": "MY65LRTmZzc",
+    "title": "Pânico na Neve",
+    "synopsis": "Pânico na Neve é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Film Plus no YouTube, com dublagem em português.",
+    "genres": [
+      "Terror",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Sobrenatural",
+      "Mistério"
+    ],
+    "tags": [
+      "filmplus",
+      "terror",
+      "suspense",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "arrepiante",
+      "sombrio",
+      "tenso"
+    ],
+    "releaseYear": 2022,
+    "durationMinutes": 112,
+    "posterUrl": "https://img.youtube.com/vi/MY65LRTmZzc/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/MY65LRTmZzc/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=MY65LRTmZzc",
+    "contentRating": "16",
+    "language": "Dublado",
+    "ratingScore": 7.6000000000000005,
+    "badge": "Film Plus Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.604Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-DTroE4IOVsc",
+    "youtubeVideoId": "DTroE4IOVsc",
+    "title": "Olhos Famintos 3",
+    "synopsis": "Olhos Famintos 3 é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Film Plus no YouTube, com dublagem em português.",
+    "genres": [
+      "Terror",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Sobrenatural",
+      "Mistério"
+    ],
+    "tags": [
+      "filmplus",
+      "terror",
+      "suspense",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "arrepiante",
+      "sombrio",
+      "tenso"
+    ],
+    "releaseYear": 2018,
+    "durationMinutes": 107,
+    "posterUrl": "https://img.youtube.com/vi/DTroE4IOVsc/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/DTroE4IOVsc/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=DTroE4IOVsc",
+    "contentRating": "16",
+    "language": "Dublado",
+    "ratingScore": 7.4,
+    "badge": "Film Plus Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.604Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-c0fX96_TU9Q",
+    "youtubeVideoId": "c0fX96_TU9Q",
+    "title": "Cabana 28 🔨",
+    "synopsis": "Cabana 28 🔨 é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Film Plus no YouTube, com dublagem em português.",
+    "genres": [
+      "Terror",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Sobrenatural",
+      "Mistério"
+    ],
+    "tags": [
+      "filmplus",
+      "terror",
+      "suspense",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "arrepiante",
+      "sombrio",
+      "tenso"
+    ],
+    "releaseYear": 2018,
+    "durationMinutes": 88,
+    "posterUrl": "https://img.youtube.com/vi/c0fX96_TU9Q/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/c0fX96_TU9Q/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=c0fX96_TU9Q",
+    "contentRating": "16",
+    "language": "Dublado",
+    "ratingScore": 8.3,
+    "badge": "Film Plus Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.604Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-hwwg83gJYX4",
+    "youtubeVideoId": "hwwg83gJYX4",
+    "title": "O Limite do Prazer",
+    "synopsis": "O Limite do Prazer é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Film Plus no YouTube, com dublagem em português.",
+    "genres": [
+      "Suspense",
+      "Policial"
+    ],
+    "subgenres": [
+      "Mistério",
+      "Investigação"
+    ],
+    "tags": [
+      "filmplus",
+      "suspense",
+      "policial",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "intrigante",
+      "tenso",
+      "misterioso"
+    ],
+    "releaseYear": 2021,
+    "durationMinutes": 103,
+    "posterUrl": "https://img.youtube.com/vi/hwwg83gJYX4/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/hwwg83gJYX4/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=hwwg83gJYX4",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 7.3,
+    "badge": "Film Plus Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.604Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-KLsn0zFrMr0",
+    "youtubeVideoId": "KLsn0zFrMr0",
+    "title": "Sr. & Sra. Smith MELHOR",
+    "synopsis": "Sr. & Sra. Smith MELHOR é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Film Plus no YouTube, com dublagem em português.",
+    "genres": [
+      "Ação",
+      "Aventura"
+    ],
+    "subgenres": [
+      "Adrenalina",
+      "Combate"
+    ],
+    "tags": [
+      "filmplus",
+      "ação",
+      "aventura",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "eletrizante",
+      "empolgante",
+      "frenético"
+    ],
+    "releaseYear": 2021,
+    "durationMinutes": 112,
+    "posterUrl": "https://img.youtube.com/vi/KLsn0zFrMr0/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/KLsn0zFrMr0/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=KLsn0zFrMr0",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 8.7,
+    "badge": "Film Plus Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.604Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-c_DHEfyiaBM",
+    "youtubeVideoId": "c_DHEfyiaBM",
+    "title": "Despertar dos Mortos",
+    "synopsis": "Despertar dos Mortos é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Film Plus no YouTube, com dublagem em português.",
+    "genres": [
+      "Terror",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Sobrenatural",
+      "Mistério"
+    ],
+    "tags": [
+      "filmplus",
+      "terror",
+      "suspense",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "arrepiante",
+      "sombrio",
+      "tenso"
+    ],
+    "releaseYear": 2018,
+    "durationMinutes": 100,
+    "posterUrl": "https://img.youtube.com/vi/c_DHEfyiaBM/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/c_DHEfyiaBM/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=c_DHEfyiaBM",
+    "contentRating": "16",
+    "language": "Dublado",
+    "ratingScore": 7.8,
+    "badge": "Film Plus Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.604Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-9Ry2sfJce84",
+    "youtubeVideoId": "9Ry2sfJce84",
+    "title": "Uma Peça Pra Lá de Divertida",
+    "synopsis": "Uma Peça Pra Lá de Divertida é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Film Plus no YouTube, com dublagem em português.",
+    "genres": [
+      "Comédia"
+    ],
+    "subgenres": [
+      "Humor",
+      "Divertido"
+    ],
+    "tags": [
+      "filmplus",
+      "comédia",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "divertido",
+      "leve",
+      "descontraído"
+    ],
+    "releaseYear": 2020,
+    "durationMinutes": 106,
+    "posterUrl": "https://img.youtube.com/vi/9Ry2sfJce84/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/9Ry2sfJce84/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=9Ry2sfJce84",
+    "contentRating": "12",
+    "language": "Dublado",
+    "ratingScore": 8,
+    "badge": "Film Plus Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.604Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-0xhDJnFE3-Y",
+    "youtubeVideoId": "0xhDJnFE3-Y",
+    "title": "A Promoção",
+    "synopsis": "A Promoção é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Film Plus no YouTube, com dublagem em português.",
+    "genres": [
+      "Comédia"
+    ],
+    "subgenres": [
+      "Humor",
+      "Divertido"
+    ],
+    "tags": [
+      "filmplus",
+      "comédia",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "divertido",
+      "leve",
+      "descontraído"
+    ],
+    "releaseYear": 2019,
+    "durationMinutes": 98,
+    "posterUrl": "https://img.youtube.com/vi/0xhDJnFE3-Y/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/0xhDJnFE3-Y/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=0xhDJnFE3-Y",
+    "contentRating": "12",
+    "language": "Dublado",
+    "ratingScore": 7.4,
+    "badge": "Film Plus Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.604Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-lzXE3u46oJc",
+    "youtubeVideoId": "lzXE3u46oJc",
+    "title": "Meu Novo Brinquedo",
+    "synopsis": "Meu Novo Brinquedo é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Film Plus no YouTube, com dublagem em português.",
+    "genres": [
+      "Comédia"
+    ],
+    "subgenres": [
+      "Humor",
+      "Divertido"
+    ],
+    "tags": [
+      "filmplus",
+      "comédia",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "divertido",
+      "leve",
+      "descontraído"
+    ],
+    "releaseYear": 2017,
+    "durationMinutes": 89,
+    "posterUrl": "https://img.youtube.com/vi/lzXE3u46oJc/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/lzXE3u46oJc/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=lzXE3u46oJc",
+    "contentRating": "12",
+    "language": "Dublado",
+    "ratingScore": 8.4,
+    "badge": "Film Plus Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.604Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-ce9FH5xhJr4",
+    "youtubeVideoId": "ce9FH5xhJr4",
+    "title": "Deu Zebra!",
+    "synopsis": "Deu Zebra! é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Film Plus no YouTube, com dublagem em português.",
+    "genres": [
+      "Comédia"
+    ],
+    "subgenres": [
+      "Humor",
+      "Divertido"
+    ],
+    "tags": [
+      "filmplus",
+      "comédia",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "divertido",
+      "leve",
+      "descontraído"
+    ],
+    "releaseYear": 2022,
+    "durationMinutes": 92,
+    "posterUrl": "https://img.youtube.com/vi/ce9FH5xhJr4/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/ce9FH5xhJr4/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=ce9FH5xhJr4",
+    "contentRating": "12",
+    "language": "Dublado",
+    "ratingScore": 8.7,
+    "badge": "Film Plus Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.605Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-WTQgaGV2o3A",
+    "youtubeVideoId": "WTQgaGV2o3A",
+    "title": "A Hora do Rango COM RYAN REYNOLDS!",
+    "synopsis": "A Hora do Rango COM RYAN REYNOLDS! é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Film Plus no YouTube, com dublagem em português.",
+    "genres": [
+      "Comédia"
+    ],
+    "subgenres": [
+      "Humor",
+      "Divertido"
+    ],
+    "tags": [
+      "filmplus",
+      "comédia",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "divertido",
+      "leve",
+      "descontraído"
+    ],
+    "releaseYear": 2020,
+    "durationMinutes": 93,
+    "posterUrl": "https://img.youtube.com/vi/WTQgaGV2o3A/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/WTQgaGV2o3A/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=WTQgaGV2o3A",
+    "contentRating": "12",
+    "language": "Dublado",
+    "ratingScore": 7.7,
+    "badge": "Film Plus Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.605Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-kXvDqIEVpz8",
+    "youtubeVideoId": "kXvDqIEVpz8",
+    "title": "O Balconista 2",
+    "synopsis": "O Balconista 2 é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Film Plus no YouTube, com dublagem em português.",
+    "genres": [
+      "Comédia"
+    ],
+    "subgenres": [
+      "Humor",
+      "Divertido"
+    ],
+    "tags": [
+      "filmplus",
+      "comédia",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "divertido",
+      "leve",
+      "descontraído"
+    ],
+    "releaseYear": 2022,
+    "durationMinutes": 111,
+    "posterUrl": "https://img.youtube.com/vi/kXvDqIEVpz8/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/kXvDqIEVpz8/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=kXvDqIEVpz8",
+    "contentRating": "12",
+    "language": "Dublado",
+    "ratingScore": 8.4,
+    "badge": "Film Plus Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.605Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-8XEQ8fMshBg",
+    "youtubeVideoId": "8XEQ8fMshBg",
+    "title": "CORRENDO ATRÁS DE UM PAI",
+    "synopsis": "CORRENDO ATRÁS DE UM PAI é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Film Plus no YouTube, com dublagem em português.",
+    "genres": [
+      "Comédia"
+    ],
+    "subgenres": [
+      "Humor",
+      "Divertido"
+    ],
+    "tags": [
+      "filmplus",
+      "comédia",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "divertido",
+      "leve",
+      "descontraído"
+    ],
+    "releaseYear": 2022,
+    "durationMinutes": 100,
+    "posterUrl": "https://img.youtube.com/vi/8XEQ8fMshBg/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/8XEQ8fMshBg/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=8XEQ8fMshBg",
+    "contentRating": "12",
+    "language": "Dublado",
+    "ratingScore": 7.6000000000000005,
+    "badge": "Film Plus Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.605Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-W-Nq_U7tTC0",
+    "youtubeVideoId": "W-Nq_U7tTC0",
+    "title": "O Segredo: Ouse Sonhar",
+    "synopsis": "O Segredo: Ouse Sonhar é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Film Plus no YouTube, com dublagem em português.",
+    "genres": [
+      "Romance",
+      "Comédia"
+    ],
+    "subgenres": [
+      "Romântico",
+      "Sentimental"
+    ],
+    "tags": [
+      "filmplus",
+      "romance",
+      "comédia",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "encantador",
+      "romântico",
+      "emocionante"
+    ],
+    "releaseYear": 2020,
+    "durationMinutes": 100,
+    "posterUrl": "https://img.youtube.com/vi/W-Nq_U7tTC0/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/W-Nq_U7tTC0/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=W-Nq_U7tTC0",
+    "contentRating": "12",
+    "language": "Dublado",
+    "ratingScore": 7.6000000000000005,
+    "badge": "Film Plus Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.605Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-hx4jmoRVIwg",
+    "youtubeVideoId": "hx4jmoRVIwg",
+    "title": "O Álbum de Memórias",
+    "synopsis": "O Álbum de Memórias é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Film Plus no YouTube, com dublagem em português.",
+    "genres": [
+      "Romance",
+      "Comédia"
+    ],
+    "subgenres": [
+      "Romântico",
+      "Sentimental"
+    ],
+    "tags": [
+      "filmplus",
+      "romance",
+      "comédia",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "encantador",
+      "romântico",
+      "emocionante"
+    ],
+    "releaseYear": 2021,
+    "durationMinutes": 106,
+    "posterUrl": "https://img.youtube.com/vi/hx4jmoRVIwg/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/hx4jmoRVIwg/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=hx4jmoRVIwg",
+    "contentRating": "12",
+    "language": "Dublado",
+    "ratingScore": 8.1,
+    "badge": "Film Plus Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.605Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-SLA30b6oX74",
+    "youtubeVideoId": "SLA30b6oX74",
+    "title": "O Segredo: Ouse Sonhar COM KATIE HOLMES",
+    "synopsis": "O Segredo: Ouse Sonhar COM KATIE HOLMES é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Film Plus no YouTube, com dublagem em português.",
+    "genres": [
+      "Romance",
+      "Comédia"
+    ],
+    "subgenres": [
+      "Romântico",
+      "Sentimental"
+    ],
+    "tags": [
+      "filmplus",
+      "romance",
+      "comédia",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "encantador",
+      "romântico",
+      "emocionante"
+    ],
+    "releaseYear": 2017,
+    "durationMinutes": 104,
+    "posterUrl": "https://img.youtube.com/vi/SLA30b6oX74/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/SLA30b6oX74/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=SLA30b6oX74",
+    "contentRating": "12",
+    "language": "Dublado",
+    "ratingScore": 7.6000000000000005,
+    "badge": "Film Plus Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.605Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-px-TN4aP-1M",
+    "youtubeVideoId": "px-TN4aP-1M",
+    "title": "RECÉM-CHEGADA com RENÉE ZELLWEGER",
+    "synopsis": "RECÉM-CHEGADA com RENÉE ZELLWEGER é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Film Plus no YouTube, com dublagem em português.",
+    "genres": [
+      "Comédia"
+    ],
+    "subgenres": [
+      "Humor",
+      "Divertido"
+    ],
+    "tags": [
+      "filmplus",
+      "comédia",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "divertido",
+      "leve",
+      "descontraído"
+    ],
+    "releaseYear": 2019,
+    "durationMinutes": 112,
+    "posterUrl": "https://img.youtube.com/vi/px-TN4aP-1M/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/px-TN4aP-1M/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=px-TN4aP-1M",
+    "contentRating": "12",
+    "language": "Dublado",
+    "ratingScore": 7.4,
+    "badge": "Film Plus Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.605Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-0lNBQ-3MLgA",
+    "youtubeVideoId": "0lNBQ-3MLgA",
+    "title": "Quase Trinta: Em Busca do Amor",
+    "synopsis": "Quase Trinta: Em Busca do Amor é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Film Plus no YouTube, com dublagem em português.",
+    "genres": [
+      "Romance",
+      "Comédia"
+    ],
+    "subgenres": [
+      "Romântico",
+      "Sentimental"
+    ],
+    "tags": [
+      "filmplus",
+      "romance",
+      "comédia",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "encantador",
+      "romântico",
+      "emocionante"
+    ],
+    "releaseYear": 2021,
+    "durationMinutes": 109,
+    "posterUrl": "https://img.youtube.com/vi/0lNBQ-3MLgA/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/0lNBQ-3MLgA/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=0lNBQ-3MLgA",
+    "contentRating": "12",
+    "language": "Dublado",
+    "ratingScore": 7.8,
+    "badge": "Film Plus Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.605Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-o0XMqkmJoWA",
+    "youtubeVideoId": "o0XMqkmJoWA",
+    "title": "A Escolha de Natal",
+    "synopsis": "A Escolha de Natal é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Film Plus no YouTube, com dublagem em português.",
+    "genres": [
+      "Romance",
+      "Comédia"
+    ],
+    "subgenres": [
+      "Romântico",
+      "Sentimental"
+    ],
+    "tags": [
+      "filmplus",
+      "romance",
+      "comédia",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "encantador",
+      "romântico",
+      "emocionante"
+    ],
+    "releaseYear": 2021,
+    "durationMinutes": 106,
+    "posterUrl": "https://img.youtube.com/vi/o0XMqkmJoWA/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/o0XMqkmJoWA/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=o0XMqkmJoWA",
+    "contentRating": "12",
+    "language": "Dublado",
+    "ratingScore": 7.5,
+    "badge": "Film Plus Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.605Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-QKrxE8h6-h0",
+    "youtubeVideoId": "QKrxE8h6-h0",
+    "title": "Contatos de 4º Grau com MILLA JOVOVICH",
+    "synopsis": "Contatos de 4º Grau com MILLA JOVOVICH é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Film Plus no YouTube, com dublagem em português.",
+    "genres": [
+      "Ficção Científica",
+      "Ação"
+    ],
+    "subgenres": [
+      "Sci-Fi",
+      "Catástrofe"
+    ],
+    "tags": [
+      "filmplus",
+      "ficção científica",
+      "ação",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "visionário",
+      "fascinante",
+      "intenso"
+    ],
+    "releaseYear": 2023,
+    "durationMinutes": 104,
+    "posterUrl": "https://img.youtube.com/vi/QKrxE8h6-h0/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/QKrxE8h6-h0/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=QKrxE8h6-h0",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 8.3,
+    "badge": "Film Plus Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.605Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-xWaliRuPwCc",
+    "youtubeVideoId": "xWaliRuPwCc",
+    "title": "Roswell: A Verdade Não Contada // Documentário Completo // Ficção Científica // Film Plus",
+    "synopsis": "Roswell: A Verdade Não Contada // Documentário Completo // Ficção Científica // Film Plus é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Film Plus no YouTube, com dublagem em português.",
+    "genres": [
+      "Ficção Científica",
+      "Ação"
+    ],
+    "subgenres": [
+      "Sci-Fi",
+      "Catástrofe"
+    ],
+    "tags": [
+      "filmplus",
+      "ficção científica",
+      "ação",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "visionário",
+      "fascinante",
+      "intenso"
+    ],
+    "releaseYear": 2018,
+    "durationMinutes": 94,
+    "posterUrl": "https://img.youtube.com/vi/xWaliRuPwCc/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/xWaliRuPwCc/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=xWaliRuPwCc",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 8.1,
+    "badge": "Film Plus Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.605Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-tDPjM9_1vJE",
+    "youtubeVideoId": "tDPjM9_1vJE",
+    "title": "A Viagem",
+    "synopsis": "A Viagem é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Film Plus no YouTube, com dublagem em português.",
+    "genres": [
+      "Ficção Científica",
+      "Ação"
+    ],
+    "subgenres": [
+      "Sci-Fi",
+      "Catástrofe"
+    ],
+    "tags": [
+      "filmplus",
+      "ficção científica",
+      "ação",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "visionário",
+      "fascinante",
+      "intenso"
+    ],
+    "releaseYear": 2022,
+    "durationMinutes": 100,
+    "posterUrl": "https://img.youtube.com/vi/tDPjM9_1vJE/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/tDPjM9_1vJE/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=tDPjM9_1vJE",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 7.4,
+    "badge": "Film Plus Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.605Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-co1PFjUo47c",
+    "youtubeVideoId": "co1PFjUo47c",
+    "title": "Johnny Mnemonic: O Cyborg do Futuro // KEANU REEVES //",
+    "synopsis": "Johnny Mnemonic: O Cyborg do Futuro // KEANU REEVES // é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Film Plus no YouTube, com dublagem em português.",
+    "genres": [
+      "Ficção Científica",
+      "Ação"
+    ],
+    "subgenres": [
+      "Sci-Fi",
+      "Catástrofe"
+    ],
+    "tags": [
+      "filmplus",
+      "ficção científica",
+      "ação",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "visionário",
+      "fascinante",
+      "intenso"
+    ],
+    "releaseYear": 2018,
+    "durationMinutes": 95,
+    "posterUrl": "https://img.youtube.com/vi/co1PFjUo47c/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/co1PFjUo47c/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=co1PFjUo47c",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 7.5,
+    "badge": "Film Plus Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.605Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie--YEHz2l4SdI",
+    "youtubeVideoId": "-YEHz2l4SdI",
+    "title": "Cidade das Sombras",
+    "synopsis": "Cidade das Sombras é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Film Plus no YouTube, com dublagem em português.",
+    "genres": [
+      "Ação",
+      "Aventura"
+    ],
+    "subgenres": [
+      "Adrenalina",
+      "Combate"
+    ],
+    "tags": [
+      "filmplus",
+      "ação",
+      "aventura",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "eletrizante",
+      "empolgante",
+      "frenético"
+    ],
+    "releaseYear": 2022,
+    "durationMinutes": 89,
+    "posterUrl": "https://img.youtube.com/vi/-YEHz2l4SdI/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/-YEHz2l4SdI/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=-YEHz2l4SdI",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 7.7,
+    "badge": "Film Plus Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.606Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-Wa9KBc_N-YY",
+    "youtubeVideoId": "Wa9KBc_N-YY",
+    "title": "KEANU REEVES EM: Johnny Mnemonic: O Cyborg do Futuro",
+    "synopsis": "KEANU REEVES EM: Johnny Mnemonic: O Cyborg do Futuro é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Film Plus no YouTube, com dublagem em português.",
+    "genres": [
+      "Ficção Científica",
+      "Ação"
+    ],
+    "subgenres": [
+      "Sci-Fi",
+      "Catástrofe"
+    ],
+    "tags": [
+      "filmplus",
+      "ficção científica",
+      "ação",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "visionário",
+      "fascinante",
+      "intenso"
+    ],
+    "releaseYear": 2019,
+    "durationMinutes": 110,
+    "posterUrl": "https://img.youtube.com/vi/Wa9KBc_N-YY/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/Wa9KBc_N-YY/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=Wa9KBc_N-YY",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 7.7,
+    "badge": "Film Plus Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.606Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-HI5xf3YF93g",
+    "youtubeVideoId": "HI5xf3YF93g",
+    "title": "O Suspeito da Rua Arlington",
+    "synopsis": "O Suspeito da Rua Arlington é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Film Plus no YouTube, com dublagem em português.",
+    "genres": [
+      "Suspense",
+      "Policial"
+    ],
+    "subgenres": [
+      "Mistério",
+      "Investigação"
+    ],
+    "tags": [
+      "filmplus",
+      "suspense",
+      "policial",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "intrigante",
+      "tenso",
+      "misterioso"
+    ],
+    "releaseYear": 2019,
+    "durationMinutes": 91,
+    "posterUrl": "https://img.youtube.com/vi/HI5xf3YF93g/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/HI5xf3YF93g/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=HI5xf3YF93g",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 7.8,
+    "badge": "Film Plus Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.606Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-quEYvyB6RVo",
+    "youtubeVideoId": "quEYvyB6RVo",
+    "title": "Departamento Q: O Ausente",
+    "synopsis": "Departamento Q: O Ausente é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Film Plus no YouTube, com dublagem em português.",
+    "genres": [
+      "Suspense",
+      "Policial"
+    ],
+    "subgenres": [
+      "Mistério",
+      "Investigação"
+    ],
+    "tags": [
+      "filmplus",
+      "suspense",
+      "policial",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "intrigante",
+      "tenso",
+      "misterioso"
+    ],
+    "releaseYear": 2019,
+    "durationMinutes": 99,
+    "posterUrl": "https://img.youtube.com/vi/quEYvyB6RVo/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/quEYvyB6RVo/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=quEYvyB6RVo",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 8.5,
+    "badge": "Film Plus Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.606Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-zurBRbEal-8",
+    "youtubeVideoId": "zurBRbEal-8",
+    "title": "Justiça Entre o Poder e a Lei",
+    "synopsis": "Justiça Entre o Poder e a Lei é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Film Plus no YouTube, com dublagem em português.",
+    "genres": [
+      "Suspense",
+      "Policial"
+    ],
+    "subgenres": [
+      "Mistério",
+      "Investigação"
+    ],
+    "tags": [
+      "filmplus",
+      "suspense",
+      "policial",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "intrigante",
+      "tenso",
+      "misterioso"
+    ],
+    "releaseYear": 2020,
+    "durationMinutes": 111,
+    "posterUrl": "https://img.youtube.com/vi/zurBRbEal-8/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/zurBRbEal-8/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=zurBRbEal-8",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 8.5,
+    "badge": "Film Plus Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.606Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-pYJzjNikfgA",
+    "youtubeVideoId": "pYJzjNikfgA",
+    "title": "Conquista",
+    "synopsis": "Conquista é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Film Plus no YouTube, com dublagem em português.",
+    "genres": [
+      "Ação",
+      "Aventura"
+    ],
+    "subgenres": [
+      "Adrenalina",
+      "Combate"
+    ],
+    "tags": [
+      "filmplus",
+      "ação",
+      "aventura",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "eletrizante",
+      "empolgante",
+      "frenético"
+    ],
+    "releaseYear": 2019,
+    "durationMinutes": 93,
+    "posterUrl": "https://img.youtube.com/vi/pYJzjNikfgA/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/pYJzjNikfgA/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=pYJzjNikfgA",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 8.1,
+    "badge": "Film Plus Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.606Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-908l6uMZ-6A",
+    "youtubeVideoId": "908l6uMZ-6A",
+    "title": "Evidências de um Crime com SAMUEL L. JACKSON",
+    "synopsis": "Evidências de um Crime com SAMUEL L. JACKSON é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Film Plus no YouTube, com dublagem em português.",
+    "genres": [
+      "Suspense",
+      "Policial"
+    ],
+    "subgenres": [
+      "Mistério",
+      "Investigação"
+    ],
+    "tags": [
+      "filmplus",
+      "suspense",
+      "policial",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "intrigante",
+      "tenso",
+      "misterioso"
+    ],
+    "releaseYear": 2022,
+    "durationMinutes": 112,
+    "posterUrl": "https://img.youtube.com/vi/908l6uMZ-6A/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/908l6uMZ-6A/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=908l6uMZ-6A",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 8.5,
+    "badge": "Film Plus Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.606Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-Vo4ugY45nNg",
+    "youtubeVideoId": "Vo4ugY45nNg",
+    "title": "A Sangue Frio",
+    "synopsis": "A Sangue Frio é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Film Plus no YouTube, com dublagem em português.",
+    "genres": [
+      "Terror",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Sobrenatural",
+      "Mistério"
+    ],
+    "tags": [
+      "filmplus",
+      "terror",
+      "suspense",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "arrepiante",
+      "sombrio",
+      "tenso"
+    ],
+    "releaseYear": 2017,
+    "durationMinutes": 89,
+    "posterUrl": "https://img.youtube.com/vi/Vo4ugY45nNg/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/Vo4ugY45nNg/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=Vo4ugY45nNg",
+    "contentRating": "16",
+    "language": "Dublado",
+    "ratingScore": 7.8,
+    "badge": "Film Plus Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.606Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-fKtrV19ABco",
+    "youtubeVideoId": "fKtrV19ABco",
+    "title": "Vidas Importam",
+    "synopsis": "Vidas Importam é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Film Plus no YouTube, com dublagem em português.",
+    "genres": [
+      "Ação",
+      "Aventura"
+    ],
+    "subgenres": [
+      "Adrenalina",
+      "Combate"
+    ],
+    "tags": [
+      "filmplus",
+      "ação",
+      "aventura",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "eletrizante",
+      "empolgante",
+      "frenético"
+    ],
+    "releaseYear": 2017,
+    "durationMinutes": 91,
+    "posterUrl": "https://img.youtube.com/vi/fKtrV19ABco/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/fKtrV19ABco/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=fKtrV19ABco",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 8.1,
+    "badge": "Film Plus Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.606Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-Ye-_tzyJcbw",
+    "youtubeVideoId": "Ye-_tzyJcbw",
+    "title": "S.W.A.T.: Força Letal",
+    "synopsis": "S.W.A.T.: Força Letal é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Film Plus no YouTube, com dublagem em português.",
+    "genres": [
+      "Ação",
+      "Aventura"
+    ],
+    "subgenres": [
+      "Adrenalina",
+      "Combate"
+    ],
+    "tags": [
+      "filmplus",
+      "ação",
+      "aventura",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "eletrizante",
+      "empolgante",
+      "frenético"
+    ],
+    "releaseYear": 2020,
+    "durationMinutes": 99,
+    "posterUrl": "https://img.youtube.com/vi/Ye-_tzyJcbw/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/Ye-_tzyJcbw/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=Ye-_tzyJcbw",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 8.7,
+    "badge": "Film Plus Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.606Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-82e-gpvc2f4",
+    "youtubeVideoId": "82e-gpvc2f4",
+    "title": "Sequestro em Miami",
+    "synopsis": "Sequestro em Miami é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Film Plus no YouTube, com dublagem em português.",
+    "genres": [
+      "Suspense",
+      "Policial"
+    ],
+    "subgenres": [
+      "Mistério",
+      "Investigação"
+    ],
+    "tags": [
+      "filmplus",
+      "suspense",
+      "policial",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "intrigante",
+      "tenso",
+      "misterioso"
+    ],
+    "releaseYear": 2020,
+    "durationMinutes": 90,
+    "posterUrl": "https://img.youtube.com/vi/82e-gpvc2f4/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/82e-gpvc2f4/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=82e-gpvc2f4",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 7.6000000000000005,
+    "badge": "Film Plus Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.606Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-DJCqpADWF4k",
+    "youtubeVideoId": "DJCqpADWF4k",
+    "title": "O Código",
+    "synopsis": "O Código é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Film Plus no YouTube, com dublagem em português.",
+    "genres": [
+      "Ação",
+      "Aventura"
+    ],
+    "subgenres": [
+      "Adrenalina",
+      "Combate"
+    ],
+    "tags": [
+      "filmplus",
+      "ação",
+      "aventura",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "eletrizante",
+      "empolgante",
+      "frenético"
+    ],
+    "releaseYear": 2021,
+    "durationMinutes": 98,
+    "posterUrl": "https://img.youtube.com/vi/DJCqpADWF4k/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/DJCqpADWF4k/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=DJCqpADWF4k",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 7.9,
+    "badge": "Film Plus Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.606Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-ZosWikBUNvU",
+    "youtubeVideoId": "ZosWikBUNvU",
+    "title": "O Recepcionista",
+    "synopsis": "O Recepcionista é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Film Plus no YouTube, com dublagem em português.",
+    "genres": [
+      "Suspense",
+      "Policial"
+    ],
+    "subgenres": [
+      "Mistério",
+      "Investigação"
+    ],
+    "tags": [
+      "filmplus",
+      "suspense",
+      "policial",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "intrigante",
+      "tenso",
+      "misterioso"
+    ],
+    "releaseYear": 2022,
+    "durationMinutes": 108,
+    "posterUrl": "https://img.youtube.com/vi/ZosWikBUNvU/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/ZosWikBUNvU/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=ZosWikBUNvU",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 7.3,
+    "badge": "Film Plus Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.606Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-1ckzpx3QCXg",
+    "youtubeVideoId": "1ckzpx3QCXg",
+    "title": "Banidos",
+    "synopsis": "Banidos é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Film Plus no YouTube, com dublagem em português.",
+    "genres": [
+      "Suspense",
+      "Policial"
+    ],
+    "subgenres": [
+      "Mistério",
+      "Investigação"
+    ],
+    "tags": [
+      "filmplus",
+      "suspense",
+      "policial",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "intrigante",
+      "tenso",
+      "misterioso"
+    ],
+    "releaseYear": 2019,
+    "durationMinutes": 91,
+    "posterUrl": "https://img.youtube.com/vi/1ckzpx3QCXg/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/1ckzpx3QCXg/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=1ckzpx3QCXg",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 7.2,
+    "badge": "Film Plus Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.606Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-UeWY2KrVg0w",
+    "youtubeVideoId": "UeWY2KrVg0w",
+    "title": "Os Crimes de Limehouse",
+    "synopsis": "Os Crimes de Limehouse é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Film Plus no YouTube, com dublagem em português.",
+    "genres": [
+      "Suspense",
+      "Policial"
+    ],
+    "subgenres": [
+      "Mistério",
+      "Investigação"
+    ],
+    "tags": [
+      "filmplus",
+      "suspense",
+      "policial",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "intrigante",
+      "tenso",
+      "misterioso"
+    ],
+    "releaseYear": 2019,
+    "durationMinutes": 100,
+    "posterUrl": "https://img.youtube.com/vi/UeWY2KrVg0w/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/UeWY2KrVg0w/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=UeWY2KrVg0w",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 8.3,
+    "badge": "Film Plus Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.606Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-g-5lw8d4ilQ",
+    "youtubeVideoId": "g-5lw8d4ilQ",
+    "title": "Faces da Verdade",
+    "synopsis": "Faces da Verdade é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Film Plus no YouTube, com dublagem em português.",
+    "genres": [
+      "Suspense",
+      "Policial"
+    ],
+    "subgenres": [
+      "Mistério",
+      "Investigação"
+    ],
+    "tags": [
+      "filmplus",
+      "suspense",
+      "policial",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "intrigante",
+      "tenso",
+      "misterioso"
+    ],
+    "releaseYear": 2020,
+    "durationMinutes": 111,
+    "posterUrl": "https://img.youtube.com/vi/g-5lw8d4ilQ/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/g-5lw8d4ilQ/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=g-5lw8d4ilQ",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 7.3,
+    "badge": "Film Plus Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.606Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-UZoQEkyMcxs",
+    "youtubeVideoId": "UZoQEkyMcxs",
+    "title": "O Lago do Silêncio // com Olga Kurylenko (007)",
+    "synopsis": "O Lago do Silêncio // com Olga Kurylenko (007) é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Film Plus no YouTube, com dublagem em português.",
+    "genres": [
+      "Suspense",
+      "Policial"
+    ],
+    "subgenres": [
+      "Mistério",
+      "Investigação"
+    ],
+    "tags": [
+      "filmplus",
+      "suspense",
+      "policial",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "intrigante",
+      "tenso",
+      "misterioso"
+    ],
+    "releaseYear": 2021,
+    "durationMinutes": 106,
+    "posterUrl": "https://img.youtube.com/vi/UZoQEkyMcxs/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/UZoQEkyMcxs/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=UZoQEkyMcxs",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 8.6,
+    "badge": "Film Plus Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.606Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-_fO8opK4RGQ",
+    "youtubeVideoId": "_fO8opK4RGQ",
+    "title": "Tolerância Zero com Ryan Gosling",
+    "synopsis": "Tolerância Zero com Ryan Gosling é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Film Plus no YouTube, com dublagem em português.",
+    "genres": [
+      "Ação",
+      "Aventura"
+    ],
+    "subgenres": [
+      "Adrenalina",
+      "Combate"
+    ],
+    "tags": [
+      "filmplus",
+      "ação",
+      "aventura",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "eletrizante",
+      "empolgante",
+      "frenético"
+    ],
+    "releaseYear": 2019,
+    "durationMinutes": 93,
+    "posterUrl": "https://img.youtube.com/vi/_fO8opK4RGQ/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/_fO8opK4RGQ/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=_fO8opK4RGQ",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 8.2,
+    "badge": "Film Plus Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.606Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-PyoK57qcnWA",
+    "youtubeVideoId": "PyoK57qcnWA",
+    "title": "Suspeito Zero",
+    "synopsis": "Suspeito Zero é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Film Plus no YouTube, com dublagem em português.",
+    "genres": [
+      "Suspense",
+      "Policial"
+    ],
+    "subgenres": [
+      "Mistério",
+      "Investigação"
+    ],
+    "tags": [
+      "filmplus",
+      "suspense",
+      "policial",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "intrigante",
+      "tenso",
+      "misterioso"
+    ],
+    "releaseYear": 2021,
+    "durationMinutes": 97,
+    "posterUrl": "https://img.youtube.com/vi/PyoK57qcnWA/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/PyoK57qcnWA/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=PyoK57qcnWA",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 7.4,
+    "badge": "Film Plus Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.606Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-9suwd7e_vbQ",
+    "youtubeVideoId": "9suwd7e_vbQ",
+    "title": "Bernie: O Golfinho",
+    "synopsis": "Bernie: O Golfinho é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Film Plus no YouTube, com dublagem em português.",
+    "genres": [
+      "Ação",
+      "Aventura"
+    ],
+    "subgenres": [
+      "Adrenalina",
+      "Combate"
+    ],
+    "tags": [
+      "filmplus",
+      "ação",
+      "aventura",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "eletrizante",
+      "empolgante",
+      "frenético"
+    ],
+    "releaseYear": 2018,
+    "durationMinutes": 100,
+    "posterUrl": "https://img.youtube.com/vi/9suwd7e_vbQ/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/9suwd7e_vbQ/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=9suwd7e_vbQ",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 7.8,
+    "badge": "Film Plus Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.606Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-HcW8tlBUWUU",
+    "youtubeVideoId": "HcW8tlBUWUU",
+    "title": "O Jardim Secreto",
+    "synopsis": "O Jardim Secreto é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Film Plus no YouTube, com dublagem em português.",
+    "genres": [
+      "Ação",
+      "Aventura"
+    ],
+    "subgenres": [
+      "Adrenalina",
+      "Combate"
+    ],
+    "tags": [
+      "filmplus",
+      "ação",
+      "aventura",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "eletrizante",
+      "empolgante",
+      "frenético"
+    ],
+    "releaseYear": 2020,
+    "durationMinutes": 96,
+    "posterUrl": "https://img.youtube.com/vi/HcW8tlBUWUU/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/HcW8tlBUWUU/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=HcW8tlBUWUU",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 8,
+    "badge": "Film Plus Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.607Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-PcmTjVPDYvE",
+    "youtubeVideoId": "PcmTjVPDYvE",
+    "title": "Trilhas",
+    "synopsis": "Trilhas é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Film Plus no YouTube, com dublagem em português.",
+    "genres": [
+      "Ação",
+      "Aventura"
+    ],
+    "subgenres": [
+      "Adrenalina",
+      "Combate"
+    ],
+    "tags": [
+      "filmplus",
+      "ação",
+      "aventura",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "eletrizante",
+      "empolgante",
+      "frenético"
+    ],
+    "releaseYear": 2021,
+    "durationMinutes": 99,
+    "posterUrl": "https://img.youtube.com/vi/PcmTjVPDYvE/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/PcmTjVPDYvE/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=PcmTjVPDYvE",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 7.7,
+    "badge": "Film Plus Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.607Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-uCcMiemdtog",
+    "youtubeVideoId": "uCcMiemdtog",
+    "title": "A Pedreira",
+    "synopsis": "A Pedreira é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Film Plus no YouTube, com dublagem em português.",
+    "genres": [
+      "Suspense",
+      "Policial"
+    ],
+    "subgenres": [
+      "Mistério",
+      "Investigação"
+    ],
+    "tags": [
+      "filmplus",
+      "suspense",
+      "policial",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "intrigante",
+      "tenso",
+      "misterioso"
+    ],
+    "releaseYear": 2021,
+    "durationMinutes": 91,
+    "posterUrl": "https://img.youtube.com/vi/uCcMiemdtog/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/uCcMiemdtog/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=uCcMiemdtog",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 8,
+    "badge": "Film Plus Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.607Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-YSx-A0qgY_0",
+    "youtubeVideoId": "YSx-A0qgY_0",
+    "title": "Um a Menos com Owen Wilson",
+    "synopsis": "Um a Menos com Owen Wilson é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Film Plus no YouTube, com dublagem em português.",
+    "genres": [
+      "Suspense",
+      "Policial"
+    ],
+    "subgenres": [
+      "Mistério",
+      "Investigação"
+    ],
+    "tags": [
+      "filmplus",
+      "suspense",
+      "policial",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "intrigante",
+      "tenso",
+      "misterioso"
+    ],
+    "releaseYear": 2018,
+    "durationMinutes": 109,
+    "posterUrl": "https://img.youtube.com/vi/YSx-A0qgY_0/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/YSx-A0qgY_0/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=YSx-A0qgY_0",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 7.9,
+    "badge": "Film Plus Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.607Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie--EzpctW2hSA",
+    "youtubeVideoId": "-EzpctW2hSA",
+    "title": "Enigma",
+    "synopsis": "Enigma é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Film Plus no YouTube, com dublagem em português.",
+    "genres": [
+      "Ação",
+      "Aventura"
+    ],
+    "subgenres": [
+      "Adrenalina",
+      "Combate"
+    ],
+    "tags": [
+      "filmplus",
+      "ação",
+      "aventura",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "eletrizante",
+      "empolgante",
+      "frenético"
+    ],
+    "releaseYear": 2019,
+    "durationMinutes": 95,
+    "posterUrl": "https://img.youtube.com/vi/-EzpctW2hSA/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/-EzpctW2hSA/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=-EzpctW2hSA",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 8.7,
+    "badge": "Film Plus Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.607Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-9Wg0U6H1P0w",
+    "youtubeVideoId": "9Wg0U6H1P0w",
+    "title": "Memórias Ocultas",
+    "synopsis": "Memórias Ocultas é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Film Plus no YouTube, com dublagem em português.",
+    "genres": [
+      "Suspense",
+      "Policial"
+    ],
+    "subgenres": [
+      "Mistério",
+      "Investigação"
+    ],
+    "tags": [
+      "filmplus",
+      "suspense",
+      "policial",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "intrigante",
+      "tenso",
+      "misterioso"
+    ],
+    "releaseYear": 2019,
+    "durationMinutes": 106,
+    "posterUrl": "https://img.youtube.com/vi/9Wg0U6H1P0w/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/9Wg0U6H1P0w/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=9Wg0U6H1P0w",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 8.2,
+    "badge": "Film Plus Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.607Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-lYShNhCjk6A",
+    "youtubeVideoId": "lYShNhCjk6A",
+    "title": "A Pedreira // MICHAEL SHANNON",
+    "synopsis": "A Pedreira // MICHAEL SHANNON é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Film Plus no YouTube, com dublagem em português.",
+    "genres": [
+      "Suspense",
+      "Policial"
+    ],
+    "subgenres": [
+      "Mistério",
+      "Investigação"
+    ],
+    "tags": [
+      "filmplus",
+      "suspense",
+      "policial",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "intrigante",
+      "tenso",
+      "misterioso"
+    ],
+    "releaseYear": 2021,
+    "durationMinutes": 96,
+    "posterUrl": "https://img.youtube.com/vi/lYShNhCjk6A/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/lYShNhCjk6A/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=lYShNhCjk6A",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 7.9,
+    "badge": "Film Plus Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.607Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-hAscyYKxaFU",
+    "youtubeVideoId": "hAscyYKxaFU",
+    "title": "Insônia",
+    "synopsis": "Insônia é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Film Plus no YouTube, com dublagem em português.",
+    "genres": [
+      "Suspense",
+      "Policial"
+    ],
+    "subgenres": [
+      "Mistério",
+      "Investigação"
+    ],
+    "tags": [
+      "filmplus",
+      "suspense",
+      "policial",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "intrigante",
+      "tenso",
+      "misterioso"
+    ],
+    "releaseYear": 2017,
+    "durationMinutes": 110,
+    "posterUrl": "https://img.youtube.com/vi/hAscyYKxaFU/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/hAscyYKxaFU/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=hAscyYKxaFU",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 8.3,
+    "badge": "Film Plus Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.607Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-Q07jb_sE2gQ",
+    "youtubeVideoId": "Q07jb_sE2gQ",
+    "title": "O Suspeito",
+    "synopsis": "O Suspeito é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Film Plus no YouTube, com dublagem em português.",
+    "genres": [
+      "Ação",
+      "Aventura"
+    ],
+    "subgenres": [
+      "Adrenalina",
+      "Combate"
+    ],
+    "tags": [
+      "filmplus",
+      "ação",
+      "aventura",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "eletrizante",
+      "empolgante",
+      "frenético"
+    ],
+    "releaseYear": 2017,
+    "durationMinutes": 112,
+    "posterUrl": "https://img.youtube.com/vi/Q07jb_sE2gQ/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/Q07jb_sE2gQ/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=Q07jb_sE2gQ",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 8.4,
+    "badge": "Film Plus Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.607Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-ENYTw33-BaQ",
+    "youtubeVideoId": "ENYTw33-BaQ",
+    "title": "Desastre no Voo US57",
+    "synopsis": "Desastre no Voo US57 é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Film Plus no YouTube, com dublagem em português.",
+    "genres": [
+      "Terror",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Sobrenatural",
+      "Mistério"
+    ],
+    "tags": [
+      "filmplus",
+      "terror",
+      "suspense",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "arrepiante",
+      "sombrio",
+      "tenso"
+    ],
+    "releaseYear": 2017,
+    "durationMinutes": 91,
+    "posterUrl": "https://img.youtube.com/vi/ENYTw33-BaQ/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/ENYTw33-BaQ/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=ENYTw33-BaQ",
+    "contentRating": "16",
+    "language": "Dublado",
+    "ratingScore": 8,
+    "badge": "Film Plus Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.607Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-DKvL0pdUNag",
+    "youtubeVideoId": "DKvL0pdUNag",
+    "title": "Até o Final",
+    "synopsis": "Até o Final é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Film Plus no YouTube, com dublagem em português.",
+    "genres": [
+      "Terror",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Sobrenatural",
+      "Mistério"
+    ],
+    "tags": [
+      "filmplus",
+      "terror",
+      "suspense",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "arrepiante",
+      "sombrio",
+      "tenso"
+    ],
+    "releaseYear": 2019,
+    "durationMinutes": 99,
+    "posterUrl": "https://img.youtube.com/vi/DKvL0pdUNag/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/DKvL0pdUNag/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=DKvL0pdUNag",
+    "contentRating": "16",
+    "language": "Dublado",
+    "ratingScore": 8.1,
+    "badge": "Film Plus Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.607Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-yhrL64co5j0",
+    "youtubeVideoId": "yhrL64co5j0",
+    "title": "A ILHA",
+    "synopsis": "A ILHA é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Film Plus no YouTube, com dublagem em português.",
+    "genres": [
+      "Terror",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Sobrenatural",
+      "Mistério"
+    ],
+    "tags": [
+      "filmplus",
+      "terror",
+      "suspense",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "arrepiante",
+      "sombrio",
+      "tenso"
+    ],
+    "releaseYear": 2019,
+    "durationMinutes": 89,
+    "posterUrl": "https://img.youtube.com/vi/yhrL64co5j0/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/yhrL64co5j0/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=yhrL64co5j0",
+    "contentRating": "16",
+    "language": "Dublado",
+    "ratingScore": 8.1,
+    "badge": "Film Plus Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.607Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-qQ7aFrfEl7A",
+    "youtubeVideoId": "qQ7aFrfEl7A",
+    "title": "Seque$tro: Inocência Roubada",
+    "synopsis": "Seque$tro: Inocência Roubada é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Film Plus no YouTube, com dublagem em português.",
+    "genres": [
+      "Ação",
+      "Aventura"
+    ],
+    "subgenres": [
+      "Adrenalina",
+      "Combate"
+    ],
+    "tags": [
+      "filmplus",
+      "ação",
+      "aventura",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "eletrizante",
+      "empolgante",
+      "frenético"
+    ],
+    "releaseYear": 2020,
+    "durationMinutes": 111,
+    "posterUrl": "https://img.youtube.com/vi/qQ7aFrfEl7A/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/qQ7aFrfEl7A/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=qQ7aFrfEl7A",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 7.4,
+    "badge": "Film Plus Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.607Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-DAN0fpnq17s",
+    "youtubeVideoId": "DAN0fpnq17s",
+    "title": "S3qu3stro: Inocência R0ubada",
+    "synopsis": "S3qu3stro: Inocência R0ubada é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Film Plus no YouTube, com dublagem em português.",
+    "genres": [
+      "Ação",
+      "Aventura"
+    ],
+    "subgenres": [
+      "Adrenalina",
+      "Combate"
+    ],
+    "tags": [
+      "filmplus",
+      "ação",
+      "aventura",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "eletrizante",
+      "empolgante",
+      "frenético"
+    ],
+    "releaseYear": 2022,
+    "durationMinutes": 103,
+    "posterUrl": "https://img.youtube.com/vi/DAN0fpnq17s/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/DAN0fpnq17s/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=DAN0fpnq17s",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 7.6000000000000005,
+    "badge": "Film Plus Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.607Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-EllySW_8YLc",
+    "youtubeVideoId": "EllySW_8YLc",
+    "title": "O Natal de James & Bob",
+    "synopsis": "O Natal de James & Bob é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Film Plus no YouTube, com dublagem em português.",
+    "genres": [
+      "Romance",
+      "Comédia"
+    ],
+    "subgenres": [
+      "Romântico",
+      "Sentimental"
+    ],
+    "tags": [
+      "filmplus",
+      "romance",
+      "comédia",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "encantador",
+      "romântico",
+      "emocionante"
+    ],
+    "releaseYear": 2020,
+    "durationMinutes": 91,
+    "posterUrl": "https://img.youtube.com/vi/EllySW_8YLc/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/EllySW_8YLc/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=EllySW_8YLc",
+    "contentRating": "12",
+    "language": "Dublado",
+    "ratingScore": 8.3,
+    "badge": "Film Plus Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.607Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-vTg2ODzc6jA",
+    "youtubeVideoId": "vTg2ODzc6jA",
+    "title": "A Loja Mágica de Brinquedos",
+    "synopsis": "A Loja Mágica de Brinquedos é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Film Plus no YouTube, com dublagem em português.",
+    "genres": [
+      "Romance",
+      "Comédia"
+    ],
+    "subgenres": [
+      "Romântico",
+      "Sentimental"
+    ],
+    "tags": [
+      "filmplus",
+      "romance",
+      "comédia",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "encantador",
+      "romântico",
+      "emocionante"
+    ],
+    "releaseYear": 2020,
+    "durationMinutes": 102,
+    "posterUrl": "https://img.youtube.com/vi/vTg2ODzc6jA/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/vTg2ODzc6jA/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=vTg2ODzc6jA",
+    "contentRating": "12",
+    "language": "Dublado",
+    "ratingScore": 7.8,
+    "badge": "Film Plus Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.607Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-UQB3-uz1pjs",
+    "youtubeVideoId": "UQB3-uz1pjs",
+    "title": "Um Natal Encantado",
+    "synopsis": "Um Natal Encantado é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Film Plus no YouTube, com dublagem em português.",
+    "genres": [
+      "Romance",
+      "Comédia"
+    ],
+    "subgenres": [
+      "Romântico",
+      "Sentimental"
+    ],
+    "tags": [
+      "filmplus",
+      "romance",
+      "comédia",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "encantador",
+      "romântico",
+      "emocionante"
+    ],
+    "releaseYear": 2019,
+    "durationMinutes": 95,
+    "posterUrl": "https://img.youtube.com/vi/UQB3-uz1pjs/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/UQB3-uz1pjs/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=UQB3-uz1pjs",
+    "contentRating": "12",
+    "language": "Dublado",
+    "ratingScore": 7.8,
+    "badge": "Film Plus Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.607Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-Rszt_5wUwX4",
+    "youtubeVideoId": "Rszt_5wUwX4",
+    "title": "Deu a Louca na Branca de Neve",
+    "synopsis": "Deu a Louca na Branca de Neve é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Film Plus no YouTube, com dublagem em português.",
+    "genres": [
+      "Animação",
+      "Família"
+    ],
+    "subgenres": [
+      "Desenho Animado",
+      "Kids"
+    ],
+    "tags": [
+      "filmplus",
+      "animação",
+      "família",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "divertido",
+      "colorido",
+      "alegre"
+    ],
+    "releaseYear": 2018,
+    "durationMinutes": 106,
+    "posterUrl": "https://img.youtube.com/vi/Rszt_5wUwX4/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/Rszt_5wUwX4/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=Rszt_5wUwX4",
+    "contentRating": "Livre",
+    "language": "Dublado",
+    "ratingScore": 8.2,
+    "badge": "Film Plus Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.607Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-F24NkQE1Axs",
+    "youtubeVideoId": "F24NkQE1Axs",
+    "title": "Um Sonho de Natal",
+    "synopsis": "Um Sonho de Natal é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Film Plus no YouTube, com dublagem em português.",
+    "genres": [
+      "Romance",
+      "Comédia"
+    ],
+    "subgenres": [
+      "Romântico",
+      "Sentimental"
+    ],
+    "tags": [
+      "filmplus",
+      "romance",
+      "comédia",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "encantador",
+      "romântico",
+      "emocionante"
+    ],
+    "releaseYear": 2017,
+    "durationMinutes": 92,
+    "posterUrl": "https://img.youtube.com/vi/F24NkQE1Axs/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/F24NkQE1Axs/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=F24NkQE1Axs",
+    "contentRating": "12",
+    "language": "Dublado",
+    "ratingScore": 8.2,
+    "badge": "Film Plus Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.607Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-T9ARUKRGZPU",
+    "youtubeVideoId": "T9ARUKRGZPU",
+    "title": "Presente de Natal",
+    "synopsis": "Presente de Natal é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Film Plus no YouTube, com dublagem em português.",
+    "genres": [
+      "Romance",
+      "Comédia"
+    ],
+    "subgenres": [
+      "Romântico",
+      "Sentimental"
+    ],
+    "tags": [
+      "filmplus",
+      "romance",
+      "comédia",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "encantador",
+      "romântico",
+      "emocionante"
+    ],
+    "releaseYear": 2021,
+    "durationMinutes": 96,
+    "posterUrl": "https://img.youtube.com/vi/T9ARUKRGZPU/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/T9ARUKRGZPU/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=T9ARUKRGZPU",
+    "contentRating": "12",
+    "language": "Dublado",
+    "ratingScore": 7.7,
+    "badge": "Film Plus Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.607Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-T98YLKEqvPk",
+    "youtubeVideoId": "T98YLKEqvPk",
+    "title": "A Árvore de Natal 🌲",
+    "synopsis": "A Árvore de Natal 🌲 é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Film Plus no YouTube, com dublagem em português.",
+    "genres": [
+      "Romance",
+      "Comédia"
+    ],
+    "subgenres": [
+      "Romântico",
+      "Sentimental"
+    ],
+    "tags": [
+      "filmplus",
+      "romance",
+      "comédia",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "encantador",
+      "romântico",
+      "emocionante"
+    ],
+    "releaseYear": 2017,
+    "durationMinutes": 100,
+    "posterUrl": "https://img.youtube.com/vi/T98YLKEqvPk/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/T98YLKEqvPk/hqdefault.jpg",
+    "channelName": "Film Plus",
+    "channelUrl": "https://www.youtube.com/watch?v=T98YLKEqvPk",
+    "contentRating": "12",
+    "language": "Dublado",
+    "ratingScore": 8.7,
+    "badge": "Film Plus Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.607Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-kYACauFe5AQ",
+    "youtubeVideoId": "kYACauFe5AQ",
+    "title": "Ameaças Internas",
+    "synopsis": "Ameaças Internas é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Noite de Filmes no YouTube, com dublagem em português.",
+    "genres": [
+      "Suspense",
+      "Policial"
+    ],
+    "subgenres": [
+      "Mistério",
+      "Investigação"
+    ],
+    "tags": [
+      "noitedefilmes",
+      "suspense",
+      "policial",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "intrigante",
+      "tenso",
+      "misterioso"
+    ],
+    "releaseYear": 2018,
+    "durationMinutes": 98,
+    "posterUrl": "https://img.youtube.com/vi/kYACauFe5AQ/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/kYACauFe5AQ/hqdefault.jpg",
+    "channelName": "Noite de Filmes",
+    "channelUrl": "https://www.youtube.com/watch?v=kYACauFe5AQ",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 8.6,
+    "badge": "Noite de Filmes Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.607Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-h0JqedS_yHw",
+    "youtubeVideoId": "h0JqedS_yHw",
+    "title": "A Garota Sem Nome",
+    "synopsis": "A Garota Sem Nome é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Noite de Filmes no YouTube, com dublagem em português.",
+    "genres": [
+      "Suspense",
+      "Policial"
+    ],
+    "subgenres": [
+      "Mistério",
+      "Investigação"
+    ],
+    "tags": [
+      "noitedefilmes",
+      "suspense",
+      "policial",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "intrigante",
+      "tenso",
+      "misterioso"
+    ],
+    "releaseYear": 2021,
+    "durationMinutes": 104,
+    "posterUrl": "https://img.youtube.com/vi/h0JqedS_yHw/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/h0JqedS_yHw/hqdefault.jpg",
+    "channelName": "Noite de Filmes",
+    "channelUrl": "https://www.youtube.com/watch?v=h0JqedS_yHw",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 8.4,
+    "badge": "Noite de Filmes Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.608Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-AnIGIekG_pE",
+    "youtubeVideoId": "AnIGIekG_pE",
+    "title": "Ela Não É Sua Filha",
+    "synopsis": "Ela Não É Sua Filha é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Noite de Filmes no YouTube, com dublagem em português.",
+    "genres": [
+      "Suspense",
+      "Policial"
+    ],
+    "subgenres": [
+      "Mistério",
+      "Investigação"
+    ],
+    "tags": [
+      "noitedefilmes",
+      "suspense",
+      "policial",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "intrigante",
+      "tenso",
+      "misterioso"
+    ],
+    "releaseYear": 2017,
+    "durationMinutes": 109,
+    "posterUrl": "https://img.youtube.com/vi/AnIGIekG_pE/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/AnIGIekG_pE/hqdefault.jpg",
+    "channelName": "Noite de Filmes",
+    "channelUrl": "https://www.youtube.com/watch?v=AnIGIekG_pE",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 7.5,
+    "badge": "Noite de Filmes Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.608Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-CIqMO3Z56-4",
+    "youtubeVideoId": "CIqMO3Z56-4",
+    "title": "Sem Identidade",
+    "synopsis": "Sem Identidade é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Noite de Filmes no YouTube, com dublagem em português.",
+    "genres": [
+      "Suspense",
+      "Policial"
+    ],
+    "subgenres": [
+      "Mistério",
+      "Investigação"
+    ],
+    "tags": [
+      "noitedefilmes",
+      "suspense",
+      "policial",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "intrigante",
+      "tenso",
+      "misterioso"
+    ],
+    "releaseYear": 2019,
+    "durationMinutes": 106,
+    "posterUrl": "https://img.youtube.com/vi/CIqMO3Z56-4/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/CIqMO3Z56-4/hqdefault.jpg",
+    "channelName": "Noite de Filmes",
+    "channelUrl": "https://www.youtube.com/watch?v=CIqMO3Z56-4",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 8.5,
+    "badge": "Noite de Filmes Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.608Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-6ne_en5USyM",
+    "youtubeVideoId": "6ne_en5USyM",
+    "title": "Um Esquema Perigoso",
+    "synopsis": "Um Esquema Perigoso é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Noite de Filmes no YouTube, com dublagem em português.",
+    "genres": [
+      "Suspense",
+      "Policial"
+    ],
+    "subgenres": [
+      "Mistério",
+      "Investigação"
+    ],
+    "tags": [
+      "noitedefilmes",
+      "suspense",
+      "policial",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "intrigante",
+      "tenso",
+      "misterioso"
+    ],
+    "releaseYear": 2017,
+    "durationMinutes": 109,
+    "posterUrl": "https://img.youtube.com/vi/6ne_en5USyM/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/6ne_en5USyM/hqdefault.jpg",
+    "channelName": "Noite de Filmes",
+    "channelUrl": "https://www.youtube.com/watch?v=6ne_en5USyM",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 8.1,
+    "badge": "Noite de Filmes Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.608Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-rZYmczxX8I4",
+    "youtubeVideoId": "rZYmczxX8I4",
+    "title": "Filmes Natalinos",
+    "synopsis": "Filmes Natalinos é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Noite de Filmes no YouTube, com dublagem em português.",
+    "genres": [
+      "Romance",
+      "Comédia"
+    ],
+    "subgenres": [
+      "Romântico",
+      "Sentimental"
+    ],
+    "tags": [
+      "noitedefilmes",
+      "romance",
+      "comédia",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "encantador",
+      "romântico",
+      "emocionante"
+    ],
+    "releaseYear": 2023,
+    "durationMinutes": 89,
+    "posterUrl": "https://img.youtube.com/vi/rZYmczxX8I4/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/rZYmczxX8I4/hqdefault.jpg",
+    "channelName": "Noite de Filmes",
+    "channelUrl": "https://www.youtube.com/watch?v=rZYmczxX8I4",
+    "contentRating": "12",
+    "language": "Dublado",
+    "ratingScore": 8.1,
+    "badge": "Noite de Filmes Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.608Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-uLZsAIUHOzY",
+    "youtubeVideoId": "uLZsAIUHOzY",
+    "title": "Erros Irreversíveis",
+    "synopsis": "Erros Irreversíveis é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Noite de Filmes no YouTube, com dublagem em português.",
+    "genres": [
+      "Suspense",
+      "Policial"
+    ],
+    "subgenres": [
+      "Mistério",
+      "Investigação"
+    ],
+    "tags": [
+      "noitedefilmes",
+      "suspense",
+      "policial",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "intrigante",
+      "tenso",
+      "misterioso"
+    ],
+    "releaseYear": 2020,
+    "durationMinutes": 89,
+    "posterUrl": "https://img.youtube.com/vi/uLZsAIUHOzY/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/uLZsAIUHOzY/hqdefault.jpg",
+    "channelName": "Noite de Filmes",
+    "channelUrl": "https://www.youtube.com/watch?v=uLZsAIUHOzY",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 8.6,
+    "badge": "Noite de Filmes Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.608Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-h0Zi7_rRgi0",
+    "youtubeVideoId": "h0Zi7_rRgi0",
+    "title": "Archangel: O Segredo",
+    "synopsis": "Archangel: O Segredo é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Noite de Filmes no YouTube, com dublagem em português.",
+    "genres": [
+      "Suspense",
+      "Policial"
+    ],
+    "subgenres": [
+      "Mistério",
+      "Investigação"
+    ],
+    "tags": [
+      "noitedefilmes",
+      "suspense",
+      "policial",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "intrigante",
+      "tenso",
+      "misterioso"
+    ],
+    "releaseYear": 2018,
+    "durationMinutes": 106,
+    "posterUrl": "https://img.youtube.com/vi/h0Zi7_rRgi0/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/h0Zi7_rRgi0/hqdefault.jpg",
+    "channelName": "Noite de Filmes",
+    "channelUrl": "https://www.youtube.com/watch?v=h0Zi7_rRgi0",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 8.2,
+    "badge": "Noite de Filmes Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.608Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-ISgmlhSJopU",
+    "youtubeVideoId": "ISgmlhSJopU",
+    "title": "XIII: A Conspiração",
+    "synopsis": "XIII: A Conspiração é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Noite de Filmes no YouTube, com dublagem em português.",
+    "genres": [
+      "Suspense",
+      "Policial"
+    ],
+    "subgenres": [
+      "Mistério",
+      "Investigação"
+    ],
+    "tags": [
+      "noitedefilmes",
+      "suspense",
+      "policial",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "intrigante",
+      "tenso",
+      "misterioso"
+    ],
+    "releaseYear": 2022,
+    "durationMinutes": 109,
+    "posterUrl": "https://img.youtube.com/vi/ISgmlhSJopU/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/ISgmlhSJopU/hqdefault.jpg",
+    "channelName": "Noite de Filmes",
+    "channelUrl": "https://www.youtube.com/watch?v=ISgmlhSJopU",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 7.3,
+    "badge": "Noite de Filmes Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.608Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-hCQ6PEY8S6M",
+    "youtubeVideoId": "hCQ6PEY8S6M",
+    "title": "Testemunha Ocular",
+    "synopsis": "Testemunha Ocular é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Noite de Filmes no YouTube, com dublagem em português.",
+    "genres": [
+      "Suspense",
+      "Policial"
+    ],
+    "subgenres": [
+      "Mistério",
+      "Investigação"
+    ],
+    "tags": [
+      "noitedefilmes",
+      "suspense",
+      "policial",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "intrigante",
+      "tenso",
+      "misterioso"
+    ],
+    "releaseYear": 2023,
+    "durationMinutes": 106,
+    "posterUrl": "https://img.youtube.com/vi/hCQ6PEY8S6M/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/hCQ6PEY8S6M/hqdefault.jpg",
+    "channelName": "Noite de Filmes",
+    "channelUrl": "https://www.youtube.com/watch?v=hCQ6PEY8S6M",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 8,
+    "badge": "Noite de Filmes Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.608Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-sjg4rZweBqw",
+    "youtubeVideoId": "sjg4rZweBqw",
+    "title": "Caminhos da Traição",
+    "synopsis": "Caminhos da Traição é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Noite de Filmes no YouTube, com dublagem em português.",
+    "genres": [
+      "Suspense",
+      "Policial"
+    ],
+    "subgenres": [
+      "Mistério",
+      "Investigação"
+    ],
+    "tags": [
+      "noitedefilmes",
+      "suspense",
+      "policial",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "intrigante",
+      "tenso",
+      "misterioso"
+    ],
+    "releaseYear": 2020,
+    "durationMinutes": 103,
+    "posterUrl": "https://img.youtube.com/vi/sjg4rZweBqw/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/sjg4rZweBqw/hqdefault.jpg",
+    "channelName": "Noite de Filmes",
+    "channelUrl": "https://www.youtube.com/watch?v=sjg4rZweBqw",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 8.2,
+    "badge": "Noite de Filmes Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.608Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-lQTZfnb2nwE",
+    "youtubeVideoId": "lQTZfnb2nwE",
+    "title": "Visões Perigosas",
+    "synopsis": "Visões Perigosas é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Noite de Filmes no YouTube, com dublagem em português.",
+    "genres": [
+      "Suspense",
+      "Policial"
+    ],
+    "subgenres": [
+      "Mistério",
+      "Investigação"
+    ],
+    "tags": [
+      "noitedefilmes",
+      "suspense",
+      "policial",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "intrigante",
+      "tenso",
+      "misterioso"
+    ],
+    "releaseYear": 2020,
+    "durationMinutes": 93,
+    "posterUrl": "https://img.youtube.com/vi/lQTZfnb2nwE/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/lQTZfnb2nwE/hqdefault.jpg",
+    "channelName": "Noite de Filmes",
+    "channelUrl": "https://www.youtube.com/watch?v=lQTZfnb2nwE",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 8.1,
+    "badge": "Noite de Filmes Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.608Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-SzFgUrsfo-w",
+    "youtubeVideoId": "SzFgUrsfo-w",
+    "title": "A Rosa Negra",
+    "synopsis": "A Rosa Negra é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Noite de Filmes no YouTube, com dublagem em português.",
+    "genres": [
+      "Suspense",
+      "Policial"
+    ],
+    "subgenres": [
+      "Mistério",
+      "Investigação"
+    ],
+    "tags": [
+      "noitedefilmes",
+      "suspense",
+      "policial",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "intrigante",
+      "tenso",
+      "misterioso"
+    ],
+    "releaseYear": 2022,
+    "durationMinutes": 111,
+    "posterUrl": "https://img.youtube.com/vi/SzFgUrsfo-w/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/SzFgUrsfo-w/hqdefault.jpg",
+    "channelName": "Noite de Filmes",
+    "channelUrl": "https://www.youtube.com/watch?v=SzFgUrsfo-w",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 8.4,
+    "badge": "Noite de Filmes Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.608Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-bNbx48ecgjc",
+    "youtubeVideoId": "bNbx48ecgjc",
+    "title": "um astuto assassino (",
+    "synopsis": "um astuto assassino ( é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Noite de Filmes no YouTube, com dublagem em português.",
+    "genres": [
+      "Suspense",
+      "Policial"
+    ],
+    "subgenres": [
+      "Mistério",
+      "Investigação"
+    ],
+    "tags": [
+      "noitedefilmes",
+      "suspense",
+      "policial",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "intrigante",
+      "tenso",
+      "misterioso"
+    ],
+    "releaseYear": 2023,
+    "durationMinutes": 109,
+    "posterUrl": "https://img.youtube.com/vi/bNbx48ecgjc/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/bNbx48ecgjc/hqdefault.jpg",
+    "channelName": "Noite de Filmes",
+    "channelUrl": "https://www.youtube.com/watch?v=bNbx48ecgjc",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 7.9,
+    "badge": "Noite de Filmes Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.608Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-wjP6YFkVPjI",
+    "youtubeVideoId": "wjP6YFkVPjI",
+    "title": "Crônicas de um Serial Killer",
+    "synopsis": "Crônicas de um Serial Killer é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Noite de Filmes no YouTube, com dublagem em português.",
+    "genres": [
+      "Suspense",
+      "Policial"
+    ],
+    "subgenres": [
+      "Mistério",
+      "Investigação"
+    ],
+    "tags": [
+      "noitedefilmes",
+      "suspense",
+      "policial",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "intrigante",
+      "tenso",
+      "misterioso"
+    ],
+    "releaseYear": 2019,
+    "durationMinutes": 101,
+    "posterUrl": "https://img.youtube.com/vi/wjP6YFkVPjI/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/wjP6YFkVPjI/hqdefault.jpg",
+    "channelName": "Noite de Filmes",
+    "channelUrl": "https://www.youtube.com/watch?v=wjP6YFkVPjI",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 7.6000000000000005,
+    "badge": "Noite de Filmes Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.608Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-LDiHvBBGKAQ",
+    "youtubeVideoId": "LDiHvBBGKAQ",
+    "title": "Laços Que Matam",
+    "synopsis": "Laços Que Matam é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Noite de Filmes no YouTube, com dublagem em português.",
+    "genres": [
+      "Suspense",
+      "Policial"
+    ],
+    "subgenres": [
+      "Mistério",
+      "Investigação"
+    ],
+    "tags": [
+      "noitedefilmes",
+      "suspense",
+      "policial",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "intrigante",
+      "tenso",
+      "misterioso"
+    ],
+    "releaseYear": 2021,
+    "durationMinutes": 96,
+    "posterUrl": "https://img.youtube.com/vi/LDiHvBBGKAQ/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/LDiHvBBGKAQ/hqdefault.jpg",
+    "channelName": "Noite de Filmes",
+    "channelUrl": "https://www.youtube.com/watch?v=LDiHvBBGKAQ",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 8.7,
+    "badge": "Noite de Filmes Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.608Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-ZGCvzTJ2_8Q",
+    "youtubeVideoId": "ZGCvzTJ2_8Q",
+    "title": "Acusação",
+    "synopsis": "Acusação é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Noite de Filmes no YouTube, com dublagem em português.",
+    "genres": [
+      "Suspense",
+      "Policial"
+    ],
+    "subgenres": [
+      "Mistério",
+      "Investigação"
+    ],
+    "tags": [
+      "noitedefilmes",
+      "suspense",
+      "policial",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "intrigante",
+      "tenso",
+      "misterioso"
+    ],
+    "releaseYear": 2022,
+    "durationMinutes": 90,
+    "posterUrl": "https://img.youtube.com/vi/ZGCvzTJ2_8Q/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/ZGCvzTJ2_8Q/hqdefault.jpg",
+    "channelName": "Noite de Filmes",
+    "channelUrl": "https://www.youtube.com/watch?v=ZGCvzTJ2_8Q",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 8.6,
+    "badge": "Noite de Filmes Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.608Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-ba7lZFog2C8",
+    "youtubeVideoId": "ba7lZFog2C8",
+    "title": "A Face do Mal",
+    "synopsis": "A Face do Mal é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Noite de Filmes no YouTube, com dublagem em português.",
+    "genres": [
+      "Ação",
+      "Aventura"
+    ],
+    "subgenres": [
+      "Adrenalina",
+      "Combate"
+    ],
+    "tags": [
+      "noitedefilmes",
+      "ação",
+      "aventura",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "eletrizante",
+      "empolgante",
+      "frenético"
+    ],
+    "releaseYear": 2019,
+    "durationMinutes": 97,
+    "posterUrl": "https://img.youtube.com/vi/ba7lZFog2C8/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/ba7lZFog2C8/hqdefault.jpg",
+    "channelName": "Noite de Filmes",
+    "channelUrl": "https://www.youtube.com/watch?v=ba7lZFog2C8",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 7.9,
+    "badge": "Noite de Filmes Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.608Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-ETyB0L4nDtw",
+    "youtubeVideoId": "ETyB0L4nDtw",
+    "title": "Loop",
+    "synopsis": "Loop é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Noite de Filmes no YouTube, com dublagem em português.",
+    "genres": [
+      "Suspense",
+      "Policial"
+    ],
+    "subgenres": [
+      "Mistério",
+      "Investigação"
+    ],
+    "tags": [
+      "noitedefilmes",
+      "suspense",
+      "policial",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "intrigante",
+      "tenso",
+      "misterioso"
+    ],
+    "releaseYear": 2019,
+    "durationMinutes": 107,
+    "posterUrl": "https://img.youtube.com/vi/ETyB0L4nDtw/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/ETyB0L4nDtw/hqdefault.jpg",
+    "channelName": "Noite de Filmes",
+    "channelUrl": "https://www.youtube.com/watch?v=ETyB0L4nDtw",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 7.6000000000000005,
+    "badge": "Noite de Filmes Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.608Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-owvWUbfsfE4",
+    "youtubeVideoId": "owvWUbfsfE4",
+    "title": "Traída",
+    "synopsis": "Traída é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Noite de Filmes no YouTube, com dublagem em português.",
+    "genres": [
+      "Suspense",
+      "Policial"
+    ],
+    "subgenres": [
+      "Mistério",
+      "Investigação"
+    ],
+    "tags": [
+      "noitedefilmes",
+      "suspense",
+      "policial",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "intrigante",
+      "tenso",
+      "misterioso"
+    ],
+    "releaseYear": 2021,
+    "durationMinutes": 108,
+    "posterUrl": "https://img.youtube.com/vi/owvWUbfsfE4/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/owvWUbfsfE4/hqdefault.jpg",
+    "channelName": "Noite de Filmes",
+    "channelUrl": "https://www.youtube.com/watch?v=owvWUbfsfE4",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 7.5,
+    "badge": "Noite de Filmes Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.608Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-mntzEPzGX1Q",
+    "youtubeVideoId": "mntzEPzGX1Q",
+    "title": "Conselho Assassino",
+    "synopsis": "Conselho Assassino é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Noite de Filmes no YouTube, com dublagem em português.",
+    "genres": [
+      "Suspense",
+      "Policial"
+    ],
+    "subgenres": [
+      "Mistério",
+      "Investigação"
+    ],
+    "tags": [
+      "noitedefilmes",
+      "suspense",
+      "policial",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "intrigante",
+      "tenso",
+      "misterioso"
+    ],
+    "releaseYear": 2023,
+    "durationMinutes": 98,
+    "posterUrl": "https://img.youtube.com/vi/mntzEPzGX1Q/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/mntzEPzGX1Q/hqdefault.jpg",
+    "channelName": "Noite de Filmes",
+    "channelUrl": "https://www.youtube.com/watch?v=mntzEPzGX1Q",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 7.3,
+    "badge": "Noite de Filmes Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.608Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-C5HW-0Zu0IU",
+    "youtubeVideoId": "C5HW-0Zu0IU",
+    "title": "Pecados de Família",
+    "synopsis": "Pecados de Família é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Noite de Filmes no YouTube, com dublagem em português.",
+    "genres": [
+      "Suspense",
+      "Policial"
+    ],
+    "subgenres": [
+      "Mistério",
+      "Investigação"
+    ],
+    "tags": [
+      "noitedefilmes",
+      "suspense",
+      "policial",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "intrigante",
+      "tenso",
+      "misterioso"
+    ],
+    "releaseYear": 2021,
+    "durationMinutes": 90,
+    "posterUrl": "https://img.youtube.com/vi/C5HW-0Zu0IU/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/C5HW-0Zu0IU/hqdefault.jpg",
+    "channelName": "Noite de Filmes",
+    "channelUrl": "https://www.youtube.com/watch?v=C5HW-0Zu0IU",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 8.4,
+    "badge": "Noite de Filmes Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.608Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-IhT5vw20TfA",
+    "youtubeVideoId": "IhT5vw20TfA",
+    "title": "Memória Artificial",
+    "synopsis": "Memória Artificial é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Noite de Filmes no YouTube, com dublagem em português.",
+    "genres": [
+      "Suspense",
+      "Policial"
+    ],
+    "subgenres": [
+      "Mistério",
+      "Investigação"
+    ],
+    "tags": [
+      "noitedefilmes",
+      "suspense",
+      "policial",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "intrigante",
+      "tenso",
+      "misterioso"
+    ],
+    "releaseYear": 2017,
+    "durationMinutes": 99,
+    "posterUrl": "https://img.youtube.com/vi/IhT5vw20TfA/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/IhT5vw20TfA/hqdefault.jpg",
+    "channelName": "Noite de Filmes",
+    "channelUrl": "https://www.youtube.com/watch?v=IhT5vw20TfA",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 7.6000000000000005,
+    "badge": "Noite de Filmes Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.608Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-x9pEyWJUcA8",
+    "youtubeVideoId": "x9pEyWJUcA8",
+    "title": "Falando com os Mortos",
+    "synopsis": "Falando com os Mortos é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Noite de Filmes no YouTube, com dublagem em português.",
+    "genres": [
+      "Suspense",
+      "Policial"
+    ],
+    "subgenres": [
+      "Mistério",
+      "Investigação"
+    ],
+    "tags": [
+      "noitedefilmes",
+      "suspense",
+      "policial",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "intrigante",
+      "tenso",
+      "misterioso"
+    ],
+    "releaseYear": 2022,
+    "durationMinutes": 110,
+    "posterUrl": "https://img.youtube.com/vi/x9pEyWJUcA8/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/x9pEyWJUcA8/hqdefault.jpg",
+    "channelName": "Noite de Filmes",
+    "channelUrl": "https://www.youtube.com/watch?v=x9pEyWJUcA8",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 8.4,
+    "badge": "Noite de Filmes Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.608Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-uHtpwah-4-k",
+    "youtubeVideoId": "uHtpwah-4-k",
+    "title": "Perigo Familiar",
+    "synopsis": "Perigo Familiar é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Noite de Filmes no YouTube, com dublagem em português.",
+    "genres": [
+      "Suspense",
+      "Policial"
+    ],
+    "subgenres": [
+      "Mistério",
+      "Investigação"
+    ],
+    "tags": [
+      "noitedefilmes",
+      "suspense",
+      "policial",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "intrigante",
+      "tenso",
+      "misterioso"
+    ],
+    "releaseYear": 2022,
+    "durationMinutes": 101,
+    "posterUrl": "https://img.youtube.com/vi/uHtpwah-4-k/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/uHtpwah-4-k/hqdefault.jpg",
+    "channelName": "Noite de Filmes",
+    "channelUrl": "https://www.youtube.com/watch?v=uHtpwah-4-k",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 8.5,
+    "badge": "Noite de Filmes Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.608Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-gYXwNVT3-NM",
+    "youtubeVideoId": "gYXwNVT3-NM",
+    "title": "Paciente Mortal",
+    "synopsis": "Paciente Mortal é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Noite de Filmes no YouTube, com dublagem em português.",
+    "genres": [
+      "Suspense",
+      "Policial"
+    ],
+    "subgenres": [
+      "Mistério",
+      "Investigação"
+    ],
+    "tags": [
+      "noitedefilmes",
+      "suspense",
+      "policial",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "intrigante",
+      "tenso",
+      "misterioso"
+    ],
+    "releaseYear": 2017,
+    "durationMinutes": 109,
+    "posterUrl": "https://img.youtube.com/vi/gYXwNVT3-NM/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/gYXwNVT3-NM/hqdefault.jpg",
+    "channelName": "Noite de Filmes",
+    "channelUrl": "https://www.youtube.com/watch?v=gYXwNVT3-NM",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 8.1,
+    "badge": "Noite de Filmes Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.608Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-roFPKn1S3rU",
+    "youtubeVideoId": "roFPKn1S3rU",
+    "title": "O Assassino na Porta ao Lado",
+    "synopsis": "O Assassino na Porta ao Lado é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Noite de Filmes no YouTube, com dublagem em português.",
+    "genres": [
+      "Suspense",
+      "Policial"
+    ],
+    "subgenres": [
+      "Mistério",
+      "Investigação"
+    ],
+    "tags": [
+      "noitedefilmes",
+      "suspense",
+      "policial",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "intrigante",
+      "tenso",
+      "misterioso"
+    ],
+    "releaseYear": 2022,
+    "durationMinutes": 90,
+    "posterUrl": "https://img.youtube.com/vi/roFPKn1S3rU/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/roFPKn1S3rU/hqdefault.jpg",
+    "channelName": "Noite de Filmes",
+    "channelUrl": "https://www.youtube.com/watch?v=roFPKn1S3rU",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 7.6000000000000005,
+    "badge": "Noite de Filmes Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.608Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-QBNl1Jx8uyk",
+    "youtubeVideoId": "QBNl1Jx8uyk",
+    "title": "Diário De Um Assassinato",
+    "synopsis": "Diário De Um Assassinato é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Noite de Filmes no YouTube, com dublagem em português.",
+    "genres": [
+      "Suspense",
+      "Policial"
+    ],
+    "subgenres": [
+      "Mistério",
+      "Investigação"
+    ],
+    "tags": [
+      "noitedefilmes",
+      "suspense",
+      "policial",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "intrigante",
+      "tenso",
+      "misterioso"
+    ],
+    "releaseYear": 2021,
+    "durationMinutes": 91,
+    "posterUrl": "https://img.youtube.com/vi/QBNl1Jx8uyk/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/QBNl1Jx8uyk/hqdefault.jpg",
+    "channelName": "Noite de Filmes",
+    "channelUrl": "https://www.youtube.com/watch?v=QBNl1Jx8uyk",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 8,
+    "badge": "Noite de Filmes Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.609Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie--kw7cLRTcWM",
+    "youtubeVideoId": "-kw7cLRTcWM",
+    "title": "UMA NOITE DE CRIME",
+    "synopsis": "UMA NOITE DE CRIME é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Noite de Filmes no YouTube, com dublagem em português.",
+    "genres": [
+      "Suspense",
+      "Policial"
+    ],
+    "subgenres": [
+      "Mistério",
+      "Investigação"
+    ],
+    "tags": [
+      "noitedefilmes",
+      "suspense",
+      "policial",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "intrigante",
+      "tenso",
+      "misterioso"
+    ],
+    "releaseYear": 2018,
+    "durationMinutes": 89,
+    "posterUrl": "https://img.youtube.com/vi/-kw7cLRTcWM/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/-kw7cLRTcWM/hqdefault.jpg",
+    "channelName": "Noite de Filmes",
+    "channelUrl": "https://www.youtube.com/watch?v=-kw7cLRTcWM",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 7.5,
+    "badge": "Noite de Filmes Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.609Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-ePQvSYpgMtg",
+    "youtubeVideoId": "ePQvSYpgMtg",
+    "title": "Quero Meu Marido de Volta",
+    "synopsis": "Quero Meu Marido de Volta é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Noite de Filmes no YouTube, com dublagem em português.",
+    "genres": [
+      "Suspense",
+      "Policial"
+    ],
+    "subgenres": [
+      "Mistério",
+      "Investigação"
+    ],
+    "tags": [
+      "noitedefilmes",
+      "suspense",
+      "policial",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "intrigante",
+      "tenso",
+      "misterioso"
+    ],
+    "releaseYear": 2020,
+    "durationMinutes": 102,
+    "posterUrl": "https://img.youtube.com/vi/ePQvSYpgMtg/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/ePQvSYpgMtg/hqdefault.jpg",
+    "channelName": "Noite de Filmes",
+    "channelUrl": "https://www.youtube.com/watch?v=ePQvSYpgMtg",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 7.6000000000000005,
+    "badge": "Noite de Filmes Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.609Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-dtXCWuIbhTg",
+    "youtubeVideoId": "dtXCWuIbhTg",
+    "title": "Um Pequeno Natal de Mary",
+    "synopsis": "Um Pequeno Natal de Mary é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Noite de Filmes no YouTube, com dublagem em português.",
+    "genres": [
+      "Romance",
+      "Comédia"
+    ],
+    "subgenres": [
+      "Romântico",
+      "Sentimental"
+    ],
+    "tags": [
+      "noitedefilmes",
+      "romance",
+      "comédia",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "encantador",
+      "romântico",
+      "emocionante"
+    ],
+    "releaseYear": 2020,
+    "durationMinutes": 110,
+    "posterUrl": "https://img.youtube.com/vi/dtXCWuIbhTg/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/dtXCWuIbhTg/hqdefault.jpg",
+    "channelName": "Noite de Filmes",
+    "channelUrl": "https://www.youtube.com/watch?v=dtXCWuIbhTg",
+    "contentRating": "12",
+    "language": "Dublado",
+    "ratingScore": 7.3,
+    "badge": "Noite de Filmes Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.609Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-wl0C_AQukC8",
+    "youtubeVideoId": "wl0C_AQukC8",
+    "title": "Sinos Pelo Caminho do Amor",
+    "synopsis": "Sinos Pelo Caminho do Amor é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Noite de Filmes no YouTube, com dublagem em português.",
+    "genres": [
+      "Romance",
+      "Comédia"
+    ],
+    "subgenres": [
+      "Romântico",
+      "Sentimental"
+    ],
+    "tags": [
+      "noitedefilmes",
+      "romance",
+      "comédia",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "encantador",
+      "romântico",
+      "emocionante"
+    ],
+    "releaseYear": 2023,
+    "durationMinutes": 104,
+    "posterUrl": "https://img.youtube.com/vi/wl0C_AQukC8/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/wl0C_AQukC8/hqdefault.jpg",
+    "channelName": "Noite de Filmes",
+    "channelUrl": "https://www.youtube.com/watch?v=wl0C_AQukC8",
+    "contentRating": "12",
+    "language": "Dublado",
+    "ratingScore": 8.6,
+    "badge": "Noite de Filmes Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.609Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-GzT_7zWee3Y",
+    "youtubeVideoId": "GzT_7zWee3Y",
+    "title": "Natal para Sempre",
+    "synopsis": "Natal para Sempre é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Noite de Filmes no YouTube, com dublagem em português.",
+    "genres": [
+      "Romance",
+      "Comédia"
+    ],
+    "subgenres": [
+      "Romântico",
+      "Sentimental"
+    ],
+    "tags": [
+      "noitedefilmes",
+      "romance",
+      "comédia",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "encantador",
+      "romântico",
+      "emocionante"
+    ],
+    "releaseYear": 2018,
+    "durationMinutes": 106,
+    "posterUrl": "https://img.youtube.com/vi/GzT_7zWee3Y/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/GzT_7zWee3Y/hqdefault.jpg",
+    "channelName": "Noite de Filmes",
+    "channelUrl": "https://www.youtube.com/watch?v=GzT_7zWee3Y",
+    "contentRating": "12",
+    "language": "Dublado",
+    "ratingScore": 8,
+    "badge": "Noite de Filmes Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.609Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-sLBwtE9-rtg",
+    "youtubeVideoId": "sLBwtE9-rtg",
+    "title": "Uma Canção de Natal",
+    "synopsis": "Uma Canção de Natal é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Noite de Filmes no YouTube, com dublagem em português.",
+    "genres": [
+      "Romance",
+      "Comédia"
+    ],
+    "subgenres": [
+      "Romântico",
+      "Sentimental"
+    ],
+    "tags": [
+      "noitedefilmes",
+      "romance",
+      "comédia",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "encantador",
+      "romântico",
+      "emocionante"
+    ],
+    "releaseYear": 2023,
+    "durationMinutes": 95,
+    "posterUrl": "https://img.youtube.com/vi/sLBwtE9-rtg/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/sLBwtE9-rtg/hqdefault.jpg",
+    "channelName": "Noite de Filmes",
+    "channelUrl": "https://www.youtube.com/watch?v=sLBwtE9-rtg",
+    "contentRating": "12",
+    "language": "Dublado",
+    "ratingScore": 8.4,
+    "badge": "Noite de Filmes Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.609Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-bDTOJpVR5lk",
+    "youtubeVideoId": "bDTOJpVR5lk",
+    "title": "Uma Segunda Chance para o Natal",
+    "synopsis": "Uma Segunda Chance para o Natal é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Noite de Filmes no YouTube, com dublagem em português.",
+    "genres": [
+      "Romance",
+      "Comédia"
+    ],
+    "subgenres": [
+      "Romântico",
+      "Sentimental"
+    ],
+    "tags": [
+      "noitedefilmes",
+      "romance",
+      "comédia",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "encantador",
+      "romântico",
+      "emocionante"
+    ],
+    "releaseYear": 2019,
+    "durationMinutes": 95,
+    "posterUrl": "https://img.youtube.com/vi/bDTOJpVR5lk/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/bDTOJpVR5lk/hqdefault.jpg",
+    "channelName": "Noite de Filmes",
+    "channelUrl": "https://www.youtube.com/watch?v=bDTOJpVR5lk",
+    "contentRating": "12",
+    "language": "Dublado",
+    "ratingScore": 8,
+    "badge": "Noite de Filmes Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.609Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-WwewL6JfYXA",
+    "youtubeVideoId": "WwewL6JfYXA",
+    "title": "O Jarro de Natal",
+    "synopsis": "O Jarro de Natal é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Noite de Filmes no YouTube, com dublagem em português.",
+    "genres": [
+      "Romance",
+      "Comédia"
+    ],
+    "subgenres": [
+      "Romântico",
+      "Sentimental"
+    ],
+    "tags": [
+      "noitedefilmes",
+      "romance",
+      "comédia",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "encantador",
+      "romântico",
+      "emocionante"
+    ],
+    "releaseYear": 2023,
+    "durationMinutes": 105,
+    "posterUrl": "https://img.youtube.com/vi/WwewL6JfYXA/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/WwewL6JfYXA/hqdefault.jpg",
+    "channelName": "Noite de Filmes",
+    "channelUrl": "https://www.youtube.com/watch?v=WwewL6JfYXA",
+    "contentRating": "12",
+    "language": "Dublado",
+    "ratingScore": 8.6,
+    "badge": "Noite de Filmes Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.609Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-8YAEDMUxqa4",
+    "youtubeVideoId": "8YAEDMUxqa4",
+    "title": "Unidos para o Natal",
+    "synopsis": "Unidos para o Natal é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Noite de Filmes no YouTube, com dublagem em português.",
+    "genres": [
+      "Romance",
+      "Comédia"
+    ],
+    "subgenres": [
+      "Romântico",
+      "Sentimental"
+    ],
+    "tags": [
+      "noitedefilmes",
+      "romance",
+      "comédia",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "encantador",
+      "romântico",
+      "emocionante"
+    ],
+    "releaseYear": 2019,
+    "durationMinutes": 96,
+    "posterUrl": "https://img.youtube.com/vi/8YAEDMUxqa4/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/8YAEDMUxqa4/hqdefault.jpg",
+    "channelName": "Noite de Filmes",
+    "channelUrl": "https://www.youtube.com/watch?v=8YAEDMUxqa4",
+    "contentRating": "12",
+    "language": "Dublado",
+    "ratingScore": 8.4,
+    "badge": "Noite de Filmes Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.609Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-59xXsuYuR38",
+    "youtubeVideoId": "59xXsuYuR38",
+    "title": "O Último Assassino",
+    "synopsis": "O Último Assassino é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Noite de Filmes no YouTube, com dublagem em português.",
+    "genres": [
+      "Suspense",
+      "Policial"
+    ],
+    "subgenres": [
+      "Mistério",
+      "Investigação"
+    ],
+    "tags": [
+      "noitedefilmes",
+      "suspense",
+      "policial",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "intrigante",
+      "tenso",
+      "misterioso"
+    ],
+    "releaseYear": 2017,
+    "durationMinutes": 95,
+    "posterUrl": "https://img.youtube.com/vi/59xXsuYuR38/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/59xXsuYuR38/hqdefault.jpg",
+    "channelName": "Noite de Filmes",
+    "channelUrl": "https://www.youtube.com/watch?v=59xXsuYuR38",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 7.2,
+    "badge": "Noite de Filmes Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.609Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-Z2tAbGCJEHU",
+    "youtubeVideoId": "Z2tAbGCJEHU",
+    "title": "Um Assassino Dentro de Casa",
+    "synopsis": "Um Assassino Dentro de Casa é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Noite de Filmes no YouTube, com dublagem em português.",
+    "genres": [
+      "Suspense",
+      "Policial"
+    ],
+    "subgenres": [
+      "Mistério",
+      "Investigação"
+    ],
+    "tags": [
+      "noitedefilmes",
+      "suspense",
+      "policial",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "intrigante",
+      "tenso",
+      "misterioso"
+    ],
+    "releaseYear": 2021,
+    "durationMinutes": 97,
+    "posterUrl": "https://img.youtube.com/vi/Z2tAbGCJEHU/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/Z2tAbGCJEHU/hqdefault.jpg",
+    "channelName": "Noite de Filmes",
+    "channelUrl": "https://www.youtube.com/watch?v=Z2tAbGCJEHU",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 8.2,
+    "badge": "Noite de Filmes Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.609Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-6DXwJH6kv0M",
+    "youtubeVideoId": "6DXwJH6kv0M",
+    "title": "Assassino no Andar de Cima",
+    "synopsis": "Assassino no Andar de Cima é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Noite de Filmes no YouTube, com dublagem em português.",
+    "genres": [
+      "Suspense",
+      "Policial"
+    ],
+    "subgenres": [
+      "Mistério",
+      "Investigação"
+    ],
+    "tags": [
+      "noitedefilmes",
+      "suspense",
+      "policial",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "intrigante",
+      "tenso",
+      "misterioso"
+    ],
+    "releaseYear": 2020,
+    "durationMinutes": 94,
+    "posterUrl": "https://img.youtube.com/vi/6DXwJH6kv0M/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/6DXwJH6kv0M/hqdefault.jpg",
+    "channelName": "Noite de Filmes",
+    "channelUrl": "https://www.youtube.com/watch?v=6DXwJH6kv0M",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 7.8,
+    "badge": "Noite de Filmes Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.609Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-nmQRyLNjkJ8",
+    "youtubeVideoId": "nmQRyLNjkJ8",
+    "title": "Meu Reencontro Assassino",
+    "synopsis": "Meu Reencontro Assassino é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Noite de Filmes no YouTube, com dublagem em português.",
+    "genres": [
+      "Suspense",
+      "Policial"
+    ],
+    "subgenres": [
+      "Mistério",
+      "Investigação"
+    ],
+    "tags": [
+      "noitedefilmes",
+      "suspense",
+      "policial",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "intrigante",
+      "tenso",
+      "misterioso"
+    ],
+    "releaseYear": 2023,
+    "durationMinutes": 110,
+    "posterUrl": "https://img.youtube.com/vi/nmQRyLNjkJ8/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/nmQRyLNjkJ8/hqdefault.jpg",
+    "channelName": "Noite de Filmes",
+    "channelUrl": "https://www.youtube.com/watch?v=nmQRyLNjkJ8",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 8.4,
+    "badge": "Noite de Filmes Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.609Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-lzmX-uCoCcE",
+    "youtubeVideoId": "lzmX-uCoCcE",
+    "title": "A Esposa do Meu Namorado Está Morta",
+    "synopsis": "A Esposa do Meu Namorado Está Morta é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Noite de Filmes no YouTube, com dublagem em português.",
+    "genres": [
+      "Romance",
+      "Comédia"
+    ],
+    "subgenres": [
+      "Romântico",
+      "Sentimental"
+    ],
+    "tags": [
+      "noitedefilmes",
+      "romance",
+      "comédia",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "encantador",
+      "romântico",
+      "emocionante"
+    ],
+    "releaseYear": 2018,
+    "durationMinutes": 103,
+    "posterUrl": "https://img.youtube.com/vi/lzmX-uCoCcE/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/lzmX-uCoCcE/hqdefault.jpg",
+    "channelName": "Noite de Filmes",
+    "channelUrl": "https://www.youtube.com/watch?v=lzmX-uCoCcE",
+    "contentRating": "12",
+    "language": "Dublado",
+    "ratingScore": 7.9,
+    "badge": "Noite de Filmes Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.609Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-JIycjYmB1w4",
+    "youtubeVideoId": "JIycjYmB1w4",
+    "title": "Morte no Altar",
+    "synopsis": "Morte no Altar é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Noite de Filmes no YouTube, com dublagem em português.",
+    "genres": [
+      "Suspense",
+      "Policial"
+    ],
+    "subgenres": [
+      "Mistério",
+      "Investigação"
+    ],
+    "tags": [
+      "noitedefilmes",
+      "suspense",
+      "policial",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "intrigante",
+      "tenso",
+      "misterioso"
+    ],
+    "releaseYear": 2022,
+    "durationMinutes": 105,
+    "posterUrl": "https://img.youtube.com/vi/JIycjYmB1w4/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/JIycjYmB1w4/hqdefault.jpg",
+    "channelName": "Noite de Filmes",
+    "channelUrl": "https://www.youtube.com/watch?v=JIycjYmB1w4",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 8.4,
+    "badge": "Noite de Filmes Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.609Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-wNOuiNj5seg",
+    "youtubeVideoId": "wNOuiNj5seg",
+    "title": "Um Marido Fiel:",
+    "synopsis": "Um Marido Fiel: é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Noite de Filmes no YouTube, com dublagem em português.",
+    "genres": [
+      "Suspense",
+      "Policial"
+    ],
+    "subgenres": [
+      "Mistério",
+      "Investigação"
+    ],
+    "tags": [
+      "noitedefilmes",
+      "suspense",
+      "policial",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "intrigante",
+      "tenso",
+      "misterioso"
+    ],
+    "releaseYear": 2021,
+    "durationMinutes": 88,
+    "posterUrl": "https://img.youtube.com/vi/wNOuiNj5seg/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/wNOuiNj5seg/hqdefault.jpg",
+    "channelName": "Noite de Filmes",
+    "channelUrl": "https://www.youtube.com/watch?v=wNOuiNj5seg",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 8.1,
+    "badge": "Noite de Filmes Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.609Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-xxmg8-GNUiw",
+    "youtubeVideoId": "xxmg8-GNUiw",
+    "title": "Segredos de Uma Madrasta",
+    "synopsis": "Segredos de Uma Madrasta é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Noite de Filmes no YouTube, com dublagem em português.",
+    "genres": [
+      "Suspense",
+      "Policial"
+    ],
+    "subgenres": [
+      "Mistério",
+      "Investigação"
+    ],
+    "tags": [
+      "noitedefilmes",
+      "suspense",
+      "policial",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "intrigante",
+      "tenso",
+      "misterioso"
+    ],
+    "releaseYear": 2021,
+    "durationMinutes": 90,
+    "posterUrl": "https://img.youtube.com/vi/xxmg8-GNUiw/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/xxmg8-GNUiw/hqdefault.jpg",
+    "channelName": "Noite de Filmes",
+    "channelUrl": "https://www.youtube.com/watch?v=xxmg8-GNUiw",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 7.5,
+    "badge": "Noite de Filmes Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.609Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-lfORB_SS3zU",
+    "youtubeVideoId": "lfORB_SS3zU",
+    "title": "Segredo Entre Irmãs",
+    "synopsis": "Segredo Entre Irmãs é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Noite de Filmes no YouTube, com dublagem em português.",
+    "genres": [
+      "Suspense",
+      "Policial"
+    ],
+    "subgenres": [
+      "Mistério",
+      "Investigação"
+    ],
+    "tags": [
+      "noitedefilmes",
+      "suspense",
+      "policial",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "intrigante",
+      "tenso",
+      "misterioso"
+    ],
+    "releaseYear": 2021,
+    "durationMinutes": 99,
+    "posterUrl": "https://img.youtube.com/vi/lfORB_SS3zU/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/lfORB_SS3zU/hqdefault.jpg",
+    "channelName": "Noite de Filmes",
+    "channelUrl": "https://www.youtube.com/watch?v=lfORB_SS3zU",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 8.7,
+    "badge": "Noite de Filmes Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.609Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-zJiCYtJYNu4",
+    "youtubeVideoId": "zJiCYtJYNu4",
+    "title": "O Segredo Assassino do Papai",
+    "synopsis": "O Segredo Assassino do Papai é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Noite de Filmes no YouTube, com dublagem em português.",
+    "genres": [
+      "Suspense",
+      "Policial"
+    ],
+    "subgenres": [
+      "Mistério",
+      "Investigação"
+    ],
+    "tags": [
+      "noitedefilmes",
+      "suspense",
+      "policial",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "intrigante",
+      "tenso",
+      "misterioso"
+    ],
+    "releaseYear": 2019,
+    "durationMinutes": 96,
+    "posterUrl": "https://img.youtube.com/vi/zJiCYtJYNu4/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/zJiCYtJYNu4/hqdefault.jpg",
+    "channelName": "Noite de Filmes",
+    "channelUrl": "https://www.youtube.com/watch?v=zJiCYtJYNu4",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 7.8,
+    "badge": "Noite de Filmes Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.609Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-llKerA7iyHc",
+    "youtubeVideoId": "llKerA7iyHc",
+    "title": "O Segredo de uma Mãe",
+    "synopsis": "O Segredo de uma Mãe é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Noite de Filmes no YouTube, com dublagem em português.",
+    "genres": [
+      "Suspense",
+      "Policial"
+    ],
+    "subgenres": [
+      "Mistério",
+      "Investigação"
+    ],
+    "tags": [
+      "noitedefilmes",
+      "suspense",
+      "policial",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "intrigante",
+      "tenso",
+      "misterioso"
+    ],
+    "releaseYear": 2017,
+    "durationMinutes": 92,
+    "posterUrl": "https://img.youtube.com/vi/llKerA7iyHc/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/llKerA7iyHc/hqdefault.jpg",
+    "channelName": "Noite de Filmes",
+    "channelUrl": "https://www.youtube.com/watch?v=llKerA7iyHc",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 8.1,
+    "badge": "Noite de Filmes Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.609Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-dTYzx_mmviM",
+    "youtubeVideoId": "dTYzx_mmviM",
+    "title": "A Vida Secreta da Minha Outra Esposa",
+    "synopsis": "A Vida Secreta da Minha Outra Esposa é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Noite de Filmes no YouTube, com dublagem em português.",
+    "genres": [
+      "Suspense",
+      "Policial"
+    ],
+    "subgenres": [
+      "Mistério",
+      "Investigação"
+    ],
+    "tags": [
+      "noitedefilmes",
+      "suspense",
+      "policial",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "intrigante",
+      "tenso",
+      "misterioso"
+    ],
+    "releaseYear": 2020,
+    "durationMinutes": 90,
+    "posterUrl": "https://img.youtube.com/vi/dTYzx_mmviM/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/dTYzx_mmviM/hqdefault.jpg",
+    "channelName": "Noite de Filmes",
+    "channelUrl": "https://www.youtube.com/watch?v=dTYzx_mmviM",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 7.3,
+    "badge": "Noite de Filmes Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.609Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-dGNt7THlAlA",
+    "youtubeVideoId": "dGNt7THlAlA",
+    "title": "Minha Vingança",
+    "synopsis": "Minha Vingança é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Noite de Filmes no YouTube, com dublagem em português.",
+    "genres": [
+      "Suspense",
+      "Policial"
+    ],
+    "subgenres": [
+      "Mistério",
+      "Investigação"
+    ],
+    "tags": [
+      "noitedefilmes",
+      "suspense",
+      "policial",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "intrigante",
+      "tenso",
+      "misterioso"
+    ],
+    "releaseYear": 2022,
+    "durationMinutes": 88,
+    "posterUrl": "https://img.youtube.com/vi/dGNt7THlAlA/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/dGNt7THlAlA/hqdefault.jpg",
+    "channelName": "Noite de Filmes",
+    "channelUrl": "https://www.youtube.com/watch?v=dGNt7THlAlA",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 8.6,
+    "badge": "Noite de Filmes Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.609Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-uMmOtP943EE",
+    "youtubeVideoId": "uMmOtP943EE",
+    "title": "Tekken: A Vingança de Kazuya",
+    "synopsis": "Tekken: A Vingança de Kazuya é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Noite de Filmes no YouTube, com dublagem em português.",
+    "genres": [
+      "Ação",
+      "Aventura"
+    ],
+    "subgenres": [
+      "Adrenalina",
+      "Combate"
+    ],
+    "tags": [
+      "noitedefilmes",
+      "ação",
+      "aventura",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "eletrizante",
+      "empolgante",
+      "frenético"
+    ],
+    "releaseYear": 2021,
+    "durationMinutes": 99,
+    "posterUrl": "https://img.youtube.com/vi/uMmOtP943EE/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/uMmOtP943EE/hqdefault.jpg",
+    "channelName": "Noite de Filmes",
+    "channelUrl": "https://www.youtube.com/watch?v=uMmOtP943EE",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 8.5,
+    "badge": "Noite de Filmes Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.609Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-0K9AuPrGg_A",
+    "youtubeVideoId": "0K9AuPrGg_A",
+    "title": "VINGANÇA",
+    "synopsis": "VINGANÇA é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Noite de Filmes no YouTube, com dublagem em português.",
+    "genres": [
+      "Ação",
+      "Aventura"
+    ],
+    "subgenres": [
+      "Adrenalina",
+      "Combate"
+    ],
+    "tags": [
+      "noitedefilmes",
+      "ação",
+      "aventura",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "eletrizante",
+      "empolgante",
+      "frenético"
+    ],
+    "releaseYear": 2023,
+    "durationMinutes": 104,
+    "posterUrl": "https://img.youtube.com/vi/0K9AuPrGg_A/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/0K9AuPrGg_A/hqdefault.jpg",
+    "channelName": "Noite de Filmes",
+    "channelUrl": "https://www.youtube.com/watch?v=0K9AuPrGg_A",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 7.3,
+    "badge": "Noite de Filmes Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.609Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-Hxlrv-VNmHw",
+    "youtubeVideoId": "Hxlrv-VNmHw",
+    "title": "impulso de vingança filme 2017 lançamentos hd",
+    "synopsis": "impulso de vingança filme 2017 lançamentos hd é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Noite de Filmes no YouTube, com dublagem em português.",
+    "genres": [
+      "Ação",
+      "Aventura"
+    ],
+    "subgenres": [
+      "Adrenalina",
+      "Combate"
+    ],
+    "tags": [
+      "noitedefilmes",
+      "ação",
+      "aventura",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "eletrizante",
+      "empolgante",
+      "frenético"
+    ],
+    "releaseYear": 2017,
+    "durationMinutes": 93,
+    "posterUrl": "https://img.youtube.com/vi/Hxlrv-VNmHw/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/Hxlrv-VNmHw/hqdefault.jpg",
+    "channelName": "Noite de Filmes",
+    "channelUrl": "https://www.youtube.com/watch?v=Hxlrv-VNmHw",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 8.1,
+    "badge": "Noite de Filmes Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.609Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-B8U4ZOfkL1o",
+    "youtubeVideoId": "B8U4ZOfkL1o",
+    "title": "A VINGANÇA DAS DAMAS DE HONRA",
+    "synopsis": "A VINGANÇA DAS DAMAS DE HONRA é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Noite de Filmes no YouTube, com dublagem em português.",
+    "genres": [
+      "Comédia"
+    ],
+    "subgenres": [
+      "Humor",
+      "Divertido"
+    ],
+    "tags": [
+      "noitedefilmes",
+      "comédia",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "divertido",
+      "leve",
+      "descontraído"
+    ],
+    "releaseYear": 2020,
+    "durationMinutes": 99,
+    "posterUrl": "https://img.youtube.com/vi/B8U4ZOfkL1o/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/B8U4ZOfkL1o/hqdefault.jpg",
+    "channelName": "Noite de Filmes",
+    "channelUrl": "https://www.youtube.com/watch?v=B8U4ZOfkL1o",
+    "contentRating": "12",
+    "language": "Dublado",
+    "ratingScore": 7.7,
+    "badge": "Noite de Filmes Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.609Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-oN-bkiCJ91g",
+    "youtubeVideoId": "oN-bkiCJ91g",
+    "title": "Sede de Vingança",
+    "synopsis": "Sede de Vingança é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Noite de Filmes no YouTube, com dublagem em português.",
+    "genres": [
+      "Ação",
+      "Aventura"
+    ],
+    "subgenres": [
+      "Adrenalina",
+      "Combate"
+    ],
+    "tags": [
+      "noitedefilmes",
+      "ação",
+      "aventura",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "eletrizante",
+      "empolgante",
+      "frenético"
+    ],
+    "releaseYear": 2023,
+    "durationMinutes": 98,
+    "posterUrl": "https://img.youtube.com/vi/oN-bkiCJ91g/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/oN-bkiCJ91g/hqdefault.jpg",
+    "channelName": "Noite de Filmes",
+    "channelUrl": "https://www.youtube.com/watch?v=oN-bkiCJ91g",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 8,
+    "badge": "Noite de Filmes Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.609Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-YmdsdbMnMI4",
+    "youtubeVideoId": "YmdsdbMnMI4",
+    "title": "Impulso de Vingança ()",
+    "synopsis": "Impulso de Vingança () é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Noite de Filmes no YouTube, com dublagem em português.",
+    "genres": [
+      "Ação",
+      "Aventura"
+    ],
+    "subgenres": [
+      "Adrenalina",
+      "Combate"
+    ],
+    "tags": [
+      "noitedefilmes",
+      "ação",
+      "aventura",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "eletrizante",
+      "empolgante",
+      "frenético"
+    ],
+    "releaseYear": 2022,
+    "durationMinutes": 108,
+    "posterUrl": "https://img.youtube.com/vi/YmdsdbMnMI4/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/YmdsdbMnMI4/hqdefault.jpg",
+    "channelName": "Noite de Filmes",
+    "channelUrl": "https://www.youtube.com/watch?v=YmdsdbMnMI4",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 7.7,
+    "badge": "Noite de Filmes Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.609Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-Vzp0Q9PFtQg",
+    "youtubeVideoId": "Vzp0Q9PFtQg",
+    "title": "7 Almas",
+    "synopsis": "7 Almas é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Noite de Filmes no YouTube, com dublagem em português.",
+    "genres": [
+      "Suspense",
+      "Policial"
+    ],
+    "subgenres": [
+      "Mistério",
+      "Investigação"
+    ],
+    "tags": [
+      "noitedefilmes",
+      "suspense",
+      "policial",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "intrigante",
+      "tenso",
+      "misterioso"
+    ],
+    "releaseYear": 2020,
+    "durationMinutes": 108,
+    "posterUrl": "https://img.youtube.com/vi/Vzp0Q9PFtQg/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/Vzp0Q9PFtQg/hqdefault.jpg",
+    "channelName": "Noite de Filmes",
+    "channelUrl": "https://www.youtube.com/watch?v=Vzp0Q9PFtQg",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 8.7,
+    "badge": "Noite de Filmes Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.609Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-jFAnBxJpyy0",
+    "youtubeVideoId": "jFAnBxJpyy0",
+    "title": "A vingança da noiva-",
+    "synopsis": "A vingança da noiva- é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Noite de Filmes no YouTube, com dublagem em português.",
+    "genres": [
+      "Suspense",
+      "Policial"
+    ],
+    "subgenres": [
+      "Mistério",
+      "Investigação"
+    ],
+    "tags": [
+      "noitedefilmes",
+      "suspense",
+      "policial",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "intrigante",
+      "tenso",
+      "misterioso"
+    ],
+    "releaseYear": 2023,
+    "durationMinutes": 109,
+    "posterUrl": "https://img.youtube.com/vi/jFAnBxJpyy0/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/jFAnBxJpyy0/hqdefault.jpg",
+    "channelName": "Noite de Filmes",
+    "channelUrl": "https://www.youtube.com/watch?v=jFAnBxJpyy0",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 8.7,
+    "badge": "Noite de Filmes Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.609Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-eecbS-qCZXc",
+    "youtubeVideoId": "eecbS-qCZXc",
+    "title": "O Lobo",
+    "synopsis": "O Lobo é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Noite de Filmes no YouTube, com dublagem em português.",
+    "genres": [
+      "Ação",
+      "Aventura"
+    ],
+    "subgenres": [
+      "Adrenalina",
+      "Combate"
+    ],
+    "tags": [
+      "noitedefilmes",
+      "ação",
+      "aventura",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "eletrizante",
+      "empolgante",
+      "frenético"
+    ],
+    "releaseYear": 2021,
+    "durationMinutes": 111,
+    "posterUrl": "https://img.youtube.com/vi/eecbS-qCZXc/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/eecbS-qCZXc/hqdefault.jpg",
+    "channelName": "Noite de Filmes",
+    "channelUrl": "https://www.youtube.com/watch?v=eecbS-qCZXc",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 8.4,
+    "badge": "Noite de Filmes Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.609Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-n-fCcsL-Qgc",
+    "youtubeVideoId": "n-fCcsL-Qgc",
+    "title": "Sorria Você é o Próximo",
+    "synopsis": "Sorria Você é o Próximo é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Noite de Filmes no YouTube, com dublagem em português.",
+    "genres": [
+      "Terror",
+      "Suspense"
+    ],
+    "subgenres": [
+      "Sobrenatural",
+      "Mistério"
+    ],
+    "tags": [
+      "noitedefilmes",
+      "terror",
+      "suspense",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "arrepiante",
+      "sombrio",
+      "tenso"
+    ],
+    "releaseYear": 2020,
+    "durationMinutes": 102,
+    "posterUrl": "https://img.youtube.com/vi/n-fCcsL-Qgc/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/n-fCcsL-Qgc/hqdefault.jpg",
+    "channelName": "Noite de Filmes",
+    "channelUrl": "https://www.youtube.com/watch?v=n-fCcsL-Qgc",
+    "contentRating": "16",
+    "language": "Dublado",
+    "ratingScore": 8.1,
+    "badge": "Noite de Filmes Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.609Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-DzOYW24aCB4",
+    "youtubeVideoId": "DzOYW24aCB4",
+    "title": "Sequestradas Pelo Pai",
+    "synopsis": "Sequestradas Pelo Pai é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Noite de Filmes no YouTube, com dublagem em português.",
+    "genres": [
+      "Suspense",
+      "Policial"
+    ],
+    "subgenres": [
+      "Mistério",
+      "Investigação"
+    ],
+    "tags": [
+      "noitedefilmes",
+      "suspense",
+      "policial",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "intrigante",
+      "tenso",
+      "misterioso"
+    ],
+    "releaseYear": 2017,
+    "durationMinutes": 108,
+    "posterUrl": "https://img.youtube.com/vi/DzOYW24aCB4/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/DzOYW24aCB4/hqdefault.jpg",
+    "channelName": "Noite de Filmes",
+    "channelUrl": "https://www.youtube.com/watch?v=DzOYW24aCB4",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 7.7,
+    "badge": "Noite de Filmes Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.609Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-JAr7PcmHbXw",
+    "youtubeVideoId": "JAr7PcmHbXw",
+    "title": "Me Apaixonei por um Psicopata",
+    "synopsis": "Me Apaixonei por um Psicopata é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Noite de Filmes no YouTube, com dublagem em português.",
+    "genres": [
+      "Suspense",
+      "Policial"
+    ],
+    "subgenres": [
+      "Mistério",
+      "Investigação"
+    ],
+    "tags": [
+      "noitedefilmes",
+      "suspense",
+      "policial",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "intrigante",
+      "tenso",
+      "misterioso"
+    ],
+    "releaseYear": 2019,
+    "durationMinutes": 108,
+    "posterUrl": "https://img.youtube.com/vi/JAr7PcmHbXw/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/JAr7PcmHbXw/hqdefault.jpg",
+    "channelName": "Noite de Filmes",
+    "channelUrl": "https://www.youtube.com/watch?v=JAr7PcmHbXw",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 8.6,
+    "badge": "Noite de Filmes Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.610Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-VClenge-_Sg",
+    "youtubeVideoId": "VClenge-_Sg",
+    "title": "Deixada Para Morrer",
+    "synopsis": "Deixada Para Morrer é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Noite de Filmes no YouTube, com dublagem em português.",
+    "genres": [
+      "Suspense",
+      "Policial"
+    ],
+    "subgenres": [
+      "Mistério",
+      "Investigação"
+    ],
+    "tags": [
+      "noitedefilmes",
+      "suspense",
+      "policial",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "intrigante",
+      "tenso",
+      "misterioso"
+    ],
+    "releaseYear": 2023,
+    "durationMinutes": 94,
+    "posterUrl": "https://img.youtube.com/vi/VClenge-_Sg/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/VClenge-_Sg/hqdefault.jpg",
+    "channelName": "Noite de Filmes",
+    "channelUrl": "https://www.youtube.com/watch?v=VClenge-_Sg",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 7.8,
+    "badge": "Noite de Filmes Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.610Z",
+    "status": "active",
+    "isActive": true
+  },
+  {
+    "id": "movie-dPxL4x_URdo",
+    "youtubeVideoId": "dPxL4x_URdo",
+    "title": "À Meia Luz, 1940, clássico de suspense",
+    "synopsis": "À Meia Luz, 1940, clássico de suspense é uma produção cinematográfica completa disponibilizada oficialmente pelo canal Noite de Filmes no YouTube, com dublagem em português.",
+    "genres": [
+      "Suspense",
+      "Policial"
+    ],
+    "subgenres": [
+      "Mistério",
+      "Investigação"
+    ],
+    "tags": [
+      "noitedefilmes",
+      "suspense",
+      "policial",
+      "filme completo",
+      "dublado"
+    ],
+    "moods": [
+      "intrigante",
+      "tenso",
+      "misterioso"
+    ],
+    "releaseYear": 2023,
+    "durationMinutes": 106,
+    "posterUrl": "https://img.youtube.com/vi/dPxL4x_URdo/hqdefault.jpg",
+    "backdropUrl": "https://img.youtube.com/vi/dPxL4x_URdo/hqdefault.jpg",
+    "channelName": "Noite de Filmes",
+    "channelUrl": "https://www.youtube.com/watch?v=dPxL4x_URdo",
+    "contentRating": "14",
+    "language": "Dublado",
+    "ratingScore": 8.7,
+    "badge": "Noite de Filmes Oficial",
+    "featured": false,
+    "addedAt": "2026-10-13T22:38:03.610Z",
+    "status": "active",
+    "isActive": true
   }
 ];
+
+export const INITIAL_CATALOG: Movie[] = [
+  ...CATALOG_PART_1,
+  ...CATALOG_PART_2,
+  ...CATALOG_PART_3
+];
+

@@ -32,18 +32,28 @@ if (toAdd.length === 0) {
   process.exit(0);
 }
 
-// Localiza o fechamento do array INITIAL_CATALOG
-const lastBracketIndex = catalogSource.lastIndexOf('];');
-if (lastBracketIndex === -1) {
-  console.error('Não foi possível localizar o final do array INITIAL_CATALOG em catalog.ts');
+// Localiza o fechamento do último lote de filmes antes do export final
+const exportIndex = catalogSource.indexOf('export const INITIAL_CATALOG');
+let targetCloseIndex = exportIndex !== -1 ? catalogSource.lastIndexOf('];', exportIndex) : catalogSource.lastIndexOf('];');
+
+if (targetCloseIndex === -1) {
+  console.error('Não foi possível localizar o ponto de inserção no catálogo em catalog.ts');
   process.exit(1);
 }
 
-const prefix = catalogSource.slice(0, lastBracketIndex).trimEnd();
+const prefix = catalogSource.slice(0, targetCloseIndex).trimEnd();
+const suffix = catalogSource.slice(targetCloseIndex);
 const needsComma = !prefix.endsWith(',');
 
 const formattedMovies = toAdd
-  .map(m => '  ' + JSON.stringify(m, null, 2).replace(/\n/g, '\n  '))
+  .map(m => {
+    const movieWithStatus = {
+      ...m,
+      status: m.status || 'active',
+      isActive: m.isActive !== undefined ? m.isActive : true
+    };
+    return '  ' + JSON.stringify(movieWithStatus, null, 2).replace(/\n/g, '\n  ');
+  })
   .join(',\n');
 
 const newCatalogSource = `${prefix}${needsComma ? ',' : ''}\n${formattedMovies}\n];\n`;
