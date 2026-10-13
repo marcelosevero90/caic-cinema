@@ -56,6 +56,11 @@ export const MovieCardComponent: React.FC<MovieCardProps> = ({
     }
   };
 
+  const formattedBadge = useMemo(() => {
+    if (!movie.badge) return null;
+    return movie.badge.replace(/\s+Oficial$/i, '').trim();
+  }, [movie.badge]);
+
   return (
     <div
       id={`movie-card-${movie.id}`}
@@ -75,8 +80,8 @@ export const MovieCardComponent: React.FC<MovieCardProps> = ({
         containIntrinsicSize: '220px 340px',
       }}
     >
-      {/* Poster Image Container */}
-      <div className="relative aspect-[16/10] sm:aspect-[2/3] w-full overflow-hidden bg-slate-900">
+      {/* Poster Image Container - Proporção de pôster cinematográfico vertical 2:3 em todas as telas */}
+      <div className="relative aspect-[2/3] w-full overflow-hidden bg-slate-900">
         <img
           src={movie.posterUrl}
           alt={movie.title}
@@ -89,26 +94,29 @@ export const MovieCardComponent: React.FC<MovieCardProps> = ({
         <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/20 to-transparent" />
 
         {/* Top Badges & Action Buttons */}
-        <div className="absolute top-2.5 left-2.5 right-2.5 flex items-center justify-between z-10">
-          <div className="flex flex-col gap-1 pointer-events-none">
+        <div className="absolute top-2 left-2 right-2 flex items-center justify-between z-10 gap-1.5">
+          <div className="flex flex-col gap-1 pointer-events-none min-w-0">
             {watched && (
-              <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md bg-emerald-500 text-white shadow-md flex items-center gap-1">
-                <CheckCircle2 className="w-3 h-3" /> Já Assistido
+              <span className="text-[9px] sm:text-[10px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded-md bg-emerald-500 text-white shadow-md flex items-center gap-1 shrink-0 whitespace-nowrap">
+                <CheckCircle2 className="w-2.5 h-2.5 sm:w-3 sm:h-3" /> Assistido
               </span>
             )}
 
             {movie.source === 'jellyfin' ? (
-              <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md bg-purple-600 text-white shadow-md">
+              <span className="text-[9px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded-md bg-purple-600 text-white shadow-md max-w-[70px] sm:max-w-[105px] truncate whitespace-nowrap block">
                 Jellyfin
               </span>
-            ) : movie.badge && !watched ? (
-              <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md bg-cyan-500 text-slate-950 shadow-md">
-                {movie.badge}
+            ) : formattedBadge && !watched ? (
+              <span
+                className="text-[8px] sm:text-[9px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded-md bg-cyan-500/95 text-slate-950 shadow-md max-w-[72px] sm:max-w-[110px] truncate whitespace-nowrap block"
+                title={movie.badge}
+              >
+                {formattedBadge}
               </span>
             ) : null}
           </div>
 
-          <div className="flex items-center gap-1.5">
+          <div className="flex items-center gap-1.5 shrink-0">
             {/* Botão de Marcar como Já Assistido */}
             <button
               onClick={handleWatchedClick}

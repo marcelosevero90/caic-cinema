@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import {
   X,
   Sparkles,
@@ -17,13 +17,15 @@ import {
   Bot,
   SkipForward,
   Maximize,
-  Minimize
+  Minimize,
+  ShoppingBag
 } from 'lucide-react';
-import type { Movie } from '../types/movie';
+import type { Movie, SceneShoppingAnalysis } from '../types/movie';
 import { userService } from '../services/userService';
 import { geminiCurationService } from '../services/geminiCurationService';
 import { playbackSessionService } from '../services/playbackSessionService';
 import { getMovieTips } from '../services/movieTipsService';
+import { CineShopDrawer } from './CineShopDrawer';
 
 interface YouTubePlayerModalProps {
   movie: Movie | null;
@@ -52,6 +54,9 @@ export const YouTubePlayerModal: React.FC<YouTubePlayerModalProps> = ({
   nextMovie,
   onNextMovie,
 }) => {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const iframeRef = useRef<HTMLIFrameElement>(null);
+
   const [watched, setWatched] = useState(false);
   const [chatMessages, setChatMessages] = useState<MovieInsightMessage[]>([]);
   const [chatInput, setChatInput] = useState('');
@@ -59,6 +64,49 @@ export const YouTubePlayerModal: React.FC<YouTubePlayerModalProps> = ({
   const [isFullscreenOnly, setIsFullscreenOnly] = useState(true);
   const [showOverlay, setShowOverlay] = useState(true);
   const [skipIntro, setSkipIntro] = useState(true);
+
+  // CineShop IA - Comprar o Look da Cena
+  const [isCineShopOpen, setIsCineShopOpen] = useState(false);
+  const [shoppingAnalyses, setShoppingAnalyses] = useState<SceneShoppingAnalysis[]>([]);
+  const [isAnalyzingShop, setIsAnalyzingShop] = useState(false);
+
+  const handleOpenCineShop = () => {
+    setIsCineShopOpen(true);
+    // Pausar vídeo automaticamente
+    if (videoRef.current) {
+      videoRef.current.pause();
+    }
+    if (iframeRef.current && iframeRef.current.contentWindow) {
+      iframeRef.current.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
+    }
+  };
+
+  const handleCloseCineShop = () => {
+    setIsCineShopOpen(false);
+  };
+
+  const handleSearchShopItem = async (queryText: string) => {
+    if (!queryText.trim() || isAnalyzingShop || !movie) return;
+
+    setIsAnalyzingShop(true);
+    try {
+      const res = await geminiCurationService.analyzeSceneShopping(movie, queryText);
+      setShoppingAnalyses((prev) => [res, ...prev]);
+    } catch {
+      setShoppingAnalyses((prev) => [
+        {
+          id: `shop-err-${Date.now()}`,
+          found: false,
+          message: `Não foi possível analisar este item no momento. Tente novamente em instantes!`,
+          requestedQuery: queryText,
+          timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+        },
+        ...prev
+      ]);
+    } finally {
+      setIsAnalyzingShop(false);
+    }
+  };
 
   const isNetMovies = Boolean(movie?.channelName?.toLowerCase().includes('netmovies'));
   const startParam = isNetMovies && skipIntro ? '&start=20' : '';
@@ -68,6 +116,8 @@ export const YouTubePlayerModal: React.FC<YouTubePlayerModalProps> = ({
       setIsFullscreenOnly(true);
       setShowOverlay(true);
       setSkipIntro(true);
+      setIsCineShopOpen(false);
+      setShoppingAnalyses([]);
       userService.recordWatch(movie.id);
       setWatched(userService.isWatched(movie.id));
 
@@ -134,6 +184,15 @@ export const YouTubePlayerModal: React.FC<YouTubePlayerModalProps> = ({
     const q = (customText || chatInput).trim();
     if (!q || isLoadingAi || !movie) return;
 
+    // Detecta intenção de compra ou busca de figurino da cena
+    const isShoppingQuestion = /(comprar|sapato|brinco|bolsa|jaqueta|look|roupa|onde compro|loja|vestido|óculos|oculos|relógio|relogio|colar)/i.test(q);
+    if (isShoppingQuestion) {
+      handleOpenCineShop();
+      handleSearchShopItem(q);
+      setChatInput('');
+      return;
+    }
+
     const userMsg: MovieInsightMessage = {
       id: `user-${Date.now()}`,
       role: 'user',
@@ -192,6 +251,18 @@ export const YouTubePlayerModal: React.FC<YouTubePlayerModalProps> = ({
             </div>
 
             <div className="flex items-center gap-2">
+              {/* Botão CineShop IA: Comprar o Look da Cena */}
+              <button
+                id="btn-cineshop-fs"
+                onClick={handleOpenCineShop}
+                className="tv-focusable flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 hover:from-emerald-400 hover:to-cyan-400 text-slate-950 font-black text-xs shadow-lg shadow-emerald-500/25 transition transform hover:scale-105 active:scale-95 cursor-pointer"
+                title="Pausar filme e comprar sapatos, jóias, bolsas ou roupas da cena com Gemini IA"
+              >
+                <ShoppingBag className="w-3.5 h-3.5 fill-slate-950 shrink-0" />
+                <span className="hidden sm:inline">Comprar o Look</span>
+                <span className="sm:hidden">Look</span>
+              </button>
+
               {/* Botão Pular Vinheta NetMovies */}
               {isNetMovies && (
                 <button
@@ -249,6 +320,7 @@ export const YouTubePlayerModal: React.FC<YouTubePlayerModalProps> = ({
           <div className="w-full h-full flex-1 flex items-center justify-center bg-black">
             {movie.source === 'jellyfin' && movie.streamUrl ? (
               <video
+                ref={videoRef}
                 src={movie.streamUrl}
                 controls
                 autoPlay
@@ -259,6 +331,7 @@ export const YouTubePlayerModal: React.FC<YouTubePlayerModalProps> = ({
               </video>
             ) : (
               <iframe
+                ref={iframeRef}
                 src={`https://www.youtube.com/embed/${movie.youtubeVideoId}?autoplay=1${startParam}&rel=0&modestbranding=1&enablejsapi=1&fs=1`}
                 title={movie.title}
                 className="w-full h-full border-0"
@@ -370,6 +443,17 @@ export const YouTubePlayerModal: React.FC<YouTubePlayerModalProps> = ({
                 <span className="text-[11px] sm:text-xs">Semelhantes</span>
               </button>
 
+              {/* Botão CineShop IA: Comprar o Look da Cena */}
+              <button
+                id="btn-cineshop-details"
+                onClick={handleOpenCineShop}
+                className="tv-focusable shrink-0 flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-xl bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 hover:from-emerald-400 hover:to-cyan-400 text-slate-950 font-black text-xs shadow-md shadow-emerald-500/20 transition transform hover:scale-105 active:scale-95 cursor-pointer"
+                title="Pausar filme e comprar sapatos, roupas ou jóias da cena com IA"
+              >
+                <ShoppingBag className="w-3.5 h-3.5 fill-slate-950 shrink-0" />
+                <span>Comprar Look</span>
+              </button>
+
               {/* Botão Próximo Filme */}
               {nextMovie && onNextMovie && (
                 <button
@@ -400,6 +484,7 @@ export const YouTubePlayerModal: React.FC<YouTubePlayerModalProps> = ({
           <div className="relative w-full aspect-video max-h-[75vh] bg-black shadow-2xl flex items-center justify-center">
             {movie.source === 'jellyfin' && movie.streamUrl ? (
               <video
+                ref={videoRef}
                 src={movie.streamUrl}
                 controls
                 autoPlay
@@ -410,6 +495,7 @@ export const YouTubePlayerModal: React.FC<YouTubePlayerModalProps> = ({
               </video>
             ) : (
               <iframe
+                ref={iframeRef}
                 src={`https://www.youtube.com/embed/${movie.youtubeVideoId}?autoplay=1${startParam}&rel=0&modestbranding=1&enablejsapi=1&fs=1`}
                 title={movie.title}
                 className="w-full h-full border-0"
@@ -571,6 +657,7 @@ export const YouTubePlayerModal: React.FC<YouTubePlayerModalProps> = ({
             {/* Sugestões Rápidas de Perguntas */}
             <div className="flex flex-wrap gap-1.5">
               {[
+                '🛍️ Comprar o Look da Cena',
                 '📜 É baseado em fatos reais?',
                 '🌟 Quem são os atores principais?',
                 '⭐ O que a crítica e o público acharam?',
@@ -578,9 +665,19 @@ export const YouTubePlayerModal: React.FC<YouTubePlayerModalProps> = ({
               ].map((pill) => (
                 <button
                   key={pill}
-                  onClick={() => handleSendMovieQuestion(pill)}
+                  onClick={() => {
+                    if (pill.includes('Comprar o Look')) {
+                      handleOpenCineShop();
+                    } else {
+                      handleSendMovieQuestion(pill);
+                    }
+                  }}
                   disabled={isLoadingAi}
-                  className="px-2.5 py-1 rounded-lg text-xs font-medium bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 hover:border-cyan-500 dark:hover:border-cyan-400 text-slate-700 dark:text-slate-300 hover:text-cyan-600 dark:hover:text-cyan-300 transition shadow-2xs disabled:opacity-50"
+                  className={`px-2.5 py-1 rounded-lg text-xs font-medium border transition shadow-2xs disabled:opacity-50 cursor-pointer ${
+                    pill.includes('Comprar o Look')
+                      ? 'bg-gradient-to-r from-emerald-500/20 to-teal-500/20 border-emerald-500/50 text-emerald-300 hover:bg-emerald-500/30 font-bold'
+                      : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700 hover:border-cyan-500 dark:hover:border-cyan-400 text-slate-700 dark:text-slate-300 hover:text-cyan-600 dark:hover:text-cyan-300'
+                  }`}
                 >
                   {pill}
                 </button>
@@ -659,6 +756,16 @@ export const YouTubePlayerModal: React.FC<YouTubePlayerModalProps> = ({
         </div>
       </div>
       )}
+
+      {/* Drawer Lateral do CineShop IA */}
+      <CineShopDrawer
+        isOpen={isCineShopOpen}
+        onClose={handleCloseCineShop}
+        movie={movie}
+        analyses={shoppingAnalyses}
+        isAnalyzing={isAnalyzingShop}
+        onSearchItem={handleSearchShopItem}
+      />
     </div>
   );
 };

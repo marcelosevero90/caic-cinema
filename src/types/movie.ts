@@ -163,3 +163,28 @@ export interface VideoAnalysisResult {
   channelName?: string;
   ratingScore?: number;
 }
+
+export interface SceneProductStore {
+  name: string;
+  url: string;
+  type: 'mercadolivre' | 'amazon' | 'shopee' | 'google' | 'other';
+  badge?: string;
+}
+
+export interface SceneShoppingAnalysis {
+  id: string;
+  found: boolean;
+  productName?: string;
+  category?: string;
+  brandOrStyle?: string;
+  color?: string;
+  model?: string;
+  material?: string;
+  estimatedPrice?: string;
+  description?: string;
+  searchQuery?: string;
+  stores?: SceneProductStore[];
+  message: string;
+  requestedQuery: string;
+  timestamp: string;
+}

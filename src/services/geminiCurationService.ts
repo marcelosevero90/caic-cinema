@@ -1,5 +1,5 @@
 import { GoogleGenAI, Type } from '@google/genai';
-import type { Movie, SearchFilters, UserProfile, VideoAnalysisResult, ChatRecommendation } from '../types/movie';
+import type { Movie, SearchFilters, UserProfile, VideoAnalysisResult, ChatRecommendation, SceneShoppingAnalysis, SceneProductStore } from '../types/movie';
 import { catalogService } from './catalogService';
 import { deepseekService } from './deepseekService';
 
@@ -1008,6 +1008,335 @@ Diretrizes de resposta:
       sources: ['Enciclopédia CAIC', 'Metadados Oficiais'],
     };
   }
+
+  /**
+   * Constrói links diretos para busca de compras nas principais plataformas de e-commerce brasileiras
+   */
+  public buildStoreLinks(query: string): SceneProductStore[] {
+    const encoded = encodeURIComponent(query);
+    const mlSlug = encodeURIComponent(query.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''));
+
+    return [
+      {
+        name: 'Mercado Livre',
+        url: `https://lista.mercadolivre.com.br/${mlSlug || encoded}`,
+        type: 'mercadolivre',
+        badge: 'Entrega Rápida'
+      },
+      {
+        name: 'Amazon Brasil',
+        url: `https://www.amazon.com.br/s?k=${encoded}`,
+        type: 'amazon',
+        badge: 'Mais Vendidos'
+      },
+      {
+        name: 'Shopee Brasil',
+        url: `https://shopee.com.br/search?keyword=${encoded}`,
+        type: 'shopee',
+        badge: 'Cupons & Descontos'
+      },
+      {
+        name: 'Google Shopping',
+        url: `https://www.google.com.br/search?tbm=shop&q=${encoded}`,
+        type: 'google',
+        badge: 'Comparar Preços'
+      }
+    ];
+  }
+
+  /**
+   * Analisa um objeto, roupa, acessório ou look da cena com a IA Gemini e gera opções de compra direta
+   */
+  public async analyzeSceneShopping(movie: Movie, query: string): Promise<SceneShoppingAnalysis> {
+    const cleanQuery = query.trim();
+    const nowTimestamp = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+    if (!cleanQuery) {
+      return {
+        id: `shop-${Date.now()}`,
+        found: false,
+        message: 'Por favor, digite o que você gostou na cena (ex: sapato preto da atriz, brinco de pérola, jaqueta de couro).',
+        requestedQuery: query,
+        timestamp: nowTimestamp
+      };
+    }
+
+    const apiKey = this.getApiKey();
+
+    if (apiKey) {
+      try {
+        const ai = new GoogleGenAI({ apiKey });
+        const prompt = `
+Você é o consultor oficial de moda, figurino e compras "CineShop IA" da plataforma de streaming CAIC.
+O usuário está assistindo a um filme no CAIC, pausou a reprodução e viu algo no filme que gostou muito e deseja comprar.
+
+DADOS DO FILME:
+- Título: "${movie.title}" (${movie.releaseYear})
+- Título Original: "${movie.originalTitle || movie.title}"
+- Gêneros: ${movie.genres.join(', ')}
+- Subgêneros: ${(movie.subgenres || []).join(', ') || 'Geral'}
+- Sinopse: "${movie.synopsis}"
+- Elenco Principal: ${(movie.cast || []).join(', ') || 'Elenco do filme'}
+- Canal/Origem: "${movie.channelName}"
+
+SOLICITAÇÃO DO USUÁRIO / OBJETO QUE ELE QUER:
+"${cleanQuery}"
+
+SUAS REGRAS DE ANÁLISE:
+1. Avalie se a solicitação se refere a um item de vestuário, figurino, sapato, calçado, acessório, jóia, óculos, relógio, bolsa ou objeto característico do contexto deste filme (${movie.releaseYear}, ${movie.genres.join(', ')}).
+2. Se a solicitação for compreensível e plausível no contexto:
+   - "found": true
+   - "productName": Crie um nome comercial e atraente para o produto em Português do Brasil (ex: "Brinco Gota Pérola Barroca Banhado a Ouro", "Sapato Scarpin Salto Fino Clássico", "Jaqueta Masculina Couro Biker Preta", "Relógio Militar Vintage Couro").
+   - "category": Categoria do produto (ex: "Jóias & Acessórios", "Calçados Femininos", "Moda & Vestuário", "Relógios").
+   - "brandOrStyle": Marca de referência, grife ou estilo estético de época (ex: "Estilo Vintage Anos 40 / Inspiração Tiffany", "Estilo Cafe Racer / Inspiração Schott NYC", "Estilo Sofisticado").
+   - "color": Cor e tonalidades exatas (ex: "Dourado com Pérola Branca", "Preto Clássico").
+   - "model": Modelo e formato específico (ex: "Gota articulada com fecho clássico", "Corte slim fit com zíperes metálicos").
+   - "material": Material predominante (ex: "Semijóia banhada a ouro 18k e madrepérola", "Couro legítimo ou PU resinado").
+   - "estimatedPrice": Faixa de preço média estimada no e-commerce brasileiro em R$ (ex: "R$ 79,90 a R$ 199,00").
+   - "description": 2 frases elegantes explicando a peça e como ela traduz o charme cinematográfico da cena e do personagem.
+   - "searchQuery": Termos de busca em português limpos e diretos para encontrar exatamente essa peça em lojas virtuais (ex: "brinco gota perola dourada feminino vintage").
+   - "message": Comentário descontraído e cinéfilo apresentando o item encontrado.
+3. Se o usuário digitar algo incoerente, sem sentido com o filme, ou for impossível identificar o item ou analisar o contexto:
+   - "found": false
+   - "message": Mensagem cortês e amigável avisando que não foi possível identificar o objeto na cena deste filme, explicando brevemente e convidando o usuário a detalhar melhor (ex: cor, material, formato ou qual personagem estava usando).
+
+RETORNE EXCLUSIVAMENTE UM OBJETO JSON VÁLIDO no seguinte formato:
+{
+  "found": true,
+  "productName": "Nome do Produto",
+  "category": "Categoria",
+  "brandOrStyle": "Estilo ou Inspiração",
+  "color": "Cor",
+  "model": "Modelo",
+  "material": "Material",
+  "estimatedPrice": "Faixa de Preço",
+  "description": "Descrição envolvente",
+  "searchQuery": "termos para busca em lojas",
+  "message": "Comentário da IA"
 }
+        `.trim();
+
+        const response = await ai.models.generateContent({
+          model: 'gemini-3.8-flash',
+          contents: prompt,
+          config: {
+            responseMimeType: 'application/json',
+          }
+        });
+
+        const rawText = response.text?.trim() || '{}';
+        const parsed = JSON.parse(rawText);
+
+        if (parsed && typeof parsed.found === 'boolean') {
+          if (!parsed.found) {
+            return {
+              id: `shop-${Date.now()}`,
+              found: false,
+              message: parsed.message || `Não consegui identificar com precisão este item na cena de "${movie.title}". Experimente descrever a cor, tipo de peça ou quem estava usando!`,
+              requestedQuery: cleanQuery,
+              timestamp: nowTimestamp
+            };
+          }
+
+          const sq = (parsed.searchQuery || parsed.productName || cleanQuery).trim();
+          const stores = this.buildStoreLinks(sq);
+
+          return {
+            id: `shop-${Date.now()}`,
+            found: true,
+            productName: parsed.productName || 'Peça Inspirada no Figurino do Filme',
+            category: parsed.category || 'Moda & Figurino',
+            brandOrStyle: parsed.brandOrStyle || 'Estilo de Cinema',
+            color: parsed.color || 'Conforme a cena',
+            model: parsed.model || 'Design original do filme',
+            material: parsed.material || 'Material refinado',
+            estimatedPrice: parsed.estimatedPrice || 'Consulte ofertas nas lojas',
+            description: parsed.description || `Peça inspirada no figurino de "${movie.title}".`,
+            searchQuery: sq,
+            stores,
+            message: parsed.message || `Encontrei opções elegantes para o figurino de "${movie.title}"! Veja abaixo onde comprar com os melhores preços:`,
+            requestedQuery: cleanQuery,
+            timestamp: nowTimestamp
+          };
+        }
+      } catch (err) {
+        console.warn('Erro ao consultar CineShop com Gemini, tentando DeepSeek:', err);
+      }
+    }
+
+    // Tentar fallback DeepSeek se Gemini falhar ou não tiver chave
+    try {
+      if (deepseekService.isAvailable()) {
+        const dsPrompt = `
+Você é o consultor de compras "CineShop IA" do app CAIC.
+O usuário pausou o filme "${movie.title}" (${movie.releaseYear}, ${movie.genres.join(', ')}) e pediu: "${cleanQuery}".
+Retorne EXCLUSIVAMENTE um JSON no formato:
+{
+  "found": true ou false,
+  "productName": "Nome do produto em português",
+  "category": "Categoria",
+  "brandOrStyle": "Estilo/Marca inspirada",
+  "color": "Cor",
+  "model": "Modelo",
+  "material": "Material",
+  "estimatedPrice": "R$ ... a R$ ...",
+  "description": "Explicação da peça no filme",
+  "searchQuery": "termos de busca em lojas",
+  "message": "Mensagem para o usuário"
+}
+Se não for possível identificar o item, defina found=false e envie uma mensagem explicativa em "message".
+        `.trim();
+
+        const dsRaw = await deepseekService.chatCompletion([
+          { role: 'system', content: 'Você é um assistente de moda cinematográfica que responde exclusivamente em JSON válido.' },
+          { role: 'user', content: dsPrompt }
+        ], { jsonMode: true, temperature: 0.3 });
+
+        if (dsRaw) {
+          const dsParsed = JSON.parse(dsRaw);
+          if (dsParsed && typeof dsParsed.found === 'boolean') {
+            if (!dsParsed.found) {
+              return {
+                id: `shop-${Date.now()}`,
+                found: false,
+                message: dsParsed.message || `Não consegui identificar este item na cena de "${movie.title}". Tente especificar cor, formato ou quem estava usando.`,
+                requestedQuery: cleanQuery,
+                timestamp: nowTimestamp
+              };
+            }
+            const sq = (dsParsed.searchQuery || dsParsed.productName || cleanQuery).trim();
+            return {
+              id: `shop-${Date.now()}`,
+              found: true,
+              productName: dsParsed.productName || 'Item de Cena',
+              category: dsParsed.category || 'Moda & Figurino',
+              brandOrStyle: dsParsed.brandOrStyle || 'Estilo de Filme',
+              color: dsParsed.color || 'Conforme a cena',
+              model: dsParsed.model || 'Clássico',
+              material: dsParsed.material || 'Material refinado',
+              estimatedPrice: dsParsed.estimatedPrice || 'Consulte nas lojas',
+              description: dsParsed.description || `Peça inspirada no figurino de "${movie.title}".`,
+              searchQuery: sq,
+              stores: this.buildStoreLinks(sq),
+              message: dsParsed.message || `Encontrei o item de "${movie.title}"! Veja onde comprar:`,
+              requestedQuery: cleanQuery,
+              timestamp: nowTimestamp
+            };
+          }
+        }
+      }
+    } catch (dsErr) {
+      console.warn('Fallback DeepSeek também indisponível para CineShop:', dsErr);
+    }
+
+    // Heurística de fallback inteligente (100% offline-ready)
+    return this.fallbackAnalyzeSceneShopping(movie, cleanQuery, nowTimestamp);
+  }
+
+  /**
+   * Fallback heurístico resiliente para análise de itens e figurinos
+   */
+  private fallbackAnalyzeSceneShopping(movie: Movie, query: string, timestamp: string): SceneShoppingAnalysis {
+    const q = query.toLowerCase();
+
+    // Detecção de termos de vestuário e acessórios
+    const isFashionOrItem = /(sapato|brinco|bolsa|jaqueta|casaco|rel[oó]gio|vestido|anel|colar|óculos|oculos|bota|camisa|terno|chap[eé]u|gravata|salto|cal[çc]a|saia|cinto|roupa)/i.test(q);
+
+    if (!isFashionOrItem) {
+      return {
+        id: `shop-${Date.now()}`,
+        found: false,
+        message: `Não consegui identificar com precisão esse item no filme "${movie.title}". Como se trata de um filme de ${movie.releaseYear}, experimente descrever o tipo de peça (ex: "sapato de salto da atriz", "brinco dourado", "jaqueta de couro do protagonista") ou a cor!`,
+        requestedQuery: query,
+        timestamp
+      };
+    }
+
+    let category = 'Acessórios & Moda';
+    let productName = 'Peça Inspirada no Figurino do Filme';
+    let color = 'Paleta clássica da cena';
+    let model = 'Estilo cinematográfico';
+    let material = 'Material de alta qualidade';
+    let estimatedPrice = 'R$ 69,90 a R$ 199,00';
+    let searchQuery = `${query} ${movie.genres[0] || ''}`.trim();
+
+    if (q.includes('brinco')) {
+      category = 'Jóias & Semijóias';
+      productName = 'Brinco Sofisticado Estilo Cinema Clássico';
+      color = q.includes('ouro') || q.includes('dourad') ? 'Dourado' : (q.includes('prata') ? 'Prata' : 'Dourado com Pérola');
+      model = 'Pendente articulado em gota';
+      material = 'Semijóia banhada a ouro 18k e pérola sintética';
+      estimatedPrice = 'R$ 49,90 a R$ 159,00';
+      searchQuery = `brinco gota perola ${color} feminino vintage`;
+    } else if (q.includes('sapato') || q.includes('salto') || q.includes('bota')) {
+      category = 'Calçados';
+      productName = 'Sapato Scarpin Salto Fino Clássico de Cinema';
+      color = q.includes('pret') ? 'Preto' : (q.includes('vermelh') ? 'Vermelho' : 'Preto Clássico');
+      model = 'Scarpin bico fino salto médio elegante';
+      material = 'Couro sintético verniz ou napa premium';
+      estimatedPrice = 'R$ 99,90 a R$ 249,00';
+      searchQuery = `sapato scarpin ${color} salto fino feminino`;
+    } else if (q.includes('bolsa')) {
+      category = 'Bolsas & Malas';
+      productName = 'Bolsa Estruturada de Mão Clássica';
+      color = 'Tons neutros sofisticados';
+      model = 'Estruturada média com alça de mão e transversal';
+      material = 'Material sintético premium estruturado';
+      estimatedPrice = 'R$ 89,90 a R$ 229,00';
+      searchQuery = 'bolsa feminina estruturada classica luxo';
+    } else if (q.includes('jaqueta') || q.includes('casaco')) {
+      category = 'Vestuário';
+      productName = 'Jaqueta de Couro Biker Estilo Filme de Ação';
+      color = 'Preto clássico';
+      model = 'Biker com zíperes transversais e gola padre';
+      material = 'Couro sintético resinado de alta densidade';
+      estimatedPrice = 'R$ 149,90 a R$ 389,00';
+      searchQuery = 'jaqueta couro masculina biker preta';
+    } else if (q.includes('relógio') || q.includes('relogio')) {
+      category = 'Relógios';
+      productName = 'Relógio de Pulso Analógico Militar/Vintage';
+      color = 'Caixa prata/chumbo com pulseira escura';
+      model = 'Analógico quartzo com mostrador clássico';
+      material = 'Caixa de aço com pulseira de couro';
+      estimatedPrice = 'R$ 120,00 a R$ 350,00';
+      searchQuery = 'relogio masculino analogico couro vintage militar';
+    } else if (q.includes('vestido')) {
+      category = 'Vestuário Feminino';
+      productName = 'Vestido Longo Elegante de Noite';
+      color = 'Conforme paleta de cores da cena';
+      model = 'Caimento fluido acinturado';
+      material = 'Tecido encorpado com caimento premium';
+      estimatedPrice = 'R$ 119,90 a R$ 299,00';
+      searchQuery = 'vestido feminino longo elegante festa cinema';
+    } else if (q.includes('óculos') || q.includes('oculos')) {
+      category = 'Acessórios';
+      productName = 'Óculos Escuros Estilo Clássico';
+      color = 'Preto com lentes fumê polarizadas';
+      model = 'Wayfarer ou Aviador vintage';
+      material = 'Acetato resistente com proteção UV400';
+      estimatedPrice = 'R$ 59,90 a R$ 180,00';
+      searchQuery = 'oculos de sol retro vintage polarizado';
+    }
+
+    return {
+      id: `shop-${Date.now()}`,
+      found: true,
+      productName,
+      category,
+      brandOrStyle: `Figurino de ${movie.releaseYear} • ${movie.title}`,
+      color,
+      model,
+      material,
+      estimatedPrice,
+      description: `Peça semelhante ao figurino marcante de "${movie.title}", ideal para compor um look autêntico com estilo de cinema.`,
+      searchQuery,
+      stores: this.buildStoreLinks(searchQuery),
+      message: `Encontrei opções inspiradas no figurino de "${movie.title}"! Veja onde comprar com entrega e desconto:`,
+      requestedQuery: query,
+      timestamp
+    };
+  }
+}
+
 
 export const geminiCurationService = new GeminiCurationService();
