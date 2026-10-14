@@ -287,12 +287,12 @@ DIRETRIZES FUNDAMENTAIS:
    - NUNCA invente títulos e NUNCA cite filmes externos populares da sua memória geral (como Titanic, Vingadores, Avatar, Interestelar, etc.) afirmando que estão no catálogo do CAIC, a menos que venham da busca.
    - Sempre que o usuário pedir recomendações ou perguntar o que assistir, você DEVE OBRIGATORIAMENTE acionar a ferramenta 'search_catalog' para obter os títulos reais do acervo.
 
-3. PERGUNTAS PONTUAIS OU DÚVIDAS SOBRE UM FILME EM DISCUSSÃO:
-   - Se o usuário perguntar sobre o filme em discussão (qual estúdio, qual diretor, elenco, resumo da história, se vale a pena, duração, áudio dublado):
+3. PERGUNTAS PONTUAIS OU DÚVIDAS SOBRE UM FILME EM DISCUSSÃO (SEM ANEXAR NOVOS FILMES):
+   - Se o usuário perguntar sobre o filme em discussão (qual estúdio, qual diretor, elenco, resumo da história, sinopse, se vale a pena, duração, áudio dublado):
      * O filme FAZ PARTE DO CATÁLOGO DO CAIC! NUNCA diga que não está no catálogo e NUNCA peça desculpas dizendo que não o temos!
      * Esclareça que no CAIC ele é licenciado e distribuído pelo canal oficial parceiro indicado (ex: ${focalMovie?.channelName || recentMovies?.[0]?.channelName || 'Parceiros Oficiais'}).
      * RESPONDA DIRETAMENTE À DÚVIDA EM TEXTO com riqueza de detalhes cinéfilos.
-     * NÃO precisa sugerir novos filmes a menos que o usuário peça para ver outras opções.
+     * NÃO acione search_catalog para buscar outros filmes e NÃO apresente listas de outros filmes a menos que o usuário peça explicitamente para ver outras opções.
 
 4. CONVERSA ITERATIVA E PERGUNTAS CHAVES:
    - Seja um concierge de cinema atencioso, caloroso e proativo.
@@ -432,14 +432,14 @@ DIRETRIZES FUNDAMENTAIS:
 
         // Somente anexa cards visuais de filmes se o usuário pediu sugestões ou se o contexto exigir recomendações
         let finalMovies = attachCards ? recommendedMovies.slice(0, 4) : [];
-        if (finalMovies.length === 0 && secondResponse.text) {
+        if (attachCards && finalMovies.length === 0 && secondResponse.text) {
           const mentioned = catalogService.findMoviesMentionedInText(secondResponse.text);
           if (mentioned.length > 0) {
             finalMovies = mentioned.slice(0, 4);
           }
         }
 
-        const reasons: ChatRecommendation[] | undefined = (attachCards || finalMovies.length > 0)
+        const reasons: ChatRecommendation[] | undefined = (attachCards && finalMovies.length > 0)
           ? finalMovies.map((m, idx) => ({
               movie: m,
               reason: isFollowUp && focalMovie && m.id === focalMovie.id
@@ -464,25 +464,27 @@ DIRETRIZES FUNDAMENTAIS:
       let fallbackCards: Movie[] = [];
       let fallbackReasons: ChatRecommendation[] | undefined = undefined;
 
-      // 1. Extrai automaticamente os filmes que a IA citou no texto (ex: **A Hora do Rush (1998)**)
-      const mentionedMovies = catalogService.findMoviesMentionedInText(firstResponse.text || '');
-      if (mentionedMovies.length > 0) {
-        fallbackCards = mentionedMovies.slice(0, 4);
-      } else if (attachCards) {
-        // Se foi um pedido explícito de recomendação, assegura que filmes ativos do catálogo sejam exibidos
-        const searched = catalogService.search({ query: userMessage });
-        fallbackCards = searched.slice(0, 4);
-        if (fallbackCards.length === 0) {
-          fallbackCards = catalogService.getAll().slice(0, 4);
+      if (attachCards) {
+        // 1. Extrai automaticamente os filmes que a IA citou no texto (ex: **A Hora do Rush (1998)**)
+        const mentionedMovies = catalogService.findMoviesMentionedInText(firstResponse.text || '');
+        if (mentionedMovies.length > 0) {
+          fallbackCards = mentionedMovies.slice(0, 4);
+        } else {
+          // Se foi um pedido explícito de recomendação, assegura que filmes ativos do catálogo sejam exibidos
+          const searched = catalogService.search({ query: userMessage });
+          fallbackCards = searched.slice(0, 4);
+          if (fallbackCards.length === 0) {
+            fallbackCards = catalogService.getAll().slice(0, 4);
+          }
         }
-      }
 
-      if (fallbackCards.length > 0) {
-        fallbackReasons = fallbackCards.map((m, idx) => ({
-          movie: m,
-          reason: `Disponível no catálogo CAIC. Toque em Assistir para dar o play!`,
-          matchScore: Math.round(98 - idx * 2)
-        }));
+        if (fallbackCards.length > 0) {
+          fallbackReasons = fallbackCards.map((m, idx) => ({
+            movie: m,
+            reason: `Disponível no catálogo CAIC. Toque em Assistir para dar o play!`,
+            matchScore: Math.round(98 - idx * 2)
+          }));
+        }
       }
 
       return {

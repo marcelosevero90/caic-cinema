@@ -319,8 +319,8 @@ ${JSON.stringify(candidatesSummary, null, 2)}
 
         let finalMovies = attachCards ? (matchedMovies.length > 0 ? matchedMovies : candidates.slice(0, 4)) : [];
 
-        // Se veio sem filmes mas o texto mencionou filmes do catálogo, extrai
-        if (finalMovies.length === 0) {
+        // Se attachCards for true mas veio sem filmes e o texto mencionou filmes do catálogo, extrai
+        if (attachCards && finalMovies.length === 0) {
           const mentioned = catalogService.findMoviesMentionedInText(parsed.message || responseText);
           if (mentioned.length > 0) {
             finalMovies = mentioned.slice(0, 4);
@@ -330,9 +330,9 @@ ${JSON.stringify(candidatesSummary, null, 2)}
         return {
           text: parsed.message || responseText,
           recommendedMovies: finalMovies,
-          recommendationsWithReasons: (attachCards || finalMovies.length > 0) && reasonsList.length > 0
+          recommendationsWithReasons: attachCards && finalMovies.length > 0 && reasonsList.length > 0
             ? reasonsList
-            : (finalMovies.length > 0
+            : (attachCards && finalMovies.length > 0
               ? finalMovies.map((m, idx) => ({
                   movie: m,
                   reason: `Disponível para assistir com 1 toque no catálogo CAIC.`,
@@ -355,7 +355,7 @@ ${JSON.stringify(candidatesSummary, null, 2)}
       ? (isFollowUp && recentMovies && recentMovies.length > 0 ? recentMovies : candidates.slice(0, 4))
       : [];
 
-    if (fallbackMovies.length === 0) {
+    if (attachCards && fallbackMovies.length === 0) {
       const mentioned = catalogService.findMoviesMentionedInText(responseText);
       if (mentioned.length > 0) {
         fallbackMovies = mentioned.slice(0, 4);
@@ -365,7 +365,7 @@ ${JSON.stringify(candidatesSummary, null, 2)}
     return {
       text: responseText,
       recommendedMovies: fallbackMovies,
-      recommendationsWithReasons: (attachCards || fallbackMovies.length > 0) ? fallbackMovies.map((m, idx) => ({
+      recommendationsWithReasons: (attachCards && fallbackMovies.length > 0) ? fallbackMovies.map((m, idx) => ({
         movie: m,
         reason: isFollowUp && focalMovie && m.id === focalMovie.id
           ? `Filme em discussão no catálogo: ${m.title} (${m.channelName})`

@@ -24,7 +24,8 @@ import { movieRequestService } from '../services/movieRequestService';
 import { catalogService } from '../services/catalogService';
 import {
   KEY_QUESTIONS,
-  DEFAULT_MOVIE_QUICK_REPLIES
+  DEFAULT_MOVIE_QUICK_REPLIES,
+  shouldAttachMovieCards
 } from '../services/curatorGuardrails';
 
 interface AICuratorDrawerProps {
@@ -307,10 +308,13 @@ export const AICuratorDrawer: React.FC<AICuratorDrawerProps> = ({
     };
 
     const totalTitles = catalogService.getAll().length || 800;
+    const isRecommendationQuery = shouldAttachMovieCards(prompt);
     const thinkingMsg: ChatMessage = {
       id: `thinking-${Date.now()}`,
       role: 'assistant',
-      content: `Consultando o acervo de mais de ${totalTitles} títulos e avaliando a melhor afinidade para você...`,
+      content: isRecommendationQuery
+        ? `Consultando o acervo de mais de ${totalTitles} títulos e avaliando a melhor afinidade para você...`
+        : `Analisando os detalhes cinéfilos para responder sua pergunta...`,
       timestamp: 'Agora',
       isThinking: true
     };
@@ -332,11 +336,13 @@ export const AICuratorDrawer: React.FC<AICuratorDrawerProps> = ({
 
       const response = await geminiCurationService.askCurator(prompt, history, activeProfile, recentMovies);
 
-      let finalRecommended = response.recommendedMovies;
-      let finalReasons = response.recommendationsWithReasons;
+      const attachCards = shouldAttachMovieCards(prompt);
+      let finalRecommended = attachCards ? (response.recommendedMovies || []) : [];
+      let finalReasons = attachCards ? response.recommendationsWithReasons : undefined;
 
-      // Rede de proteção: Se a IA citou filmes no texto mas não vieram cards, extrai e anexa com botão Assistir
-      if ((!finalRecommended || finalRecommended.length === 0) && response.text) {
+      // Rede de proteção: APENAS se o usuário pediu recomendações/links/dicas E a IA não retornou cards estruturados,
+      // mas citou filmes no texto (ex: **A Hora do Rush (1998)**), extrai do acervo e anexa com botão Assistir
+      if (attachCards && (!finalRecommended || finalRecommended.length === 0) && response.text) {
         const extracted = catalogService.findMoviesMentionedInText(response.text);
         if (extracted.length > 0) {
           finalRecommended = extracted.slice(0, 4);

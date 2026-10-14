@@ -168,36 +168,48 @@ export function isExplicitRecommendationRequest(rawText: string): boolean {
   if (!rawText) return false;
   const t = rawText.trim().toLowerCase();
 
+  // Se for dúvida pontual informativa sobre o filme (resumo, duração, atores...), NÃO é recomendação de novos filmes!
+  if (isFollowUpMovieInquiry(rawText)) {
+    if (!/(outros filmes|mais filmes|recomende outros|indique outros|lista de filmes|dicas de filmes)/i.test(t)) {
+      return false;
+    }
+  }
+
   const triggers = [
     'recomende', 'recomenda', 'recomendacao', 'recomendação', 'recomendações', 'recomendacoes',
     'indique', 'indica', 'indicacao', 'indicação', 'indicações', 'indicacoes',
     'sugira', 'sugere', 'sugestao', 'sugestão', 'sugestoes', 'sugestões',
-    'o que assistir', 'oque assistir', 'o que tem para assistir',
-    'quero assistir', 'quero ver', 'me mostre filmes', 'me mostre opções', 'me mostre opcoes',
-    'tem algum filme', 'tem outros', 'ver outros', 'outras opções', 'outras opcoes', 'mais opções', 'mais opcoes',
+    'o que assistir', 'oque assistir', 'o que tem para assistir', 'o que tem pra assistir',
+    'quero assistir', 'quero ver um filme', 'me mostre filmes', 'me mostre opções', 'me mostre opcoes',
+    'tem algum filme', 'tem outros filmes', 'ver outros filmes', 'outras opções', 'outras opcoes', 'mais opções', 'mais opcoes',
     'procura um filme', 'procure um filme', 'busque filmes', 'pesquise filmes',
-    'filmes de ', 'filme de ', 'filmes sobre ', 'filme sobre ', 'filmes com ', 'filme com ',
-    'dica', 'dicas', 'umas dicas', 'uma dica', 'me passa umas dicas', 'me passa dicas',
-    'me passa', 'passa', 'me passe', 'me manda', 'manda', 'me envie', 'envie',
-    'link', 'links', 'link dos filmes', 'links dos filmes', 'manda o link', 'mande o link', 'passa o link', 'onde clico', 'onde assistir',
-    'lista', 'listinha', 'lista de filmes', 'uma lista', 'assistir', 'dar play', 'dar o play',
-    'comédia', 'comedia', 'comédia leve', 'comedia leve', 'ação & adrenalina', 'acao & adrenalina',
-    'ação', 'acao', 'terror', 'suspense', 'drama', 'guerra', 'romance', 'ficção', 'ficcao',
-    'sessão em família', 'sessao em familia', 'suspense inteligente',
-    'filme rápido', 'filme rapido', 'artes marciais', 'faroeste clássico', 'história de fé',
-    'ver outras opções', 'algo mais curto', 'algo mais leve', 'quero mais ação', 'apenas dublados',
-    'quais filmes tem', 'quais opções', 'quais opcoes', 'me dê uma dica', 'me de uma dica'
+    'filmes de ', 'filme de ', 'filmes sobre ', 'filme sobre ', 'filmes com ',
+    'dica de filme', 'dicas de filme', 'dicas de filmes', 'umas dicas', 'uma dica de filme',
+    'me passa umas dicas', 'me passa dicas', 'me passe dicas', 'me dá dicas', 'me dê dicas', 'me da dicas',
+    'me manda o link', 'manda o link', 'link dos filmes', 'links dos filmes', 'passa o link', 'onde clico para assistir',
+    'lista de filmes', 'uma lista de filmes', 'me lista filmes', 'listinha de filmes',
+    'comédia leve', 'ação & adrenalina', 'sessão em família', 'suspense inteligente',
+    'filme rápido', 'faroeste clássico', 'história de fé',
+    'ver outras opções', 'algo mais curto', 'algo mais leve', 'quero mais ação',
+    'quais filmes tem', 'quais filmes você recomenda', 'quais opções tem'
   ];
 
   for (const trigger of triggers) {
     if (t.includes(trigger)) return true;
   }
 
-  if (/^(me\s+(passa|manda|mostra|indica|dê|da|envia|fala)|quero|tem|quais|qual|lista|indica|recomenda|busca|mostra|veja|passa|manda)\b/i.test(t)) {
+  // Padrões de início de mensagem pedindo recomendações
+  if (/^(me\s+(passa|manda|mostra|indica|dê|da|envia)\s+(umas\s+dicas|dicas|sugestões|sugestoes|filmes|opções|opcoes|links?))\b/i.test(t)) {
     return true;
   }
 
-  if (/(link|links|assistir|play|filme|filmes|dica|dicas|opção|opcao|opções|opcoes|sugestão|sugestao|sugestões|sugestoes|comédia|comedia|terror|ação|acao|suspense|drama|guerra|romance)/i.test(t)) {
+  // Pedidos diretos de gêneros (ex: "quero uma comédia", "quero filme de ação", "filmes de terror")
+  if (/^(quero|indica|recomenda|tem)\s+(um\s+|uma\s+)?(filme\s+de\s+|comédia|comedia|ação|acao|terror|suspense|drama|guerra|romance|faroeste|aventura)/i.test(t)) {
+    return true;
+  }
+
+  // Pedidos como "dicas de [gênero]"
+  if (/^dicas?\s+(de\s+)?(comédia|comedia|ação|acao|terror|suspense|drama|guerra|romance|faroeste|aventura|filmes?)/i.test(t)) {
     return true;
   }
 
@@ -212,8 +224,8 @@ export function isFollowUpMovieInquiry(rawText: string): boolean {
   if (!rawText) return false;
   const t = rawText.trim().toLowerCase();
 
-  // Se o usuário pediu links, lista ou recomendações, NÃO trata como pergunta isolada de acompanhamento
-  if (/(link|links|manda|passa|lista|outros|mais filmes|recomende|indique|dica)/i.test(t)) {
+  // Se o usuário pediu explicitamente OUTROS filmes, listas ou links de recomendação, NÃO é apenas dúvida pontual
+  if (/(outros filmes|mais filmes|recomende outros|indique outros|me indica outro|me sugere outro|dicas de filmes|lista de filmes|links dos filmes|manda o link|manda os links|passa o link)/i.test(t)) {
     return false;
   }
 
@@ -224,13 +236,14 @@ export function isFollowUpMovieInquiry(rawText: string): boolean {
     'fale mais', 'fale sobre', 'me fale mais', 'me fale sobre', 'me conta mais', 'me conte mais', 'conta mais', 'conte mais', 'conte sobre', 'me conte', 'me conta',
     'resumo', 'sinopse', 'enredo', 'trama', 'do que se trata', 'sobre o que é', 'sobre o que e',
     'história desse', 'historia desse', 'história deste', 'historia deste', 'história do filme', 'historia do filme', 'história', 'historia',
-    'sobre esse filme', 'sobre este filme', 'desse filme', 'deste filme', 'esse filme', 'este filme',
+    'sobre esse filme', 'sobre este filme', 'desse filme', 'deste filme', 'esse filme', 'este filme', 'o filme',
     'o final', 'final do filme', 'como termina', 'spoiler',
     'é dublado', 'e dublado', 'dublagem', 'idioma', 'áudio', 'audio', 'legendado',
     'qual o ano', 'ano de lançamento', 'ano de lancamento', 'quando foi lançado', 'quando foi lancado', 'de que ano é', 'de que ano e',
-    'quantos minutos', 'duração', 'duracao', 'tempo de filme',
+    'quantos minutos', 'duração', 'duracao', 'tempo de filme', 'quanto tempo dura', 'tempo de duração',
     'onde foi gravado', 'onde se passa', 'vale a pena', 'é bom', 'e bom', 'recomenda mesmo',
-    'tem continuação', 'tem continuacao', 'parte 2', 'segunda parte', 'quem morre', 'quem vence'
+    'tem continuação', 'tem continuacao', 'parte 2', 'segunda parte', 'quem morre', 'quem vence',
+    'quem é o vilão', 'quem e o vilao', 'o que acontece', 'oque acontece'
   ];
 
   for (const trigger of triggers) {
@@ -239,9 +252,11 @@ export function isFollowUpMovieInquiry(rawText: string): boolean {
     }
   }
 
-  // Perguntas curtas sobre "qual...", "quem...", "onde...", quando em diálogo
-  if (/^(qual|quem|onde|como|por que|porque|quando)\b/i.test(t) && t.length < 60) {
-    return true;
+  // Perguntas pontuais informativas (qual, quem, onde, como, por que) quando curtas
+  if (/^(qual|quem|onde|como|por que|porque|quando)\b/i.test(t) && t.length < 80) {
+    if (!/quais\s+(filmes|opções|opcoes)/i.test(t)) {
+      return true;
+    }
   }
 
   return false;
@@ -249,32 +264,42 @@ export function isFollowUpMovieInquiry(rawText: string): boolean {
 
 /**
  * Determina se a resposta do CAIC deve anexar cards visuais de filmes com botão Assistir para reprodução.
- * Cards interativos com botão "Assistir" são a experiência principal do CAIC para links, listas e dicas.
+ * Cards interativos com botão "Assistir" são exibidos SOMENTE quando o usuário pede explicitamente
+ * recomendações, links, listas ou dicas para assistir.
+ * Em conversas informativas, dúvidas sobre filmes (resumo, duração, elenco) ou saudações, NÃO são exibidos cards.
  */
 export function shouldAttachMovieCards(userMessage: string, hasExplicitRequest = false): boolean {
   if (!userMessage) return false;
 
   const t = userMessage.trim().toLowerCase();
 
-  // Pedidos explícitos de links, listas, dicas ou recomendações SEMPRE anexam cards
+  // 1. Pedidos explícitos de links para dar play / assistir SEMPRE anexam cards
+  const isLinkRequest = /(link|links|manda o link|manda os links|passa o link|link dos filmes|links dos filmes|onde clico|onde assistir|quero assistir esse|bota o link)/i.test(t);
+  if (isLinkRequest) {
+    return true;
+  }
+
+  // 2. Se for pergunta informativa pontual sobre um filme (resumo, sinopse, duração, atores, etc.)
+  // e NÃO pediu expressamente outros filmes ou links, NUNCA anexa cards!
+  const isSpecificQuestion = isFollowUpMovieInquiry(userMessage);
+  const wantsOtherMovies = /(outros filmes|mais filmes|recomende outros|indique outros|lista de filmes|dicas de filmes)/i.test(t);
+  if (isSpecificQuestion && !wantsOtherMovies) {
+    return false;
+  }
+
+  // 3. Pedidos explícitos de recomendação, dicas ou listas de filmes
   if (hasExplicitRequest || isExplicitRecommendationRequest(userMessage)) {
     return true;
   }
 
-  const isSpecificQuestion = isFollowUpMovieInquiry(userMessage);
-  // Se o usuário fez pergunta informativa pontual sobre filme e não pediu links nem novas recomendações, responde em texto
-  if (isSpecificQuestion) {
-    return false;
-  }
-
-  // Se for conversa de cordialidade/saudação simples, não anexa cards
-  const simpleChat = ['oi', 'olá', 'ola', 'bom dia', 'boa tarde', 'boa noite', 'obrigado', 'valeu', 'legal', 'show', 'blz', 'ok', 'entendi', 'obrigada', 'tchau', 'ate logo', 'até logo'];
+  // 4. Conversas comuns de cordialidade, confirmações ou saudações simples
+  const simpleChat = ['oi', 'olá', 'ola', 'bom dia', 'boa tarde', 'boa noite', 'obrigado', 'obrigada', 'valeu', 'legal', 'show', 'blz', 'ok', 'entendi', 'tchau', 'ate logo', 'até logo'];
   if (simpleChat.includes(t)) {
     return false;
   }
 
-  // Por padrão no CAIC, se o usuário menciona gêneros, termos cinéfilos ou temas, anexa os cards com botão Assistir
-  return true;
+  // 5. Por padrão em meio de conversas gerais que não sejam pedidos explícitos de filmes, NÃO anexa cards
+  return false;
 }
 
 
