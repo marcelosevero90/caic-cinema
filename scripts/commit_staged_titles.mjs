@@ -56,7 +56,7 @@ const formattedMovies = toAdd
   })
   .join(',\n');
 
-const newCatalogSource = `${prefix}${needsComma ? ',' : ''}\n${formattedMovies}\n];\n`;
+const newCatalogSource = `${prefix}${needsComma ? ',' : ''}\n${formattedMovies}\n${suffix}`;
 
 fs.writeFileSync(catalogPath, newCatalogSource, 'utf-8');
 console.log(`\n🎉 SUCESSO! ${toAdd.length} novos títulos de filmes e séries foram adicionados ao catálogo oficial da CAIC (${catalogPath})!`);
