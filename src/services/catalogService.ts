@@ -784,10 +784,10 @@ class CatalogService {
     const candidates = [...boldMatches, ...quoteMatches];
 
     for (const raw of candidates) {
-      // Limpa ano entre parênteses, travessões ou pontuações extras:
-      // Ex: "A Hora do Rush (1998)" -> "A Hora do Rush"
+      // Limpa qualquer texto entre parênteses como (1998) ou (Crank), travessões ou pontuações extras:
+      // Ex: "Adrenalina (Crank)" -> "Adrenalina", "A Hora do Rush (1998)" -> "A Hora do Rush"
       const cleanTitle = raw
-        .replace(/\s*\(\d{4}\)/g, '')
+        .replace(/\s*\([^)]*\)/g, '')
         .replace(/\s*—.*$/, '')
         .replace(/\s*-.*$/, '')
         .replace(/^[0-9]+[.)]\s*/, '')

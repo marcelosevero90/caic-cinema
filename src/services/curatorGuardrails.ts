@@ -224,8 +224,8 @@ export function isFollowUpMovieInquiry(rawText: string): boolean {
   if (!rawText) return false;
   const t = rawText.trim().toLowerCase();
 
-  // Se o usuário pediu explicitamente OUTROS filmes, listas ou links de recomendação, NÃO é apenas dúvida pontual
-  if (/(outros filmes|mais filmes|recomende outros|indique outros|me indica outro|me sugere outro|dicas de filmes|lista de filmes|links dos filmes|manda o link|manda os links|passa o link)/i.test(t)) {
+  // Se o usuário pediu explicitamente OUTROS filmes, listas, dicas, gêneros ou links, NÃO é dúvida pontual
+  if (/(outros filmes|mais filmes|recomende outros|indique outros|me indica outro|me sugere outro|dicas de filmes|lista de filmes|links dos filmes|manda o link|manda os links|passa o link|outras opções|outras opcoes|ação|acao|adrenalina|comédia|comedia|terror|suspense|drama|guerra|romance|faroeste)/i.test(t)) {
     return false;
   }
 
@@ -264,42 +264,40 @@ export function isFollowUpMovieInquiry(rawText: string): boolean {
 
 /**
  * Determina se a resposta do CAIC deve anexar cards visuais de filmes com botão Assistir para reprodução.
- * Cards interativos com botão "Assistir" são exibidos SOMENTE quando o usuário pede explicitamente
- * recomendações, links, listas ou dicas para assistir.
- * Em conversas informativas, dúvidas sobre filmes (resumo, duração, elenco) ou saudações, NÃO são exibidos cards.
+ * Cards interativos com botão "Assistir" são a experiência principal do CAIC e DEVEM APARECER
+ * sempre que o usuário pedir sugestões, gêneros, humor, estilos, links ou listas.
+ * Apenas em dúvidas pontuais de um filme específico (ex: resumo, duração, atores) ou saudações,
+ * a resposta é em texto puro sem anexar outros filmes.
  */
 export function shouldAttachMovieCards(userMessage: string, hasExplicitRequest = false): boolean {
+  if (hasExplicitRequest) return true;
   if (!userMessage) return false;
 
   const t = userMessage.trim().toLowerCase();
 
-  // 1. Pedidos explícitos de links para dar play / assistir SEMPRE anexam cards
-  const isLinkRequest = /(link|links|manda o link|manda os links|passa o link|link dos filmes|links dos filmes|onde clico|onde assistir|quero assistir esse|bota o link)/i.test(t);
-  if (isLinkRequest) {
-    return true;
-  }
-
-  // 2. Se for pergunta informativa pontual sobre um filme (resumo, sinopse, duração, atores, etc.)
-  // e NÃO pediu expressamente outros filmes ou links, NUNCA anexa cards!
-  const isSpecificQuestion = isFollowUpMovieInquiry(userMessage);
-  const wantsOtherMovies = /(outros filmes|mais filmes|recomende outros|indique outros|lista de filmes|dicas de filmes)/i.test(t);
-  if (isSpecificQuestion && !wantsOtherMovies) {
-    return false;
-  }
-
-  // 3. Pedidos explícitos de recomendação, dicas ou listas de filmes
-  if (hasExplicitRequest || isExplicitRecommendationRequest(userMessage)) {
-    return true;
-  }
-
-  // 4. Conversas comuns de cordialidade, confirmações ou saudações simples
-  const simpleChat = ['oi', 'olá', 'ola', 'bom dia', 'boa tarde', 'boa noite', 'obrigado', 'obrigada', 'valeu', 'legal', 'show', 'blz', 'ok', 'entendi', 'tchau', 'ate logo', 'até logo'];
+  // 1. Saudações ou mensagens de cortesia pura: apenas texto
+  const simpleChat = ['oi', 'olá', 'ola', 'bom dia', 'boa tarde', 'boa noite', 'obrigado', 'obrigada', 'valeu', 'legal', 'show', 'blz', 'beleza', 'ok', 'entendi', 'tchau', 'ate logo', 'até logo'];
   if (simpleChat.includes(t)) {
     return false;
   }
 
-  // 5. Por padrão em meio de conversas gerais que não sejam pedidos explícitos de filmes, NÃO anexa cards
-  return false;
+  // 2. Pedidos explícitos de links para assistir SEMPRE anexam cards
+  if (/(link|links|manda o link|manda os links|passa o link|link dos filmes|links dos filmes|onde clico|onde assistir|bota o link)/i.test(t)) {
+    return true;
+  }
+
+  // 3. Pergunta informativa pontual sobre um filme específico (resumo, sinopse, duração, atores, etc.):
+  // Se o usuário está tirando dúvida de um filme E NÃO pediu outros filmes/links/recomendações/gêneros,
+  // NÃO anexa cards de outros filmes!
+  const isSpecificQuestion = isFollowUpMovieInquiry(userMessage);
+  const wantsOtherMovies = /(outros filmes|mais filmes|recomende outros|indique outros|lista de filmes|dicas de filmes|links|link|assistir)/i.test(t);
+  if (isSpecificQuestion && !wantsOtherMovies) {
+    return false;
+  }
+
+  // 4. Em todos os demais casos (pedidos de gêneros como "Muita ação e adrenalina", humor, dicas, listas, recomendações):
+  // SEMPRE anexa os cards com o botão "Assistir"
+  return true;
 }
 
 
