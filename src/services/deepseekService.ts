@@ -238,6 +238,30 @@ ${JSON.stringify(candidatesSummary, null, 2)}
       { role: 'system', content: systemPrompt },
     ];
 
+    // Interceptação imediata para pedidos de links / "Me manda o link dos filmes":
+    const isLinkRequest = /(link|links|manda o link|manda os links|passa o link|link dos filmes|links dos filmes|onde clico|onde assistir|quero assistir|quero o link|bota o link|cade os filmes|cadê os filmes)/i.test(userMessage);
+    if (isLinkRequest && history && history.length > 0) {
+      for (let i = history.length - 1; i >= 0; i--) {
+        const h = history[i];
+        if (h.role === 'assistant' && h.content) {
+          const extractedFromPrev = catalogService.findMoviesMentionedInText(h.content);
+          if (extractedFromPrev.length > 0) {
+            const reasons = extractedFromPrev.map((m, idx) => ({
+              movie: m,
+              reason: `Disponível para assistir agora no catálogo CAIC com 1 toque!`,
+              matchScore: Math.round(98 - idx * 2)
+            }));
+            return {
+              text: `Aqui estão os filmes com o botão **▶ Assistir** para você dar o play direto! Basta tocar no botão de qualquer um dos cards abaixo para começar a assistir agora:`,
+              recommendedMovies: extractedFromPrev,
+              recommendationsWithReasons: reasons,
+              quickReplies: DEFAULT_MOVIE_QUICK_REPLIES.slice(0, 5)
+            };
+          }
+        }
+      }
+    }
+
     // Inclui histórico recente de até 4 mensagens
     const recentHistory = history.slice(-4);
     for (const h of recentHistory) {
@@ -293,12 +317,28 @@ ${JSON.stringify(candidatesSummary, null, 2)}
           }
         }
 
-        const finalMovies = attachCards ? (matchedMovies.length > 0 ? matchedMovies : candidates.slice(0, 4)) : [];
+        let finalMovies = attachCards ? (matchedMovies.length > 0 ? matchedMovies : candidates.slice(0, 4)) : [];
+
+        // Se veio sem filmes mas o texto mencionou filmes do catálogo, extrai
+        if (finalMovies.length === 0) {
+          const mentioned = catalogService.findMoviesMentionedInText(parsed.message || responseText);
+          if (mentioned.length > 0) {
+            finalMovies = mentioned.slice(0, 4);
+          }
+        }
 
         return {
           text: parsed.message || responseText,
           recommendedMovies: finalMovies,
-          recommendationsWithReasons: attachCards && reasonsList.length > 0 ? reasonsList : undefined,
+          recommendationsWithReasons: (attachCards || finalMovies.length > 0) && reasonsList.length > 0
+            ? reasonsList
+            : (finalMovies.length > 0
+              ? finalMovies.map((m, idx) => ({
+                  movie: m,
+                  reason: `Disponível para assistir com 1 toque no catálogo CAIC.`,
+                  matchScore: Math.round(98 - idx * 2)
+                }))
+              : undefined),
           unmatchedQuery: attachCards ? parsed.unmatchedQuery : undefined,
           suggestWebSearch: attachCards ? Boolean(parsed.suggestWebSearch || parsed.unmatchedQuery) : false,
           quickReplies: Array.isArray(parsed.quickReplies) && parsed.quickReplies.length > 0
@@ -311,14 +351,21 @@ ${JSON.stringify(candidatesSummary, null, 2)}
     }
 
     // Fallback de extração se não veio JSON estrito
-    const fallbackMovies = attachCards
+    let fallbackMovies = attachCards
       ? (isFollowUp && recentMovies && recentMovies.length > 0 ? recentMovies : candidates.slice(0, 4))
       : [];
+
+    if (fallbackMovies.length === 0) {
+      const mentioned = catalogService.findMoviesMentionedInText(responseText);
+      if (mentioned.length > 0) {
+        fallbackMovies = mentioned.slice(0, 4);
+      }
+    }
 
     return {
       text: responseText,
       recommendedMovies: fallbackMovies,
-      recommendationsWithReasons: attachCards ? fallbackMovies.map((m, idx) => ({
+      recommendationsWithReasons: (attachCards || fallbackMovies.length > 0) ? fallbackMovies.map((m, idx) => ({
         movie: m,
         reason: isFollowUp && focalMovie && m.id === focalMovie.id
           ? `Filme em discussão no catálogo: ${m.title} (${m.channelName})`
@@ -327,6 +374,7 @@ ${JSON.stringify(candidatesSummary, null, 2)}
       })) : undefined,
       quickReplies: isFollowUp ? FOLLOW_UP_MOVIE_REPLIES : DEFAULT_MOVIE_QUICK_REPLIES.slice(0, 5),
     };
+
   }
 
   /**

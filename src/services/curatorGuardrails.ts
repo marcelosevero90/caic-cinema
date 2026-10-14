@@ -162,7 +162,7 @@ export function buildOffTopicResponse(): {
 }
 
 /**
- * Detecta se a mensagem do usuário é uma solicitação explícita de recomendação/sugestão de filmes para assistir.
+ * Detecta se a mensagem do usuário é uma solicitação explícita de recomendação, links, dicas ou sugestão de filmes para assistir.
  */
 export function isExplicitRecommendationRequest(rawText: string): boolean {
   if (!rawText) return false;
@@ -177,7 +177,12 @@ export function isExplicitRecommendationRequest(rawText: string): boolean {
     'tem algum filme', 'tem outros', 'ver outros', 'outras opções', 'outras opcoes', 'mais opções', 'mais opcoes',
     'procura um filme', 'procure um filme', 'busque filmes', 'pesquise filmes',
     'filmes de ', 'filme de ', 'filmes sobre ', 'filme sobre ', 'filmes com ', 'filme com ',
-    'comédia leve', 'comedia leve', 'ação & adrenalina', 'acao & adrenalina',
+    'dica', 'dicas', 'umas dicas', 'uma dica', 'me passa umas dicas', 'me passa dicas',
+    'me passa', 'passa', 'me passe', 'me manda', 'manda', 'me envie', 'envie',
+    'link', 'links', 'link dos filmes', 'links dos filmes', 'manda o link', 'mande o link', 'passa o link', 'onde clico', 'onde assistir',
+    'lista', 'listinha', 'lista de filmes', 'uma lista', 'assistir', 'dar play', 'dar o play',
+    'comédia', 'comedia', 'comédia leve', 'comedia leve', 'ação & adrenalina', 'acao & adrenalina',
+    'ação', 'acao', 'terror', 'suspense', 'drama', 'guerra', 'romance', 'ficção', 'ficcao',
     'sessão em família', 'sessao em familia', 'suspense inteligente',
     'filme rápido', 'filme rapido', 'artes marciais', 'faroeste clássico', 'história de fé',
     'ver outras opções', 'algo mais curto', 'algo mais leve', 'quero mais ação', 'apenas dublados',
@@ -188,7 +193,11 @@ export function isExplicitRecommendationRequest(rawText: string): boolean {
     if (t.includes(trigger)) return true;
   }
 
-  if (/^(quero|me da|me dê|tem|quais|qual filme você|qual filme voce)\b/i.test(t)) {
+  if (/^(me\s+(passa|manda|mostra|indica|dê|da|envia|fala)|quero|tem|quais|qual|lista|indica|recomenda|busca|mostra|veja|passa|manda)\b/i.test(t)) {
+    return true;
+  }
+
+  if (/(link|links|assistir|play|filme|filmes|dica|dicas|opção|opcao|opções|opcoes|sugestão|sugestao|sugestões|sugestoes|comédia|comedia|terror|ação|acao|suspense|drama|guerra|romance)/i.test(t)) {
     return true;
   }
 
@@ -202,6 +211,11 @@ export function isExplicitRecommendationRequest(rawText: string): boolean {
 export function isFollowUpMovieInquiry(rawText: string): boolean {
   if (!rawText) return false;
   const t = rawText.trim().toLowerCase();
+
+  // Se o usuário pediu links, lista ou recomendações, NÃO trata como pergunta isolada de acompanhamento
+  if (/(link|links|manda|passa|lista|outros|mais filmes|recomende|indique|dica)/i.test(t)) {
+    return false;
+  }
 
   const triggers = [
     'estudio', 'estúdio', 'produtora', 'produtor', 'distribuidora', 'distribuidor', 'canal', 'quem produziu', 'quem fez',
@@ -234,35 +248,34 @@ export function isFollowUpMovieInquiry(rawText: string): boolean {
 }
 
 /**
- * Determina se a resposta do CAIC deve anexar cards visuais de filmes para reprodução.
- * Se o usuário fez uma pergunta pontual sobre um filme específico (ex: estúdio, história, diretor),
- * o assistente responde APENAS EM TEXTO sem poluir a tela com cartões repetidos.
- * Cards são exibidos quando o usuário solicita recomendações ou quando o contexto explicitamente pede sugestões.
+ * Determina se a resposta do CAIC deve anexar cards visuais de filmes com botão Assistir para reprodução.
+ * Cards interativos com botão "Assistir" são a experiência principal do CAIC para links, listas e dicas.
  */
 export function shouldAttachMovieCards(userMessage: string, hasExplicitRequest = false): boolean {
   if (!userMessage) return false;
 
-  const isSpecificQuestion = isFollowUpMovieInquiry(userMessage);
-  const isExplicitRequestFound = hasExplicitRequest || isExplicitRecommendationRequest(userMessage);
+  const t = userMessage.trim().toLowerCase();
 
-  // Se o usuário fez pergunta informativa pontual sobre filme e não pediu novas recomendações, NÃO exibe cards
-  if (isSpecificQuestion && !isExplicitRequestFound) {
-    return false;
-  }
-
-  // Se foi pedido explícito de recomendação ou humor/gênero, exibe cards
-  if (isExplicitRequestFound) {
+  // Pedidos explícitos de links, listas, dicas ou recomendações SEMPRE anexam cards
+  if (hasExplicitRequest || isExplicitRecommendationRequest(userMessage)) {
     return true;
   }
 
-  // Se for conversa de cordialidade/saudação simples, não anexa cards
-  const t = userMessage.trim().toLowerCase();
-  const simpleChat = ['oi', 'olá', 'ola', 'bom dia', 'boa tarde', 'boa noite', 'obrigado', 'valeu', 'legal', 'show', 'blz', 'ok', 'entendi', 'obrigada'];
-  if (simpleChat.includes(t) || t.length <= 15) {
+  const isSpecificQuestion = isFollowUpMovieInquiry(userMessage);
+  // Se o usuário fez pergunta informativa pontual sobre filme e não pediu links nem novas recomendações, responde em texto
+  if (isSpecificQuestion) {
     return false;
   }
 
-  return false;
+  // Se for conversa de cordialidade/saudação simples, não anexa cards
+  const simpleChat = ['oi', 'olá', 'ola', 'bom dia', 'boa tarde', 'boa noite', 'obrigado', 'valeu', 'legal', 'show', 'blz', 'ok', 'entendi', 'obrigada', 'tchau', 'ate logo', 'até logo'];
+  if (simpleChat.includes(t)) {
+    return false;
+  }
+
+  // Por padrão no CAIC, se o usuário menciona gêneros, termos cinéfilos ou temas, anexa os cards com botão Assistir
+  return true;
 }
+
 
 

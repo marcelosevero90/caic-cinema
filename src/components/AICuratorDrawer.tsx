@@ -332,6 +332,22 @@ export const AICuratorDrawer: React.FC<AICuratorDrawerProps> = ({
 
       const response = await geminiCurationService.askCurator(prompt, history, activeProfile, recentMovies);
 
+      let finalRecommended = response.recommendedMovies;
+      let finalReasons = response.recommendationsWithReasons;
+
+      // Rede de proteção: Se a IA citou filmes no texto mas não vieram cards, extrai e anexa com botão Assistir
+      if ((!finalRecommended || finalRecommended.length === 0) && response.text) {
+        const extracted = catalogService.findMoviesMentionedInText(response.text);
+        if (extracted.length > 0) {
+          finalRecommended = extracted.slice(0, 4);
+          finalReasons = finalRecommended.map((m, idx) => ({
+            movie: m,
+            reason: 'Disponível no catálogo CAIC para assistir agora com 1 clique!',
+            matchScore: Math.round(98 - idx * 2)
+          }));
+        }
+      }
+
       setMessages((prev) => [
         ...prev.filter((m) => !m.isThinking),
         {
@@ -339,8 +355,8 @@ export const AICuratorDrawer: React.FC<AICuratorDrawerProps> = ({
           role: 'assistant',
           content: response.text,
           timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-          recommendedMovies: response.recommendedMovies,
-          recommendationsWithReasons: response.recommendationsWithReasons,
+          recommendedMovies: finalRecommended,
+          recommendationsWithReasons: finalReasons,
           unmatchedQuery: response.unmatchedQuery,
           suggestWebSearch: response.suggestWebSearch,
           fallbackGenre: response.fallbackGenre,

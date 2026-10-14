@@ -307,7 +307,37 @@ DIRETRIZES FUNDAMENTAIS:
    - Se for um filme novo que não existe no acervo, explique com simpatia que esse título específico não está disponível no momento e apresente opções do catálogo CAIC que compartilham o mesmo DNA, tema ou atores.
 
 7. Responda em Português do Brasil com tom simpático, charmoso e moderno.
-      `.trim();
+
+8. REGRA DE OURO PARA LINKS E BOTÃO "ASSISTIR" (NUNCA RECUSE LINKS):
+   - No CAIC, os filmes recomendados SEMPRE aparecem como cards visuais interativos que incluem o botão "▶ Assistir" para o usuário dar play direto!
+   - NUNCA, sob hipótese alguma, diga "eu não consigo enviar links diretos", "não mando links por aqui" ou mande o usuário pesquisar manualmente!
+   - Quando o usuário pedir: "me manda o link dos filmes", "manda o link", "links", "onde clico", "quero a lista", "me passa umas dicas de comédia", "lista de filmes":
+     Você DEVE acionar a ferramenta search_catalog ou citar os filmes do catálogo em negrito (**Título (Ano)**), e dizer: "Aqui estão os filmes com o botão de Assistir prontos para dar o play! Basta tocar no botão **Assistir** abaixo para começar a assistir."
+       `.trim();
+
+      // Interceptação imediata para pedidos de links / "Me manda o link dos filmes":
+      const isLinkRequest = /(link|links|manda o link|manda os links|passa o link|link dos filmes|links dos filmes|onde clico|onde assistir|quero assistir|quero o link|bota o link|cade os filmes|cadê os filmes)/i.test(userMessage);
+      if (isLinkRequest && history && history.length > 0) {
+        for (let i = history.length - 1; i >= 0; i--) {
+          const h = history[i];
+          if (h.role === 'assistant' && h.content) {
+            const extractedFromPrev = catalogService.findMoviesMentionedInText(h.content);
+            if (extractedFromPrev.length > 0) {
+              const reasons = extractedFromPrev.map((m, idx) => ({
+                movie: m,
+                reason: `Disponível para assistir agora no catálogo CAIC com 1 toque!`,
+                matchScore: Math.round(98 - idx * 2)
+              }));
+              return {
+                text: `Aqui estão os filmes com o botão **▶ Assistir** para você dar o play direto! Basta tocar no botão de qualquer um dos cards abaixo para começar a assistir agora mesmo:`,
+                recommendedMovies: extractedFromPrev,
+                recommendationsWithReasons: reasons,
+                quickReplies: DEFAULT_MOVIE_QUICK_REPLIES.slice(0, 5)
+              };
+            }
+          }
+        }
+      }
 
       const contents: Array<{ role: 'user' | 'model'; parts: Array<{ text?: string }> }> = history.map((h) => ({
         role: h.role === 'assistant' ? 'model' : 'user',
@@ -401,8 +431,15 @@ DIRETRIZES FUNDAMENTAIS:
         });
 
         // Somente anexa cards visuais de filmes se o usuário pediu sugestões ou se o contexto exigir recomendações
-        const finalMovies = attachCards ? recommendedMovies.slice(0, 4) : [];
-        const reasons: ChatRecommendation[] | undefined = attachCards
+        let finalMovies = attachCards ? recommendedMovies.slice(0, 4) : [];
+        if (finalMovies.length === 0 && secondResponse.text) {
+          const mentioned = catalogService.findMoviesMentionedInText(secondResponse.text);
+          if (mentioned.length > 0) {
+            finalMovies = mentioned.slice(0, 4);
+          }
+        }
+
+        const reasons: ChatRecommendation[] | undefined = (attachCards || finalMovies.length > 0)
           ? finalMovies.map((m, idx) => ({
               movie: m,
               reason: isFollowUp && focalMovie && m.id === focalMovie.id
@@ -427,16 +464,23 @@ DIRETRIZES FUNDAMENTAIS:
       let fallbackCards: Movie[] = [];
       let fallbackReasons: ChatRecommendation[] | undefined = undefined;
 
-      if (attachCards) {
+      // 1. Extrai automaticamente os filmes que a IA citou no texto (ex: **A Hora do Rush (1998)**)
+      const mentionedMovies = catalogService.findMoviesMentionedInText(firstResponse.text || '');
+      if (mentionedMovies.length > 0) {
+        fallbackCards = mentionedMovies.slice(0, 4);
+      } else if (attachCards) {
         // Se foi um pedido explícito de recomendação, assegura que filmes ativos do catálogo sejam exibidos
         const searched = catalogService.search({ query: userMessage });
         fallbackCards = searched.slice(0, 4);
         if (fallbackCards.length === 0) {
           fallbackCards = catalogService.getAll().slice(0, 4);
         }
+      }
+
+      if (fallbackCards.length > 0) {
         fallbackReasons = fallbackCards.map((m, idx) => ({
           movie: m,
-          reason: `Selecionado do acervo oficial CAIC com base no seu pedido.`,
+          reason: `Disponível no catálogo CAIC. Toque em Assistir para dar o play!`,
           matchScore: Math.round(98 - idx * 2)
         }));
       }
@@ -473,6 +517,21 @@ DIRETRIZES FUNDAMENTAIS:
   ): CurationResponse {
     if (isOffTopicQuery(userMessage)) {
       return buildOffTopicResponse();
+    }
+
+    // Interceptação direta para pedidos de links para os filmes recém-discutidos
+    const isLinkRequest = /(link|links|manda o link|manda os links|passa o link|link dos filmes|links dos filmes|onde clico|onde assistir|quero assistir|quero o link|bota o link|cade os filmes|cadê os filmes)/i.test(userMessage);
+    if (isLinkRequest && recentMovies && recentMovies.length > 0) {
+      return {
+        text: `Aqui estão os filmes com o botão **▶ Assistir** para você dar o play direto no CAIC! Basta tocar no botão de qualquer um dos cards abaixo para começar a assistir agora:`,
+        recommendedMovies: recentMovies.slice(0, 4),
+        recommendationsWithReasons: recentMovies.slice(0, 4).map((m, idx) => ({
+          movie: m,
+          reason: `Disponível para assistir com 1 clique agora no catálogo CAIC!`,
+          matchScore: Math.round(98 - idx * 2)
+        })),
+        quickReplies: DEFAULT_MOVIE_QUICK_REPLIES.slice(0, 5)
+      };
     }
 
     const focalMovie = recentMovies && recentMovies.length > 0 ? recentMovies[0] : undefined;

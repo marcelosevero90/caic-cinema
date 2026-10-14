@@ -767,6 +767,68 @@ class CatalogService {
       normalizeStr(m.synopsis).includes(aTerm)
     );
   }
+
+  /**
+   * Extrai e localiza no catálogo ativo os filmes mencionados em um texto
+   * (ex: títulos em negrito como **A Hora do Rush (1998)**, entre aspas ou listados)
+   */
+  public findMoviesMentionedInText(text: string): Movie[] {
+    if (!text) return [];
+
+    const activeMovies = this.getAll();
+    const foundMap = new Map<string, Movie>();
+
+    // 1. Extração de títulos em negrito **...** ou entre aspas "..." / '...'
+    const boldMatches = [...text.matchAll(/\*\*([^*]+)\*\*/g)].map((m) => m[1]);
+    const quoteMatches = [...text.matchAll(/["“]([^"”]+)["”]/g)].map((m) => m[1]);
+    const candidates = [...boldMatches, ...quoteMatches];
+
+    for (const raw of candidates) {
+      // Limpa ano entre parênteses, travessões ou pontuações extras:
+      // Ex: "A Hora do Rush (1998)" -> "A Hora do Rush"
+      const cleanTitle = raw
+        .replace(/\s*\(\d{4}\)/g, '')
+        .replace(/\s*—.*$/, '')
+        .replace(/\s*-.*$/, '')
+        .replace(/^[0-9]+[.)]\s*/, '')
+        .trim();
+
+      if (!cleanTitle || cleanTitle.length < 3) continue;
+
+      const normClean = normalizeStr(cleanTitle);
+
+      const matched = activeMovies.find((m) => {
+        const normTitle = normalizeStr(m.title);
+        const normOrig = m.originalTitle ? normalizeStr(m.originalTitle) : '';
+        return (
+          normTitle === normClean ||
+          normOrig === normClean ||
+          (normClean.length >= 5 && (normTitle.includes(normClean) || normClean.includes(normTitle)))
+        );
+      });
+
+      if (matched && !foundMap.has(matched.id)) {
+        foundMap.set(matched.id, matched);
+      }
+    }
+
+    // 2. Se não encontrou por marcações, faz varredura de títulos conhecidos no texto
+    if (foundMap.size === 0) {
+      const normText = normalizeStr(text);
+      for (const m of activeMovies) {
+        const normTitle = normalizeStr(m.title);
+        if (normTitle.length >= 6 && normText.includes(normTitle)) {
+          if (!foundMap.has(m.id)) {
+            foundMap.set(m.id, m);
+            if (foundMap.size >= 6) break;
+          }
+        }
+      }
+    }
+
+    return Array.from(foundMap.values());
+  }
 }
+
 
 export const catalogService = new CatalogService();
